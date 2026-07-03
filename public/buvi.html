@@ -3627,7 +3627,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         }
         function toggleTTS() { 
             state.tts = !state.tts; 
-            document.getElementById('tts-btn').innerText = state.tts ? "🔊" : "🔇"; 
+            const btn = document.getElementById('tts-btn'); if (btn) btn.classList.toggle('tts-off', !state.tts); 
         }
         function speak(t) { 
             if(!state.tts) return; 
