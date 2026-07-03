@@ -283,9 +283,13 @@
                 min-height: 100vh; padding: 0 !important;
             }
             body:has(#page-login:not(.hidden)) #page-login > div > div:first-child > .rounded-3xl:first-child {
-                border-radius: 0 !important; padding: 6.5rem 2.5rem 3rem !important; flex: 1 1 auto;
-            }
-            body:has(#page-login:not(.hidden)) #page-login > div > div:first-child > .bg-white {
+                 border-radius: 0 !important; padding: 114px 2.5rem 3rem !important; flex: 1 1 auto;
+             }
+             /* 헤더와 인사말(안녕하세요) 간격 60px = 헤더와 오울(30px) + 인사말 추가 30px */
+             body:has(#page-login:not(.hidden)) #page-login > div > div:first-child > .rounded-3xl:first-child > .flex > .space-y-4:first-child {
+                 margin-top: 30px !important;
+             }
+             body:has(#page-login:not(.hidden)) #page-login > div > div:first-child > .bg-white {
                  margin: 0 20px !important; border-radius: 16px 16px 0 0 !important;
                  box-shadow: none !important; padding: 2.5rem 2.5rem 3rem !important;
              }
