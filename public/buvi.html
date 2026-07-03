@@ -219,18 +219,13 @@
             <span class="scaled-text-xl font-black text-charcoal flex items-center gap-1">BUVI <span class="scaled-text-sm text-gray-400 font-bold hidden md:inline">어르신 건강 지킴이</span></span>
         </div>
         <div class="flex items-center gap-3">
-            <!-- 다국어 뼈대 대응 헤더용 토글 (En/Ko) -->
-            <button onclick="toggleLanguage()" class="px-3 py-2 text-sm font-extrabold bg-gray-100 rounded-xl hover:bg-gray-200 transition-all text-charcoal min-h-[44px] flex items-center" id="lang-btn">
-                🇺🇸 EN
-            </button>
             <div class="bg-gray-100 p-1 rounded-2xl flex gap-1">
                 <button onclick="setFontScale(1.0)" data-scale="1.0" class="font-scale-btn px-3 py-2 bg-white rounded-xl shadow-sm text-xs font-bold min-h-[44px]">기본</button>
                 <button onclick="setFontScale(1.3)" data-scale="1.3" class="font-scale-btn px-3 py-2 text-sm font-bold min-h-[44px]">크게</button>
                 <button onclick="setFontScale(1.6)" data-scale="1.6" class="font-scale-btn px-3 py-2 text-base font-bold min-h-[44px]">더 크게</button>
             </div>
-            <button onclick="toggleContrast()" id="contrast-btn" aria-pressed="false" class="p-3 bg-gray-200 rounded-full text-lg min-w-[48px] min-h-[48px] flex items-center justify-center" title="고대비 토글">🌓</button>
-            <button onclick="toggleTTS()" id="tts-btn" class="p-3 bg-gray-200 rounded-full text-lg min-w-[48px] min-h-[48px] flex items-center justify-center" title="음성안내 토글">🔊</button>
         </div>
+
     </header>
 
     <main class="max-w-5xl mx-auto px-4 py-6">
