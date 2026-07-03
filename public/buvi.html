@@ -238,15 +238,37 @@
             body:has(#page-login:not(.hidden)) #page-login > div > div > .bg-white {
                 margin: -2rem 0 0 !important;
                 border-radius: 40px 40px 0 0 !important; box-shadow: none !important;
-                padding: 2rem 20px 1.5rem !important;
+                padding: 27px 20px 48px !important;
                 min-height: 0 !important;
                 position: relative; z-index: 5;
             }
             body:has(#page-login:not(.hidden)) #page-login > div > div > .bg-white > * + * {
-                margin-top: 1rem !important;
+                margin-top: 17px !important;
+            }
+            body:has(#page-login:not(.hidden)) #page-login > div > div > .bg-white label[for="login-id"],
+            body:has(#page-login:not(.hidden)) #page-login > div > div > .bg-white label[for="login-pw"] {
+                font-size: 16px !important; font-weight: 700 !important; margin-bottom: 10px !important; display: block;
+            }
+            body:has(#page-login:not(.hidden)) #page-login > div > div > .bg-white .space-y-2 > * + * {
+                margin-top: 0 !important;
             }
             body:has(#page-login:not(.hidden)) #page-login > div > div > .bg-white .buvi-hero-input {
-                height: 3.25rem !important;
+                height: 53px !important; border-radius: 12px !important; padding: 0 20px !important;
+                font-size: 15px !important; font-weight: 500 !important; background: #F4F0E9 !important;
+            }
+            body:has(#page-login:not(.hidden)) #page-login > div > div > .bg-white label[for="auto-login"] {
+                gap: 10px !important;
+            }
+            body:has(#page-login:not(.hidden)) #page-login > div > div > .bg-white label[for="auto-login"] span {
+                font-size: 15px !important; font-weight: 700 !important;
+            }
+            body:has(#page-login:not(.hidden)) #page-login > div > div > .bg-white #auto-login {
+                width: 22px !important; height: 22px !important;
+            }
+            body:has(#page-login:not(.hidden)) #page-login > div > div > .bg-white button[onclick="handleLogin()"] {
+                height: 53px !important; border-radius: 12px !important;
+                font-size: 17px !important; font-weight: 700 !important;
+                margin-top: 22px !important;
             }
         }
 
