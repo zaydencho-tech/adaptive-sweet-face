@@ -350,12 +350,13 @@
             /* 노랑 히어로: 좌우 상단 여백 제거, 라운드 제거, 하단 여백 넉넉히 */
             body:has(#page-login:not(.hidden)) #page-login > div > div > .rounded-3xl:first-child,
             body:has(#page-home:not(.hidden)) #page-home > div > div > .rounded-3xl:first-child {
+                background-color: #F3E762 !important;
                 border-radius: 0 !important; padding-top: 6.5rem !important; padding-bottom: 5rem !important; padding-left: 20px !important; padding-right: 20px !important;
             }
-            /* 흰색 로그인 카드: 좌우 여백 제거, 위쪽만 라운드, 노랑 위로 살짝 겹침 */
+            /* 흰색 로그인 카드: 좌우 20px 여백, 위쪽 16px 라운드 */
             body:has(#page-login:not(.hidden)) #page-login > div > div > .bg-white {
-                margin: -2rem 0 0 !important;
-                border-radius: 40px 40px 0 0 !important; box-shadow: none !important;
+                margin: -1.25rem 20px 0 !important;
+                border-radius: 16px 16px 0 0 !important; box-shadow: none !important;
                 padding: 28px 20px 47px !important;
                 min-height: 0 !important;
                 position: relative; z-index: 5;
