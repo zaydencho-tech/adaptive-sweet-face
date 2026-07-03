@@ -214,6 +214,19 @@
         body:has(#page-login:not(.hidden)) main,
         body:has(#page-home:not(.hidden)) main { max-width: 1240px; padding: 1rem; }
         @media (min-width: 1024px) {
+            body:has(#page-login:not(.hidden)),
+            body:has(#page-home:not(.hidden)) { background: #F4F0E9 !important; }
+            body:has(#page-login:not(.hidden)) main,
+            body:has(#page-home:not(.hidden)) main {
+                max-width: none !important; padding: 0 !important; margin: 0 !important;
+                min-height: 100vh;
+            }
+            body:has(#page-login:not(.hidden)) #page-login > div,
+            body:has(#page-home:not(.hidden)) #page-home > div {
+                min-height: 100vh; gap: 0 !important;
+            }
+        }
+        @media (min-width: 1024px) {
             body:has(#page-home:not(.hidden)) nav.fixed.bottom-0 { display: none !important; }
             body:has(#page-home:not(.hidden)) { padding-bottom: 0 !important; }
             /* Desktop: 헤더를 노란색 히어로 영역(좌측 1fr 컬럼) 안에 띄워 배치 */
