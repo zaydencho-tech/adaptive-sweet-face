@@ -223,10 +223,11 @@
             }
             /* 흰색 로그인 카드: 좌우 여백 제거, 위쪽만 라운드, 노랑 위로 살짝 겹침 */
             body:has(#page-login:not(.hidden)) #page-login > div > div > .bg-white {
-                margin: 0 !important;
-                border-radius: 24px 24px 0 0 !important; box-shadow: none !important;
-                padding: 1.5rem 20px 1.5rem !important;
+                margin: -2rem 0 0 !important;
+                border-radius: 40px 40px 0 0 !important; box-shadow: none !important;
+                padding: 2rem 20px 1.5rem !important;
                 min-height: 0 !important;
+                position: relative; z-index: 5;
             }
             body:has(#page-login:not(.hidden)) #page-login > div > div > .bg-white > * + * {
                 margin-top: 1rem !important;
