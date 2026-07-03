@@ -248,10 +248,14 @@
             body:has(#page-home:not(.hidden)) > header .font-scale-btn[data-scale="1.3"] {
                 min-width: 43px; background: #111729 !important; color: #ffffff !important;
             }
-            body:has(#page-login:not(.hidden)) > header .font-scale-btn[data-scale="1.6"],
-            body:has(#page-home:not(.hidden)) > header .font-scale-btn[data-scale="1.6"] {
-                min-width: 86px; background: #F8E647 !important; color: #111729 !important;
-                margin-left: auto;
+            body:has(#page-login:not(.hidden)) > header .tts-listen-btn,
+            body:has(#page-home:not(.hidden)) > header .tts-listen-btn {
+                min-height: 37px !important; height: 37px !important;
+                padding: 0 16px !important; min-width: 86px;
+                border-radius: 12px !important; box-shadow: none !important;
+                font-weight: 700 !important; font-size: 15px !important;
+                background: #F8E647 !important; color: #111729 !important;
+                margin-left: auto; display: flex; align-items: center; justify-content: center;
             }
             body:has(#page-login:not(.hidden)) > header > div:last-child,
             body:has(#page-home:not(.hidden)) > header > div:last-child {
