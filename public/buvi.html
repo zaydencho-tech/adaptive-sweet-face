@@ -448,6 +448,10 @@
         .buvi-hero-input:focus { outline: none; border-color: #FEE500; background: #fff; }
         .buvi-speech { position: relative; }
         .buvi-speech::after { content: ""; position: absolute; left: 20%; bottom: -10px; width: 20px; height: 20px; background: #000; clip-path: polygon(0 0, 100% 0, 50% 100%); }
+        .buvi-speech-svg { position: relative; width: 130px; height: 132px; display: inline-flex; align-items: center; justify-content: center; padding: 0 0 18px 0; background: transparent !important; border-radius: 0 !important; box-shadow: none !important; }
+        .buvi-speech-svg::after { display: none !important; }
+        .buvi-speech-svg > svg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
+        .buvi-speech-svg > span { position: relative; z-index: 1; color: #fff; }
         /* Unify section radius to 16px (keep pills/circles as full) */
         .rounded-sm, .rounded-md, .rounded-lg, .rounded-xl, .rounded-2xl, .rounded-3xl { border-radius: 16px !important; }
         .rounded-t-sm, .rounded-t-md, .rounded-t-lg, .rounded-t-xl, .rounded-t-2xl, .rounded-t-3xl { border-top-left-radius: 16px !important; border-top-right-radius: 16px !important; }
