@@ -214,6 +214,19 @@
         body:has(#page-login:not(.hidden)) main,
         body:has(#page-home:not(.hidden)) main { max-width: 1240px; padding: 1rem; }
         @media (min-width: 1024px) {
+            body:has(#page-login:not(.hidden)),
+            body:has(#page-home:not(.hidden)) { background: #F4F0E9 !important; }
+            body:has(#page-login:not(.hidden)) main,
+            body:has(#page-home:not(.hidden)) main {
+                max-width: none !important; padding: 0 !important; margin: 0 !important;
+                min-height: 100vh;
+            }
+            body:has(#page-login:not(.hidden)) #page-login > div,
+            body:has(#page-home:not(.hidden)) #page-home > div {
+                min-height: 100vh; gap: 0 !important;
+            }
+        }
+        @media (min-width: 1024px) {
             body:has(#page-home:not(.hidden)) nav.fixed.bottom-0 { display: none !important; }
             body:has(#page-home:not(.hidden)) { padding-bottom: 0 !important; }
             /* Desktop: 헤더를 노란색 히어로 영역(좌측 1fr 컬럼) 안에 띄워 배치 */
@@ -222,9 +235,9 @@
             body:has(#page-login:not(.hidden)) > header,
             body:has(#page-home:not(.hidden)) > header {
                 position: absolute;
-                top: calc(1rem + 24px);
-                left: max(calc(1rem + 24px), calc((100vw - 1240px) / 2 + 1rem + 24px));
-                width: calc((min(100vw, 1240px) - 2rem - 24px) / 3 - 48px);
+                top: 24px;
+                left: 24px;
+                width: calc(100vw / 3 - 48px);
                 background: #ffffff !important; border: 0 !important;
                 box-shadow: 0 4px 34px rgba(0,0,0,.08) !important;
                 border-radius: 16px !important; padding: 12px 16px !important; z-index: 60;
@@ -264,22 +277,22 @@
                 background: #F8E647 !important; color: #111729 !important;
                 margin-left: auto !important; display: flex; align-items: center; justify-content: center;
             }
-            /* 노란 히어로 상단 여백을 넉넉히 확보하여 헤더와 겹치지 않도록 */
-            body:has(#page-login:not(.hidden)) #page-login > div > div:first-child > .rounded-3xl:first-child,
-            body:has(#page-home:not(.hidden)) #page-home > div > div:first-child > .rounded-3xl:first-child {
-                padding-top: 6.5rem !important;
-            }
-            /* 데스크탑 로그인: 좌측 컬럼 = 노란 히어로 + 흰색 로그인폼을 하나의 연속 패널로 결합 */
+            /* 데스크탑 로그인: 좌측 컬럼 = 노란 히어로 + 흰색 로그인폼, 풀블리드 연속 패널 */
             body:has(#page-login:not(.hidden)) #page-login > div > div:first-child {
-                border-radius: 16px; overflow: hidden; background: #FEE500;
-                display: flex; flex-direction: column;
+                background: #FEE500; display: flex; flex-direction: column;
+                min-height: 100vh; padding: 0 !important;
             }
             body:has(#page-login:not(.hidden)) #page-login > div > div:first-child > .rounded-3xl:first-child {
-                border-radius: 0 !important; padding-bottom: 2rem !important; flex: 1 1 auto;
+                border-radius: 0 !important; padding: 6.5rem 2.5rem 3rem !important; flex: 1 1 auto;
             }
             body:has(#page-login:not(.hidden)) #page-login > div > div:first-child > .bg-white {
-                margin-top: 0 !important; border-radius: 0 !important;
-                box-shadow: none !important; padding: 2rem 1.75rem !important;
+                margin: 0 !important; border-radius: 0 !important;
+                box-shadow: none !important; padding: 2.5rem 2.5rem 3rem !important;
+            }
+            /* 우측 컬럼: 베이지 배경으로 풀블리드, 내부 여백은 자체 padding으로 확보 */
+            body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex {
+                background: #F4F0E9; padding: 6.5rem 2.5rem 3rem !important;
+                min-height: 100vh;
             }
         }
         /* Mobile: 헤더를 노란색 히어로 영역 안으로 띄우고 좌우 패딩 20px 고정 */
