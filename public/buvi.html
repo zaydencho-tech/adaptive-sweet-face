@@ -282,62 +282,69 @@
                 background: #F8E647 !important; color: #111729 !important;
                 margin-left: auto !important; display: flex; align-items: center; justify-content: center;
             }
-            /* 데스크탑 로그인: 좌측 컬럼 = 노란 히어로 + 흰색 로그인폼, 풀블리드 연속 패널 */
-            body:has(#page-login:not(.hidden)) #page-login > div > div:first-child {
+            /* 데스크탑 로그인/홈: 좌측 컬럼 = 노란 히어로 + 흰색 하위 카드, 풀블리드 연속 패널 */
+            body:has(#page-login:not(.hidden)) #page-login > div > div:first-child,
+            body:has(#page-home:not(.hidden)) #page-home > div > div:first-child {
                 background: #F3E762; display: flex; flex-direction: column;
                 min-height: 100vh; padding: 0 !important;
             }
-            body:has(#page-login:not(.hidden)) #page-login > div > div:first-child > .rounded-3xl:first-child {
+            body:has(#page-login:not(.hidden)) #page-login > div > div:first-child > .rounded-3xl:first-child,
+            body:has(#page-home:not(.hidden)) #page-home > div > div:first-child > .rounded-3xl:first-child {
                  border-radius: 0 !important; padding: 114px 2.5rem 3rem !important; flex: 1 1 auto;
              }
-             /* 헤더와 인사말(안녕하세요) 간격 60px = 헤더와 오울(30px) + 인사말 추가 30px */
-             body:has(#page-login:not(.hidden)) #page-login > div > div:first-child > .rounded-3xl:first-child > .flex > .space-y-4:first-child {
+             body:has(#page-login:not(.hidden)) #page-login > div > div:first-child > .rounded-3xl:first-child > .flex > .space-y-4:first-child,
+             body:has(#page-home:not(.hidden)) #page-home > div > div:first-child > .rounded-3xl:first-child > .flex > .space-y-4:first-child {
                  margin-top: 30px !important;
              }
-             body:has(#page-login:not(.hidden)) #page-login > div > div:first-child > .bg-white {
+             body:has(#page-login:not(.hidden)) #page-login > div > div:first-child > .bg-white,
+             body:has(#page-home:not(.hidden)) #page-home > div > div:first-child > .bg-white {
                  margin: 0 20px !important; border-radius: 16px 16px 0 0 !important;
-                 box-shadow: none !important; padding: 2.5rem 2.5rem 3rem !important;
+                 box-shadow: none !important; padding: 2rem 2rem 2.5rem !important;
              }
-            /* 우측 컬럼: 베이지 배경으로 풀블리드, 좌우 20px 고정, 상하 여백 없이 카드가 채움 */
+            /* 우측 컬럼: 베이지 배경 풀블리드, 좌우 20px 고정 */
             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex,
-            body:has(#page-home:not(.hidden)) #page-home > div > div:last-child {
+            body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex {
                 background: #F4F0E9;
                 padding: 20px !important;
                 min-height: 100vh;
                 height: 100vh;
                 box-sizing: border-box;
-            }
-            /* 우측 컬럼 내 흰색 카드들: 카드 간 gap 20px, radius 16px, 내부 패딩 20px 고정 */
-            body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex {
                 gap: 20px !important;
                 display: flex !important;
                 flex-direction: column;
             }
-            body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white {
+            body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white,
+            body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .bg-white {
                 padding: 20px !important;
                 border-radius: 16px !important;
                 flex: 1 1 auto;
                 min-height: 0;
             }
-            body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .grid {
+            body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .grid,
+            body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .grid {
                 gap: 20px !important;
                 flex: 1 1 auto;
                 min-height: 0;
             }
-            body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .grid > .bg-white {
+            body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .grid > .bg-white,
+            body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .grid > .bg-white {
                 padding: 20px !important;
                 border-radius: 16px !important;
             }
-            body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 {
+            body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4,
+            body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 {
                  gap: 20px !important;
              }
-             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white:has(> .grid.grid-cols-4) {
+             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white:has(> .grid.grid-cols-4),
+             body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .bg-white:has(> .grid.grid-cols-4) {
                  display: flex; flex-direction: column;
              }
-             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white > .grid.grid-cols-4 {
+             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white > .grid.grid-cols-4,
+             body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .bg-white > .grid.grid-cols-4 {
                  flex: 1 1 auto; align-items: stretch;
              }
-             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 > div {
+             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 > div,
+             body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 > div {
                  padding: 16px !important;
                  border-radius: 16px !important;
                  height: 100%;
