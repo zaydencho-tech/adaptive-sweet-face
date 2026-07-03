@@ -206,17 +206,30 @@
         }
         /* Mobile: 헤더를 노란색 히어로 영역 안으로 띄우고 좌우 패딩 20px 고정 */
         @media (max-width: 1023px) {
+            body:has(#page-login:not(.hidden)),
+            body:has(#page-home:not(.hidden)) { background: #ffffff !important; }
             body:has(#page-login:not(.hidden)) main,
-            body:has(#page-home:not(.hidden)) main { padding: 20px !important; }
+            body:has(#page-home:not(.hidden)) main { padding: 0 !important; max-width: 100% !important; }
             body:has(#page-login:not(.hidden)) > header,
             body:has(#page-home:not(.hidden)) > header {
                 position: absolute; top: 20px; left: 20px; right: 20px; width: auto;
                 background: #ffffff !important; border: 0 !important; box-shadow: 0 4px 12px rgba(0,0,0,.08);
                 border-radius: 16px; padding: 10px 14px; z-index: 60;
             }
+            /* 노랑 히어로: 좌우 상단 여백 제거, 라운드 제거, 하단 여백 넉넉히 */
             body:has(#page-login:not(.hidden)) #page-login > div > div > .rounded-3xl:first-child,
-            body:has(#page-home:not(.hidden)) #page-home > div > div > .rounded-3xl:first-child { padding-top: 6rem; }
+            body:has(#page-home:not(.hidden)) #page-home > div > div > .rounded-3xl:first-child {
+                border-radius: 0 !important; padding-top: 6.5rem !important; padding-bottom: 5rem !important; padding-left: 20px !important; padding-right: 20px !important;
+            }
+            /* 흰색 로그인 카드: 좌우 여백 제거, 위쪽만 라운드, 노랑 위로 살짝 겹침 */
+            body:has(#page-login:not(.hidden)) #page-login > div > div > .bg-white {
+                margin-left: 0 !important; margin-right: 0 !important; margin-top: -2rem !important;
+                border-radius: 24px 24px 0 0 !important; box-shadow: none !important;
+                padding-left: 20px !important; padding-right: 20px !important;
+                min-height: calc(100vh - 60vw);
+            }
         }
+
         .buvi-hero-input { width: 100%; height: 3.5rem; padding: 0 1.25rem; border-radius: 0.85rem; background: #F0EBE3; font-weight: 700; font-size: 1rem; border: 2px solid transparent; transition: border-color .15s; }
 
         .buvi-hero-input:focus { outline: none; border-color: #FEE500; background: #fff; }
