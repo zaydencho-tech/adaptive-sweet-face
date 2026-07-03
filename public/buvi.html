@@ -208,6 +208,12 @@
         .buvi-hero-input:focus { outline: none; border-color: #FEE500; background: #fff; }
         .buvi-speech { position: relative; }
         .buvi-speech::after { content: ""; position: absolute; left: 20%; bottom: -10px; width: 20px; height: 20px; background: #000; clip-path: polygon(0 0, 100% 0, 50% 100%); }
+        /* Unify section radius to 16px (keep pills/circles as full) */
+        .rounded-sm, .rounded-md, .rounded-lg, .rounded-xl, .rounded-2xl, .rounded-3xl { border-radius: 16px !important; }
+        .rounded-t-sm, .rounded-t-md, .rounded-t-lg, .rounded-t-xl, .rounded-t-2xl, .rounded-t-3xl { border-top-left-radius: 16px !important; border-top-right-radius: 16px !important; }
+        .rounded-b-sm, .rounded-b-md, .rounded-b-lg, .rounded-b-xl, .rounded-b-2xl, .rounded-b-3xl { border-bottom-left-radius: 16px !important; border-bottom-right-radius: 16px !important; }
+        .rounded-l-sm, .rounded-l-md, .rounded-l-lg, .rounded-l-xl, .rounded-l-2xl, .rounded-l-3xl { border-top-left-radius: 16px !important; border-bottom-left-radius: 16px !important; }
+        .rounded-r-sm, .rounded-r-md, .rounded-r-lg, .rounded-r-xl, .rounded-r-2xl, .rounded-r-3xl { border-top-right-radius: 16px !important; border-bottom-right-radius: 16px !important; }
     </style>
 </head>
 <body class="min-h-screen pb-32">
