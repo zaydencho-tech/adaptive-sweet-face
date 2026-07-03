@@ -320,12 +320,19 @@
                 border-radius: 16px !important;
             }
             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 {
-                gap: 12px !important;
-            }
-            body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 > div {
-                padding: 16px !important;
-                border-radius: 16px !important;
-            }
+                 gap: 12px !important;
+             }
+             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white:has(> .grid.grid-cols-4) {
+                 display: flex; flex-direction: column;
+             }
+             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white > .grid.grid-cols-4 {
+                 flex: 1 1 auto; align-items: stretch;
+             }
+             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 > div {
+                 padding: 16px !important;
+                 border-radius: 16px !important;
+                 height: 100%;
+             }
 
         }
         /* Mobile: 헤더를 노란색 히어로 영역 안으로 띄우고 좌우 패딩 20px 고정 */
