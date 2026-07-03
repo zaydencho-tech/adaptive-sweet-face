@@ -448,6 +448,10 @@
         .buvi-hero-input:focus { outline: none; border-color: #FEE500; background: #fff; }
         .buvi-speech { position: relative; }
         .buvi-speech::after { content: ""; position: absolute; left: 20%; bottom: -10px; width: 20px; height: 20px; background: #000; clip-path: polygon(0 0, 100% 0, 50% 100%); }
+        .buvi-speech-svg { position: relative; width: 130px; height: 132px; display: inline-flex; align-items: center; justify-content: center; padding: 0 0 18px 0; background: transparent !important; border-radius: 0 !important; box-shadow: none !important; }
+        .buvi-speech-svg::after { display: none !important; }
+        .buvi-speech-svg > svg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
+        .buvi-speech-svg > span { position: relative; z-index: 1; color: #fff; }
         /* Unify section radius to 16px (keep pills/circles as full) */
         .rounded-sm, .rounded-md, .rounded-lg, .rounded-xl, .rounded-2xl, .rounded-3xl { border-radius: 16px !important; }
         .rounded-t-sm, .rounded-t-md, .rounded-t-lg, .rounded-t-xl, .rounded-t-2xl, .rounded-t-3xl { border-top-left-radius: 16px !important; border-top-right-radius: 16px !important; }
@@ -502,8 +506,8 @@
                                 <p class="text-base md:text-lg font-bold leading-relaxed text-charcoal">건강한 매일을 약속할<br><strong>어르신의 소중한<br>건강 동반자</strong>입니다.</p>
                             </div>
                             <div class="flex flex-col items-end gap-1 flex-shrink-0">
-                                <div class="buvi-speech font-gapyeong bg-black text-white rounded-3xl px-4 py-3 text-sm md:text-base font-black text-center leading-tight">반가워요,<br>부비예요.</div>
-                                <img data-owl-hero src="" alt="BUVI" class="w-28 h-28 md:w-36 md:h-36 object-contain">
+                                <div class="buvi-speech-svg font-gapyeong text-sm md:text-base font-black text-center leading-tight"><svg viewBox="0 0 153 156" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M3.48999 65.0096C3.48999 31.0136 36.1992 3.48999 76.49 3.48999C116.781 3.48999 149.49 31.0136 149.49 65.0096C149.49 99.9251 129.82 138.383 89.1246 152.398C92.7306 146.201 98.2083 129.756 76.271 127.112C35.8916 127.112 3.48999 98.9306 3.48999 65.0096Z" fill="#1A1A1A" stroke="black" stroke-width="6.98008" stroke-miterlimit="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>반가워요,<br>부비예요.</span></div>
+                                <img src="/owl-hero.svg" alt="BUVI" class="w-28 h-28 md:w-36 md:h-36 object-contain">
                             </div>
                         </div>
                     </div>
@@ -668,8 +672,8 @@
                                 <p class="text-base font-bold leading-relaxed text-charcoal">건강한 매일을 약속할<br><strong>어르신의 소중한<br>건강 동반자</strong>입니다.</p>
                             </div>
                             <div class="flex flex-col items-end gap-1 flex-shrink-0">
-                                <div class="buvi-speech font-gapyeong bg-black text-white rounded-3xl px-4 py-3 text-sm font-black text-center leading-tight">반가워요,<br>부비예요.</div>
-                                <img data-owl-hero src="" alt="BUVI" class="w-28 h-28 object-contain">
+                                <div class="buvi-speech-svg font-gapyeong text-sm font-black text-center leading-tight"><svg viewBox="0 0 153 156" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M3.48999 65.0096C3.48999 31.0136 36.1992 3.48999 76.49 3.48999C116.781 3.48999 149.49 31.0136 149.49 65.0096C149.49 99.9251 129.82 138.383 89.1246 152.398C92.7306 146.201 98.2083 129.756 76.271 127.112C35.8916 127.112 3.48999 98.9306 3.48999 65.0096Z" fill="#1A1A1A" stroke="black" stroke-width="6.98008" stroke-miterlimit="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>반가워요,<br>부비예요.</span></div>
+                                <img src="/owl-hero.svg" alt="BUVI" class="w-28 h-28 object-contain">
                             </div>
                         </div>
                         <button onclick="tryNavigateWithWarning('help')" class="lg:hidden mt-5 bg-white/95 rounded-full px-5 py-3 font-black text-sm shadow flex items-center gap-2">BUVI 알아보기 <i class="fa-solid fa-arrow-right"></i></button>
