@@ -289,34 +289,42 @@
                 margin: 0 !important; border-radius: 0 !important;
                 box-shadow: none !important; padding: 2.5rem 2.5rem 3rem !important;
             }
-            /* 우측 컬럼: 베이지 배경으로 풀블리드, 뷰포트에 따라 유동적 여백 */
+            /* 우측 컬럼: 베이지 배경으로 풀블리드, 좌우 20px 고정, 상하 여백 없이 카드가 채움 */
             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex,
             body:has(#page-home:not(.hidden)) #page-home > div > div:last-child {
                 background: #F4F0E9;
-                padding: clamp(5rem, 7vw, 8rem) 20px clamp(2rem, 4vw, 5rem) !important;
+                padding: 20px !important;
                 min-height: 100vh;
+                height: 100vh;
+                box-sizing: border-box;
             }
-            /* 우측 컬럼 내 흰색 카드들: 카드 간 gap 20px 고정, 내부 여백만 유동 */
+            /* 우측 컬럼 내 흰색 카드들: 카드 간 gap 20px, radius 16px, 내부 패딩 20px 고정 */
             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex {
                 gap: 20px !important;
+                display: flex !important;
+                flex-direction: column;
             }
             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white {
-                padding: clamp(1.25rem, 2.5vw, 3rem) clamp(1.5rem, 3vw, 3.5rem) !important;
-                border-radius: clamp(16px, 1.4vw, 24px) !important;
+                padding: 20px !important;
+                border-radius: 16px !important;
+                flex: 1 1 auto;
+                min-height: 0;
             }
             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .grid {
                 gap: 20px !important;
+                flex: 1 1 auto;
+                min-height: 0;
             }
             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .grid > .bg-white {
-                padding: clamp(1.5rem, 2.8vw, 3.25rem) !important;
-                border-radius: clamp(16px, 1.4vw, 24px) !important;
+                padding: 20px !important;
+                border-radius: 16px !important;
             }
             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 {
-                gap: clamp(0.75rem, 1.2vw, 1.25rem) !important;
+                gap: 12px !important;
             }
             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 > div {
-                padding: clamp(0.75rem, 1.2vw, 1.25rem) !important;
-                border-radius: clamp(12px, 1.1vw, 20px) !important;
+                padding: 16px !important;
+                border-radius: 16px !important;
             }
 
         }
