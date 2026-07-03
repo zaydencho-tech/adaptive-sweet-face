@@ -282,62 +282,69 @@
                 background: #F8E647 !important; color: #111729 !important;
                 margin-left: auto !important; display: flex; align-items: center; justify-content: center;
             }
-            /* 데스크탑 로그인: 좌측 컬럼 = 노란 히어로 + 흰색 로그인폼, 풀블리드 연속 패널 */
-            body:has(#page-login:not(.hidden)) #page-login > div > div:first-child {
+            /* 데스크탑 로그인/홈: 좌측 컬럼 = 노란 히어로 + 흰색 하위 카드, 풀블리드 연속 패널 */
+            body:has(#page-login:not(.hidden)) #page-login > div > div:first-child,
+            body:has(#page-home:not(.hidden)) #page-home > div > div:first-child {
                 background: #F3E762; display: flex; flex-direction: column;
                 min-height: 100vh; padding: 0 !important;
             }
-            body:has(#page-login:not(.hidden)) #page-login > div > div:first-child > .rounded-3xl:first-child {
+            body:has(#page-login:not(.hidden)) #page-login > div > div:first-child > .rounded-3xl:first-child,
+            body:has(#page-home:not(.hidden)) #page-home > div > div:first-child > .rounded-3xl:first-child {
                  border-radius: 0 !important; padding: 114px 2.5rem 3rem !important; flex: 1 1 auto;
              }
-             /* 헤더와 인사말(안녕하세요) 간격 60px = 헤더와 오울(30px) + 인사말 추가 30px */
-             body:has(#page-login:not(.hidden)) #page-login > div > div:first-child > .rounded-3xl:first-child > .flex > .space-y-4:first-child {
+             body:has(#page-login:not(.hidden)) #page-login > div > div:first-child > .rounded-3xl:first-child > .flex > .space-y-4:first-child,
+             body:has(#page-home:not(.hidden)) #page-home > div > div:first-child > .rounded-3xl:first-child > .flex > .space-y-4:first-child {
                  margin-top: 30px !important;
              }
-             body:has(#page-login:not(.hidden)) #page-login > div > div:first-child > .bg-white {
+             body:has(#page-login:not(.hidden)) #page-login > div > div:first-child > .bg-white,
+             body:has(#page-home:not(.hidden)) #page-home > div > div:first-child > .bg-white {
                  margin: 0 20px !important; border-radius: 16px 16px 0 0 !important;
-                 box-shadow: none !important; padding: 2.5rem 2.5rem 3rem !important;
+                 box-shadow: none !important; padding: 2rem 2rem 2.5rem !important;
              }
-            /* 우측 컬럼: 베이지 배경으로 풀블리드, 좌우 20px 고정, 상하 여백 없이 카드가 채움 */
+            /* 우측 컬럼: 베이지 배경 풀블리드, 좌우 20px 고정 */
             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex,
-            body:has(#page-home:not(.hidden)) #page-home > div > div:last-child {
+            body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex {
                 background: #F4F0E9;
                 padding: 20px !important;
                 min-height: 100vh;
                 height: 100vh;
                 box-sizing: border-box;
-            }
-            /* 우측 컬럼 내 흰색 카드들: 카드 간 gap 20px, radius 16px, 내부 패딩 20px 고정 */
-            body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex {
                 gap: 20px !important;
                 display: flex !important;
                 flex-direction: column;
             }
-            body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white {
+            body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white,
+            body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .bg-white {
                 padding: 20px !important;
                 border-radius: 16px !important;
                 flex: 1 1 auto;
                 min-height: 0;
             }
-            body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .grid {
+            body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .grid,
+            body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .grid {
                 gap: 20px !important;
                 flex: 1 1 auto;
                 min-height: 0;
             }
-            body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .grid > .bg-white {
+            body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .grid > .bg-white,
+            body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .grid > .bg-white {
                 padding: 20px !important;
                 border-radius: 16px !important;
             }
-            body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 {
+            body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4,
+            body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 {
                  gap: 20px !important;
              }
-             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white:has(> .grid.grid-cols-4) {
+             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white:has(> .grid.grid-cols-4),
+             body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .bg-white:has(> .grid.grid-cols-4) {
                  display: flex; flex-direction: column;
              }
-             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white > .grid.grid-cols-4 {
+             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white > .grid.grid-cols-4,
+             body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .bg-white > .grid.grid-cols-4 {
                  flex: 1 1 auto; align-items: stretch;
              }
-             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 > div {
+             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 > div,
+             body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 > div {
                  padding: 16px !important;
                  border-radius: 16px !important;
                  height: 100%;
@@ -662,72 +669,78 @@
              PAGE 2: HOME (부비 건강 대시보드 메인 화면)
              ======================================================== -->
         <section id="page-home" class="app-page hidden">
-            <div class="lg:grid lg:grid-cols-[minmax(340px,380px)_1fr] lg:gap-6 lg:items-start space-y-4 lg:space-y-0">
-                <!-- LEFT column (desktop) / TOP (mobile) -->
-                <div class="space-y-4">
-                    <div class="rounded-3xl px-6 pt-8 pb-8 relative overflow-hidden" style="background:#FEE500;">
+            <div class="lg:grid lg:grid-cols-[1fr_2fr] lg:gap-6 lg:items-start">
+                <!-- LEFT/TOP: Yellow hero + navigation card -->
+                <div>
+                    <!-- Yellow hero (matches login) -->
+                    <div class="rounded-3xl px-6 pt-8 pb-12 lg:pb-16 relative overflow-hidden" style="background:#FEE500;">
                         <div class="flex items-start justify-between gap-3">
                             <div class="space-y-4">
-                                <h1 class="text-4xl font-black leading-tight text-charcoal">안녕하세요<br>어르신<em class="not-italic">!</em></h1>
-                                <p class="text-base font-bold leading-relaxed text-charcoal">건강한 매일을 약속할<br><strong>어르신의 소중한<br>건강 동반자</strong>입니다.</p>
+                                <h1 class="font-gapyeong text-4xl md:text-5xl font-black leading-tight text-charcoal">안녕하세요<br>어르신<em class="not-italic">!</em></h1>
+                                <p class="text-base md:text-lg font-bold leading-relaxed text-charcoal">건강한 매일을 약속할<br><strong>어르신의 소중한<br>건강 동반자</strong>입니다.</p>
                             </div>
                             <div class="flex flex-col items-end gap-1 flex-shrink-0">
-                                <div class="buvi-speech-svg font-gapyeong text-sm font-black text-center leading-tight"><svg viewBox="0 0 153 156" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M3.48999 65.0096C3.48999 31.0136 36.1992 3.48999 76.49 3.48999C116.781 3.48999 149.49 31.0136 149.49 65.0096C149.49 99.9251 129.82 138.383 89.1246 152.398C92.7306 146.201 98.2083 129.756 76.271 127.112C35.8916 127.112 3.48999 98.9306 3.48999 65.0096Z" fill="#1A1A1A" stroke="black" stroke-width="6.98008" stroke-miterlimit="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>반가워요,<br>부비예요.</span></div>
+                                <div class="buvi-speech-svg font-gapyeong text-sm md:text-base font-black text-center leading-tight"><svg viewBox="0 0 153 156" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M3.48999 65.0096C3.48999 31.0136 36.1992 3.48999 76.49 3.48999C116.781 3.48999 149.49 31.0136 149.49 65.0096C149.49 99.9251 129.82 138.383 89.1246 152.398C92.7306 146.201 98.2083 129.756 76.271 127.112C35.8916 127.112 3.48999 98.9306 3.48999 65.0096Z" fill="#1A1A1A" stroke="black" stroke-width="6.98008" stroke-miterlimit="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>반가워요,<br>부비예요.</span></div>
                                 <img src="/owl-hero.svg" alt="BUVI" class="object-contain" style="width:152px;height:182px;">
                             </div>
                         </div>
-                        <button onclick="tryNavigateWithWarning('help')" class="lg:hidden mt-5 bg-white/95 rounded-full px-5 py-3 font-black text-sm shadow flex items-center gap-2">BUVI 알아보기 <i class="fa-solid fa-arrow-right"></i></button>
                     </div>
-
-                    <!-- Sidebar nav (desktop only) -->
-                    <div class="hidden lg:grid grid-cols-2 gap-3">
-                        <button onclick="tryNavigateWithWarning('home')" class="rounded-2xl py-4 px-4 font-black flex items-center gap-3" style="background:#FFF3B0;"><i class="fa-solid fa-house"></i> 홈</button>
-                        <button onclick="tryNavigateWithWarning('survey-start')" class="rounded-2xl py-4 px-4 font-black flex items-center gap-3" style="background:#FFF3B0;"><i class="fa-solid fa-file-pen"></i> 설문</button>
-                        <button onclick="tryNavigateWithWarning('chat')" class="rounded-2xl py-4 px-4 font-black flex items-center gap-3" style="background:#FFF3B0;"><i class="fa-solid fa-comments"></i> 상담</button>
-                        <button onclick="tryNavigateWithWarning('records')" class="rounded-2xl py-4 px-4 font-black flex items-center gap-3" style="background:#FFF3B0;"><i class="fa-solid fa-book-medical"></i> 건강정보</button>
-                        <button onclick="tryNavigateWithWarning('help')" class="rounded-2xl py-4 px-4 font-black flex items-center gap-3 col-span-2" style="background:#FFF3B0;"><i class="fa-solid fa-circle-info"></i> 도움말</button>
-                    </div>
-
-                    <!-- BUVI promises (desktop only) -->
-                    <div class="hidden lg:grid grid-cols-2 gap-3">
-                        <div class="bg-white rounded-2xl p-4 border border-stone-200"><div class="flex items-center justify-between mb-1"><h4 class="font-black">바라봅니다</h4><span class="text-xl">🤓</span></div><div class="text-xs mb-2" style="color:var(--blue-main)"><b>B</b>eholding</div><p class="text-xs text-gray-600 font-medium leading-snug">데이터만이 아니라 어르신 한 분의 이야기 속 의미까지 주목합니다.</p></div>
-                        <div class="bg-white rounded-2xl p-4 border border-stone-200"><div class="flex items-center justify-between mb-1"><h4 class="font-black">이해합니다</h4><span class="text-xl">🥰</span></div><div class="text-xs mb-2" style="color:var(--blue-main)"><b>U</b>nderstanding</div><p class="text-xs text-gray-600 font-medium leading-snug">말투·생활습관·건강데이터를 종합해 어르신을 더 잘 이해합니다.</p></div>
-                        <div class="bg-white rounded-2xl p-4 border border-stone-200"><div class="flex items-center justify-between mb-1"><h4 class="font-black">안내합니다</h4><span class="text-xl">👨‍🍳</span></div><div class="text-xs mb-2" style="color:var(--blue-main)"><b>V</b>itality</div><p class="text-xs text-gray-600 font-medium leading-snug">이해를 바탕으로 노쇠 신호를 미리 살피고 활력을 되찾도록 돕습니다.</p></div>
-                        <div class="bg-white rounded-2xl p-4 border border-stone-200"><div class="flex items-center justify-between mb-1"><h4 class="font-black">곁을 지킵니다</h4><span class="text-xl">😎</span></div><div class="text-xs mb-2" style="color:var(--blue-main)"><b>I</b>ndependence</div><p class="text-xs text-gray-600 font-medium leading-snug">오랜 기간 곁을 지키며 스스로 건강을 관리하는 자립을 응원합니다.</p></div>
+                    <!-- White nav card (mirrors login form position) -->
+                    <div class="bg-white rounded-3xl -mt-8 mx-2 lg:mx-0 lg:mt-6 px-6 py-8 relative z-10 shadow-lg space-y-4">
+                        <div>
+                            <p class="text-xl font-black text-charcoal">무엇을 도와드릴까요?</p>
+                            <p class="text-sm text-gray-500 font-bold mt-1">아래 메뉴에서 바로 이동하실 수 있어요.</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button onclick="tryNavigateWithWarning('survey-start')" class="rounded-2xl py-4 px-4 font-black flex items-center gap-3" style="background:#FFF3B0;"><i class="fa-solid fa-file-pen"></i> 설문</button>
+                            <button onclick="tryNavigateWithWarning('chat')" class="rounded-2xl py-4 px-4 font-black flex items-center gap-3" style="background:#FFF3B0;"><i class="fa-solid fa-comments"></i> 상담</button>
+                            <button onclick="tryNavigateWithWarning('records')" class="rounded-2xl py-4 px-4 font-black flex items-center gap-3" style="background:#FFF3B0;"><i class="fa-solid fa-book-medical"></i> 건강정보</button>
+                            <button onclick="tryNavigateWithWarning('help')" class="rounded-2xl py-4 px-4 font-black flex items-center gap-3" style="background:#FFF3B0;"><i class="fa-solid fa-circle-info"></i> 도움말</button>
+                        </div>
+                        <button onclick="tryNavigateWithWarning('chat')" class="w-full h-14 bg-black text-white font-black rounded-2xl text-lg hover:bg-neutral-800 transition">부비와 상담 시작하기</button>
                     </div>
                 </div>
 
-                <!-- RIGHT (desktop) / BELOW (mobile) -->
-                <div class="space-y-4">
-                    <div class="bg-white rounded-3xl px-6 py-5 border border-stone-200">
-                        <div class="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 sm:flex sm:flex-wrap sm:justify-between">
-                            <h3 class="font-black text-lg truncate">건강 모니터링</h3>
-                            <span class="text-xs font-bold bg-stone-100 px-3 py-2 rounded-full whitespace-nowrap shrink-0">1,3,6개월 모니터링 <i class="fa-solid fa-heart-pulse text-red-500"></i></span>
+                <!-- RIGHT (desktop only, mirrors login) -->
+                <div class="hidden lg:flex flex-col gap-4">
+                    <!-- 건강 모니터링 with 5-metric gauges -->
+                    <div class="bg-white rounded-2xl px-5 py-4 border border-stone-200">
+                        <div class="flex items-center justify-between gap-4 mb-3">
+                            <div>
+                                <h3 class="font-black text-lg">건강 모니터링</h3>
+                                <p class="text-sm text-gray-500 font-bold">설문이 끝나도 부비가 어르신을 보살펴 드려요!</p>
+                            </div>
+                            <span class="text-xs font-bold px-3 py-2 rounded-full whitespace-nowrap flex items-center gap-1.5" style="background:#F4F0E9;color:#1A1A1A">1,3,6개월 모니터링 <i class="fa-solid fa-heart-pulse" style="color:#1A1A1A"></i></span>
                         </div>
-                        <p class="text-sm text-gray-500 font-bold mt-1">설문이 끝나도 부비가 어르신을 보살펴 드려요!</p>
-                        <div class="hidden lg:grid grid-cols-5 gap-3 mt-4">
-                            <div class="rounded-2xl border border-stone-200 p-3"><p class="text-xs font-bold text-gray-600">기능적 이동성</p><p class="mt-1"><span class="text-2xl font-black">8.5</span><span class="text-sm font-bold ml-1">초</span></p><p class="text-xs font-black text-red-500">노쇠 위험</p><div class="h-1.5 bg-stone-200 rounded-full mt-2"><div class="h-full w-1/3 bg-red-500 rounded-full"></div></div></div>
-                            <div class="rounded-2xl border border-stone-200 p-3"><p class="text-xs font-bold text-gray-600">마음 건강</p><p class="mt-1"><span class="text-2xl font-black">12</span><span class="text-sm font-bold ml-1">점</span></p><p class="text-xs font-black text-emerald-600">마음 맑음</p><div class="h-1.5 bg-stone-200 rounded-full mt-2"><div class="h-full w-2/3 bg-emerald-600 rounded-full"></div></div></div>
-                            <div class="rounded-2xl border border-stone-200 p-3"><p class="text-xs font-bold text-gray-600">체질량지수(BMI)</p><p class="mt-1"><span class="text-2xl font-black">22.5</span><span class="text-sm font-bold ml-1">점</span></p><p class="text-xs font-black text-blue-600">균형체격</p><div class="h-1.5 bg-stone-200 rounded-full mt-2"><div class="h-full w-1/2 bg-blue-600 rounded-full"></div></div></div>
-                            <div class="rounded-2xl border border-stone-200 p-3"><p class="text-xs font-bold text-gray-600">다약제 복용</p><p class="mt-1"><span class="text-2xl font-black">4</span><span class="text-sm font-bold ml-1">개</span></p><p class="text-xs font-black text-amber-600">정성 관리</p><div class="h-1.5 bg-stone-200 rounded-full mt-2"><div class="h-full w-3/5 bg-amber-500 rounded-full"></div></div></div>
-                            <div class="rounded-2xl border border-stone-200 p-3"><p class="text-xs font-bold text-gray-600">신체 활동량</p><p class="mt-1"><span class="text-2xl font-black">40</span><span class="text-sm font-bold ml-1">분</span></p><p class="text-xs font-black text-fuchsia-600">활력 충분</p><div class="h-1.5 bg-stone-200 rounded-full mt-2"><div class="h-full w-4/5 bg-fuchsia-500 rounded-full"></div></div></div>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-white rounded-3xl p-6 text-center border border-stone-200 flex flex-col items-center">
-                            <img data-owl-hero src="" alt="" class="w-24 h-24 object-contain">
-                            <p class="font-black mt-2 mb-3">부비와 1:1 기력 상담</p>
-                            <button onclick="tryNavigateWithWarning('chat')" class="bg-black text-white font-black rounded-xl px-6 py-3">상담 시작하기</button>
-                        </div>
-                        <div class="bg-white rounded-3xl p-6 text-center border border-stone-200 flex flex-col items-center">
-                            <img data-owl-hero src="" alt="" class="w-24 h-24 object-contain">
-                            <p class="font-black mt-2 mb-3">어르신 건강 배움 책자</p>
-                            <button onclick="tryNavigateWithWarning('records')" class="text-white font-black rounded-xl px-6 py-3" style="background:var(--blue-main)">배움터 이동하기</button>
+                        <div class="grid grid-cols-5 gap-3">
+                            <div class="rounded-2xl p-3" style="background:#F7F5F0"><p class="text-xs font-bold text-gray-600">기능적 이동성</p><p class="mt-1"><span class="text-2xl font-black">8.5</span><span class="text-sm font-bold ml-1">초</span></p><p class="text-xs font-black text-red-500">노쇠 위험</p><div class="h-1.5 bg-white rounded-full mt-2"><div class="h-full w-1/3 bg-red-500 rounded-full"></div></div></div>
+                            <div class="rounded-2xl p-3" style="background:#F7F5F0"><p class="text-xs font-bold text-gray-600">마음 건강</p><p class="mt-1"><span class="text-2xl font-black">12</span><span class="text-sm font-bold ml-1">점</span></p><p class="text-xs font-black text-emerald-600">마음 맑음</p><div class="h-1.5 bg-white rounded-full mt-2"><div class="h-full w-2/3 bg-emerald-600 rounded-full"></div></div></div>
+                            <div class="rounded-2xl p-3" style="background:#F7F5F0"><p class="text-xs font-bold text-gray-600">체질량지수(BMI)</p><p class="mt-1"><span class="text-2xl font-black">22.5</span><span class="text-sm font-bold ml-1">점</span></p><p class="text-xs font-black text-blue-600">균형체격</p><div class="h-1.5 bg-white rounded-full mt-2"><div class="h-full w-1/2 bg-blue-600 rounded-full"></div></div></div>
+                            <div class="rounded-2xl p-3" style="background:#F7F5F0"><p class="text-xs font-bold text-gray-600">다약제 복용</p><p class="mt-1"><span class="text-2xl font-black">4</span><span class="text-sm font-bold ml-1">개</span></p><p class="text-xs font-black text-amber-600">정성 관리</p><div class="h-1.5 bg-white rounded-full mt-2"><div class="h-full w-3/5 bg-amber-500 rounded-full"></div></div></div>
+                            <div class="rounded-2xl p-3" style="background:#F7F5F0"><p class="text-xs font-bold text-gray-600">신체 활동량</p><p class="mt-1"><span class="text-2xl font-black">40</span><span class="text-sm font-bold ml-1">분</span></p><p class="text-xs font-black text-fuchsia-600">활력 충분</p><div class="h-1.5 bg-white rounded-full mt-2"><div class="h-full w-4/5 bg-fuchsia-500 rounded-full"></div></div></div>
                         </div>
                     </div>
 
-                    <div class="hidden lg:block bg-white rounded-3xl p-6 border border-stone-200">
+                    <!-- 2 owl action cards (matches login) -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-white rounded-2xl border border-stone-200 flex items-center justify-center gap-3">
+                            <img data-owl-hero src="" alt="" class="w-28 h-28 object-contain shrink-0">
+                            <div class="flex flex-col items-start">
+                                <p class="font-black mb-2 text-[15px]">부비와 1:1 기력 상담</p>
+                                <button onclick="tryNavigateWithWarning('chat')" class="bg-black text-white font-black rounded-xl px-4 py-2 text-sm">상담 시작하기</button>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-2xl border border-stone-200 flex items-center justify-center gap-3">
+                            <img data-owl-hero src="" alt="" class="w-28 h-28 object-contain shrink-0">
+                            <div class="flex flex-col items-start">
+                                <p class="font-black mb-2 text-[15px]">어르신 건강 배움 책자</p>
+                                <button onclick="tryNavigateWithWarning('records')" class="text-white font-black rounded-xl px-4 py-2 text-sm" style="background:var(--blue-main)">배움터 이동하기</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 동반 보호자 연동 (bar chart) -->
+                    <div class="bg-white rounded-2xl border border-stone-200">
                         <div class="flex items-start justify-between mb-2">
                             <div>
                                 <h3 class="font-black text-lg">동반 보호자 연동 및 보안 분석</h3>
@@ -735,7 +748,7 @@
                             </div>
                             <i class="fa-solid fa-chart-column text-2xl text-gray-400"></i>
                         </div>
-                        <div class="mt-4 relative h-40 pl-14">
+                        <div class="mt-3 relative h-32 pl-14">
                             <div class="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-gray-500 font-bold">
                                 <span>1000보</span><span>500보</span><span>200보</span><span>0보</span>
                             </div>
@@ -756,9 +769,21 @@
                             <span class="rounded-full px-4 py-2" style="background:#FEE500;">오늘 활동 3,500보 / 목표 8,400보</span>
                         </div>
                     </div>
+
+                    <!-- BUVI 약속철학 4-col (matches login) -->
+                    <div class="bg-white rounded-2xl border border-stone-200">
+                        <h3 class="font-black text-lg mb-3">부비(BUVI)의 약속철학</h3>
+                        <div class="grid grid-cols-4 gap-3">
+                            <div class="rounded-xl p-[32px]" style="background:#F7F5F0"><div class="text-[32px] mb-3 leading-none">🤓</div><div class="text-[22px] font-black mb-1 leading-tight">바라봅니다</div><div class="text-[15px] mb-4 font-semibold" style="color:var(--blue-main)"><b>B</b>eholding</div><p class="text-[20px] text-gray-700 font-medium leading-relaxed">데이터만이 아니라 어르신 한 분의 이야기 속 의미까지 주목합니다.</p></div>
+                            <div class="rounded-xl p-[32px]" style="background:#F7F5F0"><div class="text-[32px] mb-3 leading-none">🥰</div><div class="text-[22px] font-black mb-1 leading-tight">이해합니다</div><div class="text-[15px] mb-4 font-semibold" style="color:var(--blue-main)"><b>U</b>nderstanding</div><p class="text-[20px] text-gray-700 font-medium leading-relaxed">말투·생활습관·건강데이터를 종합해 어르신을 더 잘 이해합니다.</p></div>
+                            <div class="rounded-xl p-[32px]" style="background:#F7F5F0"><div class="text-[32px] mb-3 leading-none">👨‍🍳</div><div class="text-[22px] font-black mb-1 leading-tight">안내합니다</div><div class="text-[15px] mb-4 font-semibold" style="color:var(--blue-main)"><b>V</b>itality</div><p class="text-[20px] text-gray-700 font-medium leading-relaxed">이해를 바탕으로 노쇠 신호를 미리 살피고 활력을 되찾도록 돕습니다.</p></div>
+                            <div class="rounded-xl p-[32px]" style="background:#F7F5F0"><div class="text-[32px] mb-3 leading-none">😎</div><div class="text-[22px] font-black mb-1 leading-tight">곁을 지킵니다</div><div class="text-[15px] mb-4 font-semibold" style="color:var(--blue-main)"><b>I</b>ndependence</div><p class="text-[20px] text-gray-700 font-medium leading-relaxed">오랜 기간 곁을 지키며 스스로 건강을 관리하는 자립을 응원합니다.</p></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
+
 
         <!-- ========================================================
              PAGE 3-0: SURVEY START SCREEN (설문 시작 화면)
