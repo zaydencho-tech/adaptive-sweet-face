@@ -296,6 +296,29 @@
                 padding: clamp(5rem, 7vw, 8rem) clamp(1.5rem, 4vw, 5rem) clamp(2rem, 4vw, 5rem) !important;
                 min-height: 100vh;
             }
+            /* 우측 컬럼 내 흰색 카드들: 뷰포트에 따라 여백/간격 유동 */
+            body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex {
+                gap: clamp(0.75rem, 1.2vw, 1.5rem) !important;
+            }
+            body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white {
+                padding: clamp(1rem, 1.6vw, 1.75rem) clamp(1.25rem, 1.8vw, 2rem) !important;
+                border-radius: clamp(16px, 1.4vw, 24px) !important;
+            }
+            body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .grid {
+                gap: clamp(0.75rem, 1.2vw, 1.5rem) !important;
+            }
+            body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .grid > .bg-white {
+                padding: clamp(1.25rem, 2vw, 2.25rem) !important;
+                border-radius: clamp(16px, 1.4vw, 24px) !important;
+            }
+            body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 {
+                gap: clamp(0.5rem, 0.9vw, 1rem) !important;
+            }
+            body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 > div {
+                padding: clamp(0.75rem, 1.2vw, 1.25rem) !important;
+                border-radius: clamp(12px, 1.1vw, 20px) !important;
+            }
+
         }
         /* Mobile: 헤더를 노란색 히어로 영역 안으로 띄우고 좌우 패딩 20px 고정 */
         @media (max-width: 1023px) {
