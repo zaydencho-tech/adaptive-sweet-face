@@ -599,38 +599,6 @@
             body.subpage-mode main [class*="bg-[#FFFBEB]"],
             body.subpage-mode main [class*="bg-[#FFFDF"],
             body.subpage-mode main [class*="bg-[#FFFEF"] { background-color: #F7F5F1 !important; }
-
-            /* 데스크탑 우측 영역: 세로 유동형 — 뷰포트 높이에 맞춰 채우고 하단 버튼을 바닥에 위치 */
-            body.subpage-mode main {
-                min-height: 100vh; height: 100vh;
-                display: flex; flex-direction: column;
-                padding-bottom: 20px !important;
-                overflow-y: auto;
-            }
-            body.subpage-mode main > section.app-page:not(.hidden) {
-                flex: 1 1 auto; display: flex; flex-direction: column; min-height: 0;
-            }
-            /* 설문/상담/도움말/건강정보 화면 외곽 카드가 남은 공간을 모두 채움 */
-            body.subpage-mode #page-survey-start > div,
-            body.subpage-mode #page-survey > div,
-            body.subpage-mode #page-chat > div,
-            body.subpage-mode #page-result,
-            body.subpage-mode #page-help,
-            body.subpage-mode #page-records,
-            body.subpage-mode #page-more {
-                flex: 1 1 auto; display: flex; flex-direction: column; min-height: 0;
-                height: auto !important;
-            }
-            /* 카드 내부 마지막 요소(주로 버튼 행)를 하단으로 밀어냄 */
-            body.subpage-mode #page-survey-start > div > *:last-child,
-            body.subpage-mode #page-survey > div > *:last-child,
-            body.subpage-mode #page-help > *:last-child,
-            body.subpage-mode #page-records > *:last-child,
-            body.subpage-mode #page-more > *:last-child {
-                margin-top: auto;
-            }
-            /* 상담 화면 스크롤 영역이 유동으로 늘어나도록 */
-            body.subpage-mode #page-chat #chat-scroller { flex: 1 1 auto; min-height: 0; }
         }
         .header-wordmark { display: none; }
 
