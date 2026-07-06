@@ -732,6 +732,16 @@
         }
         .header-wordmark { display: none; }
 
+        /* Mobile/Tablet: remove shadows and replace bordered sections with beige fill */
+        @media (max-width: 1023px) {
+            *, *::before, *::after { box-shadow: none !important; }
+            [style*="border-color: var(--border-color)"],
+            [style*="border-color:var(--border-color)"] {
+                background-color: #F4F0E9 !important;
+                border-color: transparent !important;
+            }
+        }
+
     </style>
 </head>
 <body class="min-h-screen pb-32">
