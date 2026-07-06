@@ -2318,9 +2318,9 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 window._bdD = parseInt(saved.slice(6,8));
                 window._ageStep = 'day';
             }
-            const isWheel = window.matchMedia('(max-width: 1023px)').matches;
             container.innerHTML = `<div id="age-root" class="flex flex-col gap-4 max-w-sm mx-auto w-full"></div>`;
-            if (isWheel) renderAgeWheel(); else renderAgeSteps();
+            renderAgeSteps();
+
         }
 
         // ── 롤링(휠) 형태 생년월일 피커 (태블릿/모바일 전용) ──────────
