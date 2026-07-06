@@ -472,6 +472,8 @@
 
         /* Mobile: 헤더를 노란색 히어로 영역 안으로 띄우고 좌우 패딩 20px 고정 */
         @media (max-width: 1023px) {
+            /* 모바일/태블릿: 상단 흰색 헤더(부비 워드마크 + 글자크기 + 소리듣기) 전체 숨김 */
+            body > header { display: none !important; }
             body:has(#page-login:not(.hidden)),
             body:has(#page-home:not(.hidden)) { background: #ffffff !important; }
             body:has(#page-login:not(.hidden)) main,
