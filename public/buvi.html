@@ -493,41 +493,8 @@
             body.subpage-mode #buvi-narrative-box { display: none !important; }
             body.subpage-mode main {
                 max-width: none !important; margin: 0 !important;
-                padding: 20px 20px 20px calc(33.333vw + 20px) !important;
+                padding: 20px 20px 100px calc(33.333vw + 20px) !important;
                 min-height: 100vh; background: #F4F0E9;
-                display: flex; flex-direction: column;
-            }
-            /* 하단에 액션 버튼이 있는 서브페이지: 세로 높이를 유동적으로 채우고 버튼은 하단 고정 */
-            body.subpage-mode main > #page-survey-start,
-            body.subpage-mode main > #page-survey,
-            body.subpage-mode main > #page-login,
-            body.subpage-mode main > #page-signup,
-            body.subpage-mode main > #page-find,
-            body.subpage-mode main > #page-chat,
-            body.subpage-mode main > #page-analyzing,
-            body.subpage-mode main > #page-result {
-                flex: 1 1 auto;
-                display: flex;
-                flex-direction: column;
-                min-height: calc(100vh - 40px);
-            }
-            body.subpage-mode main > #page-survey-start > div,
-            body.subpage-mode main > #page-survey > div,
-            body.subpage-mode main > #page-login > div,
-            body.subpage-mode main > #page-signup > div,
-            body.subpage-mode main > #page-find > div,
-            body.subpage-mode main > #page-chat > div {
-                flex: 1 1 auto;
-                display: flex;
-                flex-direction: column;
-            }
-            body.subpage-mode main > #page-survey-start > div > :last-child,
-            body.subpage-mode main > #page-survey > div > :last-child,
-            body.subpage-mode main > #page-login > div > :last-child,
-            body.subpage-mode main > #page-signup > div > :last-child,
-            body.subpage-mode main > #page-find > div > :last-child,
-            body.subpage-mode main > #page-chat > div > :last-child {
-                margin-top: auto;
             }
             body.subpage-mode #desktop-hero-aside {
                 display: flex !important; flex-direction: column;
