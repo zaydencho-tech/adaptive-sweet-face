@@ -1289,6 +1289,36 @@
 
     </main>
 
+    <!-- [데스크탑 전용 공유 왼쪽 히어로 - 설문/상담/건강정보/도움말 페이지에서 표시] -->
+    <aside id="desktop-hero-aside" aria-hidden="true">
+        <div class="hero-yellow">
+            <div class="flex items-start justify-between gap-3">
+                <div class="space-y-4">
+                    <h1 class="font-gapyeong text-4xl md:text-5xl font-black leading-tight text-charcoal">안녕하세요<br>어르신<em class="not-italic">!</em></h1>
+                    <p class="text-base md:text-lg font-bold leading-relaxed text-charcoal">건강한 매일을 약속할<br><strong>어르신의 소중한<br>건강 동반자</strong>입니다.</p>
+                </div>
+                <div class="flex flex-col items-end gap-1 flex-shrink-0">
+                    <div class="buvi-speech-svg font-gapyeong text-sm md:text-base font-black text-center leading-tight"><svg viewBox="0 0 153 156" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M3.48999 65.0096C3.48999 31.0136 36.1992 3.48999 76.49 3.48999C116.781 3.48999 149.49 31.0136 149.49 65.0096C149.49 99.9251 129.82 138.383 89.1246 152.398C92.7306 146.201 98.2083 129.756 76.271 127.112C35.8916 127.112 3.48999 98.9306 3.48999 65.0096Z" fill="#1A1A1A" stroke="black" stroke-width="6.98008" stroke-miterlimit="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>반가워요,<br>부비예요.</span></div>
+                    <img src="/owl-hero.svg" alt="BUVI" class="object-contain" style="width:152px;height:182px;">
+                </div>
+            </div>
+        </div>
+        <div class="hero-white space-y-4">
+            <div>
+                <p class="text-xl font-black text-charcoal">무엇을 도와드릴까요?</p>
+                <p class="text-sm text-gray-500 font-bold mt-1">아래 메뉴에서 바로 이동하실 수 있어요.</p>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+                <button onclick="tryNavigateWithWarning('survey-start')" class="rounded-2xl py-4 px-4 font-black flex items-center gap-3" style="background:#FFF3B0;"><i class="fa-solid fa-file-pen"></i> 설문</button>
+                <button onclick="tryNavigateWithWarning('chat')" class="rounded-2xl py-4 px-4 font-black flex items-center gap-3" style="background:#FFF3B0;"><i class="fa-solid fa-comments"></i> 상담</button>
+                <button onclick="tryNavigateWithWarning('records')" class="rounded-2xl py-4 px-4 font-black flex items-center gap-3" style="background:#FFF3B0;"><i class="fa-solid fa-book-medical"></i> 건강정보</button>
+                <button onclick="tryNavigateWithWarning('help')" class="rounded-2xl py-4 px-4 font-black flex items-center gap-3" style="background:#FFF3B0;"><i class="fa-solid fa-circle-info"></i> 도움말</button>
+            </div>
+            <button onclick="tryNavigateWithWarning('chat')" class="w-full h-14 bg-black text-white font-black rounded-2xl text-lg hover:bg-neutral-800 transition">부비와 상담 시작하기</button>
+        </div>
+    </aside>
+
+
     <!-- [설문 도중 이탈 방지 경고용 모달] -->
     <div id="survey-exit-modal" class="fixed inset-0 bg-black/50 z-[9999] hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-6 max-w-sm w-full shadow-2xl text-center space-y-4 border-2 border-errRed">
