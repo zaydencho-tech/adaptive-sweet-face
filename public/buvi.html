@@ -2500,11 +2500,9 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                             class="h-14 text-lg font-black rounded-2xl border-2 transition-all select-none ${active ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-700 border-gray-300 hover:bg-blue-50 hover:border-blue-400 active:bg-blue-100'}">${d}</button>`;
                     }).join('')}
                 </div>
-                <button type="button" onclick="ageGoStep('month')"
-                    class="text-sm font-bold text-gray-400 underline text-center">← 월 다시 선택</button>`;
+`;
             }
 
-            html += `<p id="age-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]"></p>`;
             root.innerHTML = html;
             validateBirthDate();
         }
