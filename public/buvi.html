@@ -215,14 +215,14 @@
             position: relative;
             display: flex;
             gap: 0.5rem;
-            height: 320px;
+            height: 180px;
             padding: 0 0.5rem;
         }
         .wheel-col { flex: 1; position: relative; min-width: 0; }
         .wheel-col ul {
             list-style: none;
             margin: 0;
-            padding: 128px 0; /* (320 - 64) / 2 */
+            padding: 70px 0; /* (180 - 40) / 2 */
             height: 100%;
             overflow-y: scroll;
             scroll-snap-type: y mandatory;
@@ -232,28 +232,28 @@
         }
         .wheel-col ul::-webkit-scrollbar { display: none; }
         .wheel-col li {
-            height: 64px;
-            line-height: 64px;
+            height: 40px;
+            line-height: 40px;
             text-align: center;
             scroll-snap-align: center;
             font-weight: 900;
-            font-size: 1.25rem;
+            font-size: 0.85rem;
             color: #D4D4D8;
             transition: color .15s ease, font-size .15s ease;
             user-select: none;
             cursor: pointer;
             white-space: nowrap;
         }
-        .wheel-col li.picker-near   { color: #A1A1AA; font-size: 1.5rem; }
-        .wheel-col li.picker-active { color: #111827; font-size: 1.75rem; }
+        .wheel-col li.picker-near   { color: #A1A1AA; font-size: 0.95rem; }
+        .wheel-col li.picker-active { color: #111827; font-size: 1.6rem; }
         /* 연도(4자리)는 폭이 넓어 폰트 축소 */
-        #wheel-year li { font-size: 1.1rem; }
-        #wheel-year li.picker-near   { font-size: 1.35rem; }
-        #wheel-year li.picker-active { font-size: 1.55rem; }
+        #wheel-year li { font-size: 0.8rem; }
+        #wheel-year li.picker-near   { font-size: 0.9rem; }
+        #wheel-year li.picker-active { font-size: 1.4rem; }
         .wheel-center-band {
             position: absolute; left: 0; right: 0; top: 50%;
             transform: translateY(-50%);
-            height: 64px;
+            height: 40px;
             border-top: 1.5px solid rgba(0,0,0,.08);
             border-bottom: 1.5px solid rgba(0,0,0,.08);
             pointer-events: none;
@@ -265,7 +265,7 @@
             transform: translateY(-50%);
             font-weight: 700;
             color: #9CA3AF;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             pointer-events: none;
         }
 
@@ -744,6 +744,26 @@
             body, body.subpage-mode, body.subpage-mode main,
             body:has(#page-home:not(.hidden)) { background: #ffffff !important; }
             header.sticky, nav.fixed.bottom-0 { background-color: #F7F5F1 !important; }
+
+            /* ── 서브페이지(홈 제외) 세로 스크롤 최소화: 여백/간격 압축 ── */
+            body.subpage-mode { padding-bottom: 88px !important; }
+            body.subpage-mode main { padding: 12px 16px !important; }
+            body.subpage-mode main .p-6 { padding: 12px !important; }
+            body.subpage-mode main .p-5 { padding: 10px !important; }
+            body.subpage-mode main .p-4 { padding: 10px !important; }
+            body.subpage-mode main .py-6 { padding-top: 12px !important; padding-bottom: 12px !important; }
+            body.subpage-mode main .py-5 { padding-top: 10px !important; padding-bottom: 10px !important; }
+            body.subpage-mode main .py-4 { padding-top: 10px !important; padding-bottom: 10px !important; }
+            body.subpage-mode main .py-8 { padding-top: 14px !important; padding-bottom: 14px !important; }
+            body.subpage-mode main .my-6, body.subpage-mode main .my-8 { margin-top: 10px !important; margin-bottom: 10px !important; }
+            body.subpage-mode main .mt-6, body.subpage-mode main .mt-8 { margin-top: 10px !important; }
+            body.subpage-mode main .mb-6, body.subpage-mode main .mb-8 { margin-bottom: 10px !important; }
+            body.subpage-mode main .space-y-6 > * + * { margin-top: 12px !important; }
+            body.subpage-mode main .space-y-8 > * + * { margin-top: 14px !important; }
+            body.subpage-mode main .space-y-5 > * + * { margin-top: 10px !important; }
+            body.subpage-mode main .space-y-4 > * + * { margin-top: 8px !important; }
+            body.subpage-mode main .gap-6 { gap: 10px !important; }
+            body.subpage-mode main .gap-8 { gap: 12px !important; }
         }
 
     </style>
@@ -2209,7 +2229,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         }
 
         // ── 롤링(휠) 형태 생년월일 피커 (태블릿/모바일 전용) ──────────
-        const WHEEL_ITEM_H = 64;
+        const WHEEL_ITEM_H = 40;
         function renderAgeWheel() {
             const root = document.getElementById('age-root');
             if (!root) return;
