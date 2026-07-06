@@ -2800,8 +2800,8 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             return `
             <div class="flex flex-col gap-4">
                 <p class="font-black text-gray-700">일주일에 며칠? <span class="text-gray-400 font-normal text-sm">(− / + 로 조절하거나 직접 입력)</span></p>
-                ${makeStepper(`inp-${dKey}`,'일',0,7,1,dInit,`onIpaqDaysChange__${dKey}`,0)}
-                <script>window['onIpaqDaysChange__${dKey}'] = function(){ handleIpaqDaysChange('${dKey}','${hKey}','${mKey}'); };<\/script>
+                ${makeStepper(`inp-${dKey}`,'일',0,7,1,dInit,'onIpaqDaysChange',0)}
+
 
 
                 <!-- 시간·분 스테퍼 (일수 선택 후 표시) -->
