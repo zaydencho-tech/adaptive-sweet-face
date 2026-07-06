@@ -2468,15 +2468,15 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const mSel = saved === 'male'   ? "bg-blue-100 border-blue-400 ring-4 ring-blue-400" : "bg-blue-50 border-blue-200 hover:bg-blue-100";
             const fSel = saved === 'female' ? "bg-pink-100 border-pink-400 ring-4 ring-pink-400" : "bg-pink-50 border-pink-200 hover:bg-pink-100";
             container.innerHTML = `
-                <div class="flex flex-col gap-4 w-full max-w-sm mx-auto mt-2">
+                <div class="flex flex-col gap-4 w-full max-w-sm lg:max-w-md mx-auto mt-2 lg:px-8">
                     <button id="gender-btn-male"
-                        onclick="state.answers.gender='male'; document.getElementById('gender-btn-male').className='w-full py-6 rounded-2xl border-2 text-2xl font-black transition-all bg-blue-100 border-blue-400 ring-4 ring-blue-400'; document.getElementById('gender-btn-female').className='w-full py-6 rounded-2xl border-2 text-2xl font-black transition-all bg-pink-50 border-pink-200'; updateNextButtonState();"
-                        class="w-full py-6 rounded-2xl border-2 text-2xl font-black transition-all ${mSel}">
+                        onclick="state.answers.gender='male'; document.getElementById('gender-btn-male').className='w-full py-6 px-6 lg:px-12 rounded-2xl border-2 text-2xl font-black transition-all bg-blue-100 border-blue-400 ring-4 ring-blue-400'; document.getElementById('gender-btn-female').className='w-full py-6 px-6 lg:px-12 rounded-2xl border-2 text-2xl font-black transition-all bg-pink-50 border-pink-200'; updateNextButtonState();"
+                        class="w-full py-6 px-6 lg:px-12 rounded-2xl border-2 text-2xl font-black transition-all ${mSel}">
                         👨 남성
                     </button>
                     <button id="gender-btn-female"
-                        onclick="state.answers.gender='female'; document.getElementById('gender-btn-female').className='w-full py-6 rounded-2xl border-2 text-2xl font-black transition-all bg-pink-100 border-pink-400 ring-4 ring-pink-400'; document.getElementById('gender-btn-male').className='w-full py-6 rounded-2xl border-2 text-2xl font-black transition-all bg-blue-50 border-blue-200'; updateNextButtonState();"
-                        class="w-full py-6 rounded-2xl border-2 text-2xl font-black transition-all ${fSel}">
+                        onclick="state.answers.gender='female'; document.getElementById('gender-btn-female').className='w-full py-6 px-6 lg:px-12 rounded-2xl border-2 text-2xl font-black transition-all bg-pink-100 border-pink-400 ring-4 ring-pink-400'; document.getElementById('gender-btn-male').className='w-full py-6 px-6 lg:px-12 rounded-2xl border-2 text-2xl font-black transition-all bg-blue-50 border-blue-200'; updateNextButtonState();"
+                        class="w-full py-6 px-6 lg:px-12 rounded-2xl border-2 text-2xl font-black transition-all ${fSel}">
                         👩 여성
                     </button>
                 </div>
