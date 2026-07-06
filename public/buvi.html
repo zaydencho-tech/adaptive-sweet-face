@@ -269,6 +269,40 @@
             pointer-events: none;
         }
 
+        /* ── 증감 조작계(스테퍼) UI (데스크탑·태블릿·모바일 공통) ── */
+        .stepper-row { display: flex; align-items: center; justify-content: center; gap: 12px; }
+        .stepper-btn {
+            width: 56px; height: 56px; border-radius: 9999px;
+            background: #111729; color: #ffffff;
+            font-size: 30px; font-weight: 900; line-height: 1;
+            display: inline-flex; align-items: center; justify-content: center;
+            border: 0; cursor: pointer; flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(17,23,41,.18);
+            transition: transform .1s ease, background-color .15s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .stepper-btn:hover { background: #1f2a44; }
+        .stepper-btn:active { transform: scale(.94); }
+        .stepper-btn:disabled { background: #9CA3AF; cursor: not-allowed; box-shadow: none; }
+        .stepper-field {
+            display: inline-flex; align-items: baseline; justify-content: center; gap: 8px;
+            background: #ffffff; border: 2px solid #93C5FD; border-radius: 16px;
+            padding: 10px 18px; min-width: 140px;
+            box-shadow: 0 2px 8px rgba(0,0,0,.04);
+        }
+        .stepper-input {
+            width: 100%; min-width: 60px; max-width: 120px;
+            text-align: center; font-size: 2rem; font-weight: 900;
+            color: #111729; background: transparent; border: 0; outline: none;
+            -moz-appearance: textfield; padding: 0;
+        }
+        .stepper-input::-webkit-outer-spin-button,
+        .stepper-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        .stepper-input::placeholder { color: #CBD5E1; font-weight: 700; }
+        .stepper-unit { font-size: 1rem; font-weight: 800; color: #6B7280; flex-shrink: 0; }
+
+
+
 
 
         /* ── 리뉴얼된 로그인/홈 페이지 적응형 규칙 ── */
@@ -2190,6 +2224,63 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             return el ? (el.value === '' ? null : parseInt(el.value)) : null;
         }
 
+        // ── 공통: 증감 조작계(스테퍼) — 전 뷰포트 공통 ──────────────
+        // 직접 입력 가능한 큼직한 화이트 입력 필드 양옆에 56px 원형 −/+ 버튼
+        function makeStepper(id, unit, min, max, step, savedVal, onChangeFn, placeholder) {
+            const v = (savedVal !== null && savedVal !== undefined && savedVal !== '') ? String(savedVal) : '';
+            const ph = (placeholder !== undefined && placeholder !== null) ? String(placeholder) : '';
+            const unitHtml = unit ? `<span class="stepper-unit">${unit}</span>` : '';
+            return `
+            <div class="stepper-row">
+                <button type="button" aria-label="감소"
+                    onclick="stepperAdjust('${id}',${-step},${min},${max},'${onChangeFn}')"
+                    class="stepper-btn">−</button>
+                <div class="stepper-field">
+                    <input id="${id}" type="text" inputmode="numeric" pattern="[0-9]*"
+                        value="${v}" placeholder="${ph}"
+                        data-min="${min}" data-max="${max}" data-fn="${onChangeFn}"
+                        oninput="stepperOnInput('${id}',${min},${max},'${onChangeFn}')"
+                        onblur="stepperOnBlur('${id}',${min},${max},'${onChangeFn}')"
+                        class="stepper-input"/>
+                    ${unitHtml}
+                </div>
+                <button type="button" aria-label="증가"
+                    onclick="stepperAdjust('${id}',${step},${min},${max},'${onChangeFn}')"
+                    class="stepper-btn">+</button>
+            </div>`;
+        }
+        function stepperAdjust(id, delta, min, max, fn) {
+            const inp = document.getElementById(id);
+            if (!inp) return;
+            let cur = parseInt(inp.value);
+            if (isNaN(cur)) cur = parseInt(inp.placeholder);
+            if (isNaN(cur)) cur = min;
+            let nv = cur + delta;
+            if (nv < min) nv = min;
+            if (nv > max) nv = max;
+            inp.value = String(nv);
+            if (typeof window[fn] === 'function') window[fn]();
+        }
+        function stepperOnInput(id, min, max, fn) {
+            const inp = document.getElementById(id);
+            if (!inp) return;
+            const cleaned = inp.value.replace(/[^0-9]/g, '');
+            if (cleaned !== inp.value) inp.value = cleaned;
+            if (inp.value !== '' && parseInt(inp.value) > max) inp.value = String(max);
+            if (typeof window[fn] === 'function') window[fn]();
+        }
+        function stepperOnBlur(id, min, max, fn) {
+            const inp = document.getElementById(id);
+            if (!inp) return;
+            if (inp.value === '') { if (typeof window[fn] === 'function') window[fn](); return; }
+            let n = parseInt(inp.value);
+            if (isNaN(n)) inp.value = '';
+            else if (n < min) inp.value = String(min);
+            else if (n > max) inp.value = String(max);
+            if (typeof window[fn] === 'function') window[fn]();
+        }
+
+
         // ── 1) 생년월일 — 연/월/일 3단계 분리 키패드 ──────────────
         // 근거: Smashing Magazine 2021 — 단일 8자리·드롭다운 모두 오류 빈발.
         //       3개 독립 필드(연→월→일 순)가 오류율 최저, 노인 선호도 최고.
@@ -2227,9 +2318,9 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 window._bdD = parseInt(saved.slice(6,8));
                 window._ageStep = 'day';
             }
-            const isWheel = window.matchMedia('(max-width: 1023px)').matches;
             container.innerHTML = `<div id="age-root" class="flex flex-col gap-4 max-w-sm mx-auto w-full"></div>`;
-            if (isWheel) renderAgeWheel(); else renderAgeSteps();
+            renderAgeSteps();
+
         }
 
         // ── 롤링(휠) 형태 생년월일 피커 (태블릿/모바일 전용) ──────────
@@ -2365,25 +2456,17 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             </div>`;
 
             if (step === 'year') {
-                // 연도: 숫자 키패드 (4자리)
-                const disp = Y || '——';
+                // 연도: 증감 조작계(스테퍼)로 직접 조절 또는 타이핑
+                const curY = new Date().getFullYear();
+                const initY = (Y && Y.length === 4) ? Y : '';
                 html += `
-                <p class="font-black text-gray-700 text-center text-lg">① 태어난 <span class="text-blue-600">연도</span>를 눌러주세요</p>
-                <div class="flex items-center justify-between bg-white border-2 border-blue-400 rounded-2xl px-5 py-4">
-                    <span id="age-year-disp" class="text-4xl font-black text-charcoal tracking-widest">${disp}</span>
-                    <span class="text-lg font-bold text-gray-400">년</span>
-                </div>
-                <div class="grid grid-cols-3 gap-2">
-                    ${[1,2,3,4,5,6,7,8,9].map(n=>`
-                    <button type="button" onclick="ageYearPress(${n})"
-                        class="h-16 text-3xl font-black bg-white border-2 border-gray-300 rounded-2xl hover:bg-blue-50 hover:border-blue-400 active:bg-blue-100 transition-all select-none">${n}</button>`).join('')}
-                    <button type="button" onclick="ageYearClear()"
-                        class="h-16 text-sm font-black bg-red-50 border-2 border-red-200 rounded-2xl hover:bg-red-100 text-red-500 select-none">전체삭제</button>
-                    <button type="button" onclick="ageYearPress(0)"
-                        class="h-16 text-3xl font-black bg-white border-2 border-gray-300 rounded-2xl hover:bg-blue-50 hover:border-blue-400 active:bg-blue-100 transition-all select-none">0</button>
-                    <button type="button" onclick="ageYearBack()"
-                        class="h-16 text-2xl font-black bg-gray-100 border-2 border-gray-300 rounded-2xl hover:bg-gray-200 transition-all select-none">⌫</button>
-                </div>`;
+                <p class="font-black text-gray-700 text-center text-lg">① 태어난 <span class="text-blue-600">연도</span>를 조절해 주세요</p>
+                ${makeStepper('age-year-inp','년',1900,curY,1,initY,'onAgeYearInput',1955)}
+                <button type="button" onclick="ageYearConfirm()"
+                    class="mt-1 h-14 rounded-2xl bg-blue-600 text-white text-lg font-black hover:bg-blue-700 active:bg-blue-800 transition-all">
+                    연도 확정 → 월 선택
+                </button>`;
+
 
             } else if (step === 'month') {
                 // 월: 1~12 큰 선택 버튼 (스크롤 없음)
@@ -2469,6 +2552,28 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             validateBirthDate();
         }
 
+        function onAgeYearInput() {
+            const inp = document.getElementById('age-year-inp');
+            if (!inp) return;
+            window._bdY = inp.value || '';
+            validateBirthDate();
+        }
+
+        function ageYearConfirm() {
+            const inp = document.getElementById('age-year-inp');
+            if (!inp) return;
+            let y = parseInt(inp.value);
+            const now = new Date();
+            if (isNaN(y)) y = parseInt(inp.placeholder) || 1955;
+            if (y < 1900) y = 1900;
+            if (y > now.getFullYear()) y = now.getFullYear();
+            window._bdY = String(y);
+            window._bdM = 0; window._bdD = 0;
+            window._ageStep = 'month';
+            renderAgeSteps();
+        }
+
+
         function ageSelectMonth(m) {
             window._bdM = m;
             window._bdD = 0;
@@ -2520,109 +2625,28 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         function renderBmiInput(container) {
             const sh = state.answers.height_cm || '';
             const sw = state.answers.weight_kg || '';
-            const isWheel = window.matchMedia('(max-width: 1023px)').matches;
-            if (isWheel) {
-                renderBmiWheel(container, sh, sw);
-                return;
-            }
-            container.innerHTML = `
-            <div class="flex flex-col gap-5 max-w-sm mx-auto">
-                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 scaled-text-sm font-bold text-gray-700 leading-relaxed">
-                    <p>1) 어르신의 현재 키는? &nbsp; 신장(cm) ____ cm</p>
-                    <p>2) 어르신의 현재 체중은? &nbsp; 현재 체중(kg) ____ kg</p>
-                </div>
-                <div class="flex flex-col gap-5">
-                    <!-- 키/체중 탭 전환으로 키패드 하나를 공유 -->
-                    <div class="flex gap-2">
-                        <button id="bmi-tab-h" onclick="setBmiTab('h')"
-                            class="flex-1 py-3 rounded-2xl font-black text-base border-2 transition-all bg-blue-600 text-white border-blue-600">
-                            키 (cm)
-                        </button>
-                        <button id="bmi-tab-w" onclick="setBmiTab('w')"
-                            class="flex-1 py-3 rounded-2xl font-black text-base border-2 transition-all bg-gray-100 text-gray-600 border-gray-300">
-                            체중 (kg)
-                        </button>
-                    </div>
-                    <!-- 현재 입력 중인 필드 디스플레이 -->
-                    <div class="flex gap-3">
-                        <div class="flex-1 flex flex-col items-center gap-1 p-3 rounded-2xl border-2 border-transparent" id="bmi-card-h">
-                            <span class="text-xs font-bold text-gray-400">키</span>
-                            <span id="disp-height" class="text-3xl font-black text-charcoal">${sh || '—'}</span>
-                            <span class="text-xs text-gray-400">cm</span>
-                        </div>
-                        <div class="flex-1 flex flex-col items-center gap-1 p-3 rounded-2xl border-2 border-transparent" id="bmi-card-w">
-                            <span class="text-xs font-bold text-gray-400">체중</span>
-                            <span id="disp-weight" class="text-3xl font-black text-charcoal">${sw || '—'}</span>
-                            <span class="text-xs text-gray-400">kg</span>
-                        </div>
-                    </div>
-                    <!-- 공용 키패드 -->
-                    <div id="bmi-keypad" class="grid grid-cols-3 gap-2">
-                        ${[1,2,3,4,5,6,7,8,9].map(n => `
-                        <button type="button" onclick="bmiKpPress(${n})"
-                            class="h-16 text-3xl font-black bg-white border-2 border-gray-300 rounded-2xl hover:bg-blue-50 hover:border-blue-400 active:bg-blue-100 transition-all select-none">${n}</button>`).join('')}
-                        <button type="button" onclick="bmiKpClear()"
-                            class="h-16 text-sm font-black bg-red-50 border-2 border-red-200 rounded-2xl hover:bg-red-100 active:bg-red-200 transition-all text-red-500 select-none">전체삭제</button>
-                        <button type="button" onclick="bmiKpPress(0)"
-                            class="h-16 text-3xl font-black bg-white border-2 border-gray-300 rounded-2xl hover:bg-blue-50 hover:border-blue-400 active:bg-blue-100 transition-all select-none">0</button>
-                        <button type="button" onclick="bmiKpBack()"
-                            class="h-16 text-2xl font-black bg-gray-100 border-2 border-gray-300 rounded-2xl hover:bg-gray-200 active:bg-gray-300 transition-all select-none">⌫</button>
-                    </div>
-                    <input id="inp-height" type="hidden" value="${sh}">
-                    <input id="inp-weight" type="hidden" value="${sw}">
-                </div>
-                <p id="bmi-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]">${(sh&&sw)?'✓ 입력 완료':''}</p>
-            </div>`;
-            window._bmiTab = 'h';
-            setBmiTab('h');
-            if (sh && sw) onBmiInput();
-        }
-
-        // ── BMI 롤링(휠) 피커 (태블릿/모바일 전용) ────────────────
-        function renderBmiWheel(container, sh, sw) {
-            const heights = [];
-            for (let h = 100; h <= 220; h++) heights.push(h);
-            const weights = [];
-            for (let w = 30; w <= 200; w++) weights.push(w);
-            const initH = parseInt(sh) || 160;
-            const initW = parseInt(sw) || 60;
             container.innerHTML = `
             <div class="flex flex-col gap-5 max-w-sm mx-auto w-full">
                 <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 scaled-text-sm font-bold text-gray-700 leading-relaxed">
-                    <p>어르신의 현재 키(cm)와 현재 체중(kg)을 위/아래로 굴려 맞춰주세요.</p>
+                    <p>어르신의 현재 키(cm)와 체중(kg)을 아래에서 조절해 주세요.</p>
+                    <p class="mt-1 text-gray-500">− / + 버튼으로 조절하거나, 숫자 칸을 눌러 직접 입력할 수 있습니다.</p>
                 </div>
-                <div class="wheel-picker" id="bmi-wheel">
-                    <div class="wheel-center-band"></div>
-                    <div class="wheel-col">
-                        <ul id="wheel-height">${heights.map(h=>`<li data-v="${h}">${h}</li>`).join('')}</ul>
-                        <span class="wheel-unit">cm</span>
+                <div class="flex flex-col gap-4">
+                    <div class="flex flex-col gap-2">
+                        <label class="font-black text-gray-700 text-base text-center">키 (cm)</label>
+                        ${makeStepper('inp-height','cm',100,220,1,sh,'onBmiInput',165)}
                     </div>
-                    <div class="wheel-col">
-                        <ul id="wheel-weight">${weights.map(w=>`<li data-v="${w}">${w}</li>`).join('')}</ul>
-                        <span class="wheel-unit">kg</span>
+                    <div class="flex flex-col gap-2">
+                        <label class="font-black text-gray-700 text-base text-center">체중 (kg)</label>
+                        ${makeStepper('inp-weight','kg',20,200,1,sw,'onBmiInput',60)}
                     </div>
                 </div>
-                <input id="inp-height" type="hidden" value="${sh}">
-                <input id="inp-weight" type="hidden" value="${sw}">
-                <p id="bmi-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]"></p>
+                <p id="bmi-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]">${(sh&&sw)?'✓ 입력 완료':''}</p>
             </div>`;
-            setupWheelCol('wheel-height', heights, initH, (v) => {
-                const inp = document.getElementById('inp-height');
-                if (inp) inp.value = String(v);
-                onBmiInput();
-            });
-            setupWheelCol('wheel-weight', weights, initW, (v) => {
-                const inp = document.getElementById('inp-weight');
-                if (inp) inp.value = String(v);
-                onBmiInput();
-            });
-            // 초기값 반영
-            const inpH = document.getElementById('inp-height');
-            const inpW = document.getElementById('inp-weight');
-            if (inpH && !inpH.value) inpH.value = String(initH);
-            if (inpW && !inpW.value) inpW.value = String(initW);
-            onBmiInput();
+            if (sh && sw) onBmiInput();
         }
+
+
 
 
         window._bmiTab = 'h';
@@ -2718,7 +2742,11 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     <p class="mt-1 text-gray-500">(알약 / 정 / 캡슐 / 현탁액 / 가루약 / 흡입약 등)</p>
                     <p class="mt-1 text-gray-500">예시: 혈압약 알약 2개, 고지혈증약 알약 3개 → 5개</p>
                 </div>
-                ${makeKeypad('inp-polypharm','약 개수 (개)','개',0,30,saved,'onPolypharmInput')}
+                <div class="flex flex-col gap-2">
+                    <label class="font-black text-gray-700 text-base text-center">약 개수 (개)</label>
+                    ${makeStepper('inp-polypharm','개',0,30,1,saved,'onPolypharmInput',5)}
+                </div>
+
                 <p id="poly-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]">${saved!==null?'✓ '+saved+'개 입력 완료':''}</p>
             </div>`;
         }
@@ -2797,42 +2825,21 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 </div>
                 <input id="inp-${dKey}" type="hidden" value="${dVal !== null ? dVal : ''}">
 
-                <!-- 시간·분 키패드 (일수 선택 후 표시) -->
+                <!-- 시간·분 스테퍼 (일수 선택 후 표시) -->
                 <div id="ipaq-time-row-${dKey}" class="${isHidden ? 'hidden' : 'flex flex-col gap-3'}">
                     <p class="font-bold text-gray-800">그런 날 하루에 보통 얼마나 하셨습니까?</p>
-                    <!-- 시간·분 탭 -->
-                    <div class="flex gap-2">
-                        <button id="ipaq-tab-h-${dKey}" onclick="setIpaqTab('${dKey}','h')"
-                            class="flex-1 py-2.5 rounded-2xl font-black text-sm border-2 transition-all bg-blue-600 text-white border-blue-600">시간</button>
-                        <button id="ipaq-tab-m-${dKey}" onclick="setIpaqTab('${dKey}','m')"
-                            class="flex-1 py-2.5 rounded-2xl font-black text-sm border-2 transition-all bg-gray-100 text-gray-600 border-gray-300">분</button>
-                    </div>
-                    <!-- 현재 값 표시 -->
-                    <div class="flex gap-3">
-                        <div id="ipaq-card-h-${dKey}" class="flex-1 flex flex-col items-center p-3 rounded-2xl border-2 border-blue-400 bg-blue-50 gap-0.5">
-                            <span class="text-xs font-bold text-gray-400">시간</span>
-                            <span id="disp-${hKey}" class="text-3xl font-black text-charcoal">${hVal || '—'}</span>
+                    <div class="flex flex-col gap-3">
+                        <div class="flex flex-col gap-1">
+                            <label class="text-sm font-bold text-gray-500 text-center">시간</label>
+                            ${makeStepper(`inp-${hKey}`,'시간',0,23,1,hVal,'onIpaqChange',0)}
                         </div>
-                        <div id="ipaq-card-m-${dKey}" class="flex-1 flex flex-col items-center p-3 rounded-2xl border-2 border-transparent gap-0.5">
-                            <span class="text-xs font-bold text-gray-400">분</span>
-                            <span id="disp-${mKey}" class="text-3xl font-black text-charcoal">${mVal || '—'}</span>
+                        <div class="flex flex-col gap-1">
+                            <label class="text-sm font-bold text-gray-500 text-center">분</label>
+                            ${makeStepper(`inp-${mKey}`,'분',0,59,5,mVal,'onIpaqChange',0)}
                         </div>
                     </div>
-                    <!-- 공용 키패드 -->
-                    <div class="grid grid-cols-3 gap-2">
-                        ${[1,2,3,4,5,6,7,8,9].map(n => `
-                        <button type="button" onclick="ipaqKpPress('${dKey}','${hKey}','${mKey}',${n})"
-                            class="h-14 text-2xl font-black bg-white border-2 border-gray-300 rounded-2xl hover:bg-blue-50 hover:border-blue-400 active:bg-blue-100 transition-all select-none">${n}</button>`).join('')}
-                        <button type="button" onclick="ipaqKpClear('${dKey}','${hKey}','${mKey}')"
-                            class="h-14 text-sm font-black bg-red-50 border-2 border-red-200 rounded-2xl hover:bg-red-100 active:bg-red-200 transition-all text-red-500 select-none">전체삭제</button>
-                        <button type="button" onclick="ipaqKpPress('${dKey}','${hKey}','${mKey}',0)"
-                            class="h-14 text-2xl font-black bg-white border-2 border-gray-300 rounded-2xl hover:bg-blue-50 hover:border-blue-400 active:bg-blue-100 transition-all select-none">0</button>
-                        <button type="button" onclick="ipaqKpBack('${dKey}','${hKey}','${mKey}')"
-                            class="h-14 text-2xl font-black bg-gray-100 border-2 border-gray-300 rounded-2xl hover:bg-gray-200 active:bg-gray-300 transition-all select-none">⌫</button>
-                    </div>
-                    <input id="inp-${hKey}" type="hidden" value="${hVal}">
-                    <input id="inp-${mKey}" type="hidden" value="${mVal}">
                 </div>
+
             </div>`;
         }
 
@@ -2992,42 +2999,22 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     <p class="mt-2"><strong>7) 어르신께서 지난 7일간,</strong> 주중에 앉아서 보낸 시간이 하루에 보통 얼마나 됩니까?</p>
                     <p class="text-xs text-gray-500 mt-1">※ 이 문항은 참고용으로 수식 계산에는 포함되지 않습니다.</p>
                 </div>
-                <!-- 앉아서 보낸 시간 키패드: 시간·분 탭 방식 -->
-                <div class="flex gap-2">
-                    <button id="sit-tab-h" onclick="setSitTab('h')"
-                        class="flex-1 py-2.5 rounded-2xl font-black text-sm border-2 transition-all bg-blue-600 text-white border-blue-600">시간</button>
-                    <button id="sit-tab-m" onclick="setSitTab('m')"
-                        class="flex-1 py-2.5 rounded-2xl font-black text-sm border-2 transition-all bg-gray-100 text-gray-600 border-gray-300">분</button>
-                </div>
-                <div class="flex gap-3">
-                    <div id="sit-card-h" class="flex-1 flex flex-col items-center p-3 rounded-2xl border-2 border-blue-400 bg-blue-50 gap-0.5">
-                        <span class="text-xs font-bold text-gray-400">시간</span>
-                        <span id="disp-sit-hr" class="text-3xl font-black text-charcoal">${sh || '—'}</span>
+                <!-- 앉아서 보낸 시간: 시간·분 스테퍼 -->
+                <div class="flex flex-col gap-3">
+                    <div class="flex flex-col gap-1">
+                        <label class="text-sm font-bold text-gray-500 text-center">시간</label>
+                        ${makeStepper('inp-sit-hr','시간',0,23,1,sh,'onIpaqSitChange',0)}
                     </div>
-                    <div id="sit-card-m" class="flex-1 flex flex-col items-center p-3 rounded-2xl border-2 border-transparent gap-0.5">
-                        <span class="text-xs font-bold text-gray-400">분</span>
-                        <span id="disp-sit-min" class="text-3xl font-black text-charcoal">${sm || '—'}</span>
+                    <div class="flex flex-col gap-1">
+                        <label class="text-sm font-bold text-gray-500 text-center">분</label>
+                        ${makeStepper('inp-sit-min','분',0,59,5,sm,'onIpaqSitChange',0)}
                     </div>
                 </div>
-                <div class="grid grid-cols-3 gap-2">
-                    ${[1,2,3,4,5,6,7,8,9].map(n=>`
-                    <button type="button" onclick="sitKpPress(${n})"
-                        class="h-14 text-2xl font-black bg-white border-2 border-gray-300 rounded-2xl hover:bg-blue-50 hover:border-blue-400 active:bg-blue-100 transition-all select-none">${n}</button>`).join('')}
-                    <button type="button" onclick="sitKpClear()"
-                        class="h-14 text-sm font-black bg-red-50 border-2 border-red-200 rounded-2xl hover:bg-red-100 text-red-500 select-none">전체삭제</button>
-                    <button type="button" onclick="sitKpPress(0)"
-                        class="h-14 text-2xl font-black bg-white border-2 border-gray-300 rounded-2xl hover:bg-blue-50 hover:border-blue-400 active:bg-blue-100 transition-all select-none">0</button>
-                    <button type="button" onclick="sitKpBack()"
-                        class="h-14 text-2xl font-black bg-gray-100 border-2 border-gray-300 rounded-2xl hover:bg-gray-200 transition-all select-none">⌫</button>
-                </div>
-                <input id="inp-sit-hr" type="hidden" value="${sh}">
-                <input id="inp-sit-min" type="hidden" value="${sm}">
                 <p id="ipaq-sit-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]"></p>
             </div>`;
-            window._sitTab = 'h';
-            setSitTab('h');
             computeIpaqMet();
         }
+
 
         window._sitTab = 'h';
         function setSitTab(tab) {
