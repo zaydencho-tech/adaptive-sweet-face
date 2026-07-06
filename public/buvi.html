@@ -865,6 +865,22 @@
                 margin-bottom: 20px;
             }
         }
+        /* 데스크탑: 설문 시작 페이지 내 안내 카드 2개의 간격 20px + 수직 중앙 정렬 */
+        @media (min-width: 1024px) {
+            #page-survey-start > div {
+                display: flex;
+                flex-direction: column;
+                min-height: calc(100vh - 160px);
+            }
+            #page-survey-start > div > .grid.grid-cols-3 {
+                margin-top: auto !important;
+                margin-bottom: 10px !important;
+            }
+            #page-survey-start > div > .bg-\[\#FFFDF4\] {
+                margin-top: 10px !important;
+                margin-bottom: auto !important;
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen pb-32">
