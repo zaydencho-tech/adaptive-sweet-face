@@ -524,7 +524,11 @@
             }
             body.subpage-mode > header > div:last-child > div {
                 background: transparent !important; padding: 0 !important;
-                display: flex; width: 100%; align-items: center; justify-content: flex-start; gap: 4px;
+                display: flex; width: auto; align-items: center; justify-content: flex-end; gap: 6px;
+                margin-left: auto;
+            }
+            body.subpage-mode > header .header-wordmark {
+                display: block; height: 32px; width: auto; object-fit: contain;
             }
             body.subpage-mode > header .font-scale-btn {
                 min-height: 37px !important; height: 37px !important;
@@ -543,7 +547,7 @@
                 border-radius: 12px !important; box-shadow: none !important;
                 font-weight: 700 !important; font-size: 15px !important;
                 background: #F8E647 !important; color: #111729 !important;
-                margin-left: auto !important; display: flex; align-items: center; justify-content: center;
+                margin-left: 0 !important; display: flex; align-items: center; justify-content: center;
             }
         }
     </style>
