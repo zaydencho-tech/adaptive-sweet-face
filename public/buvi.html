@@ -807,6 +807,17 @@
             /* 설문 페이지: 헤더-상단바 간격 20px, 좌우 마진 20px */
             body:has(#page-survey:not(.hidden)) main { padding: 20px 20px 0 !important; }
             body:has(#page-survey:not(.hidden)) main > #page-survey > div.bg-white { padding: 0 0 12px !important; }
+            /* 설문 시작 페이지: 좌우 여백 20px */
+            body:has(#page-survey-start:not(.hidden)) main { padding: 20px !important; }
+            /* 설문 시작 페이지: 크림톤/노랑 카드/외곽선 → #F4F0E9 배경, 외곽선 제거 */
+            #page-survey-start [class*="bg-[#FFF"],
+            #page-survey-start .bg-white,
+            #page-survey-start [style*="background-color: var(--card-bg)"] {
+                background-color: #F4F0E9 !important;
+                background: #F4F0E9 !important;
+                border-color: transparent !important;
+                border-width: 0 !important;
+            }
             /* 모바일/태블릿: 상단 헤더 영역 숨김 (홈/로그인의 노랑 히어로 내부 헤더는 유지) */
             body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))) > header { display: none !important; }
             body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))) > main { padding-top: 20px !important; }
