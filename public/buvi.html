@@ -493,8 +493,27 @@
             body.subpage-mode #buvi-narrative-box { display: none !important; }
             body.subpage-mode main {
                 max-width: none !important; margin: 0 !important;
-                padding: 20px 20px 100px calc(33.333vw + 20px) !important;
+                padding: 20px 20px 20px calc(33.333vw + 20px) !important;
                 min-height: 100vh; background: #F4F0E9;
+                display: flex; flex-direction: column;
+            }
+            /* 설문/상담/건강정보/도움말: 세로 높이 유동형 - 남은 공간을 채우고 마지막 버튼을 하단에 배치 */
+            body.subpage-mode main > #page-survey-start:not(.hidden),
+            body.subpage-mode main > #page-survey:not(.hidden),
+            body.subpage-mode main > #page-chat:not(.hidden),
+            body.subpage-mode main > #page-records:not(.hidden),
+            body.subpage-mode main > #page-help:not(.hidden) {
+                flex: 1 1 auto;
+                display: flex;
+                flex-direction: column;
+                min-height: 0;
+            }
+            body.subpage-mode main > #page-survey-start:not(.hidden) > *:last-child,
+            body.subpage-mode main > #page-survey:not(.hidden) > *:last-child,
+            body.subpage-mode main > #page-chat:not(.hidden) > *:last-child,
+            body.subpage-mode main > #page-records:not(.hidden) > *:last-child,
+            body.subpage-mode main > #page-help:not(.hidden) > *:last-child {
+                margin-top: auto !important;
             }
             body.subpage-mode #desktop-hero-aside {
                 display: flex !important; flex-direction: column;
