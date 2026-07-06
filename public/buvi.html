@@ -237,32 +237,38 @@
             text-align: center;
             scroll-snap-align: center;
             font-weight: 900;
-            font-size: 1.5rem;
-            color: #E0E7FF;
-            transition: color .15s ease, font-size .15s ease, opacity .15s ease;
+            font-size: 1.25rem;
+            color: #D4D4D8;
+            transition: color .15s ease, font-size .15s ease;
             user-select: none;
             cursor: pointer;
+            white-space: nowrap;
         }
-        .wheel-col li.picker-near   { color: #A5B4FC; font-size: 1.9rem; }
-        .wheel-col li.picker-active { color: #2540E6; font-size: 2.4rem; }
+        .wheel-col li.picker-near   { color: #A1A1AA; font-size: 1.5rem; }
+        .wheel-col li.picker-active { color: #111827; font-size: 1.75rem; }
+        /* 연도(4자리)는 폭이 넓어 폰트 축소 */
+        #wheel-year li { font-size: 1.1rem; }
+        #wheel-year li.picker-near   { font-size: 1.35rem; }
+        #wheel-year li.picker-active { font-size: 1.55rem; }
         .wheel-center-band {
             position: absolute; left: 0; right: 0; top: 50%;
             transform: translateY(-50%);
             height: 64px;
-            border-top: 1.5px solid rgba(37,64,230,.15);
-            border-bottom: 1.5px solid rgba(37,64,230,.15);
+            border-top: 1.5px solid rgba(0,0,0,.08);
+            border-bottom: 1.5px solid rgba(0,0,0,.08);
             pointer-events: none;
         }
         .wheel-unit {
             position: absolute;
             top: 50%;
-            right: 4px;
+            right: 0;
             transform: translateY(-50%);
-            font-weight: 900;
-            color: #2540E6;
-            font-size: 1rem;
+            font-weight: 700;
+            color: #9CA3AF;
+            font-size: 0.8rem;
             pointer-events: none;
         }
+
 
 
         /* ── 리뉴얼된 로그인/홈 페이지 적응형 규칙 ── */
