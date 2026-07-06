@@ -833,6 +833,18 @@
             border-color: transparent !important;
             border-width: 0 !important;
         }
+        /* 설문 시작 페이지 카드: 크림톤 배경/노랑 외곽선 → 뉴트럴 베이지 */
+        #page-survey-start .bg-\[\#FFFBED\]\/40.border-yellow-200,
+        #page-survey-start .bg-\[\#FFFDF4\].border-yellow-200 {
+            background-color: #F4F0E9 !important;
+            border-color: transparent !important;
+            border-width: 0 !important;
+        }
+        /* 설문 시작 페이지: 모바일/태블릿 좌우 여백 20px (3열 1행 그리드 유지) */
+        @media (max-width: 1023px) {
+            body:has(#page-survey-start:not(.hidden)) main { padding-left: 20px !important; padding-right: 20px !important; }
+            body:has(#page-survey-start:not(.hidden)) main > #page-survey-start > div { padding-left: 0 !important; padding-right: 0 !important; }
+        }
     </style>
 </head>
 <body class="min-h-screen pb-32">
