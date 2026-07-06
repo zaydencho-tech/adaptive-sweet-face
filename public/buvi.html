@@ -1747,6 +1747,11 @@
                 tab.classList.toggle('active', isActive);
             });
             window.scrollTo(0,0);
+            try {
+                const HERO_SUBPAGES = ['survey-start','survey','analyzing','result','chat','records','help'];
+                const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
+                document.body.classList.toggle('subpage-mode', isDesktop && HERO_SUBPAGES.includes(pageId));
+            } catch(_) {}
             handlePageEntranceEffects(pageId);
         }
 
