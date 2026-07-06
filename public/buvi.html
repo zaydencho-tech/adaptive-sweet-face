@@ -744,6 +744,26 @@
             body, body.subpage-mode, body.subpage-mode main,
             body:has(#page-home:not(.hidden)) { background: #ffffff !important; }
             header.sticky, nav.fixed.bottom-0 { background-color: #F7F5F1 !important; }
+
+            /* ── 서브페이지(홈 제외) 세로 스크롤 최소화: 여백/간격 압축 ── */
+            body.subpage-mode { padding-bottom: 88px !important; }
+            body.subpage-mode main { padding: 12px 16px !important; }
+            body.subpage-mode main .p-6 { padding: 12px !important; }
+            body.subpage-mode main .p-5 { padding: 10px !important; }
+            body.subpage-mode main .p-4 { padding: 10px !important; }
+            body.subpage-mode main .py-6 { padding-top: 12px !important; padding-bottom: 12px !important; }
+            body.subpage-mode main .py-5 { padding-top: 10px !important; padding-bottom: 10px !important; }
+            body.subpage-mode main .py-4 { padding-top: 10px !important; padding-bottom: 10px !important; }
+            body.subpage-mode main .py-8 { padding-top: 14px !important; padding-bottom: 14px !important; }
+            body.subpage-mode main .my-6, body.subpage-mode main .my-8 { margin-top: 10px !important; margin-bottom: 10px !important; }
+            body.subpage-mode main .mt-6, body.subpage-mode main .mt-8 { margin-top: 10px !important; }
+            body.subpage-mode main .mb-6, body.subpage-mode main .mb-8 { margin-bottom: 10px !important; }
+            body.subpage-mode main .space-y-6 > * + * { margin-top: 12px !important; }
+            body.subpage-mode main .space-y-8 > * + * { margin-top: 14px !important; }
+            body.subpage-mode main .space-y-5 > * + * { margin-top: 10px !important; }
+            body.subpage-mode main .space-y-4 > * + * { margin-top: 8px !important; }
+            body.subpage-mode main .gap-6 { gap: 10px !important; }
+            body.subpage-mode main .gap-8 { gap: 12px !important; }
         }
 
     </style>
