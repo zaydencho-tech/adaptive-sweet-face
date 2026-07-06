@@ -1208,7 +1208,7 @@
 
                 <div id="survey-options-container" class="space-y-2 max-w-xl mx-auto"></div>
 
-                <div class="mt-4 pt-3 border-t border-gray-100 flex gap-3 max-w-xl mx-auto">
+                <div id="survey-nav-bottom" class="mt-4 pt-3 border-t border-gray-100 flex gap-3 max-w-xl mx-auto">
                     <button id="btn-survey-prev-bottom" onclick="prevSurveyQuestion()" class="flex-1 border-2 border-gray-300 hover:bg-gray-50 text-charcoal font-bold rounded-xl flex items-center justify-center transition-all min-h-[52px]">
                         이전 질문으로
                     </button>
@@ -2157,6 +2157,8 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             else if (q.type === 'sgds_single') renderSgdsSingle(container, q.sgdsIdx);
 
             updateNextButtonState();
+            const navBottom = document.getElementById('survey-nav-bottom');
+            if (navBottom) navBottom.classList.toggle('hidden', q.type === 'sgds_single');
             if (q.type !== 'sgds_single') speak(q.question_ko);
         }
 
