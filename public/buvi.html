@@ -1042,18 +1042,16 @@
              ======================================================== -->
         <section id="page-survey" class="app-page hidden">
             <div class="bg-white rounded-3xl p-4 shadow-md border-2" style="background-color: var(--card-bg); border-color: var(--border-color);">
-                <div class="flex items-center justify-between mb-2">
-                    <button id="btn-survey-prev-top" onclick="prevSurveyQuestion()" class="text-gray-500 hover:text-charcoal font-bold flex items-center gap-1 scaled-text-base min-h-[44px]">
+                <div class="flex items-center gap-3 mb-3">
+                    <button id="btn-survey-prev-top" onclick="prevSurveyQuestion()" class="text-charcoal hover:text-black font-black flex items-center gap-1 scaled-text-base min-h-[44px] flex-shrink-0">
                         <i class="fa-solid fa-chevron-left"></i> 이전
                     </button>
-                    <div class="text-right">
-                        <span id="survey-question-counter" class="scaled-text-base font-black text-charcoal block">문항 1 / 7</span>
+                    <div class="flex-1 bg-[#EFEAE0] h-2 rounded-full overflow-hidden">
+                        <div id="survey-progress-bar" class="bg-kakao h-full transition-all duration-300" style="width: 14%;"></div>
                     </div>
+                    <span id="survey-question-counter" class="scaled-text-base font-black text-charcoal flex-shrink-0">1 / 24</span>
                 </div>
 
-                <div class="w-full bg-gray-200 h-2 rounded-full overflow-hidden mb-3">
-                    <div id="survey-progress-bar" class="bg-kakao h-full transition-all duration-300" style="width: 14%;"></div>
-                </div>
 
                 <div class="text-center mb-3 space-y-2">
                     <span id="survey-category-label" class="inline-block bg-yellow-100 text-charcoal font-black px-3 py-1 rounded-full scaled-text-sm">보행 속도</span>
