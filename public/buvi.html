@@ -2891,7 +2891,29 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             onIpaqChange();
         }
 
+        // IPAQ 일수 스테퍼 입력 → 시간·분 행 표시/숨김 + 상태 동기화
+        function onIpaqDaysChange() {
+            ['ipaq_vig','ipaq_mod','ipaq_walk'].forEach(t => {
+                const dKey = `${t}_days`;
+                const inp = document.getElementById(`inp-${dKey}`);
+                if (!inp) return;
+                const raw = inp.value;
+                const timeRow = document.getElementById(`ipaq-time-row-${dKey}`);
+                if (raw === '') {
+                    state.answers[dKey] = null;
+                    if (timeRow) timeRow.className = 'hidden';
+                } else {
+                    const n = parseInt(raw);
+                    if (isNaN(n) || n < 0 || n > 7) return;
+                    state.answers[dKey] = n;
+                    if (timeRow) timeRow.className = (n === 0) ? 'hidden' : 'flex flex-col gap-3';
+                }
+            });
+            onIpaqChange();
+        }
+
         function setIpaqDays(dKey, hKey, mKey, days) {
+
             // 일수 버튼 선택 → hidden input 업데이트 → 시간·분 행 표시
             const inp = document.getElementById(`inp-${dKey}`);
             if (inp) inp.value = days;
