@@ -3380,7 +3380,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
             const foundUser = mockUsers.find(u => u.id === id && (u.pw === pw || u.pin === pw));
 
-            if (foundUser || (id === "BUVI" && pw === "19510302")) {
+            if (foundUser || (id === "BUVI" && pw === "1234")) {
                 state.loginFailedAttempts = 0;
                 alertBox.classList.add('hidden');
                 idInput.style.borderColor = "#D4D4D4";
@@ -4101,7 +4101,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         }
 
         const mockUsers = [
-            { id: "BUVI", pw: "19510302", name: "김남희", phone: "01092673611", pin: "1234" }
+            { id: "BUVI", pw: "1234", name: "김남희", phone: "01092673611", pin: "1234" }
         ];
 
         // 카드뉴스 스와이프 뷰어 (탭/스와이프/버튼으로 넘기기)
