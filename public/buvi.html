@@ -349,7 +349,7 @@
                 height: 61px; display: flex; align-items: center; justify-content: space-between; gap: 4px;
             }
             body:has(#page-login:not(.hidden)) > header > div:first-child,
-            body:has(#page-home:not(.hidden)) > header > div:first-child { display: flex !important; align-items: center; gap: 8px; }
+            body:has(#page-home:not(.hidden)) > header > div:first-child { display: none !important; }
             body:has(#page-login:not(.hidden)) > header > div:last-child,
             body:has(#page-home:not(.hidden)) > header > div:last-child {
                 background: transparent !important; padding: 0 !important; gap: 4px !important;
@@ -363,7 +363,7 @@
             }
             body:has(#page-login:not(.hidden)) > header .header-wordmark,
             body:has(#page-home:not(.hidden)) > header .header-wordmark {
-                display: none !important;
+                display: block; height: 56px; width: auto; object-fit: contain;
             }
             body:has(#page-login:not(.hidden)) > header .font-scale-btn,
             body:has(#page-home:not(.hidden)) > header .font-scale-btn {
@@ -681,7 +681,7 @@
                 border-radius: 16px !important; padding: 12px 16px !important; z-index: 60;
                 height: 61px; display: flex; align-items: center; justify-content: space-between; gap: 4px;
             }
-            body.subpage-mode > header > div:first-child { display: flex !important; align-items: center; gap: 8px; }
+            body.subpage-mode > header > div:first-child { display: none !important; }
             body.subpage-mode > header > div:last-child {
                 background: transparent !important; padding: 0 !important; gap: 4px !important;
                 display: flex; width: 100%; align-items: center;
@@ -692,7 +692,7 @@
                 margin-left: auto;
             }
             body.subpage-mode > header .header-wordmark {
-                display: none !important;
+                display: block; height: 56px; width: auto; object-fit: contain;
             }
             body.subpage-mode > header .font-scale-btn {
                 min-height: 37px !important; height: 37px !important;
