@@ -579,6 +579,19 @@
             body.subpage-mode main .bg-stone-100,
             body.subpage-mode main .bg-zinc-50,
             body.subpage-mode main .bg-zinc-100 { background-color: #F7F5F1 !important; }
+            /* 크림톤(#FFFDF5, #FFFDF4, #FFFDF0 등) 배경도 #F7F5F1로 통일 */
+            body.subpage-mode main .bg-amber-50,
+            body.subpage-mode main .bg-yellow-50,
+            body.subpage-mode main .bg-orange-50,
+            body.subpage-mode main .bg-\[\#FFFDF5\],
+            body.subpage-mode main .bg-\[\#FFFDF4\],
+            body.subpage-mode main .bg-\[\#FFFDF0\],
+            body.subpage-mode main [style*="#FFFDF5"],
+            body.subpage-mode main [style*="#FFFDF4"],
+            body.subpage-mode main [style*="#FFFDF0"],
+            body.subpage-mode main [style*="#fffdf5"],
+            body.subpage-mode main [style*="#fffdf4"],
+            body.subpage-mode main [style*="#fffdf0"] { background-color: #F7F5F1 !important; }
         }
         .header-wordmark { display: none; }
 
