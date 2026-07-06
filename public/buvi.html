@@ -2825,42 +2825,21 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 </div>
                 <input id="inp-${dKey}" type="hidden" value="${dVal !== null ? dVal : ''}">
 
-                <!-- 시간·분 키패드 (일수 선택 후 표시) -->
+                <!-- 시간·분 스테퍼 (일수 선택 후 표시) -->
                 <div id="ipaq-time-row-${dKey}" class="${isHidden ? 'hidden' : 'flex flex-col gap-3'}">
                     <p class="font-bold text-gray-800">그런 날 하루에 보통 얼마나 하셨습니까?</p>
-                    <!-- 시간·분 탭 -->
-                    <div class="flex gap-2">
-                        <button id="ipaq-tab-h-${dKey}" onclick="setIpaqTab('${dKey}','h')"
-                            class="flex-1 py-2.5 rounded-2xl font-black text-sm border-2 transition-all bg-blue-600 text-white border-blue-600">시간</button>
-                        <button id="ipaq-tab-m-${dKey}" onclick="setIpaqTab('${dKey}','m')"
-                            class="flex-1 py-2.5 rounded-2xl font-black text-sm border-2 transition-all bg-gray-100 text-gray-600 border-gray-300">분</button>
-                    </div>
-                    <!-- 현재 값 표시 -->
-                    <div class="flex gap-3">
-                        <div id="ipaq-card-h-${dKey}" class="flex-1 flex flex-col items-center p-3 rounded-2xl border-2 border-blue-400 bg-blue-50 gap-0.5">
-                            <span class="text-xs font-bold text-gray-400">시간</span>
-                            <span id="disp-${hKey}" class="text-3xl font-black text-charcoal">${hVal || '—'}</span>
+                    <div class="flex flex-col gap-3">
+                        <div class="flex flex-col gap-1">
+                            <label class="text-sm font-bold text-gray-500 text-center">시간</label>
+                            ${makeStepper(`inp-${hKey}`,'시간',0,23,1,hVal,'onIpaqChange',0)}
                         </div>
-                        <div id="ipaq-card-m-${dKey}" class="flex-1 flex flex-col items-center p-3 rounded-2xl border-2 border-transparent gap-0.5">
-                            <span class="text-xs font-bold text-gray-400">분</span>
-                            <span id="disp-${mKey}" class="text-3xl font-black text-charcoal">${mVal || '—'}</span>
+                        <div class="flex flex-col gap-1">
+                            <label class="text-sm font-bold text-gray-500 text-center">분</label>
+                            ${makeStepper(`inp-${mKey}`,'분',0,59,5,mVal,'onIpaqChange',0)}
                         </div>
                     </div>
-                    <!-- 공용 키패드 -->
-                    <div class="grid grid-cols-3 gap-2">
-                        ${[1,2,3,4,5,6,7,8,9].map(n => `
-                        <button type="button" onclick="ipaqKpPress('${dKey}','${hKey}','${mKey}',${n})"
-                            class="h-14 text-2xl font-black bg-white border-2 border-gray-300 rounded-2xl hover:bg-blue-50 hover:border-blue-400 active:bg-blue-100 transition-all select-none">${n}</button>`).join('')}
-                        <button type="button" onclick="ipaqKpClear('${dKey}','${hKey}','${mKey}')"
-                            class="h-14 text-sm font-black bg-red-50 border-2 border-red-200 rounded-2xl hover:bg-red-100 active:bg-red-200 transition-all text-red-500 select-none">전체삭제</button>
-                        <button type="button" onclick="ipaqKpPress('${dKey}','${hKey}','${mKey}',0)"
-                            class="h-14 text-2xl font-black bg-white border-2 border-gray-300 rounded-2xl hover:bg-blue-50 hover:border-blue-400 active:bg-blue-100 transition-all select-none">0</button>
-                        <button type="button" onclick="ipaqKpBack('${dKey}','${hKey}','${mKey}')"
-                            class="h-14 text-2xl font-black bg-gray-100 border-2 border-gray-300 rounded-2xl hover:bg-gray-200 active:bg-gray-300 transition-all select-none">⌫</button>
-                    </div>
-                    <input id="inp-${hKey}" type="hidden" value="${hVal}">
-                    <input id="inp-${mKey}" type="hidden" value="${mVal}">
                 </div>
+
             </div>`;
         }
 
