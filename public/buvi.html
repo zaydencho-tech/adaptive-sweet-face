@@ -2456,25 +2456,17 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             </div>`;
 
             if (step === 'year') {
-                // 연도: 숫자 키패드 (4자리)
-                const disp = Y || '——';
+                // 연도: 증감 조작계(스테퍼)로 직접 조절 또는 타이핑
+                const curY = new Date().getFullYear();
+                const initY = (Y && Y.length === 4) ? Y : '';
                 html += `
-                <p class="font-black text-gray-700 text-center text-lg">① 태어난 <span class="text-blue-600">연도</span>를 눌러주세요</p>
-                <div class="flex items-center justify-between bg-white border-2 border-blue-400 rounded-2xl px-5 py-4">
-                    <span id="age-year-disp" class="text-4xl font-black text-charcoal tracking-widest">${disp}</span>
-                    <span class="text-lg font-bold text-gray-400">년</span>
-                </div>
-                <div class="grid grid-cols-3 gap-2">
-                    ${[1,2,3,4,5,6,7,8,9].map(n=>`
-                    <button type="button" onclick="ageYearPress(${n})"
-                        class="h-16 text-3xl font-black bg-white border-2 border-gray-300 rounded-2xl hover:bg-blue-50 hover:border-blue-400 active:bg-blue-100 transition-all select-none">${n}</button>`).join('')}
-                    <button type="button" onclick="ageYearClear()"
-                        class="h-16 text-sm font-black bg-red-50 border-2 border-red-200 rounded-2xl hover:bg-red-100 text-red-500 select-none">전체삭제</button>
-                    <button type="button" onclick="ageYearPress(0)"
-                        class="h-16 text-3xl font-black bg-white border-2 border-gray-300 rounded-2xl hover:bg-blue-50 hover:border-blue-400 active:bg-blue-100 transition-all select-none">0</button>
-                    <button type="button" onclick="ageYearBack()"
-                        class="h-16 text-2xl font-black bg-gray-100 border-2 border-gray-300 rounded-2xl hover:bg-gray-200 transition-all select-none">⌫</button>
-                </div>`;
+                <p class="font-black text-gray-700 text-center text-lg">① 태어난 <span class="text-blue-600">연도</span>를 조절해 주세요</p>
+                ${makeStepper('age-year-inp','년',1900,curY,1,initY,'onAgeYearInput',1955)}
+                <button type="button" onclick="ageYearConfirm()"
+                    class="mt-1 h-14 rounded-2xl bg-blue-600 text-white text-lg font-black hover:bg-blue-700 active:bg-blue-800 transition-all">
+                    연도 확정 → 월 선택
+                </button>`;
+
 
             } else if (step === 'month') {
                 // 월: 1~12 큰 선택 버튼 (스크롤 없음)
