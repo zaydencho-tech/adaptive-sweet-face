@@ -2651,7 +2651,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 const curY = new Date().getFullYear();
                 const initY = (Y && Y.length === 4) ? Y : '';
                 html += `
-                <p class="font-black text-gray-700 text-center text-lg">① 태어난 <span class="text-blue-600">연도</span>를 조절해 주세요</p>
+                
                 ${makeStepper('age-year-inp','년',1900,curY,1,initY,'onAgeYearInput',1955)}
                 <button type="button" onclick="ageYearConfirm()"
                     class="mt-1 h-14 rounded-2xl bg-blue-600 text-white text-lg font-black hover:bg-blue-700 active:bg-blue-800 transition-all">
