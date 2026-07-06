@@ -2552,6 +2552,28 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             validateBirthDate();
         }
 
+        function onAgeYearInput() {
+            const inp = document.getElementById('age-year-inp');
+            if (!inp) return;
+            window._bdY = inp.value || '';
+            validateBirthDate();
+        }
+
+        function ageYearConfirm() {
+            const inp = document.getElementById('age-year-inp');
+            if (!inp) return;
+            let y = parseInt(inp.value);
+            const now = new Date();
+            if (isNaN(y)) y = parseInt(inp.placeholder) || 1955;
+            if (y < 1900) y = 1900;
+            if (y > now.getFullYear()) y = now.getFullYear();
+            window._bdY = String(y);
+            window._bdM = 0; window._bdD = 0;
+            window._ageStep = 'month';
+            renderAgeSteps();
+        }
+
+
         function ageSelectMonth(m) {
             window._bdM = m;
             window._bdD = 0;
