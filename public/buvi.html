@@ -2678,7 +2678,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 // 일: 해당 월 일수만큼 큰 선택 버튼
                 const daysInMonth = new Date(parseInt(Y), M, 0).getDate();
                 html += `
-                <p class="font-black text-gray-700 text-center text-lg">③ 태어난 <span class="text-blue-600">일</span>을 눌러주세요</p>
+                
                 <div class="grid grid-cols-5 gap-1.5">
                     ${Array.from({length:daysInMonth},(_,i)=>i+1).map(d => {
                         const active = D === d;
