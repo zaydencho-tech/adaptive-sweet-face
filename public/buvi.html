@@ -2178,11 +2178,127 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 window._bdD = parseInt(saved.slice(6,8));
                 window._ageStep = 'day';
             }
-            container.innerHTML = `<div id="age-root" class="flex flex-col gap-4 max-w-sm mx-auto"></div>`;
-            renderAgeSteps();
+            const isWheel = window.matchMedia('(max-width: 1023px)').matches;
+            container.innerHTML = `<div id="age-root" class="flex flex-col gap-4 max-w-sm mx-auto w-full"></div>`;
+            if (isWheel) renderAgeWheel(); else renderAgeSteps();
+        }
+
+        // ── 롤링(휠) 형태 생년월일 피커 (태블릿/모바일 전용) ──────────
+        const WHEEL_ITEM_H = 64;
+        function renderAgeWheel() {
+            const root = document.getElementById('age-root');
+            if (!root) return;
+            const now = new Date();
+            const curY = now.getFullYear();
+            const years = [];
+            for (let y = curY; y >= 1900; y--) years.push(y);
+            const months = Array.from({length:12},(_,i)=>i+1);
+            const Y = parseInt(window._bdY) || 1955;
+            const M = window._bdM || 1;
+            const D = window._bdD || 1;
+            const dim = new Date(Y, M, 0).getDate();
+            const days = Array.from({length:dim},(_,i)=>i+1);
+            root.innerHTML = `
+                <p class="font-black text-gray-700 text-center text-lg">태어난 <span class="text-blue-600">생년월일</span>을 위/아래로 굴려 맞춰주세요</p>
+                <div class="wheel-picker" id="age-wheel">
+                    <div class="wheel-center-band"></div>
+                    <div class="wheel-col">
+                        <ul id="wheel-year">${years.map(y=>`<li data-v="${y}">${y}</li>`).join('')}</ul>
+                        <span class="wheel-unit">년</span>
+                    </div>
+                    <div class="wheel-col">
+                        <ul id="wheel-month">${months.map(m=>`<li data-v="${m}">${m}</li>`).join('')}</ul>
+                        <span class="wheel-unit">월</span>
+                    </div>
+                    <div class="wheel-col">
+                        <ul id="wheel-day">${days.map(d=>`<li data-v="${d}">${d}</li>`).join('')}</ul>
+                        <span class="wheel-unit">일</span>
+                    </div>
+                </div>
+                <p id="age-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]"></p>`;
+            setupWheelCol('wheel-year', years, Y, (v)=>{
+                if (String(v) === window._bdY) return;
+                window._bdY = String(v);
+                rebuildWheelDay();
+                validateBirthDate();
+            });
+            setupWheelCol('wheel-month', months, M, (v)=>{
+                if (v === window._bdM) return;
+                window._bdM = v;
+                rebuildWheelDay();
+                validateBirthDate();
+            });
+            setupWheelCol('wheel-day', days, D, (v)=>{
+                if (v === window._bdD) return;
+                window._bdD = v;
+                validateBirthDate();
+            });
+            // 초기 상태 반영 (저장값이 없을 때 기본값을 상태에 기록)
+            window._bdY = String(Y); window._bdM = M; window._bdD = D;
+            validateBirthDate();
+        }
+
+        function rebuildWheelDay() {
+            const Y = parseInt(window._bdY) || 1955;
+            const M = window._bdM || 1;
+            const dim = new Date(Y, M, 0).getDate();
+            if (!window._bdD || window._bdD > dim) window._bdD = Math.min(window._bdD || 1, dim);
+            const ul = document.getElementById('wheel-day');
+            if (!ul) return;
+            const days = Array.from({length:dim},(_,i)=>i+1);
+            ul.innerHTML = days.map(d=>`<li data-v="${d}">${d}</li>`).join('');
+            setupWheelCol('wheel-day', days, window._bdD, (v)=>{
+                if (v === window._bdD) return;
+                window._bdD = v;
+                validateBirthDate();
+            });
+        }
+
+        function setupWheelCol(id, values, current, onChange) {
+            const ul = document.getElementById(id);
+            if (!ul) return;
+            const idx = Math.max(0, values.indexOf(current));
+            requestAnimationFrame(() => {
+                ul.scrollTop = idx * WHEEL_ITEM_H;
+                updateWheelActive(ul);
+            });
+            let t;
+            ul.addEventListener('scroll', () => {
+                updateWheelActive(ul);
+                clearTimeout(t);
+                t = setTimeout(() => {
+                    const i = Math.round(ul.scrollTop / WHEEL_ITEM_H);
+                    const clamped = Math.max(0, Math.min(values.length - 1, i));
+                    // 스냅 보정
+                    const target = clamped * WHEEL_ITEM_H;
+                    if (Math.abs(ul.scrollTop - target) > 1) {
+                        ul.scrollTo({ top: target, behavior: 'smooth' });
+                    }
+                    const li = ul.children[clamped];
+                    if (li) onChange(parseInt(li.dataset.v));
+                }, 140);
+            });
+            // 클릭으로도 선택 가능
+            ul.addEventListener('click', (e) => {
+                const li = e.target.closest('li');
+                if (!li) return;
+                const i = Array.from(ul.children).indexOf(li);
+                if (i < 0) return;
+                ul.scrollTo({ top: i * WHEEL_ITEM_H, behavior: 'smooth' });
+            });
+        }
+
+        function updateWheelActive(ul) {
+            const i = Math.round(ul.scrollTop / WHEEL_ITEM_H);
+            Array.from(ul.children).forEach((li, k) => {
+                li.classList.remove('picker-active','picker-near');
+                if (k === i) li.classList.add('picker-active');
+                else if (Math.abs(k - i) === 1) li.classList.add('picker-near');
+            });
         }
 
         function renderAgeSteps() {
+
             const root = document.getElementById('age-root');
             if (!root) return;
             const Y = window._bdY, M = window._bdM, D = window._bdD;
