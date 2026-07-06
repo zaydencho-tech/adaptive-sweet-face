@@ -815,10 +815,16 @@
         /* 설문 입력 완료 텍스트 숨김 (다음 버튼 활성화로 상태 표시) */
         #age-ok, #bmi-ok, #poly-ok, #ipaq-vig-ok, #ipaq-mod-ok, #ipaq-walk-ok, #ipaq-sit-ok, #tug-ok { display: none !important; }
         /* 모바일: 질문 텍스트와 일러스트 사이 빈 힌트 박스/여백 최소화 */
+        /* 모바일: 질문 텍스트와 일러스트 사이 빈 힌트 박스/여백 최소화 */
         @media (max-width: 1023px) {
             #survey-hint-box:has(#survey-hint-text:empty) { display: none !important; }
             #page-survey .text-center.mb-3 { margin-bottom: 4px !important; }
             #page-survey .text-center.mb-3.space-y-2 > * + * { margin-top: 4px !important; }
+            /* 건강정보/도움말: 외곽 투명 카드의 좌우 padding 제거 → 상담 페이지와 동일한 좌우 여백 */
+            #page-records > *, #page-help > * {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
         }
         /* 설문 설명 박스: 연한 노랑 배경/외곽선 → 뉴트럴 베이지 */
         .bg-yellow-50.border-yellow-200,
