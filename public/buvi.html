@@ -3885,11 +3885,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 idInput.style.borderColor = "#D4D4D4";
                 pwInput.style.borderColor = "#D4D4D4";
                 
-                showAppModal("🎉", "로그인 성공!", `어서오세요, 어르신! 기력 돌봄 서비스를 시작해 드릴게요.`);
-                setTimeout(() => {
-                    closeAppModal();
-                    navTo('home');
-                }, 2000);
+                navTo('home');
             } else {
                 state.loginFailedAttempts++;
                 idInput.style.borderColor = "#9E2A1F";
