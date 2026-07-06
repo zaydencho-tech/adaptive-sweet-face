@@ -536,6 +536,26 @@
                 margin-top: auto !important;
                 margin-bottom: auto !important;
             }
+            /* 카드 내부 좌우 여백을 넉넉히 확보 */
+            body.subpage-mode main > #page-survey-start:not(.hidden) > *,
+            body.subpage-mode main > #page-survey:not(.hidden) > *,
+            body.subpage-mode main > #page-chat:not(.hidden) > *,
+            body.subpage-mode main > #page-records:not(.hidden) > *,
+            body.subpage-mode main > #page-help:not(.hidden) > * {
+                padding-left: 2.5rem !important;
+                padding-right: 2.5rem !important;
+            }
+            /* 하단 액션 버튼(마지막 자식)을 카드 폭보다 좁게 가운데 정렬 */
+            body.subpage-mode main > #page-survey-start:not(.hidden) > * > *:last-child,
+            body.subpage-mode main > #page-survey:not(.hidden) > * > *:last-child,
+            body.subpage-mode main > #page-chat:not(.hidden) > * > *:last-child,
+            body.subpage-mode main > #page-records:not(.hidden) > * > *:last-child,
+            body.subpage-mode main > #page-help:not(.hidden) > * > *:last-child {
+                max-width: 32rem;
+                width: 100%;
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
             body.subpage-mode #desktop-hero-aside {
                 display: flex !important; flex-direction: column;
                 position: fixed; top: 0; left: 0; bottom: 0;
