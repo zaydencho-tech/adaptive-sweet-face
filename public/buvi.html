@@ -3194,26 +3194,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     </div>
                     <button onclick="tugReset()" class="text-sm text-gray-400 font-bold underline">↺ 초기화</button>
                 </div>
-                <!-- 직접 입력: 소수점 키패드 (항상 표시) -->
-                <div class="flex flex-col gap-2">
-                    <p class="text-sm font-bold text-gray-500 text-center">또는 직접 입력 (단위: 초)</p>
-                    <div class="flex items-center justify-between bg-gray-50 border-2 border-blue-300 rounded-2xl px-4 py-3">
-                        <span id="tug-kp-disp" class="text-4xl font-black text-charcoal tracking-wider min-w-[80px]">${saved || '—'}</span>
-                        <span class="text-lg font-bold text-gray-400">초</span>
-                    </div>
-                    <div class="grid grid-cols-3 gap-2">
-                        ${[1,2,3,4,5,6,7,8,9].map(n=>`
-                        <button type="button" onclick="tugKpPress(${n})"
-                            class="h-14 text-2xl font-black bg-white border-2 border-gray-300 rounded-2xl hover:bg-blue-50 hover:border-blue-400 active:bg-blue-100 transition-all select-none">${n}</button>`).join('')}
-                        <button type="button" onclick="tugKpDot()"
-                            class="h-14 text-2xl font-black bg-white border-2 border-gray-300 rounded-2xl hover:bg-blue-50 hover:border-blue-400 active:bg-blue-100 transition-all select-none">.</button>
-                        <button type="button" onclick="tugKpPress(0)"
-                            class="h-14 text-2xl font-black bg-white border-2 border-gray-300 rounded-2xl hover:bg-blue-50 hover:border-blue-400 active:bg-blue-100 transition-all select-none">0</button>
-                        <button type="button" onclick="tugKpBack()"
-                            class="h-14 text-2xl font-black bg-gray-100 border-2 border-gray-300 rounded-2xl hover:bg-gray-200 active:bg-gray-300 transition-all select-none">⌫</button>
-                    </div>
-                    <input id="inp-tug" type="hidden" value="${saved}">
-                </div>
+                <input id="inp-tug" type="hidden" value="${saved}">
                 <p id="tug-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]">${saved?'✓ '+saved+'초 입력 완료':''}</p>
             </div>`;
         }
