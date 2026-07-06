@@ -1018,6 +1018,7 @@
                             <div class="space-y-4">
                                 <h1 class="font-gapyeong text-4xl md:text-5xl font-black leading-tight text-charcoal">안녕하세요<br>어르신<em class="not-italic">!</em></h1>
                                 <p class="text-base md:text-lg font-bold leading-relaxed text-charcoal">건강한 매일을 약속할<br><strong>어르신의 소중한<br>건강 동반자</strong>입니다.</p>
+                                <button onclick="navTo('about')" class="inline-flex items-center gap-2 bg-white text-charcoal font-black rounded-full px-5 py-2.5 shadow-sm hover:brightness-95 transition text-sm md:text-base">BUVI 알아보기 <i class="fa-solid fa-arrow-right"></i></button>
                             </div>
                             <div class="flex flex-col items-end gap-1 flex-shrink-0">
                                 <div class="buvi-speech-svg font-gapyeong text-sm md:text-base font-black text-center leading-tight"><svg viewBox="0 0 153 156" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M3.48999 65.0096C3.48999 31.0136 36.1992 3.48999 76.49 3.48999C116.781 3.48999 149.49 31.0136 149.49 65.0096C149.49 99.9251 129.82 138.383 89.1246 152.398C92.7306 146.201 98.2083 129.756 76.271 127.112C35.8916 127.112 3.48999 98.9306 3.48999 65.0096Z" fill="#1A1A1A" stroke="black" stroke-width="6.98008" stroke-miterlimit="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>반가워요,<br>부비예요.</span></div>
@@ -1041,7 +1042,7 @@
                     </div>
 
                     <!-- Mobile/Tablet only: link-focused layout -->
-                    <div class="lg:hidden mt-4 space-y-3">
+                    <div class="lg:hidden -mt-4 relative z-10 rounded-t-2xl px-4 pt-4 pb-4 space-y-3" style="background:#F4F0E9;">
                         <!-- 건강 모니터링 header card -->
                         <div class="rounded-2xl p-5" style="background:#F4F0E9;">
                             <div class="flex items-center justify-between gap-3 flex-wrap">
@@ -1163,6 +1164,74 @@
                 </div>
             </div>
         </section>
+
+        <!-- ========================================================
+             PAGE 2-1: ABOUT BUVI (부비 소개 · 약속철학 서브페이지)
+             ======================================================== -->
+        <section id="page-about" class="app-page hidden">
+            <div class="max-w-5xl mx-auto space-y-3">
+                <!-- Header strip -->
+                <div class="rounded-2xl p-4 md:p-5 flex items-center justify-between gap-3" style="background:#FEE500;">
+                    <div class="flex items-center gap-3 min-w-0">
+                        <img src="/owl-hero.svg" alt="" class="w-14 h-14 md:w-16 md:h-16 object-contain shrink-0">
+                        <div class="min-w-0">
+                            <p class="font-black text-lg md:text-xl text-charcoal truncate">부비(BUVI) 알아보기</p>
+                            <p class="text-xs md:text-sm font-bold text-charcoal/70">어르신 곁을 지키는 건강 동반자</p>
+                        </div>
+                    </div>
+                    <button onclick="navTo('home')" class="shrink-0 bg-white text-charcoal font-black rounded-full px-3 py-2 text-xs md:text-sm shadow-sm"><i class="fa-solid fa-arrow-left mr-1"></i>홈으로</button>
+                </div>
+
+                <!-- Intro -->
+                <div class="bg-white rounded-2xl p-4 md:p-5 border border-stone-200">
+                    <h2 class="font-black text-base md:text-lg text-charcoal mb-1">부비는 이런 서비스예요</h2>
+                    <p class="text-sm md:text-base font-medium text-gray-700 leading-relaxed">노쇠 신호를 미리 살피고, 어르신의 하루하루 활력을 되찾도록 돕는 <b>건강 동반 플랫폼</b>입니다. 데이터와 대화를 함께 살펴 어르신 한 분 한 분을 <b>더 오래, 더 가까이</b> 곁에서 지킵니다.</p>
+                </div>
+
+                <!-- 약속철학 4-card grid: dense on mobile/tablet -->
+                <div class="bg-white rounded-2xl p-4 md:p-5 border border-stone-200">
+                    <h2 class="font-black text-base md:text-lg text-charcoal mb-3">부비(BUVI)의 약속철학</h2>
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3">
+                        <div class="rounded-xl p-3 md:p-4" style="background:#F7F5F0">
+                            <div class="text-2xl md:text-3xl mb-1 leading-none">🤓</div>
+                            <div class="text-sm md:text-base font-black leading-tight text-charcoal">바라봅니다</div>
+                            <div class="text-xs md:text-sm font-semibold mb-1" style="color:var(--blue-main)"><b>B</b>eholding</div>
+                            <p class="text-xs md:text-sm text-gray-700 font-medium leading-snug">데이터만이 아니라 어르신 한 분의 이야기 속 의미까지 주목합니다.</p>
+                        </div>
+                        <div class="rounded-xl p-3 md:p-4" style="background:#F7F5F0">
+                            <div class="text-2xl md:text-3xl mb-1 leading-none">🥰</div>
+                            <div class="text-sm md:text-base font-black leading-tight text-charcoal">이해합니다</div>
+                            <div class="text-xs md:text-sm font-semibold mb-1" style="color:var(--blue-main)"><b>U</b>nderstanding</div>
+                            <p class="text-xs md:text-sm text-gray-700 font-medium leading-snug">말투·생활습관·건강데이터를 종합해 어르신을 더 잘 이해합니다.</p>
+                        </div>
+                        <div class="rounded-xl p-3 md:p-4" style="background:#F7F5F0">
+                            <div class="text-2xl md:text-3xl mb-1 leading-none">👨‍🍳</div>
+                            <div class="text-sm md:text-base font-black leading-tight text-charcoal">안내합니다</div>
+                            <div class="text-xs md:text-sm font-semibold mb-1" style="color:var(--blue-main)"><b>V</b>itality</div>
+                            <p class="text-xs md:text-sm text-gray-700 font-medium leading-snug">이해를 바탕으로 노쇠 신호를 미리 살피고 활력을 되찾도록 돕습니다.</p>
+                        </div>
+                        <div class="rounded-xl p-3 md:p-4" style="background:#F7F5F0">
+                            <div class="text-2xl md:text-3xl mb-1 leading-none">😎</div>
+                            <div class="text-sm md:text-base font-black leading-tight text-charcoal">곁을 지킵니다</div>
+                            <div class="text-xs md:text-sm font-semibold mb-1" style="color:var(--blue-main)"><b>I</b>ndependence</div>
+                            <p class="text-xs md:text-sm text-gray-700 font-medium leading-snug">오랜 기간 곁을 지키며 스스로 건강을 관리하는 자립을 응원합니다.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick shortcuts -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
+                    <button onclick="tryNavigateWithWarning('survey-start')" class="rounded-2xl py-3 px-3 font-black flex items-center justify-center gap-2 text-sm md:text-base" style="background:#FFF3B0;"><i class="fa-solid fa-file-pen"></i> 설문</button>
+                    <button onclick="tryNavigateWithWarning('chat')" class="rounded-2xl py-3 px-3 font-black flex items-center justify-center gap-2 text-sm md:text-base" style="background:#FFF3B0;"><i class="fa-solid fa-comments"></i> 상담</button>
+                    <button onclick="tryNavigateWithWarning('records')" class="rounded-2xl py-3 px-3 font-black flex items-center justify-center gap-2 text-sm md:text-base" style="background:#FFF3B0;"><i class="fa-solid fa-book-medical"></i> 건강정보</button>
+                    <button onclick="tryNavigateWithWarning('help')" class="rounded-2xl py-3 px-3 font-black flex items-center justify-center gap-2 text-sm md:text-base" style="background:#FFF3B0;"><i class="fa-solid fa-circle-info"></i> 도움말</button>
+                </div>
+
+                <button onclick="navTo('home')" class="w-full bg-black text-white font-black rounded-2xl py-3.5 text-base md:text-lg hover:bg-neutral-800 transition">홈으로 돌아가기</button>
+            </div>
+        </section>
+
+
 
 
         <!-- ========================================================
