@@ -479,6 +479,68 @@
         .rounded-b-sm, .rounded-b-md, .rounded-b-lg, .rounded-b-xl, .rounded-b-2xl, .rounded-b-3xl { border-bottom-left-radius: 16px !important; border-bottom-right-radius: 16px !important; }
         .rounded-l-sm, .rounded-l-md, .rounded-l-lg, .rounded-l-xl, .rounded-l-2xl, .rounded-l-3xl { border-top-left-radius: 16px !important; border-bottom-left-radius: 16px !important; }
         .rounded-r-sm, .rounded-r-md, .rounded-r-lg, .rounded-r-xl, .rounded-r-2xl, .rounded-r-3xl { border-top-right-radius: 16px !important; border-bottom-right-radius: 16px !important; }
+
+        /* ── Desktop subpage frame: shared yellow left column for 설문/상담/건강정보/도움말 ── */
+        #desktop-hero-aside { display: none; }
+        @media (min-width: 1024px) {
+            body.subpage-mode { background: #F4F0E9 !important; padding-bottom: 0 !important; position: relative; }
+            body.subpage-mode nav.fixed.bottom-0 { display: none !important; }
+            body.subpage-mode #buvi-narrative-box { display: none !important; }
+            body.subpage-mode main {
+                max-width: none !important; margin: 0 !important;
+                padding: 20px 20px 100px calc(33.333vw + 20px) !important;
+                min-height: 100vh; background: #F4F0E9;
+            }
+            body.subpage-mode #desktop-hero-aside {
+                display: flex !important; flex-direction: column;
+                position: fixed; top: 0; left: 0; bottom: 0;
+                width: 33.333vw; background: #F3E762; z-index: 5;
+                overflow-y: auto;
+            }
+            body.subpage-mode #desktop-hero-aside .hero-yellow {
+                padding: 114px 2.5rem 3rem; flex: 1 1 auto; position: relative;
+            }
+            body.subpage-mode #desktop-hero-aside .hero-white {
+                margin: 0 20px; border-radius: 16px 16px 0 0;
+                background: #fff; padding: 2rem 2rem 2.5rem;
+            }
+            body.subpage-mode > header {
+                position: absolute; top: 24px; left: 24px;
+                width: calc(33.333vw - 48px);
+                background: #fff !important; border: 0 !important;
+                box-shadow: 0 4px 34px rgba(0,0,0,.08) !important;
+                border-radius: 16px !important; padding: 12px 16px !important; z-index: 60;
+                height: 61px; display: flex; align-items: center; justify-content: space-between; gap: 4px;
+            }
+            body.subpage-mode > header > div:first-child { display: none !important; }
+            body.subpage-mode > header > div:last-child {
+                background: transparent !important; padding: 0 !important; gap: 4px !important;
+                display: flex; width: 100%; align-items: center;
+            }
+            body.subpage-mode > header > div:last-child > div {
+                background: transparent !important; padding: 0 !important;
+                display: flex; width: 100%; align-items: center; justify-content: flex-start; gap: 4px;
+            }
+            body.subpage-mode > header .font-scale-btn {
+                min-height: 37px !important; height: 37px !important;
+                padding: 0 !important; min-width: 38px;
+                border-radius: 12px !important; box-shadow: none !important;
+                font-weight: 700 !important; font-size: 15px !important;
+                background: #F2F5F9 !important; color: #1A1A1A !important;
+                display: flex; align-items: center; justify-content: center;
+            }
+            body.subpage-mode > header .font-scale-btn[data-scale="1.3"] {
+                min-width: 43px; background: #111729 !important; color: #fff !important;
+            }
+            body.subpage-mode > header .tts-listen-btn {
+                min-height: 37px !important; height: 37px !important;
+                padding: 0 16px !important; min-width: 86px;
+                border-radius: 12px !important; box-shadow: none !important;
+                font-weight: 700 !important; font-size: 15px !important;
+                background: #F8E647 !important; color: #111729 !important;
+                margin-left: auto !important; display: flex; align-items: center; justify-content: center;
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen pb-32">
@@ -1227,6 +1289,36 @@
 
     </main>
 
+    <!-- [데스크탑 전용 공유 왼쪽 히어로 - 설문/상담/건강정보/도움말 페이지에서 표시] -->
+    <aside id="desktop-hero-aside" aria-hidden="true">
+        <div class="hero-yellow">
+            <div class="flex items-start justify-between gap-3">
+                <div class="space-y-4">
+                    <h1 class="font-gapyeong text-4xl md:text-5xl font-black leading-tight text-charcoal">안녕하세요<br>어르신<em class="not-italic">!</em></h1>
+                    <p class="text-base md:text-lg font-bold leading-relaxed text-charcoal">건강한 매일을 약속할<br><strong>어르신의 소중한<br>건강 동반자</strong>입니다.</p>
+                </div>
+                <div class="flex flex-col items-end gap-1 flex-shrink-0">
+                    <div class="buvi-speech-svg font-gapyeong text-sm md:text-base font-black text-center leading-tight"><svg viewBox="0 0 153 156" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M3.48999 65.0096C3.48999 31.0136 36.1992 3.48999 76.49 3.48999C116.781 3.48999 149.49 31.0136 149.49 65.0096C149.49 99.9251 129.82 138.383 89.1246 152.398C92.7306 146.201 98.2083 129.756 76.271 127.112C35.8916 127.112 3.48999 98.9306 3.48999 65.0096Z" fill="#1A1A1A" stroke="black" stroke-width="6.98008" stroke-miterlimit="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>반가워요,<br>부비예요.</span></div>
+                    <img src="/owl-hero.svg" alt="BUVI" class="object-contain" style="width:152px;height:182px;">
+                </div>
+            </div>
+        </div>
+        <div class="hero-white space-y-4">
+            <div>
+                <p class="text-xl font-black text-charcoal">무엇을 도와드릴까요?</p>
+                <p class="text-sm text-gray-500 font-bold mt-1">아래 메뉴에서 바로 이동하실 수 있어요.</p>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+                <button onclick="tryNavigateWithWarning('survey-start')" class="rounded-2xl py-4 px-4 font-black flex items-center gap-3" style="background:#FFF3B0;"><i class="fa-solid fa-file-pen"></i> 설문</button>
+                <button onclick="tryNavigateWithWarning('chat')" class="rounded-2xl py-4 px-4 font-black flex items-center gap-3" style="background:#FFF3B0;"><i class="fa-solid fa-comments"></i> 상담</button>
+                <button onclick="tryNavigateWithWarning('records')" class="rounded-2xl py-4 px-4 font-black flex items-center gap-3" style="background:#FFF3B0;"><i class="fa-solid fa-book-medical"></i> 건강정보</button>
+                <button onclick="tryNavigateWithWarning('help')" class="rounded-2xl py-4 px-4 font-black flex items-center gap-3" style="background:#FFF3B0;"><i class="fa-solid fa-circle-info"></i> 도움말</button>
+            </div>
+            <button onclick="tryNavigateWithWarning('chat')" class="w-full h-14 bg-black text-white font-black rounded-2xl text-lg hover:bg-neutral-800 transition">부비와 상담 시작하기</button>
+        </div>
+    </aside>
+
+
     <!-- [설문 도중 이탈 방지 경고용 모달] -->
     <div id="survey-exit-modal" class="fixed inset-0 bg-black/50 z-[9999] hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-6 max-w-sm w-full shadow-2xl text-center space-y-4 border-2 border-errRed">
@@ -1325,6 +1417,14 @@
         window.addEventListener('DOMContentLoaded', () => {
             const src = document.getElementById('buvi-briefing-img')?.src || '';
             if (src) document.querySelectorAll('[data-owl-hero]').forEach(el => el.src = src);
+        });
+        // Keep subpage-mode class in sync with viewport across resize
+        window.addEventListener('resize', () => {
+            const HERO_SUBPAGES = ['survey-start','survey','analyzing','result','chat','records','help'];
+            const active = document.querySelector('.app-page:not(.hidden)');
+            const pageId = active ? active.id.replace(/^page-/, '') : '';
+            const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
+            document.body.classList.toggle('subpage-mode', isDesktop && HERO_SUBPAGES.includes(pageId));
         });
 
         const state = {
@@ -1655,6 +1755,11 @@
                 tab.classList.toggle('active', isActive);
             });
             window.scrollTo(0,0);
+            try {
+                const HERO_SUBPAGES = ['survey-start','survey','analyzing','result','chat','records','help'];
+                const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
+                document.body.classList.toggle('subpage-mode', isDesktop && HERO_SUBPAGES.includes(pageId));
+            } catch(_) {}
             handlePageEntranceEffects(pageId);
         }
 
