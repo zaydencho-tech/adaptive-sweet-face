@@ -732,40 +732,6 @@
         }
         .header-wordmark { display: none; }
 
-        /* ── 태블릿/모바일: 그림자 제거 + 외곽선 섹션은 #F4F0E9 면 배경 처리 ── */
-        @media (max-width: 1023px) {
-            /* 모든 그림자 제거 */
-            *, *::before, *::after { box-shadow: none !important; filter: none !important; -webkit-box-shadow: none !important; }
-
-            /* 외곽 실선(테두리) 섹션 → 배경 면 처리 */
-            main .border,
-            main .border-2,
-            main .border-4,
-            main [class*="border-["],
-            main [class*="border-2"],
-            main [class*="border-4"],
-            main [style*="border:"],
-            main [style*="border-width"],
-            main [style*="border-style:solid"],
-            main [style*="border: 1px"],
-            main [style*="border: 2px"],
-            main [style*="border: 3px"],
-            main [style*="border: 4px"] {
-                background-color: #F4F0E9 !important;
-                border-color: transparent !important;
-                border-width: 0 !important;
-                border-style: none !important;
-                outline: none !important;
-            }
-            /* 입력 필드는 예외 (기존 배경 유지) */
-            main input.border, main input[class*="border"],
-            main textarea.border, main textarea[class*="border"],
-            main select.border, main select[class*="border"] {
-                background-color: #F4F0E9 !important;
-                border: 0 !important;
-            }
-        }
-
     </style>
 </head>
 <body class="min-h-screen pb-32">
