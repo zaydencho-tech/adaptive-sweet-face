@@ -508,11 +508,23 @@
                 flex-direction: column;
                 min-height: 0;
             }
-            body.subpage-mode main > #page-survey-start:not(.hidden) > *:last-child,
-            body.subpage-mode main > #page-survey:not(.hidden) > *:last-child,
-            body.subpage-mode main > #page-chat:not(.hidden) > *:last-child,
-            body.subpage-mode main > #page-records:not(.hidden) > *:last-child,
-            body.subpage-mode main > #page-help:not(.hidden) > *:last-child {
+            /* 각 페이지의 최상위 콘텐츠 래퍼가 남은 세로 공간을 모두 채우도록 */
+            body.subpage-mode main > #page-survey-start:not(.hidden) > *,
+            body.subpage-mode main > #page-survey:not(.hidden) > *,
+            body.subpage-mode main > #page-chat:not(.hidden) > *,
+            body.subpage-mode main > #page-records:not(.hidden) > *,
+            body.subpage-mode main > #page-help:not(.hidden) > * {
+                flex: 1 1 auto;
+                display: flex;
+                flex-direction: column;
+                min-height: 0;
+            }
+            /* 래퍼 내부의 마지막 자식(주로 하단 버튼)을 화면 하단에 붙임 */
+            body.subpage-mode main > #page-survey-start:not(.hidden) > * > *:last-child,
+            body.subpage-mode main > #page-survey:not(.hidden) > * > *:last-child,
+            body.subpage-mode main > #page-chat:not(.hidden) > * > *:last-child,
+            body.subpage-mode main > #page-records:not(.hidden) > * > *:last-child,
+            body.subpage-mode main > #page-help:not(.hidden) > * > *:last-child {
                 margin-top: auto !important;
             }
             body.subpage-mode #desktop-hero-aside {
