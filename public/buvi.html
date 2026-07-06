@@ -814,6 +814,12 @@
 
         /* 설문 입력 완료 텍스트 숨김 (다음 버튼 활성화로 상태 표시) */
         #age-ok, #bmi-ok, #poly-ok, #ipaq-vig-ok, #ipaq-mod-ok, #ipaq-walk-ok, #ipaq-sit-ok, #tug-ok { display: none !important; }
+        /* 모바일: 질문 텍스트와 일러스트 사이 빈 힌트 박스/여백 최소화 */
+        @media (max-width: 1023px) {
+            #survey-hint-box:has(#survey-hint-text:empty) { display: none !important; }
+            #page-survey .text-center.mb-3 { margin-bottom: 4px !important; }
+            #page-survey .text-center.mb-3.space-y-2 > * + * { margin-top: 4px !important; }
+        }
     </style>
 </head>
 <body class="min-h-screen pb-32">
@@ -3420,7 +3426,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const yActive = ans === true  ? 'bg-blue-600 text-white border-blue-600 scale-105' : 'bg-white text-gray-800 border-gray-300 hover:border-blue-400 hover:bg-blue-50';
             const nActive = ans === false ? 'bg-blue-600 text-white border-blue-600 scale-105' : 'bg-white text-gray-800 border-gray-300 hover:border-gray-400 hover:bg-gray-50';
             container.innerHTML = `
-            <div class="flex flex-col gap-4 max-w-sm mx-auto mt-5 md:mt-0">
+            <div class="flex flex-col gap-4 max-w-sm mx-auto">
                 <div class="flex justify-center">
                     <img src="/sgds/q${idx+1}.png" alt="문항 ${idx+1} 일러스트"
                         class="w-80 h-80 sm:w-88 sm:h-88 object-contain drop-shadow-sm"
