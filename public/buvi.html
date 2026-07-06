@@ -510,6 +510,11 @@
                 background: #F8E647 !important; color: #111729 !important;
                 margin-left: auto; display: flex; align-items: center; justify-content: center;
             }
+            /* Mobile/Tablet: 데스크탑과 동일하게 왼쪽에 부비 워드마크 로고 표시 */
+            body:has(#page-login:not(.hidden)) > header .header-wordmark,
+            body:has(#page-home:not(.hidden)) > header .header-wordmark {
+                display: block; height: 44px; width: auto; object-fit: contain;
+            }
             body:has(#page-login:not(.hidden)) > header > div:last-child,
             body:has(#page-home:not(.hidden)) > header > div:last-child {
                 background: transparent !important; padding: 0 !important; gap: 4px !important;
