@@ -764,6 +764,10 @@
             body.subpage-mode main .space-y-4 > * + * { margin-top: 8px !important; }
             body.subpage-mode main .gap-6 { gap: 10px !important; }
             body.subpage-mode main .gap-8 { gap: 12px !important; }
+
+            /* 설문 페이지: 헤더-상단바 간격 20px, 좌우 마진 20px */
+            body:has(#page-survey:not(.hidden)) main { padding: 20px 20px 0 !important; }
+            body:has(#page-survey:not(.hidden)) main > #page-survey > div.bg-white { padding: 0 0 12px !important; }
         }
 
     </style>
