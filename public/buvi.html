@@ -732,6 +732,47 @@
         }
         .header-wordmark { display: none; }
 
+        /* Mobile/Tablet global overrides: no shadows, outlined sections become #F4F0E9 filled, padding/gap = 20px */
+        @media (max-width: 1023px) {
+            /* Remove all shadows */
+            *, *::before, *::after { box-shadow: none !important; text-shadow: none !important; filter: none !important; }
+
+            /* Convert bordered/outlined sections into filled #F4F0E9 surfaces */
+            .option-card,
+            .buvi-action-card,
+            .card-item,
+            .formula-container,
+            [class*="border-2"],
+            [class*="border-3"],
+            [class*="border-4"],
+            [style*="border:"][style*="solid"],
+            [style*="border: 1px solid"],
+            [style*="border: 2px solid"],
+            [style*="border: 3px solid"],
+            [style*="border:1px solid"],
+            [style*="border:2px solid"],
+            [style*="border:3px solid"] {
+                border-color: transparent !important;
+                border-width: 0 !important;
+                background-color: #F4F0E9 !important;
+                background: #F4F0E9 !important;
+            }
+
+            /* Normalize padding & gap to 20px across layout containers */
+            main, section, article, .container,
+            .buvi-card, .buvi-panel, .buvi-section,
+            [class*="p-"], [class*="px-"], [class*="py-"],
+            [class*="pt-"], [class*="pb-"], [class*="pl-"], [class*="pr-"],
+            [class*="gap-"] {
+                padding: 20px !important;
+                gap: 20px !important;
+            }
+
+            /* Reset padding to 0 where explicitly p-0 */
+            [class~="p-0"] { padding: 0 !important; }
+            [class~="gap-0"] { gap: 0 !important; }
+        }
+
     </style>
 </head>
 <body class="min-h-screen pb-32">
