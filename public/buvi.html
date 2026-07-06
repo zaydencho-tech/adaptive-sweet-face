@@ -2224,6 +2224,63 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             return el ? (el.value === '' ? null : parseInt(el.value)) : null;
         }
 
+        // ── 공통: 증감 조작계(스테퍼) — 전 뷰포트 공통 ──────────────
+        // 직접 입력 가능한 큼직한 화이트 입력 필드 양옆에 56px 원형 −/+ 버튼
+        function makeStepper(id, unit, min, max, step, savedVal, onChangeFn, placeholder) {
+            const v = (savedVal !== null && savedVal !== undefined && savedVal !== '') ? String(savedVal) : '';
+            const ph = (placeholder !== undefined && placeholder !== null) ? String(placeholder) : '';
+            const unitHtml = unit ? `<span class="stepper-unit">${unit}</span>` : '';
+            return `
+            <div class="stepper-row">
+                <button type="button" aria-label="감소"
+                    onclick="stepperAdjust('${id}',${-step},${min},${max},'${onChangeFn}')"
+                    class="stepper-btn">−</button>
+                <div class="stepper-field">
+                    <input id="${id}" type="text" inputmode="numeric" pattern="[0-9]*"
+                        value="${v}" placeholder="${ph}"
+                        data-min="${min}" data-max="${max}" data-fn="${onChangeFn}"
+                        oninput="stepperOnInput('${id}',${min},${max},'${onChangeFn}')"
+                        onblur="stepperOnBlur('${id}',${min},${max},'${onChangeFn}')"
+                        class="stepper-input"/>
+                    ${unitHtml}
+                </div>
+                <button type="button" aria-label="증가"
+                    onclick="stepperAdjust('${id}',${step},${min},${max},'${onChangeFn}')"
+                    class="stepper-btn">+</button>
+            </div>`;
+        }
+        function stepperAdjust(id, delta, min, max, fn) {
+            const inp = document.getElementById(id);
+            if (!inp) return;
+            let cur = parseInt(inp.value);
+            if (isNaN(cur)) cur = parseInt(inp.placeholder);
+            if (isNaN(cur)) cur = min;
+            let nv = cur + delta;
+            if (nv < min) nv = min;
+            if (nv > max) nv = max;
+            inp.value = String(nv);
+            if (typeof window[fn] === 'function') window[fn]();
+        }
+        function stepperOnInput(id, min, max, fn) {
+            const inp = document.getElementById(id);
+            if (!inp) return;
+            const cleaned = inp.value.replace(/[^0-9]/g, '');
+            if (cleaned !== inp.value) inp.value = cleaned;
+            if (inp.value !== '' && parseInt(inp.value) > max) inp.value = String(max);
+            if (typeof window[fn] === 'function') window[fn]();
+        }
+        function stepperOnBlur(id, min, max, fn) {
+            const inp = document.getElementById(id);
+            if (!inp) return;
+            if (inp.value === '') { if (typeof window[fn] === 'function') window[fn](); return; }
+            let n = parseInt(inp.value);
+            if (isNaN(n)) inp.value = '';
+            else if (n < min) inp.value = String(min);
+            else if (n > max) inp.value = String(max);
+            if (typeof window[fn] === 'function') window[fn]();
+        }
+
+
         // ── 1) 생년월일 — 연/월/일 3단계 분리 키패드 ──────────────
         // 근거: Smashing Magazine 2021 — 단일 8자리·드롭다운 모두 오류 빈발.
         //       3개 독립 필드(연→월→일 순)가 오류율 최저, 노인 선호도 최고.
