@@ -2482,6 +2482,11 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         function renderBmiInput(container) {
             const sh = state.answers.height_cm || '';
             const sw = state.answers.weight_kg || '';
+            const isWheel = window.matchMedia('(max-width: 1023px)').matches;
+            if (isWheel) {
+                renderBmiWheel(container, sh, sw);
+                return;
+            }
             container.innerHTML = `
             <div class="flex flex-col gap-5 max-w-sm mx-auto">
                 <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 scaled-text-sm font-bold text-gray-700 leading-relaxed">
@@ -2534,6 +2539,54 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             setBmiTab('h');
             if (sh && sw) onBmiInput();
         }
+
+        // ── BMI 롤링(휠) 피커 (태블릿/모바일 전용) ────────────────
+        function renderBmiWheel(container, sh, sw) {
+            const heights = [];
+            for (let h = 100; h <= 220; h++) heights.push(h);
+            const weights = [];
+            for (let w = 30; w <= 200; w++) weights.push(w);
+            const initH = parseInt(sh) || 160;
+            const initW = parseInt(sw) || 60;
+            container.innerHTML = `
+            <div class="flex flex-col gap-5 max-w-sm mx-auto w-full">
+                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 scaled-text-sm font-bold text-gray-700 leading-relaxed">
+                    <p>1) 어르신의 현재 키(cm)와</p>
+                    <p>2) 현재 체중(kg)을 위/아래로 굴려 맞춰주세요.</p>
+                </div>
+                <div class="wheel-picker" id="bmi-wheel">
+                    <div class="wheel-center-band"></div>
+                    <div class="wheel-col">
+                        <ul id="wheel-height">${heights.map(h=>`<li data-v="${h}">${h}</li>`).join('')}</ul>
+                        <span class="wheel-unit">cm</span>
+                    </div>
+                    <div class="wheel-col">
+                        <ul id="wheel-weight">${weights.map(w=>`<li data-v="${w}">${w}</li>`).join('')}</ul>
+                        <span class="wheel-unit">kg</span>
+                    </div>
+                </div>
+                <input id="inp-height" type="hidden" value="${sh}">
+                <input id="inp-weight" type="hidden" value="${sw}">
+                <p id="bmi-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]"></p>
+            </div>`;
+            setupWheelCol('wheel-height', heights, initH, (v) => {
+                const inp = document.getElementById('inp-height');
+                if (inp) inp.value = String(v);
+                onBmiInput();
+            });
+            setupWheelCol('wheel-weight', weights, initW, (v) => {
+                const inp = document.getElementById('inp-weight');
+                if (inp) inp.value = String(v);
+                onBmiInput();
+            });
+            // 초기값 반영
+            const inpH = document.getElementById('inp-height');
+            const inpW = document.getElementById('inp-weight');
+            if (inpH && !inpH.value) inpH.value = String(initH);
+            if (inpW && !inpW.value) inpW.value = String(initW);
+            onBmiInput();
+        }
+
 
         window._bmiTab = 'h';
         function setBmiTab(tab) {
