@@ -1418,6 +1418,14 @@
             const src = document.getElementById('buvi-briefing-img')?.src || '';
             if (src) document.querySelectorAll('[data-owl-hero]').forEach(el => el.src = src);
         });
+        // Keep subpage-mode class in sync with viewport across resize
+        window.addEventListener('resize', () => {
+            const HERO_SUBPAGES = ['survey-start','survey','analyzing','result','chat','records','help'];
+            const active = document.querySelector('.app-page:not(.hidden)');
+            const pageId = active ? active.id.replace(/^page-/, '') : '';
+            const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
+            document.body.classList.toggle('subpage-mode', isDesktop && HERO_SUBPAGES.includes(pageId));
+        });
 
         const state = {
             fontScale: 1.0,
