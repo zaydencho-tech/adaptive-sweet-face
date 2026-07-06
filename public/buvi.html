@@ -269,6 +269,40 @@
             pointer-events: none;
         }
 
+        /* ── 증감 조작계(스테퍼) UI (데스크탑·태블릿·모바일 공통) ── */
+        .stepper-row { display: flex; align-items: center; justify-content: center; gap: 12px; }
+        .stepper-btn {
+            width: 56px; height: 56px; border-radius: 9999px;
+            background: #111729; color: #ffffff;
+            font-size: 30px; font-weight: 900; line-height: 1;
+            display: inline-flex; align-items: center; justify-content: center;
+            border: 0; cursor: pointer; flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(17,23,41,.18);
+            transition: transform .1s ease, background-color .15s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .stepper-btn:hover { background: #1f2a44; }
+        .stepper-btn:active { transform: scale(.94); }
+        .stepper-btn:disabled { background: #9CA3AF; cursor: not-allowed; box-shadow: none; }
+        .stepper-field {
+            display: inline-flex; align-items: baseline; justify-content: center; gap: 8px;
+            background: #ffffff; border: 2px solid #93C5FD; border-radius: 16px;
+            padding: 10px 18px; min-width: 140px;
+            box-shadow: 0 2px 8px rgba(0,0,0,.04);
+        }
+        .stepper-input {
+            width: 100%; min-width: 60px; max-width: 120px;
+            text-align: center; font-size: 2rem; font-weight: 900;
+            color: #111729; background: transparent; border: 0; outline: none;
+            -moz-appearance: textfield; padding: 0;
+        }
+        .stepper-input::-webkit-outer-spin-button,
+        .stepper-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        .stepper-input::placeholder { color: #CBD5E1; font-weight: 700; }
+        .stepper-unit { font-size: 1rem; font-weight: 800; color: #6B7280; flex-shrink: 0; }
+
+
+
 
 
         /* ── 리뉴얼된 로그인/홈 페이지 적응형 규칙 ── */
