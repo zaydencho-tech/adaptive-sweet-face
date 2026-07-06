@@ -2625,109 +2625,28 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         function renderBmiInput(container) {
             const sh = state.answers.height_cm || '';
             const sw = state.answers.weight_kg || '';
-            const isWheel = window.matchMedia('(max-width: 1023px)').matches;
-            if (isWheel) {
-                renderBmiWheel(container, sh, sw);
-                return;
-            }
-            container.innerHTML = `
-            <div class="flex flex-col gap-5 max-w-sm mx-auto">
-                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 scaled-text-sm font-bold text-gray-700 leading-relaxed">
-                    <p>1) 어르신의 현재 키는? &nbsp; 신장(cm) ____ cm</p>
-                    <p>2) 어르신의 현재 체중은? &nbsp; 현재 체중(kg) ____ kg</p>
-                </div>
-                <div class="flex flex-col gap-5">
-                    <!-- 키/체중 탭 전환으로 키패드 하나를 공유 -->
-                    <div class="flex gap-2">
-                        <button id="bmi-tab-h" onclick="setBmiTab('h')"
-                            class="flex-1 py-3 rounded-2xl font-black text-base border-2 transition-all bg-blue-600 text-white border-blue-600">
-                            키 (cm)
-                        </button>
-                        <button id="bmi-tab-w" onclick="setBmiTab('w')"
-                            class="flex-1 py-3 rounded-2xl font-black text-base border-2 transition-all bg-gray-100 text-gray-600 border-gray-300">
-                            체중 (kg)
-                        </button>
-                    </div>
-                    <!-- 현재 입력 중인 필드 디스플레이 -->
-                    <div class="flex gap-3">
-                        <div class="flex-1 flex flex-col items-center gap-1 p-3 rounded-2xl border-2 border-transparent" id="bmi-card-h">
-                            <span class="text-xs font-bold text-gray-400">키</span>
-                            <span id="disp-height" class="text-3xl font-black text-charcoal">${sh || '—'}</span>
-                            <span class="text-xs text-gray-400">cm</span>
-                        </div>
-                        <div class="flex-1 flex flex-col items-center gap-1 p-3 rounded-2xl border-2 border-transparent" id="bmi-card-w">
-                            <span class="text-xs font-bold text-gray-400">체중</span>
-                            <span id="disp-weight" class="text-3xl font-black text-charcoal">${sw || '—'}</span>
-                            <span class="text-xs text-gray-400">kg</span>
-                        </div>
-                    </div>
-                    <!-- 공용 키패드 -->
-                    <div id="bmi-keypad" class="grid grid-cols-3 gap-2">
-                        ${[1,2,3,4,5,6,7,8,9].map(n => `
-                        <button type="button" onclick="bmiKpPress(${n})"
-                            class="h-16 text-3xl font-black bg-white border-2 border-gray-300 rounded-2xl hover:bg-blue-50 hover:border-blue-400 active:bg-blue-100 transition-all select-none">${n}</button>`).join('')}
-                        <button type="button" onclick="bmiKpClear()"
-                            class="h-16 text-sm font-black bg-red-50 border-2 border-red-200 rounded-2xl hover:bg-red-100 active:bg-red-200 transition-all text-red-500 select-none">전체삭제</button>
-                        <button type="button" onclick="bmiKpPress(0)"
-                            class="h-16 text-3xl font-black bg-white border-2 border-gray-300 rounded-2xl hover:bg-blue-50 hover:border-blue-400 active:bg-blue-100 transition-all select-none">0</button>
-                        <button type="button" onclick="bmiKpBack()"
-                            class="h-16 text-2xl font-black bg-gray-100 border-2 border-gray-300 rounded-2xl hover:bg-gray-200 active:bg-gray-300 transition-all select-none">⌫</button>
-                    </div>
-                    <input id="inp-height" type="hidden" value="${sh}">
-                    <input id="inp-weight" type="hidden" value="${sw}">
-                </div>
-                <p id="bmi-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]">${(sh&&sw)?'✓ 입력 완료':''}</p>
-            </div>`;
-            window._bmiTab = 'h';
-            setBmiTab('h');
-            if (sh && sw) onBmiInput();
-        }
-
-        // ── BMI 롤링(휠) 피커 (태블릿/모바일 전용) ────────────────
-        function renderBmiWheel(container, sh, sw) {
-            const heights = [];
-            for (let h = 100; h <= 220; h++) heights.push(h);
-            const weights = [];
-            for (let w = 30; w <= 200; w++) weights.push(w);
-            const initH = parseInt(sh) || 160;
-            const initW = parseInt(sw) || 60;
             container.innerHTML = `
             <div class="flex flex-col gap-5 max-w-sm mx-auto w-full">
                 <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 scaled-text-sm font-bold text-gray-700 leading-relaxed">
-                    <p>어르신의 현재 키(cm)와 현재 체중(kg)을 위/아래로 굴려 맞춰주세요.</p>
+                    <p>어르신의 현재 키(cm)와 체중(kg)을 아래에서 조절해 주세요.</p>
+                    <p class="mt-1 text-gray-500">− / + 버튼으로 조절하거나, 숫자 칸을 눌러 직접 입력할 수 있습니다.</p>
                 </div>
-                <div class="wheel-picker" id="bmi-wheel">
-                    <div class="wheel-center-band"></div>
-                    <div class="wheel-col">
-                        <ul id="wheel-height">${heights.map(h=>`<li data-v="${h}">${h}</li>`).join('')}</ul>
-                        <span class="wheel-unit">cm</span>
+                <div class="flex flex-col gap-4">
+                    <div class="flex flex-col gap-2">
+                        <label class="font-black text-gray-700 text-base text-center">키 (cm)</label>
+                        ${makeStepper('inp-height','cm',100,220,1,sh,'onBmiInput',165)}
                     </div>
-                    <div class="wheel-col">
-                        <ul id="wheel-weight">${weights.map(w=>`<li data-v="${w}">${w}</li>`).join('')}</ul>
-                        <span class="wheel-unit">kg</span>
+                    <div class="flex flex-col gap-2">
+                        <label class="font-black text-gray-700 text-base text-center">체중 (kg)</label>
+                        ${makeStepper('inp-weight','kg',20,200,1,sw,'onBmiInput',60)}
                     </div>
                 </div>
-                <input id="inp-height" type="hidden" value="${sh}">
-                <input id="inp-weight" type="hidden" value="${sw}">
-                <p id="bmi-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]"></p>
+                <p id="bmi-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]">${(sh&&sw)?'✓ 입력 완료':''}</p>
             </div>`;
-            setupWheelCol('wheel-height', heights, initH, (v) => {
-                const inp = document.getElementById('inp-height');
-                if (inp) inp.value = String(v);
-                onBmiInput();
-            });
-            setupWheelCol('wheel-weight', weights, initW, (v) => {
-                const inp = document.getElementById('inp-weight');
-                if (inp) inp.value = String(v);
-                onBmiInput();
-            });
-            // 초기값 반영
-            const inpH = document.getElementById('inp-height');
-            const inpW = document.getElementById('inp-weight');
-            if (inpH && !inpH.value) inpH.value = String(initH);
-            if (inpW && !inpW.value) inpW.value = String(initW);
-            onBmiInput();
+            if (sh && sw) onBmiInput();
         }
+
+
 
 
         window._bmiTab = 'h';
