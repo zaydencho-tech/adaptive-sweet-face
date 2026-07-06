@@ -1025,8 +1025,8 @@
                             </div>
                         </div>
                     </div>
-                    <!-- White nav card (mirrors login form position) -->
-                    <div class="bg-white rounded-3xl -mt-8 mx-2 lg:mx-0 lg:mt-6 px-6 py-8 relative z-10 shadow-lg space-y-4">
+                    <!-- White nav card (desktop only) -->
+                    <div class="hidden lg:block bg-white rounded-3xl lg:mt-6 px-6 py-8 relative z-10 shadow-lg space-y-4">
                         <div>
                             <p class="text-xl font-black text-charcoal">무엇을 도와드릴까요?</p>
                             <p class="text-sm text-gray-500 font-bold mt-1">아래 메뉴에서 바로 이동하실 수 있어요.</p>
@@ -1039,10 +1039,50 @@
                         </div>
                         <button onclick="tryNavigateWithWarning('chat')" class="w-full h-14 bg-black text-white font-black rounded-2xl text-lg hover:bg-neutral-800 transition">부비와 상담 시작하기</button>
                     </div>
+
+                    <!-- Mobile/Tablet only: link-focused layout -->
+                    <div class="lg:hidden mt-4 space-y-3">
+                        <!-- 건강 모니터링 header card -->
+                        <div class="rounded-2xl p-5" style="background:#F4F0E9;">
+                            <div class="flex items-center justify-between gap-3 flex-wrap">
+                                <h3 class="font-black text-lg text-charcoal">건강 모니터링</h3>
+                                <span class="text-sm font-black px-3 py-1.5 rounded-full flex items-center gap-1.5 bg-white text-charcoal">1,3,6개월 모니터링 <i class="fa-solid fa-heart-pulse"></i></span>
+                            </div>
+                            <p class="text-sm font-bold text-gray-500 mt-2">설문이 끝나도 부비가 어르신을 보살펴 드려요!</p>
+                        </div>
+
+                        <!-- 2 owl link cards -->
+                        <div class="grid grid-cols-2 gap-3">
+                            <button onclick="tryNavigateWithWarning('chat')" class="rounded-2xl p-4 flex flex-col items-center gap-2 text-center" style="background:#F4F0E9;">
+                                <img src="/owl-hero.svg" alt="" class="w-24 h-24 object-contain">
+                                <p class="font-black text-sm text-charcoal">부비와 1:1 기력 상담</p>
+                                <span class="bg-black text-white font-black rounded-xl px-4 py-2 text-sm">상담 시작하기</span>
+                            </button>
+                            <button onclick="tryNavigateWithWarning('records')" class="rounded-2xl p-4 flex flex-col items-center gap-2 text-center" style="background:#F4F0E9;">
+                                <img src="/owl-hero.svg" alt="" class="w-24 h-24 object-contain">
+                                <p class="font-black text-sm text-charcoal">어르신 건강 배움 책자</p>
+                                <span class="text-white font-black rounded-xl px-4 py-2 text-sm" style="background:var(--blue-main)">배움터 이동하기</span>
+                            </button>
+                        </div>
+
+                        <!-- Full-width 배움 책자 -->
+                        <button onclick="tryNavigateWithWarning('records')" class="w-full rounded-2xl p-5 flex flex-col items-center gap-2 text-center" style="background:#F4F0E9;">
+                            <img src="/owl-hero.svg" alt="" class="w-28 h-28 object-contain">
+                            <p class="font-black text-base text-charcoal">어르신 건강 배움 책자</p>
+                            <span class="text-white font-black rounded-xl px-4 py-2 text-sm" style="background:var(--blue-main)">배움터 이동하기</span>
+                        </button>
+
+                        <!-- Quick links -->
+                        <div class="grid grid-cols-2 gap-3">
+                            <button onclick="tryNavigateWithWarning('survey-start')" class="rounded-2xl py-4 px-4 font-black flex items-center gap-3" style="background:#FFF3B0;"><i class="fa-solid fa-file-pen"></i> 설문</button>
+                            <button onclick="tryNavigateWithWarning('help')" class="rounded-2xl py-4 px-4 font-black flex items-center gap-3" style="background:#FFF3B0;"><i class="fa-solid fa-circle-info"></i> 도움말</button>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- RIGHT (desktop only, mirrors login) -->
-                <div class="flex flex-col gap-4 mt-4 lg:mt-0">
+                <!-- RIGHT (desktop only) -->
+                <div class="hidden lg:flex flex-col gap-4">
+
                     <!-- 건강 모니터링 with 5-metric gauges -->
                     <div class="bg-white rounded-2xl px-5 py-4 border border-stone-200">
                         <div class="flex items-center justify-between gap-4 mb-3">
