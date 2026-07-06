@@ -210,6 +210,61 @@
         /* ── 공통 formula ── */
         .formula-container { font-family: serif; font-style: italic; background: #f8fafc; padding: 10px; border-radius: 8px; border: 1px solid #e2e8f0; }
 
+        /* ── 생년월일 롤링(휠) 피커: 태블릿/모바일 전용 ── */
+        .wheel-picker {
+            position: relative;
+            display: flex;
+            gap: 0.5rem;
+            height: 320px;
+            padding: 0 0.5rem;
+        }
+        .wheel-col { flex: 1; position: relative; min-width: 0; }
+        .wheel-col ul {
+            list-style: none;
+            margin: 0;
+            padding: 128px 0; /* (320 - 64) / 2 */
+            height: 100%;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            -webkit-overflow-scrolling: touch;
+        }
+        .wheel-col ul::-webkit-scrollbar { display: none; }
+        .wheel-col li {
+            height: 64px;
+            line-height: 64px;
+            text-align: center;
+            scroll-snap-align: center;
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: #E0E7FF;
+            transition: color .15s ease, font-size .15s ease, opacity .15s ease;
+            user-select: none;
+            cursor: pointer;
+        }
+        .wheel-col li.picker-near   { color: #A5B4FC; font-size: 1.9rem; }
+        .wheel-col li.picker-active { color: #2540E6; font-size: 2.4rem; }
+        .wheel-center-band {
+            position: absolute; left: 0; right: 0; top: 50%;
+            transform: translateY(-50%);
+            height: 64px;
+            border-top: 1.5px solid rgba(37,64,230,.15);
+            border-bottom: 1.5px solid rgba(37,64,230,.15);
+            pointer-events: none;
+        }
+        .wheel-unit {
+            position: absolute;
+            top: 50%;
+            right: 4px;
+            transform: translateY(-50%);
+            font-weight: 900;
+            color: #2540E6;
+            font-size: 1rem;
+            pointer-events: none;
+        }
+
+
         /* ── 리뉴얼된 로그인/홈 페이지 적응형 규칙 ── */
         body:has(#page-login:not(.hidden)) #buvi-narrative-box,
         body:has(#page-home:not(.hidden)) #buvi-narrative-box { display: none !important; }
