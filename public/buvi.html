@@ -2157,6 +2157,8 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             else if (q.type === 'sgds_single') renderSgdsSingle(container, q.sgdsIdx);
 
             updateNextButtonState();
+            const navBottom = document.getElementById('survey-nav-bottom');
+            if (navBottom) navBottom.classList.toggle('hidden', q.type === 'sgds_single');
             if (q.type !== 'sgds_single') speak(q.question_ko);
         }
 
