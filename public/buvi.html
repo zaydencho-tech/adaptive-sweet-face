@@ -2742,7 +2742,11 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     <p class="mt-1 text-gray-500">(알약 / 정 / 캡슐 / 현탁액 / 가루약 / 흡입약 등)</p>
                     <p class="mt-1 text-gray-500">예시: 혈압약 알약 2개, 고지혈증약 알약 3개 → 5개</p>
                 </div>
-                ${makeKeypad('inp-polypharm','약 개수 (개)','개',0,30,saved,'onPolypharmInput')}
+                <div class="flex flex-col gap-2">
+                    <label class="font-black text-gray-700 text-base text-center">약 개수 (개)</label>
+                    ${makeStepper('inp-polypharm','개',0,30,1,saved,'onPolypharmInput',5)}
+                </div>
+
                 <p id="poly-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]">${saved!==null?'✓ '+saved+'개 입력 완료':''}</p>
             </div>`;
         }
