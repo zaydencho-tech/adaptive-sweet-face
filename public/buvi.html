@@ -758,19 +758,16 @@
                 background: #F4F0E9 !important;
             }
 
-            /* Normalize padding & gap to 20px across layout containers */
-            main, section, article, .container,
+            /* Normalize padding & gap to 20px across layout containers (exclude buttons, inputs, small controls) */
+            main, main section, main article,
             .buvi-card, .buvi-panel, .buvi-section,
-            [class*="p-"], [class*="px-"], [class*="py-"],
-            [class*="pt-"], [class*="pb-"], [class*="pl-"], [class*="pr-"],
-            [class*="gap-"] {
+            .option-card, .buvi-action-card, .card-item, .formula-container {
                 padding: 20px !important;
                 gap: 20px !important;
             }
-
-            /* Reset padding to 0 where explicitly p-0 */
-            [class~="p-0"] { padding: 0 !important; }
-            [class~="gap-0"] { gap: 0 !important; }
+            main [class*="gap-"]:not(button):not(input):not(select):not(textarea) {
+                gap: 20px !important;
+            }
         }
 
     </style>
