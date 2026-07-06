@@ -2795,35 +2795,14 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const isNone = dVal === 0;
             const isHidden = dVal === null || dVal === 0;
 
-            // 일수 선택: 0은 별도 '없었음' 버튼, 1~7은 큰 선택 버튼
-            const dayBtns = [1,2,3,4,5,6,7].map(d => {
-                const active = dVal === d;
-                return `<button type="button" onclick="setIpaqDays('${dKey}','${hKey}','${mKey}',${d})"
-                    class="h-14 text-2xl font-black rounded-2xl border-2 transition-all select-none ${active ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-700 border-gray-300 hover:bg-blue-50 hover:border-blue-400'}">${d}</button>`;
-            }).join('');
+            const dInit = (dVal !== null && dVal !== undefined) ? dVal : '';
 
             return `
             <div class="flex flex-col gap-4">
-                <p class="font-black text-gray-700">일주일에 며칠? <span class="text-gray-400 font-normal text-sm">(해당 숫자를 누르세요)</span></p>
-                <div class="grid grid-cols-4 gap-2">
-                    <button id="btn-none-${dKey}" type="button" onclick="setIpaqNone('${dKey}','${hKey}','${mKey}')"
-                        class="h-14 col-span-1 text-base font-black rounded-2xl border-2 transition-all select-none ${isNone ? 'bg-blue-600 text-white border-blue-600' : 'bg-gray-50 text-gray-500 border-gray-300 hover:border-blue-400'}">
-                        ⓪<br><span class="text-xs">없었음</span>
-                    </button>
-                    ${[1,2,3].map(d => {
-                        const active = dVal === d;
-                        return `<button type="button" onclick="setIpaqDays('${dKey}','${hKey}','${mKey}',${d})"
-                            class="h-14 text-2xl font-black rounded-2xl border-2 transition-all select-none ${active ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-700 border-gray-300 hover:bg-blue-50 hover:border-blue-400'}">${d}</button>`;
-                    }).join('')}
-                </div>
-                <div class="grid grid-cols-4 gap-2">
-                    ${[4,5,6,7].map(d => {
-                        const active = dVal === d;
-                        return `<button type="button" onclick="setIpaqDays('${dKey}','${hKey}','${mKey}',${d})"
-                            class="h-14 text-2xl font-black rounded-2xl border-2 transition-all select-none ${active ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-700 border-gray-300 hover:bg-blue-50 hover:border-blue-400'}">${d}</button>`;
-                    }).join('')}
-                </div>
-                <input id="inp-${dKey}" type="hidden" value="${dVal !== null ? dVal : ''}">
+                <p class="font-black text-gray-700">일주일에 며칠? <span class="text-gray-400 font-normal text-sm">(− / + 로 조절하거나 직접 입력)</span></p>
+                ${makeStepper(`inp-${dKey}`,'일',0,7,1,dInit,'onIpaqDaysChange',0)}
+
+
 
                 <!-- 시간·분 스테퍼 (일수 선택 후 표시) -->
                 <div id="ipaq-time-row-${dKey}" class="${isHidden ? 'hidden' : 'flex flex-col gap-3'}">
@@ -2912,7 +2891,29 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             onIpaqChange();
         }
 
+        // IPAQ 일수 스테퍼 입력 → 시간·분 행 표시/숨김 + 상태 동기화
+        function onIpaqDaysChange() {
+            ['ipaq_vig','ipaq_mod','ipaq_walk'].forEach(t => {
+                const dKey = `${t}_days`;
+                const inp = document.getElementById(`inp-${dKey}`);
+                if (!inp) return;
+                const raw = inp.value;
+                const timeRow = document.getElementById(`ipaq-time-row-${dKey}`);
+                if (raw === '') {
+                    state.answers[dKey] = null;
+                    if (timeRow) timeRow.className = 'hidden';
+                } else {
+                    const n = parseInt(raw);
+                    if (isNaN(n) || n < 0 || n > 7) return;
+                    state.answers[dKey] = n;
+                    if (timeRow) timeRow.className = (n === 0) ? 'hidden' : 'flex flex-col gap-3';
+                }
+            });
+            onIpaqChange();
+        }
+
         function setIpaqDays(dKey, hKey, mKey, days) {
+
             // 일수 버튼 선택 → hidden input 업데이트 → 시간·분 행 표시
             const inp = document.getElementById(`inp-${dKey}`);
             if (inp) inp.value = days;
