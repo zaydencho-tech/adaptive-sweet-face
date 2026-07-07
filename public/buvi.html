@@ -684,19 +684,33 @@
                 position: fixed; top: 0; left: 0; bottom: 0;
                 width: 33.333vw; background: #FEE500; z-index: 5;
                 overflow-y: auto;
+                font-size: 18px;
             }
             body.subpage-mode #desktop-hero-aside .hero-yellow {
                 padding: 114px 2.5rem 3rem; flex: 1 1 auto; position: relative;
             }
             body.subpage-mode #desktop-hero-aside .hero-white {
-                margin: 24px 20px 0; border-radius: 16px !important;
-                background: #fff; padding: 2rem 1.5rem;
-                box-shadow: 0 10px 15px -3px rgba(0,0,0,.1), 0 4px 6px -4px rgba(0,0,0,.1);
+                margin: 0 20px !important; border-radius: 16px 16px 0 0 !important;
+                background: #fff; padding: 2rem 2rem 2.5rem !important;
+                box-shadow: none !important;
+            }
+            body.subpage-mode #desktop-hero-aside .hero-white .text-sm,
+            body.subpage-mode #desktop-hero-aside .hero-white .text-base {
+                font-size: 18px !important;
+                line-height: 1.5 !important;
+            }
+            body.subpage-mode #desktop-hero-aside .hero-white .text-lg {
+                font-size: 20px !important;
+                line-height: 1.5 !important;
+            }
+            body.subpage-mode #desktop-hero-aside .hero-white .text-xl {
+                font-size: 22px !important;
+                line-height: 1.5 !important;
             }
             body.subpage-mode #desktop-hero-aside .hero-white .hero-nav-btn {
                 border-radius: 16px !important;
-                font-size: 16px !important;
-                line-height: 24px !important;
+                font-size: 18px !important;
+                line-height: 1.5 !important;
             }
             body.subpage-mode #desktop-hero-aside .hero-white .hero-nav-btn.is-active {
                 background: #FEE500 !important;
@@ -704,8 +718,8 @@
             }
             body.subpage-mode #desktop-hero-aside .hero-white .hero-cta-btn {
                 border-radius: 16px !important;
-                font-size: 18px !important;
-                line-height: 28px !important;
+                font-size: 20px !important;
+                line-height: 1.5 !important;
             }
             body.subpage-mode > header {
                 position: absolute; top: 24px; left: 24px;
