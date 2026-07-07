@@ -77,14 +77,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "BUVI — 어르신의 건강 지킴이" },
+      { name: "description", content: "부비(BUVI)는 어르신의 노쇠 예방과 건강한 일상을 함께하는 건강 동반자입니다. 노쇠 예측 설문, 1:1 상담, 건강 배움 등을 제공합니다." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "BUVI — 어르신의 건강 지킴이" },
+      { property: "og:description", content: "부비(BUVI)는 어르신의 노쇠 예방과 건강한 일상을 함께하는 건강 동반자입니다. 노쇠 예측 설문, 1:1 상담, 건강 배움 등을 제공합니다." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "BUVI — 어르신의 건강 지킴이" },
+      { name: "twitter:description", content: "부비(BUVI)는 어르신의 노쇠 예방과 건강한 일상을 함께하는 건강 동반자입니다. 노쇠 예측 설문, 1:1 상담, 건강 배움 등을 제공합니다." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/4691cfbf-4be1-4237-83bd-61845ad58072/id-preview-0c2d9c20--140cca05-4bc2-463b-a6b2-36bd6b9402ea.lovable.app-1783414651630.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/4691cfbf-4be1-4237-83bd-61845ad58072/id-preview-0c2d9c20--140cca05-4bc2-463b-a6b2-36bd6b9402ea.lovable.app-1783414651630.png" },
     ],
     links: [
       {
