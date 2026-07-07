@@ -754,6 +754,14 @@
             body.subpage-mode main #page-help .border-purple-500 {
                 border-width: 2px !important; border-style: solid !important; border-color: #a855f7 !important;
             }
+            /* 건강정보 카테고리 카드는 회색 외곽선 유지 (모바일/태블릿과 동일) */
+            body.subpage-mode main #page-records .card-item {
+                border-width: 2px !important; border-style: solid !important; border-color: #e5e7eb !important;
+            }
+            body.subpage-mode main #page-records .card-item.border-emerald-500,
+            body.subpage-mode main #page-records .card-item[class*="border-emerald"] {
+                border-color: #10b981 !important;
+            }
             /* 흰색 카드/버튼은 유지, 그 외 회색 배경 계열은 #F7F5F1로 통일 */
             body.subpage-mode main .bg-white { background-color: #FFFFFF !important; }
             body.subpage-mode main .bg-gray-50,
