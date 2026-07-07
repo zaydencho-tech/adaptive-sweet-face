@@ -4542,14 +4542,14 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     // 읽은 책자: 고급스러운 연초록 에메랄드 수채화풍 그라데이션, 명확한 초록 보더선, 강력한 완독 축하 앰블럼
                     cardFancyClass = "bg-gradient-to-br from-green-50/90 to-emerald-50/40 border-2 border-emerald-500 shadow-md hover:scale-[1.01]";
                     badgeFancyHtml = `
-                        <span class="text-xs font-black text-white bg-emerald-600 px-3 py-1.5 rounded-full flex items-center gap-1 shadow-sm shrink-0 whitespace-nowrap animate-pulse">
+                        <span class="scaled-text-xs md:scaled-text-sm font-black text-white bg-emerald-600 px-3 py-1.5 rounded-full flex items-center gap-1 shadow-sm shrink-0 whitespace-nowrap animate-pulse">
                             <i class="fa-solid fa-circle-check"></i> 완독함
                         </span>`;
                 } else {
                     // 아직 안 본 책자: 군더더기 없는 따뜻한 우윳빛 크림화이트 배경, 대중적 연회색 보더, 노란색 호기심 유도 배지
                     cardFancyClass = "bg-white border-2 border-gray-200 shadow-sm hover:border-yellow-400 hover:scale-[1.01]";
                     badgeFancyHtml = `
-                        <span class="text-xs font-extrabold text-charcoal bg-amber-200 px-3 py-1.5 rounded-full flex items-center gap-1 shrink-0 whitespace-nowrap">
+                        <span class="scaled-text-xs md:scaled-text-sm font-extrabold text-charcoal bg-amber-200 px-3 py-1.5 rounded-full flex items-center gap-1 shrink-0 whitespace-nowrap">
                             <i class="fa-solid fa-book-open-reader"></i> 읽기 전
                         </span>`;
                 }
@@ -4569,9 +4569,9 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                             ${card.icon}
                         </div>
                         <div class="min-w-0">
-                            <span class="text-xs font-black text-amber-600 block">${card.categoryKo}</span>
-                            <h4 class="scaled-text-base font-black text-charcoal truncate mt-0.5">${card.title}</h4>
-                            <span class="text-[11px] text-gray-400 font-bold bg-gray-100 px-2 py-0.5 rounded-md mt-1.5 inline-block">⏱ 소요 시간 ${card.readingMinutes}분</span>
+                            <span class="scaled-text-xs md:scaled-text-sm font-black text-amber-600 block">${card.categoryKo}</span>
+                            <h4 class="scaled-text-base md:scaled-text-lg font-black text-charcoal truncate mt-0.5">${card.title}</h4>
+                            <span class="scaled-text-xs md:scaled-text-sm text-gray-400 font-bold bg-gray-100 px-2 py-0.5 rounded-md mt-1.5 inline-block">⏱ 소요 시간 ${card.readingMinutes}분</span>
                         </div>
                     </div>
                     ${badgeFancyHtml}
