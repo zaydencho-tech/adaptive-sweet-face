@@ -155,6 +155,15 @@
         .scaled-text-xl   { font-size: calc(28px * var(--font-scale)); }
         .scaled-text-2xl  { font-size: calc(34px * var(--font-scale)); }
 
+        /* md: 반응형이 커스텀 scaled-* 유틸리티엔 적용되지 않으므로 명시적 미디어쿼리로 처리 */
+        @media (min-width: 768px) {
+            .md\:scaled-text-sm   { font-size: calc(15px * var(--font-scale)); }
+            .md\:scaled-text-base { font-size: calc(18px * var(--font-scale)); }
+            .md\:scaled-text-lg   { font-size: calc(22px * var(--font-scale)); }
+            .md\:scaled-text-xl   { font-size: calc(28px * var(--font-scale)); }
+            .md\:scaled-text-2xl  { font-size: calc(34px * var(--font-scale)); }
+        }
+
         /* ── 인풋/버튼 크기 ── */
         .buvi-input {
             height: 56px;
