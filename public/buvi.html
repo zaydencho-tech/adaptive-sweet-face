@@ -4497,7 +4497,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
             const isCardNews = Array.isArray(card.cardNews) && card.cardNews.length > 0;
             titleEl.innerText = isCardNews ? card.title : `${card.title} (기력 보완 가이드)`;
-            iconEl.innerText = card.icon;
+            if (iconEl) iconEl.innerText = '';
 
             // 다 읽기 전에는 완료 버튼 잠금 + 다른 책자로 이동 제한
             state.cardReadingLocked = true;
