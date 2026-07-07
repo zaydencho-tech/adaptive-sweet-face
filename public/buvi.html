@@ -885,8 +885,21 @@
                 border-radius: 16px !important;
                 border-width: 0 !important;
                 padding: 20px !important;
-                display: block !important;
-                min-height: 0 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                min-height: calc(100vh - 160px) !important;
+            }
+            /* 3개 카드와 팁 박스는 상단 여백을 밀어 중앙 위쪽에, 버튼은 하단에 배치 */
+            body.subpage-mode main > #page-survey-start:not(.hidden) > div > .grid.grid-cols-3 {
+                margin-top: auto !important;
+                margin-bottom: 20px !important;
+            }
+            body.subpage-mode main > #page-survey-start:not(.hidden) > div > .bg-\[\#FFFDF4\] {
+                margin-top: 0 !important;
+                margin-bottom: 20px !important;
+            }
+            body.subpage-mode main > #page-survey-start:not(.hidden) > div > button {
+                margin-top: auto !important;
             }
             /* 상단 인포박스: 래퍼 밖으로 빼낸 것처럼 보이도록 흰 카드로 분리 */
             body.subpage-mode #page-survey-start > div > div:first-child {
