@@ -2712,7 +2712,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 // 월: 1~12 큰 선택 버튼 (스크롤 없음)
                 html += `
                 
-                <div class="flex flex-wrap gap-2 lg:grid lg:grid-cols-4">
+                <div class="flex flex-wrap justify-center gap-2 lg:grid lg:grid-cols-4">
                     ${Array.from({length:12},(_,i)=>i+1).map(m => {
                         const active = M === m;
                         return `<button type="button" onclick="ageSelectMonth(${m})"
