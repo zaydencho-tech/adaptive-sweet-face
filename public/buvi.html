@@ -2554,7 +2554,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
             updateNextButtonState();
             const navBottom = document.getElementById('survey-nav-bottom');
-            if (navBottom) navBottom.classList.toggle('hidden', q.type === 'sgds_single' || q.id === 'gender');
+            if (navBottom) navBottom.classList.toggle('hidden', q.type === 'sgds_single' || q.id === 'gender' || (q.type === 'age' && window._ageStep !== 'day'));
             if (q.type !== 'sgds_single') speak(q.question_ko);
         }
 
@@ -2901,6 +2901,8 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
             root.innerHTML = html;
             validateBirthDate();
+            const _navB = document.getElementById('survey-nav-bottom');
+            if (_navB) _navB.classList.toggle('hidden', window._ageStep !== 'day');
         }
 
         function ageYearPress(digit) {
