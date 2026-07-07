@@ -842,8 +842,14 @@
         }
         /* 설문 시작 페이지: 모바일/태블릿 좌우 여백 20px (3열 1행 그리드 유지) */
         @media (max-width: 1023px) {
-            body:has(#page-survey-start:not(.hidden)) main { padding-left: 20px !important; padding-right: 20px !important; }
-            body:has(#page-survey-start:not(.hidden)) main > #page-survey-start > div { padding-left: 0 !important; padding-right: 0 !important; }
+            body:has(#page-survey-start:not(.hidden)) main {
+                padding: 20px 20px 0 !important;
+            }
+            body:has(#page-survey-start:not(.hidden)) main > #page-survey-start > div {
+                padding: 0 0 12px !important;
+                border-width: 0 !important;
+                background-color: transparent !important;
+            }
         }
         /* 서브페이지 상단 공통 안내 문구 영역: 배경 #F4F0E9, 외곽선 제거 */
         #buvi-narrative-box {
@@ -855,9 +861,9 @@
             background-color: #F4F0E9 !important;
             border-color: transparent !important;
             border-width: 0 !important;
-            border-radius: 16px;
+            border-radius: 16px !important;
             padding: 20px !important;
-            margin-bottom: 24px;
+            margin-bottom: 24px !important;
         }
         /* 데스크탑: 설문 시작 페이지 내 안내 카드 2개의 간격 20px + 수직 중앙 정렬 */
         @media (min-width: 1024px) {
