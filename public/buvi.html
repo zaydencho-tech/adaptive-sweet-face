@@ -931,6 +931,32 @@
                 margin-top: auto !important;
             }
         }
+
+        /* 데스크탑에서 건강정보 카테고리 상세 패널을 모달로 표시 */
+        @media (min-width: 1024px) {
+            #quiz-panel:not(.hidden) {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: min(720px, 92vw);
+                max-height: 88vh;
+                overflow-y: auto;
+                z-index: 60;
+                margin-top: 0 !important;
+                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+            }
+            body:has(#quiz-panel:not(.hidden))::after {
+                content: '';
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 55;
+            }
+            body:has(#quiz-panel:not(.hidden)) {
+                overflow: hidden;
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen pb-32">
