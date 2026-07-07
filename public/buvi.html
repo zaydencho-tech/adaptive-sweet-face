@@ -1489,36 +1489,39 @@
         <!-- ========================================================
              슬라이드 6: 검사 결과 리포트 v2
              ======================================================== -->
-        <section id="page-result" class="app-page hidden space-y-3">
+        <section id="page-result" class="app-page hidden space-y-4">
 
-            <!-- ① 종합 판정 카드 -->
-            <div id="result-status-card" class="bg-white rounded-3xl p-5 shadow-md border-2" style="background-color: var(--card-bg); border-color: var(--border-color);">
-                <p class="text-xs font-bold text-gray-400 text-center mb-1">어르신의 결과는</p>
-                <!-- 판정 배지 -->
-                <div id="result-risk-badge-wrap" class="flex justify-center mb-2">
-                    <div id="result-risk-badge" class="rounded-2xl px-8 py-3 text-center" style="background:#fef2f2; border:2px solid #fca5a5;">
-                        <span class="scaled-text-2xl font-black" style="color:#dc2626;">⚠ 노쇠 위험</span>
+            <!-- ① 히어로: 종합 판정 + 게이지 -->
+            <div id="result-hero-card" class="rounded-3xl shadow-lg overflow-hidden border-2" style="border-color: var(--border-color);">
+                <!-- 상단 히어로 (강조 배경) -->
+                <div id="result-status-card" class="px-6 pt-6 pb-7" style="background: linear-gradient(160deg, #fff8e1 0%, #ffe9b8 55%, #ffd98a 100%);">
+                    <p class="text-xs font-bold text-charcoal/60 text-center mb-2 tracking-wide">어르신의 결과는</p>
+                    <div id="result-risk-badge-wrap" class="flex justify-center mb-3">
+                        <div id="result-risk-badge" class="rounded-2xl px-8 py-3 text-center shadow-sm" style="background:#fff; border:2px solid #fca5a5;">
+                            <span class="scaled-text-2xl font-black" style="color:#dc2626;">⚠ 노쇠 위험</span>
+                        </div>
+                    </div>
+                    <p id="result-grade-desc" class="text-sm font-black text-charcoal/80 text-center mb-4"></p>
+                    <div id="result-gauge-wrap" class="px-1"></div>
+                    <p class="text-[10px] text-charcoal/50 font-bold text-center mt-3">본 결과는 노쇠 위험 선별 참고용이며 의학적 진단이 아닙니다.</p>
+                </div>
+                <!-- 하단 상세 정보 (흰색 카드) -->
+                <div class="bg-white p-5 space-y-5" style="background-color: var(--card-bg);">
+                    <!-- ① 영역 요약 -->
+                    <div class="space-y-2">
+                        <h3 class="scaled-text-base font-black text-charcoal">① 영역 요약</h3>
+                        <p class="text-xs text-gray-400 font-bold">위험에 기여하는 요인의 영역별 비중 (신체 5개 항목 · 정서 1개 항목)</p>
+                        <div id="domain-split-bar" class="flex flex-col gap-2 pt-1"></div>
+                    </div>
+                    <!-- 구분선 -->
+                    <div class="h-px w-full" style="background-color: var(--border-color);"></div>
+                    <!-- ② 항목별 영향 요인 -->
+                    <div class="space-y-3">
+                        <h3 class="scaled-text-base font-black text-charcoal">② 항목별 영향 요인</h3>
+                        <div id="bidir-bar-chart" class="flex flex-col gap-2"></div>
+                        <p class="text-[10px] text-gray-400 mt-1">나이(회색)는 비가역적 변수로 참고용입니다.</p>
                     </div>
                 </div>
-                <!-- 안내 문구 -->
-                <p id="result-grade-desc" class="text-sm font-bold text-gray-500 text-center mb-4"></p>
-                <!-- 수평 막대 게이지 (이미지 동일 구조) -->
-                <div id="result-gauge-wrap" class="px-2"></div>
-                <p class="text-[10px] text-gray-400 text-center mt-3">본 결과는 노쇠 위험 선별 참고용이며 의학적 진단이 아닙니다.</p>
-            </div>
-
-            <!-- ② 영역 요약 막대 (신체 vs 정서) -->
-            <div class="bg-white rounded-3xl p-4 shadow-md border-2 space-y-2" style="background-color: var(--card-bg); border-color: var(--border-color);">
-                <h3 class="scaled-text-base font-black text-charcoal">① 영역 요약</h3>
-                <p class="text-xs text-gray-400 font-bold">위험에 기여하는 요인의 영역별 비중 (신체 5개 항목 · 정서 1개 항목)</p>
-                <div id="domain-split-bar" class="flex flex-col gap-2"></div>
-            </div>
-
-            <!-- ③ 항목별 양방향 막대 -->
-            <div class="bg-white rounded-3xl p-4 shadow-md border-2 space-y-2" style="background-color: var(--card-bg); border-color: var(--border-color);">
-                <h3 class="scaled-text-base font-black text-charcoal">② 항목별 영향 요인</h3>
-                <div id="bidir-bar-chart" class="flex flex-col gap-1.5"></div>
-                <p class="text-[10px] text-gray-400 mt-1">나이(회색)는 비가역적 변수로 참고용입니다.</p>
             </div>
 
             <!-- ④ 액션 버튼 그룹 -->
