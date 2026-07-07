@@ -3762,6 +3762,14 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 }
             }
 
+            // 히어로 배경: 결과에 따라 색조 변경 (정상=그린, 위험=웜)
+            const heroCard = document.getElementById('result-status-card');
+            if (heroCard) {
+                heroCard.style.background = r.isAtRisk
+                    ? 'linear-gradient(160deg, #fff1f0 0%, #ffd9d0 55%, #ffb3a3 100%)'
+                    : 'linear-gradient(160deg, #ecfdf5 0%, #bbf7d0 55%, #86efac 100%)';
+            }
+
             // ── ① 수평 막대 게이지 (이미지 동일 구조) ────────────────
             const gaugeWrap = document.getElementById('result-gauge-wrap');
             if (gaugeWrap) {
