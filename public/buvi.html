@@ -2901,6 +2901,8 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
             root.innerHTML = html;
             validateBirthDate();
+            const _navB = document.getElementById('survey-nav-bottom');
+            if (_navB) _navB.classList.toggle('hidden', window._ageStep !== 'day');
         }
 
         function ageYearPress(digit) {
