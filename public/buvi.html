@@ -615,7 +615,8 @@
             body.subpage-mode main > #page-survey:not(.hidden),
             body.subpage-mode main > #page-chat:not(.hidden),
             body.subpage-mode main > #page-records:not(.hidden),
-            body.subpage-mode main > #page-help:not(.hidden) {
+            body.subpage-mode main > #page-help:not(.hidden),
+            body.subpage-mode main > #page-about:not(.hidden) {
                 flex: 1 1 auto;
                 display: flex;
                 flex-direction: column;
@@ -626,7 +627,8 @@
             body.subpage-mode main > #page-survey:not(.hidden) > *,
             body.subpage-mode main > #page-chat:not(.hidden) > *,
             body.subpage-mode main > #page-records:not(.hidden) > *,
-            body.subpage-mode main > #page-help:not(.hidden) > * {
+            body.subpage-mode main > #page-help:not(.hidden) > *,
+            body.subpage-mode main > #page-about:not(.hidden) > * {
                 flex: 1 1 auto;
                 display: flex;
                 flex-direction: column;
@@ -637,7 +639,8 @@
             body.subpage-mode main > #page-survey:not(.hidden) > * > *:last-child,
             body.subpage-mode main > #page-chat:not(.hidden) > * > *:last-child,
             body.subpage-mode main > #page-records:not(.hidden) > * > *:last-child,
-            body.subpage-mode main > #page-help:not(.hidden) > * > *:last-child {
+            body.subpage-mode main > #page-help:not(.hidden) > * > *:last-child,
+            body.subpage-mode main > #page-about:not(.hidden) > * > *:last-child {
                 margin-top: auto !important;
             }
             /* 중단 콘텐츠(마지막에서 두 번째 자식)를 수직 중앙으로 밀어냄 */
@@ -645,7 +648,8 @@
             body.subpage-mode main > #page-survey:not(.hidden) > * > *:nth-last-child(2),
             body.subpage-mode main > #page-chat:not(.hidden) > * > *:nth-last-child(2),
             body.subpage-mode main > #page-records:not(.hidden) > * > *:nth-last-child(2),
-            body.subpage-mode main > #page-help:not(.hidden) > * > *:nth-last-child(2) {
+            body.subpage-mode main > #page-help:not(.hidden) > * > *:nth-last-child(2),
+            body.subpage-mode main > #page-about:not(.hidden) > * > *:nth-last-child(2) {
                 margin-top: auto !important;
                 margin-bottom: auto !important;
             }
@@ -654,7 +658,8 @@
             body.subpage-mode main > #page-survey:not(.hidden) > *,
             body.subpage-mode main > #page-chat:not(.hidden) > *,
             body.subpage-mode main > #page-records:not(.hidden) > *,
-            body.subpage-mode main > #page-help:not(.hidden) > * {
+            body.subpage-mode main > #page-help:not(.hidden) > *,
+            body.subpage-mode main > #page-about:not(.hidden) > * {
                 padding-left: 2.5rem !important;
                 padding-right: 2.5rem !important;
             }
@@ -663,7 +668,8 @@
             body.subpage-mode main > #page-survey:not(.hidden) > * > *:last-child,
             body.subpage-mode main > #page-chat:not(.hidden) > * > *:last-child,
             body.subpage-mode main > #page-records:not(.hidden) > * > *:last-child,
-            body.subpage-mode main > #page-help:not(.hidden) > * > *:last-child {
+            body.subpage-mode main > #page-help:not(.hidden) > * > *:last-child,
+            body.subpage-mode main > #page-about:not(.hidden) > * > *:last-child {
                 max-width: 32rem;
                 width: 100%;
                 margin-left: auto !important;
@@ -2006,7 +2012,7 @@
         });
         // Keep subpage-mode class in sync with viewport across resize
         window.addEventListener('resize', () => {
-            const HERO_SUBPAGES = ['survey-start','survey','analyzing','result','chat','records','help'];
+            const HERO_SUBPAGES = ['survey-start','survey','analyzing','result','chat','records','help','about'];
             const active = document.querySelector('.app-page:not(.hidden)');
             const pageId = active ? active.id.replace(/^page-/, '') : '';
             const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
@@ -2342,7 +2348,7 @@
             });
             window.scrollTo(0,0);
             try {
-                const HERO_SUBPAGES = ['survey-start','survey','analyzing','result','chat','records','help'];
+                const HERO_SUBPAGES = ['survey-start','survey','analyzing','result','chat','records','help','about'];
                 const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
                 document.body.classList.toggle('subpage-mode', isDesktop && HERO_SUBPAGES.includes(pageId));
             } catch(_) {}
