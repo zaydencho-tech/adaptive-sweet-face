@@ -4069,7 +4069,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
             // 설문 미완료 차단
             if (!hasResult) {
-                scroller.innerHTML = `<div class="msg-row flex gap-3 items-start">
+                scroller.innerHTML = `<div class="msg-row flex flex-col gap-2 items-start">
                     <img src="${BUVI_IMG_11}" class="w-9 h-9 object-contain flex-shrink-0" alt="">
                     <div class="bg-yellow-50 border-2 border-yellow-300 p-4 rounded-3xl max-w-[85%] shadow-sm font-bold scaled-text-base leading-snug">
                         설문이 아직 완료되지 않았어요. 설문을 모두 마친 뒤 상담을 진행하세요!
@@ -4080,7 +4080,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             }
 
             scroller.innerHTML = `
-                <div class="msg-row flex gap-3 items-start" id="chat-loading-status">
+                <div class="msg-row flex flex-col gap-2 items-start" id="chat-loading-status">
                     <img src="${BUVI_IMG_11}" class="w-9 h-9 object-contain flex-shrink-0" alt="">
                     <div class="bg-gray-100 p-4 rounded-3xl max-w-[85%] border shadow-sm font-bold scaled-text-base">
                         <span>어르신의 건강 검사 결과를 꼼꼼히 분석하고 있습니다. 잠시만요...</span>
@@ -4211,7 +4211,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const scroller = document.getElementById('chat-scroller');
             if(!scroller) return;
             const row = document.createElement('div');
-            row.className = 'msg-row flex gap-3 items-start animate-fade-in';
+            row.className = 'msg-row flex flex-col gap-2 items-start animate-fade-in';
             row.innerHTML = `
                 <img src="${BUVI_IMG_11}" class="w-9 h-9 object-contain flex-shrink-0" alt="">
                 <div class="bg-white p-4 rounded-3xl max-w-[85%] border shadow-sm font-bold scaled-text-base leading-snug w-full">
