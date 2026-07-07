@@ -906,11 +906,14 @@
                 border-bottom: 0 !important;
             }
             /* 하단 본문 영역: 별도의 흰 카드로 감싸고 내부 배치는 중앙 상단 카드/팁 + 하단 시작 버튼 */
-            body.subpage-mode #page-survey-start > div > #survey-start-body {
+            body.subpage-mode main > #page-survey-start:not(.hidden) > div > #survey-start-body {
                 background-color: #FFFFFF !important;
                 box-shadow: 0 4px 34px rgba(0,0,0,.08) !important;
                 border-radius: 16px !important;
                 padding: 20px !important;
+                margin: 0 !important;
+                max-width: none !important;
+                width: auto !important;
                 flex: 1 1 auto !important;
                 display: flex !important;
                 flex-direction: column !important;
