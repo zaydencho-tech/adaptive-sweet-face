@@ -2716,7 +2716,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     ${Array.from({length:12},(_,i)=>i+1).map(m => {
                         const active = M === m;
                         return `<button type="button" onclick="ageSelectMonth(${m})"
-                            class="aspect-square w-full text-xl font-normal rounded-2xl border-2 transition-all select-none flex items-center justify-center ${active ? 'bg-blue-600 text-white border-blue-600' : 'bg-[#F4F0E9] text-gray-700 border-transparent hover:bg-blue-50 hover:border-blue-400 active:bg-blue-100'}">
+                            style="width:44px;height:44px" class="text-xl font-bold rounded-2xl border-2 transition-all select-none flex items-center justify-center ${active ? 'bg-blue-600 text-white border-blue-600' : 'bg-[#F4F0E9] text-gray-700 border-transparent hover:bg-blue-50 hover:border-blue-400 active:bg-blue-100'}">
                             ${m}월</button>`;
                     }).join('')}
                 </div>
@@ -2732,7 +2732,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     ${Array.from({length:daysInMonth},(_,i)=>i+1).map(d => {
                         const active = D === d;
                         return `<button type="button" onclick="ageSelectDay(${d})"
-                            class="aspect-square w-full text-lg font-normal rounded-2xl border-2 transition-all select-none flex items-center justify-center ${active ? 'bg-blue-600 text-white border-blue-600' : 'bg-[#F4F0E9] text-gray-700 border-transparent hover:bg-blue-50 hover:border-blue-400 active:bg-blue-100'}">${d}</button>`;
+                            style="width:44px;height:44px" class="text-lg font-bold rounded-2xl border-2 transition-all select-none flex items-center justify-center ${active ? 'bg-blue-600 text-white border-blue-600' : 'bg-[#F4F0E9] text-gray-700 border-transparent hover:bg-blue-50 hover:border-blue-400 active:bg-blue-100'}">${d}</button>`;
                     }).join('')}
                 </div>
 `;
