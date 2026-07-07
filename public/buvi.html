@@ -1706,7 +1706,6 @@
                 <div id="quiz-panel" class="hidden mt-8 p-6 bg-amber-50 rounded-3xl border-2 border-amber-300 space-y-4 transition-all duration-300 hc-card">
                     <div class="flex items-center justify-between border-b border-amber-200 pb-2">
                         <div class="flex items-center gap-2">
-                            <span class="text-2xl" id="panel-quiz-icon">🦉</span>
                             <h3 id="panel-quiz-card-title" class="scaled-text-lg font-black text-charcoal hc-text">카드뉴스 정독</h3>
                         </div>
                         <button onclick="requestStopReading()" class="text-gray-400 hover:text-gray-600 font-black text-xl px-2 min-w-[36px] min-h-[36px]" title="읽기 그만하기">✕</button>
@@ -1715,17 +1714,17 @@
                     <div id="card-news-body" class="rounded-2xl border p-6 leading-relaxed space-y-4 shadow-sm hc-card" style="background-color: var(--card-bg); border-color: var(--border-color);">
                     </div>
 
-                    <p id="card-scroll-hint" class="text-xs text-amber-700 font-bold text-center">🔒 내용을 끝까지 읽으시면 완료 버튼이 켜집니다. (아래로 스크롤해 주세요)</p>
+                    <p id="card-scroll-hint" class="text-xs text-amber-700 font-bold text-center">내용을 끝까지 읽으시면 완료 버튼이 켜집니다. (아래로 스크롤해 주세요)</p>
                     
                     <div class="bg-emerald-50 p-5 rounded-2xl border border-emerald-300 space-y-3 mt-6">
                         <h4 class="scaled-text-base font-black text-emerald-800 flex items-center gap-1.5">
-                            📖 정독 완료 확인
+                            정독 완료 확인
                         </h4>
                         <p class="scaled-text-sm text-emerald-700 font-bold leading-normal">
                             위의 건강 정보 배움터 내용을 천천히 모두 읽으셨나요? 아래 [완료] 버튼을 누르시면 읽음이 기록됩니다.
                         </p>
                         <button id="card-complete-btn" onclick="submitCardReadConfirmation()" disabled class="w-full bg-gray-300 text-gray-400 font-black py-4 rounded-xl text-center shadow-md scaled-text-base btn-height-primary transition-all flex items-center justify-center gap-2 cursor-not-allowed">
-                            ✔️ 완료
+                            완료
                         </button>
                     </div>
                 </div>
@@ -4498,7 +4497,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
             const isCardNews = Array.isArray(card.cardNews) && card.cardNews.length > 0;
             titleEl.innerText = isCardNews ? card.title : `${card.title} (기력 보완 가이드)`;
-            iconEl.innerText = card.icon;
+            if (iconEl) iconEl.innerText = '';
 
             // 다 읽기 전에는 완료 버튼 잠금 + 다른 책자로 이동 제한
             state.cardReadingLocked = true;
@@ -4538,14 +4537,14 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 btn.disabled = false;
                 btn.classList.remove('bg-gray-300', 'text-gray-400', 'cursor-not-allowed');
                 btn.classList.add('bg-emerald-600', 'hover:bg-emerald-700', 'text-white');
-                if (hint) hint.innerHTML = '✅ 모두 읽으셨어요! 완료 버튼을 눌러주세요.';
+                if (hint) hint.innerHTML = '모두 읽으셨어요! 완료 버튼을 눌러주세요.';
             } else {
                 btn.disabled = true;
                 btn.classList.add('bg-gray-300', 'text-gray-400', 'cursor-not-allowed');
                 btn.classList.remove('bg-emerald-600', 'hover:bg-emerald-700', 'text-white');
                 if (hint) hint.innerHTML = state.cardNewsMode
-                    ? '🔒 마지막 장까지 넘겨 보시면 완료 버튼이 켜집니다.'
-                    : '🔒 내용을 끝까지 읽으시면 완료 버튼이 켜집니다. (아래로 스크롤해 주세요)';
+                    ? '마지막 장까지 넘겨 보시면 완료 버튼이 켜집니다.'
+                    : '내용을 끝까지 읽으시면 완료 버튼이 켜집니다. (아래로 스크롤해 주세요)';
             }
         }
 
