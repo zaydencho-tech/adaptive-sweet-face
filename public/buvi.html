@@ -4207,13 +4207,19 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             }, 9500);
         }
 
-        function appendBotMsg(html) {
+        function appendBotMsg(html, step) {
             const scroller = document.getElementById('chat-scroller');
             if(!scroller) return;
             const row = document.createElement('div');
             row.className = 'msg-row flex flex-col gap-2 items-start animate-fade-in';
+            const stepPill = step
+                ? `<span class="inline-flex items-center gap-1 bg-yellow-100 text-charcoal font-black scaled-text-xs px-3 py-1 rounded-full border border-yellow-300 shadow-sm">${step}</span>`
+                : '';
             row.innerHTML = `
-                <img src="${BUVI_IMG_11}" class="w-9 h-9 object-contain flex-shrink-0" alt="">
+                <div class="flex items-center gap-2">
+                    <img src="${BUVI_IMG_11}" class="w-9 h-9 object-contain flex-shrink-0" alt="">
+                    ${stepPill}
+                </div>
                 <div class="bg-white p-4 rounded-3xl max-w-[85%] border shadow-sm font-bold scaled-text-base leading-snug w-full">
                     ${html}
                 </div>
@@ -4221,6 +4227,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             scroller.appendChild(row);
             scroller.scrollTop = scroller.scrollHeight;
         }
+
 
         function appendUserMsg(text) {
             const scroller = document.getElementById('chat-scroller');
