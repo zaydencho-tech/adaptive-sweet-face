@@ -917,19 +917,6 @@
                 padding-bottom: 0 !important;
                 border-bottom: 0 !important;
             }
-            /* 인포박스 하단 영역을 하나의 흰색 카드로 묶기 */
-            body.subpage-mode #page-survey-start #survey-start-body {
-                background-color: #FFFFFF !important;
-                box-shadow: 0 4px 34px rgba(0,0,0,.08) !important;
-                border-radius: 16px !important;
-                padding: 24px !important;
-            }
-            body.subpage-mode #page-survey-start #survey-start-body > *:first-child {
-                margin-top: 0 !important;
-            }
-            body.subpage-mode #page-survey-start #survey-start-body > *:last-child {
-                margin-bottom: 0 !important;
-            }
         }
     </style>
 </head>
@@ -1378,7 +1365,6 @@
                     </div>
                 </div>
 
-                <div id="survey-start-body">
                 <div class="grid grid-cols-3 gap-2 my-3 md:gap-4 md:my-8">
 
                     <div class="bg-[#FFFBED]/40 p-2 md:p-5 rounded-2xl border-2 border-yellow-200 text-center space-y-0.5 md:space-y-2">
@@ -1416,7 +1402,6 @@
                 <button onclick="startSurveyProcedure()" class="w-full bg-kakao text-charcoal font-black rounded-2xl flex items-center justify-center gap-2 shadow-md hover:brightness-95 transition-all btn-height-primary" style="font-size:22px;">
                     설문 시작하기  <i class="fa-solid fa-chevron-right"></i>
                 </button>
-                </div>
             </div>
         </section>
 
