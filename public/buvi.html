@@ -1598,13 +1598,45 @@
         <section id="page-help" class="app-page hidden space-y-5">
 
 
-            <div class="rounded-2xl p-5 border-2 shadow-sm text-center space-y-3 hc-card" style="background-color: var(--card-bg); border-color: var(--border-color);">
-                <span class="scaled-text-base text-gray-600 font-bold block hc-muted">시스템 사용 중 어려움이 생기셨나요? 연구팀에 바로 연락주십시오.</span>
-                <button onclick="callResearchTeam()" class="bg-kakao text-charcoal font-black rounded-xl px-6 py-3 hover:brightness-95 inline-flex items-center gap-2 scaled-text-lg shadow-sm hc-btn-primary">
-                    연세대학교 원주간호대학 김남희 교수 연구팀: 010-9267-3611
-                </button>
-                <p class="text-xs text-gray-400 font-bold hc-muted">(평일 오전 9시~오후 6시 연락 가능)</p>
+            <div class="rounded-3xl p-6 shadow-lg text-white hc-card relative overflow-hidden" style="background: linear-gradient(135deg, #6d5cf0 0%, #8571f5 100%);">
+                <!-- 상단: 로고 + 인사말 + 알림 -->
+                <div class="flex items-start justify-between gap-3">
+                    <div class="w-14 h-14 rounded-full bg-white flex items-center justify-center shadow-md flex-shrink-0 overflow-hidden">
+                        <img src="/assets/yonsei-logo.png" alt="연세대학교 로고" class="w-12 h-12 object-contain" />
+                    </div>
+                    <div class="flex-1 text-center pt-1">
+                        <p class="scaled-text-sm font-medium opacity-90">Good Day!</p>
+                        <p class="scaled-text-base font-black leading-tight">김남희 교수 연구팀</p>
+                    </div>
+                    <div class="w-11 h-11 rounded-full bg-white/25 backdrop-blur flex items-center justify-center flex-shrink-0 relative">
+                        <i class="fa-regular fa-bell text-white"></i>
+                        <span class="absolute top-2 right-2.5 w-2 h-2 rounded-full bg-red-400"></span>
+                    </div>
+                </div>
+
+                <!-- 중앙: 연락처 정보 -->
+                <div class="mt-6 space-y-1">
+                    <div class="flex items-center gap-2 opacity-90">
+                        <span class="scaled-text-sm font-medium">연구팀 직통 연락처</span>
+                        <i class="fa-regular fa-eye text-xs"></i>
+                    </div>
+                    <p class="text-3xl font-black tracking-tight leading-tight">010-9267-3611</p>
+                    <p class="scaled-text-xs opacity-75 font-medium">연세대학교 원주간호대학 · 평일 09:00 ~ 18:00</p>
+                </div>
+
+                <!-- 하단: 액션 버튼 -->
+                <div class="mt-6 grid grid-cols-2 gap-3">
+                    <a href="tel:01092673611" onclick="callResearchTeam()" class="bg-charcoal text-white font-black rounded-2xl px-4 py-3 flex items-center justify-center gap-2 scaled-text-base hover:bg-black transition-all" style="background-color: #1a1a1a;">
+                        <i class="fa-solid fa-phone rotate-90"></i>
+                        <span>전화 걸기</span>
+                    </a>
+                    <a href="sms:01092673611" class="bg-charcoal text-white font-black rounded-2xl px-4 py-3 flex items-center justify-center gap-2 scaled-text-base hover:bg-black transition-all" style="background-color: #1a1a1a;">
+                        <i class="fa-solid fa-arrow-up rotate-45"></i>
+                        <span>문자 보내기</span>
+                    </a>
+                </div>
             </div>
+
 
             <div class="rounded-2xl p-6 shadow-sm border-2 space-y-4 hc-card" style="background-color: var(--card-bg); border-color: var(--border-color);">
                 <h3 class="scaled-text-lg font-black text-charcoal border-b pb-2 hc-text" style="border-color: var(--border-color);">📖 BUVI 아주 쉬운 이용 방법</h3>
