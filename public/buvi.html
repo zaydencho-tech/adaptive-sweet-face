@@ -894,12 +894,20 @@
                 background-color: #FFFFFF !important;
                 box-shadow: 0 4px 34px rgba(0,0,0,.08) !important;
             }
+            /* 설문 시작: 외곽 흰색 래퍼를 투명 처리하여 상단 인포박스를 분리 */
+            body.subpage-mode #page-survey-start > div {
+                background-color: transparent !important;
+                border-width: 0 !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                gap: 20px !important;
+            }
             body.subpage-mode #page-survey-start > div > div:first-child {
                 background-color: #FFFFFF !important;
                 box-shadow: 0 4px 34px rgba(0,0,0,.08) !important;
                 border-radius: 16px !important;
                 padding: 20px !important;
-                margin: 0 0 20px !important;
+                margin: 0 !important;
                 display: flex !important;
                 align-items: center !important;
                 gap: 20px !important;
