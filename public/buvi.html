@@ -1489,36 +1489,39 @@
         <!-- ========================================================
              슬라이드 6: 검사 결과 리포트 v2
              ======================================================== -->
-        <section id="page-result" class="app-page hidden space-y-3">
+        <section id="page-result" class="app-page hidden space-y-4">
 
-            <!-- ① 종합 판정 카드 -->
-            <div id="result-status-card" class="bg-white rounded-3xl p-5 shadow-md border-2" style="background-color: var(--card-bg); border-color: var(--border-color);">
-                <p class="text-xs font-bold text-gray-400 text-center mb-1">어르신의 결과는</p>
-                <!-- 판정 배지 -->
-                <div id="result-risk-badge-wrap" class="flex justify-center mb-2">
-                    <div id="result-risk-badge" class="rounded-2xl px-8 py-3 text-center" style="background:#fef2f2; border:2px solid #fca5a5;">
-                        <span class="scaled-text-2xl font-black" style="color:#dc2626;">⚠ 노쇠 위험</span>
+            <!-- ① 히어로: 종합 판정 + 게이지 -->
+            <div id="result-hero-card" class="rounded-3xl shadow-lg overflow-hidden border-2" style="border-color: var(--border-color);">
+                <!-- 상단 히어로 (강조 배경) -->
+                <div id="result-status-card" class="px-6 pt-6 pb-7" style="background: linear-gradient(160deg, #fff8e1 0%, #ffe9b8 55%, #ffd98a 100%);">
+                    <p class="text-xs font-bold text-charcoal/60 text-center mb-2 tracking-wide">어르신의 결과는</p>
+                    <div id="result-risk-badge-wrap" class="flex justify-center mb-3">
+                        <div id="result-risk-badge" class="rounded-2xl px-8 py-3 text-center shadow-sm" style="background:#fff; border:2px solid #fca5a5;">
+                            <span class="scaled-text-2xl font-black" style="color:#dc2626;">⚠ 노쇠 위험</span>
+                        </div>
+                    </div>
+                    <p id="result-grade-desc" class="text-sm font-black text-charcoal/80 text-center mb-4"></p>
+                    <div id="result-gauge-wrap" class="px-1"></div>
+                    <p class="text-[10px] text-charcoal/50 font-bold text-center mt-3">본 결과는 노쇠 위험 선별 참고용이며 의학적 진단이 아닙니다.</p>
+                </div>
+                <!-- 하단 상세 정보 (흰색 카드) -->
+                <div class="bg-white p-5 space-y-5" style="background-color: var(--card-bg);">
+                    <!-- ① 영역 요약 -->
+                    <div class="space-y-2">
+                        <h3 class="scaled-text-base font-black text-charcoal">① 영역 요약</h3>
+                        <p class="text-xs text-gray-400 font-bold">위험에 기여하는 요인의 영역별 비중 (신체 5개 항목 · 정서 1개 항목)</p>
+                        <div id="domain-split-bar" class="flex flex-col gap-2 pt-1"></div>
+                    </div>
+                    <!-- 구분선 -->
+                    <div class="h-px w-full" style="background-color: var(--border-color);"></div>
+                    <!-- ② 항목별 영향 요인 -->
+                    <div class="space-y-3">
+                        <h3 class="scaled-text-base font-black text-charcoal">② 항목별 영향 요인</h3>
+                        <div id="bidir-bar-chart" class="flex flex-col gap-2"></div>
+                        <p class="text-[10px] text-gray-400 mt-1">나이(회색)는 비가역적 변수로 참고용입니다.</p>
                     </div>
                 </div>
-                <!-- 안내 문구 -->
-                <p id="result-grade-desc" class="text-sm font-bold text-gray-500 text-center mb-4"></p>
-                <!-- 수평 막대 게이지 (이미지 동일 구조) -->
-                <div id="result-gauge-wrap" class="px-2"></div>
-                <p class="text-[10px] text-gray-400 text-center mt-3">본 결과는 노쇠 위험 선별 참고용이며 의학적 진단이 아닙니다.</p>
-            </div>
-
-            <!-- ② 영역 요약 막대 (신체 vs 정서) -->
-            <div class="bg-white rounded-3xl p-4 shadow-md border-2 space-y-2" style="background-color: var(--card-bg); border-color: var(--border-color);">
-                <h3 class="scaled-text-base font-black text-charcoal">① 영역 요약</h3>
-                <p class="text-xs text-gray-400 font-bold">위험에 기여하는 요인의 영역별 비중 (신체 5개 항목 · 정서 1개 항목)</p>
-                <div id="domain-split-bar" class="flex flex-col gap-2"></div>
-            </div>
-
-            <!-- ③ 항목별 양방향 막대 -->
-            <div class="bg-white rounded-3xl p-4 shadow-md border-2 space-y-2" style="background-color: var(--card-bg); border-color: var(--border-color);">
-                <h3 class="scaled-text-base font-black text-charcoal">② 항목별 영향 요인</h3>
-                <div id="bidir-bar-chart" class="flex flex-col gap-1.5"></div>
-                <p class="text-[10px] text-gray-400 mt-1">나이(회색)는 비가역적 변수로 참고용입니다.</p>
             </div>
 
             <!-- ④ 액션 버튼 그룹 -->
@@ -3759,6 +3762,14 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 }
             }
 
+            // 히어로 배경: 결과에 따라 색조 변경 (정상=그린, 위험=웜)
+            const heroCard = document.getElementById('result-status-card');
+            if (heroCard) {
+                heroCard.style.background = r.isAtRisk
+                    ? 'linear-gradient(160deg, #fff1f0 0%, #ffd9d0 55%, #ffb3a3 100%)'
+                    : 'linear-gradient(160deg, #ecfdf5 0%, #bbf7d0 55%, #86efac 100%)';
+            }
+
             // ── ① 수평 막대 게이지 (이미지 동일 구조) ────────────────
             const gaugeWrap = document.getElementById('result-gauge-wrap');
             if (gaugeWrap) {
@@ -3867,34 +3878,38 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             if (chartEl) {
                 const maxAbs = Math.max(...r.sortedContribs.map(c => Math.abs(c.value)), 0.001);
                 const headerRow = `
-                <div class="flex items-center gap-1.5 mb-1">
-                    <span class="shrink-0 w-16"></span>
-                    <div class="flex-1 flex justify-between text-[10px] font-bold px-1">
-                        <span class="text-emerald-600">← 도움이 됨</span>
-                        <span class="text-orange-500">위험을 키움 →</span>
-                    </div>
-                    <span class="w-10 shrink-0"></span>
+                <div class="flex justify-between text-[11px] font-black px-1 mb-1">
+                    <span class="text-emerald-600">← 도움이 됨</span>
+                    <span class="text-orange-500">위험을 키움 →</span>
                 </div>`;
+                // 색상 팔레트 — 부드러운 파스텔 배경 + 진한 라벨/필 색
+                const PAL = {
+                    phys: { fill:'#3b82f6', softRisk:'#dbeafe', softProt:'#dbeafe', text:'#1e3a8a' },
+                    emo:  { fill:'#ec4899', softRisk:'#fce7f3', softProt:'#fce7f3', text:'#9d174d' },
+                    age:  { fill:'#9ca3af', softRisk:'#f3f4f6', softProt:'#f3f4f6', text:'#4b5563' },
+                };
                 const rows = r.sortedContribs.map(c => {
                     const ratio  = Math.abs(c.value) / maxAbs;
                     const barPct = Math.min(ratio * 45, 45);
                     const isRisk = c.value > 0;
                     const isAge  = c.key === 'age';
-                    // 사양서 5-2: 신체=파랑, 정서=분홍, 나이=회색
-                    const barColor = isAge ? '#9ca3af'
-                        : (c.domain === 'emo' ? '#f472b6' : '#3b82f6');
+                    const pal = isAge ? PAL.age : (c.domain === 'emo' ? PAL.emo : PAL.phys);
+                    // 배경: 좌=연초록(도움), 우=연주황(위험) 하지만 항목 성격에 따라 톤 살짝 조정
                     return `
-                    <div class="flex items-center gap-1.5">
-                        <span class="text-xs font-black shrink-0 w-16 text-right leading-tight ${isAge ? 'text-gray-400' : 'text-gray-700'}">${c.label}</span>
-                        <div class="flex-1 relative h-6 rounded overflow-hidden"
-                            style="background: linear-gradient(to right, #f0fdf4 50%, #fff7ed 50%)">
-                            <div class="absolute top-0 bottom-0 left-1/2 w-px bg-gray-300"></div>
-                            ${isRisk
-                                ? `<div class="absolute top-1 bottom-1 rounded-sm" style="left:50%; width:${barPct}%; background:${barColor}"></div>`
-                                : `<div class="absolute top-1 bottom-1 rounded-sm" style="right:50%; width:${barPct}%; background:${barColor}"></div>`
-                            }
+                    <div class="relative h-12 rounded-2xl overflow-hidden"
+                        style="background: linear-gradient(to right, #ecfdf5 0%, #ecfdf5 50%, #fff7ed 50%, #fff7ed 100%);">
+                        <!-- 중앙 기준선 -->
+                        <div class="absolute top-1.5 bottom-1.5 left-1/2 w-px" style="background:#d1d5db;"></div>
+                        <!-- 채워지는 막대 (라운드 처리) -->
+                        ${isRisk
+                            ? `<div class="absolute top-1.5 bottom-1.5 rounded-r-xl" style="left:50%; width:${barPct}%; background:${pal.fill}; opacity:0.92;"></div>`
+                            : `<div class="absolute top-1.5 bottom-1.5 rounded-l-xl" style="right:50%; width:${barPct}%; background:${pal.fill}; opacity:0.92;"></div>`
+                        }
+                        <!-- 라벨(항목명) — 막대 안쪽/기준선 위에 오버레이 -->
+                        <div class="absolute inset-0 flex items-center px-3 pointer-events-none">
+                            <span class="text-sm font-black text-charcoal">${c.label}</span>
+                            <span class="ml-auto text-[11px] font-black px-2 py-0.5 rounded-full ${isAge ? 'bg-gray-200 text-gray-500' : (isRisk ? 'bg-orange-100 text-orange-600' : 'bg-emerald-100 text-emerald-700')}">${isAge ? '참고' : (isRisk ? '위험' : '보호')}</span>
                         </div>
-                        <span class="text-[10px] font-bold w-10 shrink-0 ${isAge ? 'text-gray-400' : (isRisk ? 'text-orange-500' : 'text-emerald-600')}">${isAge ? '참고' : (isRisk ? '위험' : '보호')}</span>
                     </div>`;
                 }).join('');
                 chartEl.innerHTML = headerRow + rows;
