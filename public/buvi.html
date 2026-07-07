@@ -878,55 +878,53 @@
                 background-color: #FFFFFF !important;
                 box-shadow: 0 4px 34px rgba(0,0,0,.08) !important;
             }
-            /* 설문 시작: 외곽 래퍼를 흰색 카드로 유지하되, 상단 인포박스는 별도 카드로 분리 */
+            /* 설문 시작: 외곽 래퍼는 투명, 상단 인포박스와 하단 카드를 두 개의 흰색 카드로 분리 */
             body.subpage-mode #page-survey-start > div {
-                background-color: #FFFFFF !important;
-                box-shadow: 0 4px 34px rgba(0,0,0,.08) !important;
-                border-radius: 16px !important;
+                background-color: transparent !important;
+                box-shadow: none !important;
                 border-width: 0 !important;
-                padding: 20px !important;
+                padding: 0 !important;
                 display: flex !important;
                 flex-direction: column !important;
+                gap: 20px !important;
                 min-height: calc(100vh - 160px) !important;
             }
-            /* 3개 카드와 팁 박스는 상단 여백을 밀어 중앙 위쪽에, 버튼은 하단에 배치 */
-            body.subpage-mode main > #page-survey-start:not(.hidden) > div > .grid.grid-cols-3 {
-                margin-top: auto !important;
-                margin-bottom: 20px !important;
-            }
-            body.subpage-mode main > #page-survey-start:not(.hidden) > div > .bg-\[\#FFFDF4\] {
-                margin-top: 0 !important;
-                margin-bottom: 20px !important;
-            }
-            body.subpage-mode main > #page-survey-start:not(.hidden) > div > button {
-                margin-top: auto !important;
-            }
-            /* 상단 인포박스: 래퍼 밖으로 빼낸 것처럼 보이도록 흰 카드로 분리 */
+            /* 상단 인포박스: 상담/건강정보/도움말 상단 인포박스와 동일한 흰 카드 */
             body.subpage-mode #page-survey-start > div > div:first-child {
                 background-color: #FFFFFF !important;
                 box-shadow: 0 4px 34px rgba(0,0,0,.08) !important;
                 border-radius: 16px !important;
                 padding: 20px !important;
-                margin: -20px -20px 20px !important;
+                margin: 0 !important;
                 display: flex !important;
                 align-items: center !important;
                 gap: 20px !important;
                 border-width: 0 !important;
-                position: relative !important;
-            }
-            /* 인포박스와 하단 카드 사이에 베이지 배경 간격 만들기 */
-            body.subpage-mode #page-survey-start > div > div:first-child::after {
-                content: "";
-                position: absolute;
-                left: 0;
-                right: 0;
-                bottom: -20px;
-                height: 20px;
-                background-color: #F4F0E9;
             }
             body.subpage-mode #page-survey-start > div > div:first-child > * {
                 padding-bottom: 0 !important;
                 border-bottom: 0 !important;
+            }
+            /* 하단 본문 영역: 별도의 흰 카드로 감싸고 내부 배치는 중앙 상단 카드/팁 + 하단 시작 버튼 */
+            body.subpage-mode #page-survey-start > div > #survey-start-body {
+                background-color: #FFFFFF !important;
+                box-shadow: 0 4px 34px rgba(0,0,0,.08) !important;
+                border-radius: 16px !important;
+                padding: 20px !important;
+                flex: 1 1 auto !important;
+                display: flex !important;
+                flex-direction: column !important;
+            }
+            body.subpage-mode #page-survey-start > div > #survey-start-body > .grid.grid-cols-3 {
+                margin-top: auto !important;
+                margin-bottom: 20px !important;
+            }
+            body.subpage-mode #page-survey-start > div > #survey-start-body > .bg-\[\#FFFDF4\] {
+                margin-top: 0 !important;
+                margin-bottom: 20px !important;
+            }
+            body.subpage-mode #page-survey-start > div > #survey-start-body > button {
+                margin-top: auto !important;
             }
         }
     </style>
@@ -1376,6 +1374,7 @@
                     </div>
                 </div>
 
+                <div id="survey-start-body">
                 <div class="grid grid-cols-3 gap-2 my-3 md:gap-4 md:my-8">
 
                     <div class="bg-[#FFFBED]/40 p-2 md:p-5 rounded-2xl border-2 border-yellow-200 text-center space-y-0.5 md:space-y-2">
@@ -1413,6 +1412,7 @@
                 <button onclick="startSurveyProcedure()" class="w-full bg-kakao text-charcoal font-black rounded-2xl flex items-center justify-center gap-2 shadow-md hover:brightness-95 transition-all btn-height-primary" style="font-size:22px;">
                     설문 시작하기  <i class="fa-solid fa-chevron-right"></i>
                 </button>
+                </div>
             </div>
         </section>
 
