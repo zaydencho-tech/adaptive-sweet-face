@@ -2382,6 +2382,10 @@
                 const HERO_SUBPAGES = ['survey-start','survey','analyzing','result','chat','records','help','about'];
                 const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
                 document.body.classList.toggle('subpage-mode', isDesktop && HERO_SUBPAGES.includes(pageId));
+                const activeKey = (pageId === 'survey-start' || pageId === 'survey') ? 'survey' : pageId;
+                document.querySelectorAll('#desktop-hero-aside .hero-nav-btn').forEach(btn => {
+                    btn.classList.toggle('is-active', btn.getAttribute('data-nav-key') === activeKey);
+                });
             } catch(_) {}
             handlePageEntranceEffects(pageId);
         }
