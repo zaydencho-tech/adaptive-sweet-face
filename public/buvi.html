@@ -872,46 +872,44 @@
             padding: 20px !important;
             margin-bottom: 24px !important;
         }
-        /* 데스크탑: 설문 시작 페이지 내 안내 카드 2개의 간격 20px + 수직 중앙 정렬 */
-        @media (min-width: 1024px) {
-            #page-survey-start > div {
-                display: flex;
-                flex-direction: column;
-                min-height: calc(100vh - 160px);
-            }
-            body.subpage-mode main > #page-survey-start:not(.hidden) > div > .grid.grid-cols-3 {
-                margin-top: auto !important;
-                margin-bottom: 10px !important;
-            }
-            body.subpage-mode main > #page-survey-start:not(.hidden) > div > .bg-\[\#FFFDF4\] {
-                margin-top: 10px !important;
-                margin-bottom: auto !important;
-            }
-        }
         /* 데스크탑: 상단 인포박스 배경 흰색 + 설문 상단 인포박스도 동일 형태로 통일 */
         @media (min-width: 1024px) {
             body.subpage-mode #buvi-narrative-box {
                 background-color: #FFFFFF !important;
                 box-shadow: 0 4px 34px rgba(0,0,0,.08) !important;
             }
-            /* 설문 시작: 외곽 흰색 래퍼를 투명 처리하여 상단 인포박스를 분리 */
+            /* 설문 시작: 외곽 래퍼를 흰색 카드로 유지하되, 상단 인포박스는 별도 카드로 분리 */
             body.subpage-mode #page-survey-start > div {
-                background-color: transparent !important;
+                background-color: #FFFFFF !important;
+                box-shadow: 0 4px 34px rgba(0,0,0,.08) !important;
+                border-radius: 16px !important;
                 border-width: 0 !important;
-                box-shadow: none !important;
-                padding: 0 !important;
-                gap: 20px !important;
+                padding: 20px !important;
+                display: block !important;
+                min-height: 0 !important;
             }
+            /* 상단 인포박스: 래퍼 밖으로 빼낸 것처럼 보이도록 흰 카드로 분리 */
             body.subpage-mode #page-survey-start > div > div:first-child {
                 background-color: #FFFFFF !important;
                 box-shadow: 0 4px 34px rgba(0,0,0,.08) !important;
                 border-radius: 16px !important;
                 padding: 20px !important;
-                margin: 0 !important;
+                margin: -20px -20px 20px !important;
                 display: flex !important;
                 align-items: center !important;
                 gap: 20px !important;
                 border-width: 0 !important;
+                position: relative !important;
+            }
+            /* 인포박스와 하단 카드 사이에 베이지 배경 간격 만들기 */
+            body.subpage-mode #page-survey-start > div > div:first-child::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: -20px;
+                height: 20px;
+                background-color: #F4F0E9;
             }
             body.subpage-mode #page-survey-start > div > div:first-child > * {
                 padding-bottom: 0 !important;
