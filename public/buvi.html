@@ -4172,7 +4172,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 // 나이 제외 5개 항목 (기여도 내림차순, 양수/음수 모두 포함)
                 const allItems = r.sortedContribs.filter(c => c.key !== 'age').slice(0, 5);
                 if (allItems.length === 0) {
-                    appendBotMsg('모든 항목이 또래 평균보다 양호한 상태입니다. 지금처럼 건강한 생활을 유지해 주세요! 🎉');
+                    appendBotMsg('모든 항목이 또래 평균보다 양호한 상태입니다. 지금처럼 건강한 생활을 유지해 주세요! 🎉', '3단계 · 항목별 안내');
                     updateBuvi('2-2', '모든 항목이 양호합니다! 대단하세요.');
                     return;
                 }
