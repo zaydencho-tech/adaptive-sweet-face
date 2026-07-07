@@ -888,6 +888,28 @@
                 margin-bottom: auto !important;
             }
         }
+        /* 데스크탑: 상단 인포박스 배경 흰색 + 설문 상단 인포박스도 동일 형태로 통일 */
+        @media (min-width: 1024px) {
+            body.subpage-mode #buvi-narrative-box {
+                background-color: #FFFFFF !important;
+                box-shadow: 0 4px 34px rgba(0,0,0,.08) !important;
+            }
+            body.subpage-mode #page-survey-start > div > div:first-child {
+                background-color: #FFFFFF !important;
+                box-shadow: 0 4px 34px rgba(0,0,0,.08) !important;
+                border-radius: 16px !important;
+                padding: 20px !important;
+                margin: 0 0 20px !important;
+                display: flex !important;
+                align-items: center !important;
+                gap: 20px !important;
+                border-width: 0 !important;
+            }
+            body.subpage-mode #page-survey-start > div > div:first-child > * {
+                padding-bottom: 0 !important;
+                border-bottom: 0 !important;
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen pb-32">
