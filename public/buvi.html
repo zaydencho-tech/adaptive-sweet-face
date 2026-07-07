@@ -273,17 +273,18 @@
         .stepper-row { display: flex; align-items: center; justify-content: center; gap: 12px; }
         .stepper-btn {
             width: 56px; height: 56px; border-radius: 9999px;
-            background: #111729; color: #ffffff;
+            background: #F3F0EA; color: #111729;
             font-size: 30px; font-weight: 900; line-height: 1;
             display: inline-flex; align-items: center; justify-content: center;
             border: 0; cursor: pointer; flex-shrink: 0;
-            box-shadow: 0 4px 12px rgba(17,23,41,.18);
+            box-shadow: 0 4px 12px rgba(17,23,41,.08);
             transition: transform .1s ease, background-color .15s ease;
             -webkit-tap-highlight-color: transparent;
         }
-        .stepper-btn:hover { background: #1f2a44; }
+        .stepper-btn:hover { background: #E8E4DA; }
         .stepper-btn:active { transform: scale(.94); }
-        .stepper-btn:disabled { background: #9CA3AF; cursor: not-allowed; box-shadow: none; }
+        .stepper-btn:disabled { background: #EDEAE3; color: #9CA3AF; cursor: not-allowed; box-shadow: none; }
+
         .stepper-field {
             display: inline-flex; align-items: baseline; justify-content: center; gap: 8px;
             background: #ffffff; border: 2px solid #93C5FD; border-radius: 16px;
