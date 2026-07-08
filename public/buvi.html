@@ -478,12 +478,12 @@
                  display: grid; align-items: stretch;
              }
              /* Monitoring 5-metric grid: stretch to fill the card */
-             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white > .grid.grid-cols-5,
-             body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .bg-white > .grid.grid-cols-5 {
+             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white > .monitoring-grid,
+             body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .bg-white > .monitoring-grid {
                  flex: 1 1 auto; min-height: 0; align-items: stretch;
              }
-             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white > .grid.grid-cols-5 > div,
-             body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .bg-white > .grid.grid-cols-5 > div {
+             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white > .monitoring-grid > .monitoring-metric,
+             body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .bg-white > .monitoring-grid > .monitoring-metric {
                  height: 100%; display: flex; flex-direction: column; justify-content: space-between;
              }
              /* Owl action cards: fill grid cell and center content */
