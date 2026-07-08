@@ -538,16 +538,28 @@
                 body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .bg-white > .monitoring-grid > .monitoring-metric .metric-body {
                     justify-content: center !important; gap: 0 !important;
                 }
-                /* 로그인 후 건강 모니터링: 5개 카드 모두 프로그레스바-상단 텍스트 간격 40px 고정, 타이틀-값 간격은 auto */
-                body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .bg-white > .monitoring-grid > .monitoring-metric {
-                    justify-content: flex-start !important;
-                }
-                body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .bg-white > .monitoring-grid > .monitoring-metric .metric-body {
-                    flex: 1 1 auto !important; min-height: 0 !important;
-                }
-                body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .bg-white > .monitoring-grid > .monitoring-metric .metric-value {
-                    margin-top: auto !important;
-                }
+                 /* 로그인 후 건강 모니터링: 5개 카드 컴팩트하게, 타이틀-값 간격 축소 */
+                 body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .bg-white > .monitoring-grid > .monitoring-metric {
+                     justify-content: flex-start !important;
+                     height: auto !important;
+                 }
+                 body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .bg-white > .monitoring-grid > .monitoring-metric .metric-body {
+                     flex: 0 0 auto !important; min-height: 0 !important;
+                 }
+                 body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .bg-white > .monitoring-grid > .monitoring-metric .metric-value {
+                     margin-top: 12px !important;
+                 }
+                 /* 건강 모니터링 카드는 내용 높이만 사용 → 남는 세로 공간을 동반 보호자 섹션이 흡수 */
+                 body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .bg-white:has(> .monitoring-grid) {
+                     flex: 0 0 auto !important;
+                 }
+                 body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .bg-white:has(> .monitoring-grid) > .monitoring-grid {
+                     flex: 0 0 auto !important;
+                 }
+                 /* 동반 보호자 섹션이 우선적으로 늘어나도록 flex-grow 부여 */
+                 body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .bg-white:has(> .relative.h-32) {
+                     flex: 2 1 auto !important;
+                 }
              /* Owl action cards: fill grid cell and center content */
              body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .grid > .bg-white,
              body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .grid > .bg-white {
