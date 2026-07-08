@@ -1091,8 +1091,21 @@
             .promise-grid .promise-desc {
                 font-size: clamp(0.875rem, 1.35vw, 1.25rem);
             }
+            /* Owl action cards (부비 1:1 상담 / 배움 책자) */
+            #page-home .lg\:flex .grid.grid-cols-2 > div img[data-owl-hero] {
+                width: clamp(4rem, 7vw, 7rem);
+                height: clamp(4rem, 7vw, 7rem);
+            }
+            #page-home .lg\:flex .grid.grid-cols-2 > div p {
+                font-size: clamp(0.8125rem, 1vw, 0.9375rem);
+            }
+            #page-home .lg\:flex .grid.grid-cols-2 > div button {
+                font-size: clamp(0.75rem, 0.9vw, 0.875rem);
+                padding: clamp(0.375rem, 0.6vw, 0.5rem) clamp(0.75rem, 1.1vw, 1rem);
+                white-space: nowrap;
+            }
         }
-    </style>
+
 
 </head>
 <body class="min-h-screen pb-32">
