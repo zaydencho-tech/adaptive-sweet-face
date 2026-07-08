@@ -468,7 +468,39 @@
                  height: 100%;
              }
 
-            /* 데스크탑 폰트 위계 재조정: 최소 18px 부터 시작 */
+             /* Right-column white sections fill desktop height fluidly */
+             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white,
+             body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .bg-white {
+                 display: flex; flex-direction: column;
+             }
+             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .grid,
+             body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .grid {
+                 display: grid; align-items: stretch;
+             }
+             /* Monitoring 5-metric grid: stretch to fill the card */
+             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white > .grid.grid-cols-5,
+             body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .bg-white > .grid.grid-cols-5 {
+                 flex: 1 1 auto; min-height: 0; align-items: stretch;
+             }
+             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white > .grid.grid-cols-5 > div,
+             body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .bg-white > .grid.grid-cols-5 > div {
+                 height: 100%; display: flex; flex-direction: column; justify-content: space-between;
+             }
+             /* Owl action cards: fill grid cell and center content */
+             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .grid > .bg-white,
+             body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .grid > .bg-white {
+                 height: 100%; display: flex; align-items: center; justify-content: center;
+             }
+             /* Companion chart card: stretch chart area vertically */
+             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white:has(> .relative.h-32),
+             body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .bg-white:has(> .relative.h-32) {
+                 display: flex; flex-direction: column;
+             }
+             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white > .relative.h-32,
+             body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .bg-white > .relative.h-32 {
+                 flex: 1 1 auto; min-height: 0; height: auto;
+             }
+
             body:has(#page-login:not(.hidden)) #page-login,
             body:has(#page-home:not(.hidden)) #page-home { font-size: 18px; }
             #page-login .text-xs, #page-home .text-xs,
