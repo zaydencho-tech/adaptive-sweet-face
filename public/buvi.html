@@ -626,6 +626,15 @@
             #page-login .text-\[32px\], #page-home .text-\[32px\] { font-size: 34px !important; }
         }
 
+        /* ── 로그인 후 상담 서브페이지: 3단계 항목별 안내 하단 설명 텍스트 크기 키움 (시니어 가독성) ── */
+        @media (min-width: 1024px) {
+            #page-chat .scaled-text-xs.text-gray-700 {
+                font-size: calc(18px * var(--font-scale)) !important;
+                line-height: 1.6 !important;
+            }
+        }
+
+
         /* Mobile: 헤더를 노란색 히어로 영역 안으로 띄우고 좌우 패딩 20px 고정 */
         @media (max-width: 1023px) {
             body:has(#page-login:not(.hidden)),
