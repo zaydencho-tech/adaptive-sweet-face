@@ -4894,16 +4894,22 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             speak(state.highContrast ? "고대비 모드로 전환했습니다." : "일반 모드로 전환했습니다.");
         }
         function toggleTTS() { 
+            const active = document.querySelector('.app-page:not(.hidden)');
+            const pageId = active ? active.id.replace(/^page-/, '') : '';
+            if (pageId !== 'survey' && pageId !== 'survey-start') return;
             state.tts = !state.tts; 
             const btn = document.getElementById('tts-btn'); if (btn) btn.classList.toggle('tts-off', !state.tts); 
         }
         function speak(t) { 
-            if(!state.tts) return; 
+            const active = document.querySelector('.app-page:not(.hidden)');
+            const pageId = active ? active.id.replace(/^page-/, '') : '';
+            if(!state.tts || (pageId !== 'survey' && pageId !== 'survey-start')) return; 
             window.speechSynthesis.cancel(); 
             const u = new SpeechSynthesisUtterance(t); 
             u.lang='ko-KR'; u.rate=0.9; 
             window.speechSynthesis.speak(u); 
         }
+
 
         function simulatePDFDownload() {
             showAppModal('📄', 'PDF 저장', '노쇠 위험도 결과 보고서를 PDF로 저장했습니다. (시뮬레이션)');
