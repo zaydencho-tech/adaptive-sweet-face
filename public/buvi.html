@@ -530,6 +530,10 @@
                 body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .bg-white > .monitoring-grid > .monitoring-metric .metric-progress > div {
                     border-radius: 999px !important;
                 }
+                /* 로그인 후 건강 모니터링: 프로그레스바와 상단 텍스트 간격 40px */
+                body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .bg-white > .monitoring-grid > .monitoring-metric .metric-progress {
+                    margin-top: 40px !important;
+                }
                 body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white > .monitoring-grid > .monitoring-metric .metric-body,
                 body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .bg-white > .monitoring-grid > .monitoring-metric .metric-body {
                     justify-content: center !important; gap: 0 !important;
