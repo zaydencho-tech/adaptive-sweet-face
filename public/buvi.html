@@ -919,14 +919,8 @@
                 background: #F8E647 !important; color: #111729 !important;
                 margin-left: 0 !important; display: flex; align-items: center; justify-content: center;
             }
-            /* 음성안내 기능은 설문 서브페이지에서만 노출 */
-            body:not(:has(#page-survey:not(.hidden))):not(:has(#page-survey-start:not(.hidden))) > header .tts-listen-btn,
-            body:not(:has(#page-survey:not(.hidden))):not(:has(#page-survey-start:not(.hidden))) .tts-icon-mobile {
-                display: none !important;
-            }
-
-
             /* 데스크탑 서브페이지 우측 영역: 그림자/외곽선 제거, #F7F5F1과 #FFFFFF 대비로 영역 구분 */
+
             body.subpage-mode main { background: #F7F5F1 !important; }
             body.subpage-mode main *,
             body.subpage-mode main *::before,
