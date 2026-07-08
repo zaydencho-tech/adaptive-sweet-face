@@ -1105,6 +1105,12 @@
                 white-space: nowrap;
             }
         }
+
+        /* Hide the BUVI promise/약속철학 block only between 1024–1440px
+           where the right column becomes too narrow and the cards overflow. */
+        @media (min-width: 1024px) and (max-width: 1440px) {
+            .promise-section-home { display: none !important; }
+        }
     </style>
 
 </head>
