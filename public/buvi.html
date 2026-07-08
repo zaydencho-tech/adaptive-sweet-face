@@ -1071,7 +1071,29 @@
                 overflow: hidden;
             }
         }
+
+        /* Fluid typography for right column on tablet-over ~ under-desktop-max
+           (1024px <= vw <= 1440px). Uses rem+vw clamp so the 약속철학 cards
+           and monitoring card scale down instead of overflowing on ~1280–1440. */
+        @media (min-width: 1024px) {
+            .promise-grid > div {
+                padding: clamp(1rem, 2.2vw, 2rem);
+            }
+            .promise-grid .promise-emoji {
+                font-size: clamp(1.5rem, 2.2vw, 2rem);
+            }
+            .promise-grid .promise-title {
+                font-size: clamp(1rem, 1.55vw, 1.375rem);
+            }
+            .promise-grid .promise-sub {
+                font-size: clamp(0.8125rem, 1vw, 0.9375rem);
+            }
+            .promise-grid .promise-desc {
+                font-size: clamp(0.875rem, 1.35vw, 1.25rem);
+            }
+        }
     </style>
+
 </head>
 <body class="min-h-screen pb-32">
 
@@ -1421,12 +1443,13 @@
                     <!-- BUVI 약속철학 4-col (matches login) -->
                     <div class="bg-white rounded-2xl border border-stone-200">
                         <h3 class="font-black text-lg mb-3">부비(BUVI)의 약속철학</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
-                            <div class="rounded-xl p-[32px]" style="background:#F7F5F0"><div class="text-[32px] mb-3 leading-none">🤓</div><div class="text-[22px] font-black mb-1 leading-tight">바라봅니다</div><div class="text-[15px] mb-4 font-semibold" style="color:var(--blue-main)"><b>B</b>eholding</div><p class="text-[20px] text-gray-700 font-medium leading-relaxed">데이터만이 아니라 어르신 한 분의 이야기 속 의미까지 주목합니다.</p></div>
-                            <div class="rounded-xl p-[32px]" style="background:#F7F5F0"><div class="text-[32px] mb-3 leading-none">🥰</div><div class="text-[22px] font-black mb-1 leading-tight">이해합니다</div><div class="text-[15px] mb-4 font-semibold" style="color:var(--blue-main)"><b>U</b>nderstanding</div><p class="text-[20px] text-gray-700 font-medium leading-relaxed">말투·생활습관·건강데이터를 종합해 어르신을 더 잘 이해합니다.</p></div>
-                            <div class="rounded-xl p-[32px]" style="background:#F7F5F0"><div class="text-[32px] mb-3 leading-none">👨‍🍳</div><div class="text-[22px] font-black mb-1 leading-tight">안내합니다</div><div class="text-[15px] mb-4 font-semibold" style="color:var(--blue-main)"><b>V</b>itality</div><p class="text-[20px] text-gray-700 font-medium leading-relaxed">이해를 바탕으로 노쇠 신호를 미리 살피고 활력을 되찾도록 돕습니다.</p></div>
-                            <div class="rounded-xl p-[32px]" style="background:#F7F5F0"><div class="text-[32px] mb-3 leading-none">😎</div><div class="text-[22px] font-black mb-1 leading-tight">곁을 지킵니다</div><div class="text-[15px] mb-4 font-semibold" style="color:var(--blue-main)"><b>I</b>ndependence</div><p class="text-[20px] text-gray-700 font-medium leading-relaxed">오랜 기간 곁을 지키며 스스로 건강을 관리하는 자립을 응원합니다.</p></div>
+                        <div class="promise-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+                            <div class="rounded-xl p-[32px]" style="background:#F7F5F0"><div class="promise-emoji text-[32px] mb-3 leading-none">🤓</div><div class="promise-title text-[22px] font-black mb-1 leading-tight">바라봅니다</div><div class="promise-sub text-[15px] mb-4 font-semibold" style="color:var(--blue-main)"><b>B</b>eholding</div><p class="promise-desc text-[20px] text-gray-700 font-medium leading-relaxed">데이터만이 아니라 어르신 한 분의 이야기 속 의미까지 주목합니다.</p></div>
+                            <div class="rounded-xl p-[32px]" style="background:#F7F5F0"><div class="promise-emoji text-[32px] mb-3 leading-none">🥰</div><div class="promise-title text-[22px] font-black mb-1 leading-tight">이해합니다</div><div class="promise-sub text-[15px] mb-4 font-semibold" style="color:var(--blue-main)"><b>U</b>nderstanding</div><p class="promise-desc text-[20px] text-gray-700 font-medium leading-relaxed">말투·생활습관·건강데이터를 종합해 어르신을 더 잘 이해합니다.</p></div>
+                            <div class="rounded-xl p-[32px]" style="background:#F7F5F0"><div class="promise-emoji text-[32px] mb-3 leading-none">👨‍🍳</div><div class="promise-title text-[22px] font-black mb-1 leading-tight">안내합니다</div><div class="promise-sub text-[15px] mb-4 font-semibold" style="color:var(--blue-main)"><b>V</b>itality</div><p class="promise-desc text-[20px] text-gray-700 font-medium leading-relaxed">이해를 바탕으로 노쇠 신호를 미리 살피고 활력을 되찾도록 돕습니다.</p></div>
+                            <div class="rounded-xl p-[32px]" style="background:#F7F5F0"><div class="promise-emoji text-[32px] mb-3 leading-none">😎</div><div class="promise-title text-[22px] font-black mb-1 leading-tight">곁을 지킵니다</div><div class="promise-sub text-[15px] mb-4 font-semibold" style="color:var(--blue-main)"><b>I</b>ndependence</div><p class="promise-desc text-[20px] text-gray-700 font-medium leading-relaxed">오랜 기간 곁을 지키며 스스로 건강을 관리하는 자립을 응원합니다.</p></div>
                         </div>
+
                     </div>
                 </div>
             </div>
