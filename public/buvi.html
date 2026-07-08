@@ -553,6 +553,16 @@
               body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white > .monitoring-grid {
                   display: none !important;
               }
+              /* Login (pre-login) desktop: monitoring header stays compact horizontal row */
+              body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white:first-child {
+                  flex: 0 0 auto !important;
+                  flex-direction: row !important;
+                  align-items: center !important;
+                  justify-content: space-between !important;
+                  gap: 16px !important;
+                  padding: clamp(20px, 1.8vw, 32px) !important;
+              }
+
 
             body:has(#page-login:not(.hidden)) #page-login,
             body:has(#page-home:not(.hidden)) #page-home { font-size: 18px; }
