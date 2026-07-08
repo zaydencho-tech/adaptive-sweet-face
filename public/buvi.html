@@ -2590,7 +2590,11 @@
                 tab.classList.toggle('active', isActive);
             });
             window.scrollTo(0,0);
+            if (pageId !== 'survey' && pageId !== 'survey-start') {
+                try { window.speechSynthesis.cancel(); } catch(_) {}
+            }
             try {
+
                 const HERO_SUBPAGES = ['survey-start','survey','analyzing','result','chat','records','help','about'];
                 const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
                 document.body.classList.toggle('subpage-mode', isDesktop && HERO_SUBPAGES.includes(pageId));
