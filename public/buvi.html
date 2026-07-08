@@ -746,9 +746,16 @@
         .rounded-l-sm, .rounded-l-md, .rounded-l-lg, .rounded-l-xl, .rounded-l-2xl, .rounded-l-3xl { border-top-left-radius: 16px !important; border-bottom-left-radius: 16px !important; }
         .rounded-r-sm, .rounded-r-md, .rounded-r-lg, .rounded-r-xl, .rounded-r-2xl, .rounded-r-3xl { border-top-right-radius: 16px !important; border-bottom-right-radius: 16px !important; }
 
+        /* 음성안내 기능은 설문 서브페이지에서만 노출 */
+        body:not(:has(#page-survey:not(.hidden))):not(:has(#page-survey-start:not(.hidden))) > header .tts-listen-btn,
+        body:not(:has(#page-survey:not(.hidden))):not(:has(#page-survey-start:not(.hidden))) .tts-icon-mobile {
+            display: none !important;
+        }
+
         /* ── Desktop subpage frame: shared yellow left column for 설문/상담/건강정보/도움말 ── */
         #desktop-hero-aside { display: none; }
         @media (min-width: 1024px) {
+
             body.subpage-mode { background: #F4F0E9 !important; padding-bottom: 0 !important; position: relative; }
             body.subpage-mode nav.fixed.bottom-0 { display: none !important; }
             /* 데스크탑에서도 상담/건강정보/도움말 상단에 인포박스 노출 (설문 페이지는 자체 인포박스 사용) */
