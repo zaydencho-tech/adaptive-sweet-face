@@ -549,6 +549,11 @@
                  flex: 1 1 auto; min-height: 0; height: auto;
              }
 
+              /* Login (pre-login) desktop: hide 5-metric grid in monitoring card, keep only header */
+              body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white > .monitoring-grid {
+                  display: none !important;
+              }
+
             body:has(#page-login:not(.hidden)) #page-login,
             body:has(#page-home:not(.hidden)) #page-home { font-size: 18px; }
             #page-login .text-xs, #page-home .text-xs,
