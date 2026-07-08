@@ -1071,7 +1071,29 @@
                 overflow: hidden;
             }
         }
+
+        /* Fluid typography for right column on tablet-over ~ under-desktop-max
+           (1024px <= vw <= 1440px). Uses rem+vw clamp so the 약속철학 cards
+           and monitoring card scale down instead of overflowing on ~1280–1440. */
+        @media (min-width: 1024px) {
+            .promise-grid > div {
+                padding: clamp(1rem, 2.2vw, 2rem);
+            }
+            .promise-grid .promise-emoji {
+                font-size: clamp(1.5rem, 2.2vw, 2rem);
+            }
+            .promise-grid .promise-title {
+                font-size: clamp(1rem, 1.55vw, 1.375rem);
+            }
+            .promise-grid .promise-sub {
+                font-size: clamp(0.8125rem, 1vw, 0.9375rem);
+            }
+            .promise-grid .promise-desc {
+                font-size: clamp(0.875rem, 1.35vw, 1.25rem);
+            }
+        }
     </style>
+
 </head>
 <body class="min-h-screen pb-32">
 
