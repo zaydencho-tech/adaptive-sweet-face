@@ -575,8 +575,14 @@
               body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white:last-child > .flex.items-center {
                   margin-top: 0 !important;
               }
-              body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white:last-child > .flex.items-center i {
+              body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white:last-child > .flex.items-center > i {
                   display: none !important;
+              }
+              body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white:last-child > .flex.items-center > button::after {
+                  font-family: "Font Awesome 6 Free";
+                  font-weight: 900;
+                  content: "\f080";
+                  margin-left: 8px;
               }
 
 
