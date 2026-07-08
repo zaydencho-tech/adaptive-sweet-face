@@ -562,6 +562,22 @@
                   gap: 16px !important;
                   padding: clamp(20px, 1.8vw, 32px) !important;
               }
+              /* Login (pre-login) desktop: 동반 보호자 분석 카드도 컴팩트 헤더 한 줄 */
+              body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white:last-child {
+                  flex: 0 0 auto !important;
+                  flex-direction: row !important;
+                  align-items: center !important;
+                  justify-content: space-between !important;
+                  gap: 16px !important;
+                  padding: clamp(20px, 1.8vw, 32px) !important;
+              }
+              body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white:last-child > .flex.items-start,
+              body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white:last-child > .flex.items-center {
+                  margin-top: 0 !important;
+              }
+              body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white:last-child > .flex.items-center i {
+                  display: none !important;
+              }
 
 
             body:has(#page-login:not(.hidden)) #page-login,
