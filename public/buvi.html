@@ -1091,10 +1091,24 @@
             .promise-grid .promise-desc {
                 font-size: clamp(0.875rem, 1.35vw, 1.25rem);
             }
+            /* Owl action cards (부비 1:1 상담 / 배움 책자) */
+            #page-home .lg\:flex .grid.grid-cols-2 > div img[data-owl-hero] {
+                width: clamp(4rem, 7vw, 7rem);
+                height: clamp(4rem, 7vw, 7rem);
+            }
+            #page-home .lg\:flex .grid.grid-cols-2 > div p {
+                font-size: clamp(0.8125rem, 1vw, 0.9375rem);
+            }
+            #page-home .lg\:flex .grid.grid-cols-2 > div button {
+                font-size: clamp(0.75rem, 0.9vw, 0.875rem);
+                padding: clamp(0.375rem, 0.6vw, 0.5rem) clamp(0.75rem, 1.1vw, 1rem);
+                white-space: nowrap;
+            }
         }
     </style>
 
 </head>
+
 <body class="min-h-screen pb-32">
 
     <!-- [상단 헤더 영역] -->
@@ -1393,14 +1407,16 @@
 
                     <!-- 2 owl action cards (matches login) -->
                     <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-white rounded-2xl border border-stone-200 flex items-center justify-center gap-3">
+                        <div class="bg-white rounded-2xl border border-stone-200 p-3 flex items-center justify-center gap-3">
+
                             <img data-owl-hero src="" alt="" class="w-28 h-28 object-contain shrink-0">
                             <div class="flex flex-col items-start">
                                 <p class="font-black mb-2 text-[15px]">부비와 1:1 기력 상담</p>
                                 <button onclick="tryNavigateWithWarning('chat')" class="bg-black text-white font-black rounded-xl px-4 py-2 text-sm">상담 시작하기</button>
                             </div>
                         </div>
-                        <div class="bg-white rounded-2xl border border-stone-200 flex items-center justify-center gap-3">
+                        <div class="bg-white rounded-2xl border border-stone-200 p-3 flex items-center justify-center gap-3">
+
                             <img data-owl-hero src="" alt="" class="w-28 h-28 object-contain shrink-0">
                             <div class="flex flex-col items-start">
                                 <p class="font-black mb-2 text-[15px]">어르신 건강 배움 책자</p>
@@ -1410,7 +1426,8 @@
                     </div>
 
                     <!-- 동반 보호자 연동 (bar chart) -->
-                    <div class="bg-white rounded-2xl border border-stone-200">
+                    <div class="bg-white rounded-2xl border border-stone-200 px-5 py-4">
+
                         <div class="flex items-start justify-between mb-2">
                             <div>
                                 <h3 class="font-black text-lg">동반 보호자 연동 및 보안 분석</h3>
@@ -1441,7 +1458,8 @@
                     </div>
 
                     <!-- BUVI 약속철학 4-col (matches login) -->
-                    <div class="bg-white rounded-2xl border border-stone-200">
+                    <div class="bg-white rounded-2xl border border-stone-200 px-5 py-4">
+
                         <h3 class="font-black text-lg mb-3">부비(BUVI)의 약속철학</h3>
                         <div class="promise-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
                             <div class="rounded-xl p-[32px]" style="background:#F7F5F0"><div class="promise-emoji text-[32px] mb-3 leading-none">🤓</div><div class="promise-title text-[22px] font-black mb-1 leading-tight">바라봅니다</div><div class="promise-sub text-[15px] mb-4 font-semibold" style="color:var(--blue-main)"><b>B</b>eholding</div><p class="promise-desc text-[20px] text-gray-700 font-medium leading-relaxed">데이터만이 아니라 어르신 한 분의 이야기 속 의미까지 주목합니다.</p></div>
