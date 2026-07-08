@@ -538,6 +538,13 @@
                 body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .bg-white > .monitoring-grid > .monitoring-metric .metric-body {
                     justify-content: center !important; gap: 0 !important;
                 }
+                /* 로그인 후 건강 모니터링: 5개 카드 모두 프로그레스바-상단 텍스트 간격 40px 고정 */
+                body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .bg-white > .monitoring-grid > .monitoring-metric {
+                    justify-content: flex-start !important;
+                }
+                body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .bg-white > .monitoring-grid > .monitoring-metric .metric-body {
+                    flex: 0 0 auto !important; min-height: auto !important;
+                }
              /* Owl action cards: fill grid cell and center content */
              body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .grid > .bg-white,
              body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex > .grid > .bg-white {
