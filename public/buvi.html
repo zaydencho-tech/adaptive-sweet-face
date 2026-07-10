@@ -1340,7 +1340,25 @@
             .help-contact-label { font-size: 18px; min-width: 80px; }
             .help-contact-value { font-size: 22px; white-space: nowrap; }
 
+            /* Help: Step/FAQ grid on desktop — 2 equal columns side by side */
+            body.subpage-mode main > #page-help:not(.hidden) > .grid {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+                gap: 24px !important;
+            }
+            body.subpage-mode main > #page-help:not(.hidden) > .grid > div,
+            body.subpage-mode main > #page-help:not(.hidden) > .grid > div:nth-last-child(2),
+            body.subpage-mode main > #page-help:not(.hidden) > .grid > div:last-child {
+                width: 100% !important;
+                max-width: none !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                margin-top: 0 !important;
+                margin-bottom: 0 !important;
+            }
+
         }
+
 
         /* Tablet layout (768px–1023px): phone/hours on the right like the reference image */
         @media (min-width: 768px) and (max-width: 1023px) {
