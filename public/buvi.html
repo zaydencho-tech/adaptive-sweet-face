@@ -979,14 +979,12 @@
                 margin-top: 0 !important;
                 margin-bottom: 0 !important;
             }
-            /* Step 카드 그리드와 FAQ 리스트(각 섹션 내부 마지막 자식)도 폭 제한 해제 + 제목과의 간격 20px */
+            /* Step 카드 그리드와 FAQ 리스트(각 섹션 내부 마지막 자식)도 폭 제한 해제 */
             body.subpage-mode main > #page-help:not(.hidden) > *:not(:first-child) > *:last-child {
                 max-width: none !important;
                 width: auto !important;
                 margin-left: 0 !important;
                 margin-right: 0 !important;
-                margin-top: 20px !important;
-                padding-top: 0 !important;
             }
             /* BUVI 알아보기: 데스크탑에서 하단 퀵링크/홈 버튼 숨기고 콘텐츠가 우측 영역을 좌우/하단 여백 없이 채움 */
             body.subpage-mode:has(#page-about:not(.hidden)) main {
@@ -2046,8 +2044,8 @@
 
 
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch mt-5">
-                <div class="rounded-2xl p-6 shadow-sm border-2 space-y-4 hc-card flex flex-col" style="background-color: var(--card-bg); border-color: var(--border-color);">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+                <div class="rounded-2xl pt-5 px-6 pb-6 shadow-sm border-2 space-y-4 hc-card flex flex-col" style="background-color: var(--card-bg); border-color: var(--border-color);">
                     <h3 class="scaled-text-lg font-black text-charcoal border-b pb-2 hc-text" style="border-color: var(--border-color);">BUVI 이용방법</h3>
                     <div class="space-y-0 flex-1 flex flex-col">
 
@@ -2065,7 +2063,7 @@
                                 </div>
                                 <div class="flex-1 min-w-0">
                                     <h4 class="scaled-text-base font-black text-charcoal mb-1 hc-text">건강 설문에 천천히 응답합니다.</h4>
-                                    <p class="scaled-text-sm text-gray-600 font-medium leading-relaxed hc-muted">간단한 질문에 차근차근 답해주세요.</p>
+                                    <p class="scaled-text-sm text-gray-600 font-medium leading-relaxed hc-muted">간단한 질문에 차근차근 답하면 건강 점수를 확인해요.</p>
                                 </div>
                             </div>
                         </div>
@@ -2082,7 +2080,7 @@
                                 </div>
                                 <div class="flex-1 min-w-0">
                                     <h4 class="scaled-text-base font-black text-charcoal mb-1 hc-text">노쇠 위험도와 분석 결과를 확인합니다.</h4>
-                                    <p class="scaled-text-sm text-gray-600 font-medium leading-relaxed hc-muted">설문 결과를 통해 나의 건강 상태를 확인해요.</p>
+                                    <p class="scaled-text-sm text-gray-600 font-medium leading-relaxed hc-muted">설문 결과로 노쇠 위험도와 건강 상태를 확인해요.</p>
                                 </div>
                             </div>
                         </div>
@@ -2099,7 +2097,7 @@
                                 </div>
                                 <div class="flex-1 min-w-0">
                                     <h4 class="scaled-text-base font-black text-charcoal mb-1 hc-text">AI 부비와 건강 변화 관리법을 조언받습니다.</h4>
-                                    <p class="scaled-text-sm text-gray-600 font-medium leading-relaxed hc-muted">AI 부비가 맞춤형 건강 조언을 드려요.</p>
+                                    <p class="scaled-text-sm text-gray-600 font-medium leading-relaxed hc-muted">AI 부비가 맞춤형 건강 조언과 운동법을 알려드려요.</p>
                                 </div>
                             </div>
                         </div>
@@ -2108,7 +2106,7 @@
 
 
 
-                <div class="rounded-2xl p-6 shadow-sm border-2 hc-card flex flex-col" style="background-color: var(--card-bg); border-color: var(--border-color);">
+                <div class="rounded-2xl pt-5 px-6 pb-6 shadow-sm border-2 hc-card flex flex-col" style="background-color: var(--card-bg); border-color: var(--border-color);">
                     <h3 class="scaled-text-lg font-black text-charcoal border-b pb-2 hc-text" style="border-color: var(--border-color);">자주 묻는 질문 (FAQ)</h3>
                     <div class="flex-1 flex flex-col justify-between gap-3 pt-5">
                         <div class="rounded-2xl border overflow-hidden bg-white hc-card" style="border-color: var(--border-color);">
