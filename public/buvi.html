@@ -2109,34 +2109,40 @@
                 <div class="rounded-2xl pt-5 px-6 pb-6 shadow-sm border-2 hc-card flex flex-col" style="background-color: var(--card-bg); border-color: var(--border-color);">
                     <h3 class="scaled-text-lg font-black text-charcoal border-b pb-2 hc-text" style="border-color: var(--border-color);">자주 묻는 질문 (FAQ)</h3>
                     <div class="flex-1 flex flex-col justify-between gap-3 pt-5">
-                        <div class="rounded-2xl border overflow-hidden bg-white hc-card" style="border-color: var(--border-color);">
-                            <button onclick="toggleAccordion(1)" class="w-full text-left p-5 flex items-center gap-4 bg-white hover:bg-gray-50 transition-colors">
-                                <span class="text-2xl font-black text-blue-500 flex-shrink-0">Q1</span>
-                                <span class="scaled-text-base font-bold text-charcoal flex-1 min-w-0 hc-text">화면 속 글씨가 너무 작아요.</span>
-                                <i id="faq-icon-1" class="fa-solid fa-chevron-down text-xl text-gray-400 flex-shrink-0"></i>
-                            </button>
-                            <div id="faq-answer-1" class="hidden px-5 pb-5 bg-white scaled-text-base text-gray-600 font-medium leading-relaxed hc-muted">
-                                A. 걱정하지 마세요! 화면 상단의 <strong>[크게]</strong> 혹은 <strong>[더 크게]</strong> 버튼을 누르시면 화면 전반의 글자 크기를 키우실 수 있습니다.
+                        <div class="rounded-2xl border overflow-hidden bg-white hc-card p-5 flex items-center gap-10" style="border-color: var(--border-color);">
+                            <img src="/buvi-faq1.png" alt="글씨 크기 조절" loading="lazy" width="96" height="96" class="w-24 h-24 rounded-full object-cover flex-shrink-0" />
+                            <div class="flex-1 min-w-0 space-y-2">
+                                <div class="flex items-baseline gap-3">
+                                    <span class="text-2xl font-black text-blue-500 flex-shrink-0">Q1</span>
+                                    <span class="scaled-text-base font-bold text-charcoal hc-text">화면 속 글씨가 너무 작아요.</span>
+                                </div>
+                                <p class="scaled-text-base text-gray-600 font-medium leading-relaxed hc-muted">
+                                    A. 걱정하지 마세요! 화면 상단의 <strong>[크게]</strong> 혹은 <strong>[더 크게]</strong> 버튼을 누르시면 화면 전반의 글자 크기를 키우실 수 있습니다.
+                                </p>
                             </div>
                         </div>
-                        <div class="rounded-2xl border overflow-hidden bg-white hc-card" style="border-color: var(--border-color);">
-                            <button onclick="toggleAccordion(2)" class="w-full text-left p-5 flex items-center gap-4 bg-white hover:bg-gray-50 transition-colors">
-                                <span class="text-2xl font-black text-blue-500 flex-shrink-0">Q2</span>
-                                <span class="scaled-text-base font-bold text-charcoal flex-1 min-w-0 hc-text">설문하다 멈췄는데 괜찮나요?</span>
-                                <i id="faq-icon-2" class="fa-solid fa-chevron-down text-xl text-gray-400 flex-shrink-0"></i>
-                            </button>
-                            <div id="faq-answer-2" class="hidden px-5 pb-5 bg-white scaled-text-base text-gray-600 font-medium leading-relaxed hc-muted">
-                                A. 괜찮습니다. 설문은 한 문항에 답변할 때마다 자동 임시저장됩니다. '설문' 메뉴를 누르시면 이전에 중단한 문항부터 이어서 하실 수 있습니다.
+                        <div class="rounded-2xl border overflow-hidden bg-white hc-card p-5 flex items-center gap-10" style="border-color: var(--border-color);">
+                            <img src="/buvi-faq2.png" alt="설문 자동 저장" loading="lazy" width="96" height="96" class="w-24 h-24 rounded-full object-cover flex-shrink-0" />
+                            <div class="flex-1 min-w-0 space-y-2">
+                                <div class="flex items-baseline gap-3">
+                                    <span class="text-2xl font-black text-blue-500 flex-shrink-0">Q2</span>
+                                    <span class="scaled-text-base font-bold text-charcoal hc-text">설문하다 멈췄는데 괜찮나요?</span>
+                                </div>
+                                <p class="scaled-text-base text-gray-600 font-medium leading-relaxed hc-muted">
+                                    A. 괜찮습니다. 설문은 한 문항에 답변할 때마다 자동 임시저장됩니다. '설문' 메뉴를 누르시면 이전에 중단한 문항부터 이어서 하실 수 있습니다.
+                                </p>
                             </div>
                         </div>
-                        <div class="rounded-2xl border overflow-hidden bg-white hc-card" style="border-color: var(--border-color);">
-                            <button onclick="toggleAccordion(3)" class="w-full text-left p-5 flex items-center gap-4 bg-white hover:bg-gray-50 transition-colors">
-                                <span class="text-2xl font-black text-blue-500 flex-shrink-0">Q3</span>
-                                <span class="scaled-text-base font-bold text-charcoal flex-1 min-w-0 hc-text">결과를 다시 보고 싶어요.</span>
-                                <i id="faq-icon-3" class="fa-solid fa-chevron-down text-xl text-gray-400 flex-shrink-0"></i>
-                            </button>
-                            <div id="faq-answer-3" class="hidden px-5 pb-5 bg-white scaled-text-base text-gray-600 font-medium leading-relaxed hc-muted">
-                                A. 홈 화면에서 '건강정보' 탭 내 '기록 추이' 버튼을 눌러 언제든 이전 결과를 확인하실 수 있습니다.
+                        <div class="rounded-2xl border overflow-hidden bg-white hc-card p-5 flex items-center gap-10" style="border-color: var(--border-color);">
+                            <img src="/buvi-faq3.png" alt="이전 결과 확인" loading="lazy" width="96" height="96" class="w-24 h-24 rounded-full object-cover flex-shrink-0" />
+                            <div class="flex-1 min-w-0 space-y-2">
+                                <div class="flex items-baseline gap-3">
+                                    <span class="text-2xl font-black text-blue-500 flex-shrink-0">Q3</span>
+                                    <span class="scaled-text-base font-bold text-charcoal hc-text">결과를 다시 보고 싶어요.</span>
+                                </div>
+                                <p class="scaled-text-base text-gray-600 font-medium leading-relaxed hc-muted">
+                                    A. 홈 화면에서 '건강정보' 탭 내 '기록 추이' 버튼을 눌러 언제든 이전 결과를 확인하실 수 있습니다.
+                                </p>
                             </div>
                         </div>
                     </div>
