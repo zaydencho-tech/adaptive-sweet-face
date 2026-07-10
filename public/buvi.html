@@ -1346,6 +1346,7 @@
             body.subpage-mode main > #page-help:not(.hidden) > .grid {
                 display: grid !important;
                 grid-template-columns: 1fr 1fr !important;
+                align-items: stretch !important;
                 gap: 20px !important;
                 padding-left: 0 !important;
                 padding-right: 0 !important;
@@ -1360,6 +1361,8 @@
                 margin-top: 0 !important;
                 margin-bottom: 0 !important;
             }
+
+
 
 
         }
@@ -2043,10 +2046,12 @@
 
 
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-                <div class="rounded-2xl p-6 shadow-sm border-2 space-y-4 hc-card" style="background-color: var(--card-bg); border-color: var(--border-color);">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+                <div class="rounded-2xl p-6 shadow-sm border-2 space-y-4 hc-card flex flex-col" style="background-color: var(--card-bg); border-color: var(--border-color);">
                     <h3 class="scaled-text-lg font-black text-charcoal border-b pb-2 hc-text" style="border-color: var(--border-color);">BUVI 이용방법</h3>
-                    <div class="space-y-0">
+                    <div class="space-y-0 flex-1 flex flex-col">
+
+
                         <!-- Step 1 -->
                         <div class="relative py-3">
                             <div class="flex items-center gap-3 mb-3">
@@ -2103,10 +2108,10 @@
 
 
 
-                <div class="rounded-2xl p-6 shadow-sm border-2 space-y-4 hc-card" style="background-color: var(--card-bg); border-color: var(--border-color);">
+                <div class="rounded-2xl p-6 shadow-sm border-2 space-y-4 hc-card flex flex-col" style="background-color: var(--card-bg); border-color: var(--border-color);">
                     <h3 class="scaled-text-lg font-black text-charcoal border-b pb-2 hc-text" style="border-color: var(--border-color);">자주 묻는 질문 (FAQ)</h3>
-                    <div class="space-y-3">
-                        <div class="border rounded-xl overflow-hidden" style="border-color: var(--border-color);">
+                    <div class="flex-1 flex flex-col justify-between gap-3">
+                        <div class="border rounded-xl overflow-hidden flex flex-col" style="border-color: var(--border-color);">
                             <button onclick="toggleAccordion(1)" class="w-full text-left p-4 bg-gray-50 hover:bg-gray-100 flex justify-between items-center font-bold text-charcoal min-h-[56px] hc-card hc-text">
                                 <span class="scaled-text-base">Q. 화면 속 글씨가 너무 작아요.</span>
                                 <i id="faq-icon-1" class="fa-solid fa-chevron-down text-xl flex-shrink-0"></i>
@@ -2115,7 +2120,7 @@
                                 A. 걱정하지 마세요! 화면 상단의 <strong>[크게]</strong> 혹은 <strong>[더 크게]</strong> 버튼을 누르시면 화면 전반의 글자 크기를 키우실 수 있습니다.
                             </div>
                         </div>
-                        <div class="border rounded-xl overflow-hidden" style="border-color: var(--border-color);">
+                        <div class="border rounded-xl overflow-hidden flex flex-col" style="border-color: var(--border-color);">
                             <button onclick="toggleAccordion(2)" class="w-full text-left p-4 bg-gray-50 hover:bg-gray-100 flex justify-between items-center font-bold text-charcoal min-h-[56px] hc-card hc-text">
                                 <span class="scaled-text-base">Q. 설문하다 멈췄는데 괜찮나요?</span>
                                 <i id="faq-icon-2" class="fa-solid fa-chevron-down text-xl flex-shrink-0"></i>
@@ -2124,7 +2129,7 @@
                                 A. 괜찮습니다. 설문은 한 문항에 답변할 때마다 자동 임시저장됩니다. '설문' 메뉴를 누르시면 이전에 중단한 문항부터 이어서 하실 수 있습니다.
                             </div>
                         </div>
-                        <div class="border rounded-xl overflow-hidden" style="border-color: var(--border-color);">
+                        <div class="border rounded-xl overflow-hidden flex flex-col" style="border-color: var(--border-color);">
                             <button onclick="toggleAccordion(3)" class="w-full text-left p-4 bg-gray-50 hover:bg-gray-100 flex justify-between items-center font-bold text-charcoal min-h-[56px] hc-card hc-text">
                                 <span class="scaled-text-base">Q. 결과를 다시 보고 싶어요.</span>
                                 <i id="faq-icon-3" class="fa-solid fa-chevron-down text-xl flex-shrink-0"></i>
@@ -2135,6 +2140,8 @@
                         </div>
                     </div>
                 </div>
+
+
             </div>
         </section>
 
