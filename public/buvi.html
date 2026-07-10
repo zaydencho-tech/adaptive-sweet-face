@@ -1309,6 +1309,22 @@
             .help-contact-label { font-size: 22px; min-width: 90px; }
             .help-contact-value { font-size: 28px; }
         }
+
+        /* Tablet layout (768px–1023px): phone/hours on the right like the reference image */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .help-contact-body { display: flex; justify-content: space-between; align-items: center; padding: 64px 32px 28px; min-height: 190px; }
+            .help-contact-left { flex: 0 0 auto; }
+            .help-contact-right { flex: 0 0 auto; margin-top: 0; gap: 14px; }
+            .help-contact-row { gap: 14px; }
+            .help-contact-label { font-size: 16px; min-width: 70px; }
+            .help-contact-value { font-size: 20px; }
+            .help-contact-affil { font-size: 17px; }
+            .help-contact-team { font-size: 25px; margin-top: 10px; }
+            .help-contact-watermark {
+                display: block; position: absolute; right: -50px; top: 50%; transform: translateY(-50%);
+                width: 320px; height: 320px; opacity: 0.06; object-fit: contain; pointer-events: none; user-select: none;
+            }
+        }
     </style>
 
 
