@@ -1269,7 +1269,48 @@
         @media (min-width: 1024px) {
             .promise-section-home { display: none !important; }
         }
+
+        /* ===== HELP: 김남희 교수 연구팀 연락처 카드 ===== */
+        .help-contact-card { width: 100%; }
+        .help-contact-band { position: relative; width: 100%; background: #003978; height: 88px; }
+        .help-contact-band-text { position: absolute; inset: 0 24px 0 auto; display: flex; flex-direction: column; justify-content: center; align-items: flex-end; text-align: right; opacity: 0.3; }
+        .help-contact-band-title { color: #fff; font-weight: 800; line-height: 1.2; font-size: 16px; white-space: nowrap; letter-spacing: -0.02em; }
+        .help-contact-band-sub { color: #fff; font-weight: 400; line-height: 1.2; font-size: 13px; white-space: nowrap; margin-top: 6px; letter-spacing: -0.02em; }
+        .help-contact-body { position: relative; padding: 60px 20px 24px 20px; min-height: 160px; }
+        .help-contact-watermark { display: none; }
+        .help-contact-logo { position: absolute; left: 20px; top: -40px; width: 80px; height: 80px; background: #fff; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .help-contact-logo img { width: 68px; height: 68px; object-fit: contain; }
+        .help-contact-left { text-align: left; }
+        .help-contact-affil { color: #111; font-weight: 400; font-size: 15px; line-height: 1.3; white-space: nowrap; letter-spacing: -0.02em; }
+        .help-contact-team { color: #111; font-weight: 800; font-size: 22px; line-height: 1.3; white-space: nowrap; margin-top: 8px; letter-spacing: -0.02em; }
+        .help-contact-right { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+        .help-contact-row { display: flex; align-items: center; gap: 16px; white-space: nowrap; }
+        .help-contact-label { color: #111; font-weight: 400; font-size: 15px; min-width: 60px; letter-spacing: -0.02em; }
+        .help-contact-value { color: #111; font-weight: 800; font-size: 18px; letter-spacing: -0.02em; }
+
+        /* Desktop pixel-perfect (≥1024px) — 첨부 이미지 992x378 기준 */
+        @media (min-width: 1024px) {
+            .help-contact-card { aspect-ratio: 992 / 378; max-width: 992px; margin-left: auto; margin-right: auto; border-radius: 16px; }
+            .help-contact-band { height: 131px; }
+            .help-contact-band-text { padding-right: 40px; opacity: 0.3; }
+            .help-contact-band-title { font-size: 24px; }
+            .help-contact-band-sub { font-size: 20px; margin-top: 12px; }
+            .help-contact-body { padding: 0; min-height: 0; height: calc(100% - 131px); }
+            .help-contact-watermark {
+                display: block; position: absolute; right: -60px; top: 50%; transform: translateY(-50%);
+                width: 420px; height: 420px; opacity: 0.06; object-fit: contain; pointer-events: none; user-select: none;
+            }
+            .help-contact-logo { left: 60px; top: -60px; width: 120px; height: 120px; border: 4px solid #fff; }
+            .help-contact-logo img { width: 100px; height: 100px; }
+            .help-contact-left { position: absolute; left: 60px; top: 62%; transform: translateY(-50%); }
+            .help-contact-affil { font-size: 24px; }
+            .help-contact-team { font-size: 36px; margin-top: 14px; }
+            .help-contact-right { position: absolute; right: 60px; top: 62%; transform: translateY(-50%); margin-top: 0; gap: 20px; }
+            .help-contact-label { font-size: 22px; min-width: 90px; }
+            .help-contact-value { font-size: 28px; }
+        }
     </style>
+
 
 </head>
 
