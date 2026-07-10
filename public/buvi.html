@@ -1894,42 +1894,36 @@
         <section id="page-help" class="app-page hidden space-y-5">
 
 
-            <div class="rounded-2xl shadow-lg bg-white hc-card relative" style="border: 1px solid #e5e7eb; overflow:hidden;">
-                <!-- 상단 네이비 밴드 (카드 라운드에 맞춰 클립됨) -->
-                <div class="relative w-full" style="background:#003978; height:96px;">
-                    <div class="absolute inset-y-0 right-0 flex flex-col justify-center items-end pr-6 lg:pr-10" style="opacity:0.35;">
-                        <p class="text-white font-extrabold leading-tight whitespace-nowrap" style="font-size:clamp(13px,1.5vw,20px);">Professor Kim Namhee's research team</p>
-                        <p class="text-white font-normal leading-tight mt-1 whitespace-nowrap" style="font-size:clamp(11px,1.25vw,16px);">Yonsei University Wonju College of Nursing</p>
+            <div class="rounded-2xl shadow-lg bg-white hc-card relative help-contact-card" style="border: 1px solid #e5e7eb; overflow:hidden;">
+                <!-- 상단 네이비 밴드 -->
+                <div class="help-contact-band">
+                    <div class="help-contact-band-text">
+                        <p class="help-contact-band-title">Professor Kim Namhee's research team</p>
+                        <p class="help-contact-band-sub">Yonsei University Wonju College of Nursing</p>
                     </div>
                 </div>
-                <!-- 하단 본문 (워터마크 포함) -->
-                <div class="relative" style="min-height:180px;">
+                <!-- 하단 본문 -->
+                <div class="help-contact-body">
                     <!-- 워터마크 로고 -->
-                    <img src="/assets/yonsei-logo.png" alt="" aria-hidden="true"
-                         class="hidden lg:block pointer-events-none select-none absolute"
-                         style="right:-40px; top:50%; transform:translateY(-50%); width:280px; height:280px; opacity:0.06; object-fit:contain;" />
-                    <!-- 원형 로고 (네이비 밴드에 걸침) -->
-                    <div class="absolute bg-white rounded-full shadow-md flex items-center justify-center overflow-hidden"
-                         style="left:28px; top:-56px; width:96px; height:96px; border:2px solid #fff;">
-                        <img src="/assets/yonsei-logo.png" alt="연세대학교 로고" style="width:80px; height:80px; object-fit:contain;" />
+                    <img src="/assets/yonsei-logo.png" alt="" aria-hidden="true" class="help-contact-watermark" />
+                    <!-- 원형 로고 (밴드에 걸침) -->
+                    <div class="help-contact-logo">
+                        <img src="/assets/yonsei-logo.png" alt="연세대학교 로고" />
                     </div>
-                    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 relative"
-                         style="padding:64px 40px 32px 40px;">
-                        <!-- 좌측: 소속/연구팀 -->
-                        <div class="text-left min-w-0">
-                            <p class="font-normal leading-tight whitespace-nowrap" style="font-size:clamp(14px,1.35vw,20px); color:#111;">연세대학교 원주 간호대학</p>
-                            <p class="font-extrabold leading-tight mt-2 whitespace-nowrap" style="font-size:clamp(22px,2.3vw,32px); color:#111; letter-spacing:-0.02em;">김남희 교수 연구팀</p>
+                    <!-- 좌측 텍스트 -->
+                    <div class="help-contact-left">
+                        <p class="help-contact-affil">연세대학교 원주 간호대학</p>
+                        <p class="help-contact-team">김남희 교수 연구팀</p>
+                    </div>
+                    <!-- 우측 연락처 -->
+                    <div class="help-contact-right">
+                        <div class="help-contact-row">
+                            <span class="help-contact-label">전화번호</span>
+                            <span class="help-contact-value">010. 9267. 3611</span>
                         </div>
-                        <!-- 우측: 연락처 -->
-                        <div class="flex flex-col gap-3 lg:gap-4 shrink-0">
-                            <div class="flex items-center gap-5 whitespace-nowrap">
-                                <span class="font-normal" style="color:#111; font-size:clamp(14px,1.3vw,18px); min-width:70px;">전화번호</span>
-                                <span class="font-extrabold tracking-tight" style="color:#111; font-size:clamp(18px,1.8vw,26px); letter-spacing:-0.02em;">010. 9267. 3611</span>
-                            </div>
-                            <div class="flex items-center gap-5 whitespace-nowrap">
-                                <span class="font-normal" style="color:#111; font-size:clamp(14px,1.3vw,18px); min-width:70px;">운영시간</span>
-                                <span class="font-extrabold tracking-tight" style="color:#111; font-size:clamp(18px,1.8vw,26px); letter-spacing:-0.02em;">AM 09:00 ~ PM 18:00</span>
-                            </div>
+                        <div class="help-contact-row">
+                            <span class="help-contact-label">운영시간</span>
+                            <span class="help-contact-value">AM 09:00 ~ PM 18:00</span>
                         </div>
                     </div>
                 </div>
