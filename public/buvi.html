@@ -142,8 +142,10 @@
         body.high-contrast .hc-card  { background: #1A1A1A !important; border-color: #FEE500 !important; }
         body.high-contrast .hc-text  { color: #FEE500 !important; }
         body.high-contrast .hc-muted { color: #C9A800 !important; }
+        body.high-contrast .hc-step-badge { background: #2E2E2E !important; color: #FEE500 !important; }
         body.high-contrast .hc-btn-primary { background: #FEE500 !important; color: #0A0A0A !important; }
         body.high-contrast .hc-btn-secondary { border-color: #FEE500 !important; color: #FEE500 !important; background: transparent !important; }
+
 
         /* 고대비 버튼 활성 표시 */
         #contrast-btn.is-active { box-shadow: 0 0 0 3px #FEE500; }
@@ -1340,7 +1342,25 @@
             .help-contact-label { font-size: 18px; min-width: 80px; }
             .help-contact-value { font-size: 22px; white-space: nowrap; }
 
+            /* Help: Step/FAQ grid on desktop — 2 equal columns side by side */
+            body.subpage-mode main > #page-help:not(.hidden) > .grid {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+                gap: 24px !important;
+            }
+            body.subpage-mode main > #page-help:not(.hidden) > .grid > div,
+            body.subpage-mode main > #page-help:not(.hidden) > .grid > div:nth-last-child(2),
+            body.subpage-mode main > #page-help:not(.hidden) > .grid > div:last-child {
+                width: 100% !important;
+                max-width: none !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                margin-top: 0 !important;
+                margin-bottom: 0 !important;
+            }
+
         }
+
 
         /* Tablet layout (768px–1023px): phone/hours on the right like the reference image */
         @media (min-width: 768px) and (max-width: 1023px) {
@@ -2023,22 +2043,61 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
                 <div class="rounded-2xl p-6 shadow-sm border-2 space-y-4 hc-card" style="background-color: var(--card-bg); border-color: var(--border-color);">
                     <h3 class="scaled-text-lg font-black text-charcoal border-b pb-2 hc-text" style="border-color: var(--border-color);">BUVI 아주 쉬운 이용 방법</h3>
-                    <ol class="relative pt-2 space-y-6">
-                        <span aria-hidden="true" class="absolute left-[19px] top-3 bottom-3 w-px bg-gray-200"></span>
-                        <li class="relative flex items-start gap-4">
-                            <span class="relative z-10 flex-shrink-0 w-10 h-10 rounded-full border-2 border-orange-400 bg-white text-orange-600 font-black flex items-center justify-center scaled-text-base hc-text">1</span>
-                            <p class="flex-1 pt-1.5 scaled-text-base font-black text-charcoal leading-relaxed hc-text">건강 설문에 천천히 응답합니다.</p>
-                        </li>
-                        <li class="relative flex items-start gap-4">
-                            <span class="relative z-10 flex-shrink-0 w-10 h-10 rounded-full border-2 border-yellow-500 bg-white text-yellow-700 font-black flex items-center justify-center scaled-text-base hc-text">2</span>
-                            <p class="flex-1 pt-1.5 scaled-text-base font-black text-charcoal leading-relaxed hc-text">노쇠 위험도와 영역별 및 항목별 분석 결과를 확인합니다.</p>
-                        </li>
-                        <li class="relative flex items-start gap-4">
-                            <span class="relative z-10 flex-shrink-0 w-10 h-10 rounded-full border-2 border-purple-500 bg-white text-purple-600 font-black flex items-center justify-center scaled-text-base hc-text">3</span>
-                            <p class="flex-1 pt-1.5 scaled-text-base font-black text-charcoal leading-relaxed hc-text">AI 부비와 건강 변화 관리법을 조언받습니다.</p>
-                        </li>
-                    </ol>
+                    <div class="space-y-0">
+                        <!-- Step 1 -->
+                        <div class="relative py-3">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="h-px flex-1 bg-gray-200 hc-step-divider"></div>
+                                <span class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-800 text-xs font-black hc-step-badge">STEP1</span>
+                                <div class="h-px flex-1 bg-gray-200 hc-step-divider"></div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="flex-1 min-w-0">
+                                    <h4 class="scaled-text-base font-black text-charcoal mb-1 hc-text">건강 설문에 천천히 응답합니다.</h4>
+                                    <p class="scaled-text-sm text-gray-600 font-medium leading-relaxed hc-muted">간단한 질문에 차근차근 답해주세요.</p>
+                                </div>
+                                <div class="w-12 h-12 rounded-full bg-orange-50 flex items-center justify-center shrink-0">
+                                    <i class="fa-solid fa-clipboard-list text-orange-500 text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Step 2 -->
+                        <div class="relative py-3">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="h-px flex-1 bg-gray-200 hc-step-divider"></div>
+                                <span class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-800 text-xs font-black hc-step-badge">STEP2</span>
+                                <div class="h-px flex-1 bg-gray-200 hc-step-divider"></div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="flex-1 min-w-0">
+                                    <h4 class="scaled-text-base font-black text-charcoal mb-1 hc-text">노쇠 위험도와 분석 결과를 확인합니다.</h4>
+                                    <p class="scaled-text-sm text-gray-600 font-medium leading-relaxed hc-muted">설문 결과를 통해 나의 건강 상태를 확인해요.</p>
+                                </div>
+                                <div class="w-12 h-12 rounded-full bg-yellow-50 flex items-center justify-center shrink-0">
+                                    <i class="fa-solid fa-chart-pie text-yellow-600 text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Step 3 -->
+                        <div class="relative py-3">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="h-px flex-1 bg-gray-200 hc-step-divider"></div>
+                                <span class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-800 text-xs font-black hc-step-badge">STEP3</span>
+                                <div class="h-px flex-1 bg-gray-200 hc-step-divider"></div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="flex-1 min-w-0">
+                                    <h4 class="scaled-text-base font-black text-charcoal mb-1 hc-text">AI 부비와 건강 변화 관리법을 조언받습니다.</h4>
+                                    <p class="scaled-text-sm text-gray-600 font-medium leading-relaxed hc-muted">AI 부비가 맞춤형 건강 조언을 드려요.</p>
+                                </div>
+                                <div class="w-12 h-12 rounded-full bg-purple-50 flex items-center justify-center shrink-0">
+                                    <i class="fa-solid fa-robot text-purple-500 text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
 
                 <div class="rounded-2xl p-6 shadow-sm border-2 space-y-4 hc-card" style="background-color: var(--card-bg); border-color: var(--border-color);">
                     <h3 class="scaled-text-lg font-black text-charcoal border-b pb-2 hc-text" style="border-color: var(--border-color);">자주 묻는 질문 (FAQ)</h3>
