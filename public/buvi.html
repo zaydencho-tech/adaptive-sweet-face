@@ -1381,6 +1381,14 @@
             }
         }
 
+        /* Mobile layout: show Yonsei watermark faintly in the white contact-card body */
+        @media (max-width: 767px) {
+            .help-contact-watermark {
+                display: block; position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+                width: 150px; height: 150px; opacity: 0.05; object-fit: contain; pointer-events: none; user-select: none;
+            }
+        }
+
         /* Mobile/Tablet only: BUVI/FAQ white background + contact-card-style 1px border */
         @media (max-width: 1023px) {
             .help-info-card {
