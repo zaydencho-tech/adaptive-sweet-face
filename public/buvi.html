@@ -1290,6 +1290,7 @@
 
         /* Desktop pixel-perfect (≥1024px) — 태블릿 이하 연락처 카드와 동일한 배치 */
         @media (min-width: 1024px) {
+            body.subpage-mode main > #page-help:not(.hidden) > .help-contact-card,
             .help-contact-card {
                 display: block !important;
                 flex: 0 0 auto !important;
@@ -1304,10 +1305,12 @@
                 position: relative !important;
                 box-sizing: border-box !important;
             }
+            body.subpage-mode main > #page-help:not(.hidden) > .help-contact-card > .help-contact-band,
             .help-contact-band { width: 100% !important; max-width: none !important; height: 131px; display: block !important; margin: 0 !important; padding: 0 !important; }
             .help-contact-band-text { padding-right: 40px; opacity: 0.3; }
             .help-contact-band-title { font-size: 24px; }
             .help-contact-band-sub { font-size: 20px; margin-top: 12px; }
+            body.subpage-mode main > #page-help:not(.hidden) > .help-contact-card > .help-contact-body,
             .help-contact-body {
                 position: relative;
                 width: 100% !important;
