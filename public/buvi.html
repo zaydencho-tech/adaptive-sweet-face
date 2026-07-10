@@ -1381,10 +1381,21 @@
             }
         }
 
-        /* Tablet/Mobile only: BUVI/FAQ section card background; contact card light 1px border */
-        @media (max-width: 1023px) {
+        /* Mobile only: BUVI/FAQ section card background */
+        @media (max-width: 767px) {
             .help-info-card {
                 background-color: #F7F5F1 !important;
+            }
+            .help-contact-card {
+                border: 1px solid #E8E5DE !important;
+            }
+        }
+
+        /* Tablet only: BUVI/FAQ white background + contact-card-style 1px border */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .help-info-card {
+                background-color: #FFFFFF !important;
+                border: 1px solid #E8E5DE !important;
             }
             .help-contact-card {
                 border: 1px solid #E8E5DE !important;
