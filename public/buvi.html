@@ -1299,7 +1299,6 @@
                 margin-left: 0 !important;
                 margin-right: 0 !important;
                 padding: 0 !important;
-                border: 1px solid #e5e7eb !important;
                 border-radius: 16px !important;
                 overflow: hidden !important;
                 position: relative !important;
@@ -1379,6 +1378,16 @@
             .help-contact-watermark {
                 display: block; position: absolute; right: -50px; top: 50%; transform: translateY(-50%);
                 width: 320px; height: 320px; opacity: 0.06; object-fit: contain; pointer-events: none; user-select: none;
+            }
+        }
+
+        /* Tablet/Mobile only: BUVI/FAQ section card background; contact card light 1px border */
+        @media (max-width: 1023px) {
+            .help-info-card {
+                background-color: #F7F5F1 !important;
+            }
+            .help-contact-card {
+                border: 1px solid #E8E5DE !important;
             }
         }
     </style>
@@ -2045,7 +2054,7 @@
 
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
-                <div class="rounded-2xl pt-5 px-6 pb-6 lg:p-10 shadow-sm border-2 space-y-4 hc-card flex flex-col" style="background-color: var(--card-bg); border-color: var(--border-color);">
+                <div class="rounded-2xl pt-5 px-6 pb-6 lg:p-10 shadow-sm border-2 space-y-4 hc-card help-info-card flex flex-col" style="background-color: var(--card-bg); border-color: var(--border-color);">
                     <h3 class="scaled-text-lg font-black text-charcoal border-b pb-2 hc-text" style="border-color: var(--border-color);">BUVI 이용방법</h3>
                     <div class="space-y-0 flex-1 flex flex-col">
 
@@ -2106,7 +2115,7 @@
 
 
 
-                <div class="rounded-2xl pt-5 px-6 pb-6 lg:p-10 shadow-sm border-2 space-y-4 hc-card flex flex-col" style="background-color: var(--card-bg); border-color: var(--border-color);">
+                <div class="rounded-2xl pt-5 px-6 pb-6 lg:p-10 shadow-sm border-2 space-y-4 hc-card help-info-card flex flex-col" style="background-color: var(--card-bg); border-color: var(--border-color);">
                     <h3 class="scaled-text-lg font-black text-charcoal border-b pb-2 hc-text" style="border-color: var(--border-color);">자주 묻는 질문</h3>
                     <div class="space-y-0 flex-1 flex flex-col">
 
