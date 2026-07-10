@@ -1269,7 +1269,48 @@
         @media (min-width: 1024px) {
             .promise-section-home { display: none !important; }
         }
+
+        /* ===== HELP: 김남희 교수 연구팀 연락처 카드 ===== */
+        .help-contact-card { width: 100%; }
+        .help-contact-band { position: relative; width: 100%; background: #003978; height: 88px; }
+        .help-contact-band-text { position: absolute; inset: 0 24px 0 auto; display: flex; flex-direction: column; justify-content: center; align-items: flex-end; text-align: right; opacity: 0.3; }
+        .help-contact-band-title { color: #fff; font-weight: 800; line-height: 1.2; font-size: 16px; white-space: nowrap; letter-spacing: -0.02em; }
+        .help-contact-band-sub { color: #fff; font-weight: 400; line-height: 1.2; font-size: 13px; white-space: nowrap; margin-top: 6px; letter-spacing: -0.02em; }
+        .help-contact-body { position: relative; padding: 60px 20px 24px 20px; min-height: 160px; }
+        .help-contact-watermark { display: none; }
+        .help-contact-logo { position: absolute; left: 20px; top: -40px; width: 80px; height: 80px; background: #fff; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .help-contact-logo img { width: 68px; height: 68px; object-fit: contain; }
+        .help-contact-left { text-align: left; }
+        .help-contact-affil { color: #111; font-weight: 400; font-size: 15px; line-height: 1.3; white-space: nowrap; letter-spacing: -0.02em; }
+        .help-contact-team { color: #111; font-weight: 800; font-size: 22px; line-height: 1.3; white-space: nowrap; margin-top: 8px; letter-spacing: -0.02em; }
+        .help-contact-right { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+        .help-contact-row { display: flex; align-items: center; gap: 16px; white-space: nowrap; }
+        .help-contact-label { color: #111; font-weight: 400; font-size: 15px; min-width: 60px; letter-spacing: -0.02em; }
+        .help-contact-value { color: #111; font-weight: 800; font-size: 18px; letter-spacing: -0.02em; }
+
+        /* Desktop pixel-perfect (≥1024px) — 첨부 이미지 992x378 기준 */
+        @media (min-width: 1024px) {
+            .help-contact-card { aspect-ratio: 992 / 378; max-width: 992px; margin-left: auto; margin-right: auto; border-radius: 16px; }
+            .help-contact-band { height: 131px; }
+            .help-contact-band-text { padding-right: 40px; opacity: 0.3; }
+            .help-contact-band-title { font-size: 24px; }
+            .help-contact-band-sub { font-size: 20px; margin-top: 12px; }
+            .help-contact-body { padding: 0; min-height: 0; height: calc(100% - 131px); }
+            .help-contact-watermark {
+                display: block; position: absolute; right: -60px; top: 50%; transform: translateY(-50%);
+                width: 420px; height: 420px; opacity: 0.06; object-fit: contain; pointer-events: none; user-select: none;
+            }
+            .help-contact-logo { left: 60px; top: -60px; width: 120px; height: 120px; border: 4px solid #fff; }
+            .help-contact-logo img { width: 100px; height: 100px; }
+            .help-contact-left { position: absolute; left: 60px; top: 62%; transform: translateY(-50%); }
+            .help-contact-affil { font-size: 24px; }
+            .help-contact-team { font-size: 36px; margin-top: 14px; }
+            .help-contact-right { position: absolute; right: 60px; top: 62%; transform: translateY(-50%); margin-top: 0; gap: 20px; }
+            .help-contact-label { font-size: 22px; min-width: 90px; }
+            .help-contact-value { font-size: 28px; }
+        }
     </style>
+
 
 </head>
 
@@ -1894,42 +1935,36 @@
         <section id="page-help" class="app-page hidden space-y-5">
 
 
-            <div class="rounded-2xl shadow-lg bg-white hc-card relative" style="border: 1px solid #e5e7eb; overflow:hidden;">
-                <!-- 상단 네이비 밴드 (카드 라운드에 맞춰 클립됨) -->
-                <div class="relative w-full" style="background:#003978; height:96px;">
-                    <div class="absolute inset-y-0 right-0 flex flex-col justify-center items-end pr-6 lg:pr-10" style="opacity:0.35;">
-                        <p class="text-white font-extrabold leading-tight whitespace-nowrap" style="font-size:clamp(13px,1.5vw,20px);">Professor Kim Namhee's research team</p>
-                        <p class="text-white font-normal leading-tight mt-1 whitespace-nowrap" style="font-size:clamp(11px,1.25vw,16px);">Yonsei University Wonju College of Nursing</p>
+            <div class="rounded-2xl shadow-lg bg-white hc-card relative help-contact-card" style="border: 1px solid #e5e7eb; overflow:hidden;">
+                <!-- 상단 네이비 밴드 -->
+                <div class="help-contact-band">
+                    <div class="help-contact-band-text">
+                        <p class="help-contact-band-title">Professor Kim Namhee's research team</p>
+                        <p class="help-contact-band-sub">Yonsei University Wonju College of Nursing</p>
                     </div>
                 </div>
-                <!-- 하단 본문 (워터마크 포함) -->
-                <div class="relative" style="min-height:180px;">
+                <!-- 하단 본문 -->
+                <div class="help-contact-body">
                     <!-- 워터마크 로고 -->
-                    <img src="/assets/yonsei-logo.png" alt="" aria-hidden="true"
-                         class="hidden lg:block pointer-events-none select-none absolute"
-                         style="right:-40px; top:50%; transform:translateY(-50%); width:280px; height:280px; opacity:0.06; object-fit:contain;" />
-                    <!-- 원형 로고 (네이비 밴드에 걸침) -->
-                    <div class="absolute bg-white rounded-full shadow-md flex items-center justify-center overflow-hidden"
-                         style="left:28px; top:-56px; width:96px; height:96px; border:2px solid #fff;">
-                        <img src="/assets/yonsei-logo.png" alt="연세대학교 로고" style="width:80px; height:80px; object-fit:contain;" />
+                    <img src="/assets/yonsei-logo.png" alt="" aria-hidden="true" class="help-contact-watermark" />
+                    <!-- 원형 로고 (밴드에 걸침) -->
+                    <div class="help-contact-logo">
+                        <img src="/assets/yonsei-logo.png" alt="연세대학교 로고" />
                     </div>
-                    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 relative"
-                         style="padding:64px 40px 32px 40px;">
-                        <!-- 좌측: 소속/연구팀 -->
-                        <div class="text-left min-w-0">
-                            <p class="font-normal leading-tight whitespace-nowrap" style="font-size:clamp(14px,1.35vw,20px); color:#111;">연세대학교 원주 간호대학</p>
-                            <p class="font-extrabold leading-tight mt-2 whitespace-nowrap" style="font-size:clamp(22px,2.3vw,32px); color:#111; letter-spacing:-0.02em;">김남희 교수 연구팀</p>
+                    <!-- 좌측 텍스트 -->
+                    <div class="help-contact-left">
+                        <p class="help-contact-affil">연세대학교 원주 간호대학</p>
+                        <p class="help-contact-team">김남희 교수 연구팀</p>
+                    </div>
+                    <!-- 우측 연락처 -->
+                    <div class="help-contact-right">
+                        <div class="help-contact-row">
+                            <span class="help-contact-label">전화번호</span>
+                            <span class="help-contact-value">010. 9267. 3611</span>
                         </div>
-                        <!-- 우측: 연락처 -->
-                        <div class="flex flex-col gap-3 lg:gap-4 shrink-0">
-                            <div class="flex items-center gap-5 whitespace-nowrap">
-                                <span class="font-normal" style="color:#111; font-size:clamp(14px,1.3vw,18px); min-width:70px;">전화번호</span>
-                                <span class="font-extrabold tracking-tight" style="color:#111; font-size:clamp(18px,1.8vw,26px); letter-spacing:-0.02em;">010. 9267. 3611</span>
-                            </div>
-                            <div class="flex items-center gap-5 whitespace-nowrap">
-                                <span class="font-normal" style="color:#111; font-size:clamp(14px,1.3vw,18px); min-width:70px;">운영시간</span>
-                                <span class="font-extrabold tracking-tight" style="color:#111; font-size:clamp(18px,1.8vw,26px); letter-spacing:-0.02em;">AM 09:00 ~ PM 18:00</span>
-                            </div>
+                        <div class="help-contact-row">
+                            <span class="help-contact-label">운영시간</span>
+                            <span class="help-contact-value">AM 09:00 ~ PM 18:00</span>
                         </div>
                     </div>
                 </div>
@@ -4316,7 +4351,8 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
             const foundUser = mockUsers.find(u => u.id === id && (u.pw === pw || u.pin === pw));
 
-            if (foundUser || (id === "BUVI" && pw === "1234")) {
+            // 데모: 아이디/비밀번호 입력 없이도 로그인 버튼 클릭 시 로그인 처리
+            if (true || foundUser || (id === "BUVI" && pw === "1234")) {
                 state.loginFailedAttempts = 0;
                 alertBox.classList.add('hidden');
                 idInput.style.borderColor = "#D4D4D4";
