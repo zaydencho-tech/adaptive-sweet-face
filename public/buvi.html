@@ -1342,11 +1342,13 @@
             .help-contact-label { font-size: 18px; min-width: 80px; }
             .help-contact-value { font-size: 22px; white-space: nowrap; }
 
-            /* Help: Step/FAQ grid on desktop — 2 equal columns side by side */
+            /* Help: Step/FAQ grid on desktop — 2 equal columns side by side, fill like contact card */
             body.subpage-mode main > #page-help:not(.hidden) > .grid {
                 display: grid !important;
                 grid-template-columns: 1fr 1fr !important;
-                gap: 24px !important;
+                gap: 20px !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
             }
             body.subpage-mode main > #page-help:not(.hidden) > .grid > div,
             body.subpage-mode main > #page-help:not(.hidden) > .grid > div:nth-last-child(2),
@@ -1358,6 +1360,7 @@
                 margin-top: 0 !important;
                 margin-bottom: 0 !important;
             }
+
 
         }
 
