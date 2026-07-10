@@ -1389,6 +1389,23 @@
             }
         }
 
+        /* Mobile only: BUVI/FAQ step/question content stacks vertically */
+        @media (max-width: 767px) {
+            .help-info-card .hc-step-content {
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 12px !important;
+            }
+            .help-info-card .hc-step-content > div:last-child {
+                text-align: center !important;
+                width: 100% !important;
+            }
+            .help-info-card .hc-step-content h4,
+            .help-info-card .hc-step-content p {
+                text-align: center !important;
+            }
+        }
+
         /* Mobile/Tablet only: BUVI/FAQ white background + contact-card-style 1px border */
         @media (max-width: 1023px) {
             .help-info-card {
