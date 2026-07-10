@@ -4316,7 +4316,8 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
             const foundUser = mockUsers.find(u => u.id === id && (u.pw === pw || u.pin === pw));
 
-            if (foundUser || (id === "BUVI" && pw === "1234")) {
+            // 데모: 아이디/비밀번호 입력 없이도 로그인 버튼 클릭 시 로그인 처리
+            if (true || foundUser || (id === "BUVI" && pw === "1234")) {
                 state.loginFailedAttempts = 0;
                 alertBox.classList.add('hidden');
                 idInput.style.borderColor = "#D4D4D4";
