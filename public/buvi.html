@@ -1288,21 +1288,36 @@
         .help-contact-label { color: #111; font-weight: 400; font-size: 15px; min-width: 60px; letter-spacing: -0.02em; }
         .help-contact-value { color: #111; font-weight: 800; font-size: 18px; letter-spacing: -0.02em; }
 
-        /* Desktop pixel-perfect (≥1024px) — 첨부 이미지 992x378 기준 */
+        /* Desktop pixel-perfect (≥1024px) — 태블릿 이하 연락처 카드와 동일한 배치 */
         @media (min-width: 1024px) {
-            .help-contact-card { max-width: 992px; margin-left: auto; margin-right: auto; border-radius: 16px; overflow: hidden; position: relative; }
-            .help-contact-band { width: 100%; height: 131px; display: block; }
+            .help-contact-card {
+                display: block !important;
+                flex: 0 0 auto !important;
+                width: 100% !important;
+                max-width: 992px !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+                padding: 0 !important;
+                border: 1px solid #e5e7eb !important;
+                border-radius: 16px !important;
+                overflow: hidden !important;
+                position: relative !important;
+                box-sizing: border-box !important;
+            }
+            .help-contact-band { width: 100% !important; max-width: none !important; height: 131px; display: block !important; margin: 0 !important; padding: 0 !important; }
             .help-contact-band-text { padding-right: 40px; opacity: 0.3; }
             .help-contact-band-title { font-size: 24px; }
             .help-contact-band-sub { font-size: 20px; margin-top: 12px; }
             .help-contact-body {
                 position: relative;
-                width: 100%;
+                width: 100% !important;
+                max-width: none !important;
                 box-sizing: border-box;
-                padding: 40px 48px 40px 210px;
+                padding: 44px 56px !important;
                 min-height: 247px;
                 min-width: 0;
-                display: flex;
+                margin: 0 !important;
+                display: flex !important;
                 justify-content: space-between;
                 align-items: center;
                 gap: 32px;
@@ -1311,15 +1326,15 @@
                 display: block; position: absolute; right: -60px; top: 50%; transform: translateY(-50%);
                 width: 380px; height: 380px; opacity: 0.06; object-fit: contain; pointer-events: none; user-select: none;
             }
-            .help-contact-logo { left: 56px; top: 71px; width: 120px; height: 120px; border: 4px solid #fff; }
+            .help-contact-logo { left: 56px; top: 71px; width: 120px; height: 120px; border: 4px solid #fff !important; }
             .help-contact-logo img { width: 100px; height: 100px; }
-            .help-contact-left { position: static; transform: none; flex: 1 1 auto; min-width: 0; text-align: left; }
-            .help-contact-affil { font-size: 18px; }
-            .help-contact-team { font-size: 26px; margin-top: 10px; }
-            .help-contact-right { position: static; transform: none; margin-top: 0; gap: 14px; flex: 0 0 auto; }
-            .help-contact-row { gap: 16px; }
-            .help-contact-label { font-size: 16px; min-width: 68px; }
-            .help-contact-value { font-size: 22px; white-space: nowrap; }
+            .help-contact-left { position: static; transform: none; flex: 0 1 auto; min-width: 0; text-align: left; }
+            .help-contact-affil { font-size: 20px; }
+            .help-contact-team { font-size: 32px; margin-top: 10px; }
+            .help-contact-right { position: static; transform: none; margin-top: 0; gap: 18px; flex: 0 0 auto; }
+            .help-contact-row { gap: 20px; }
+            .help-contact-label { font-size: 20px; min-width: 88px; }
+            .help-contact-value { font-size: 24px; white-space: nowrap; }
         }
 
         /* Tablet layout (768px–1023px): phone/hours on the right like the reference image */
