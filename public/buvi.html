@@ -3727,6 +3727,9 @@
         }
 
         function handlePageEntranceEffects(pageId) {
+            const narrativeBox = document.getElementById('buvi-narrative-box');
+            if (narrativeBox) narrativeBox.classList.remove('hidden');
+
             if (pageId === 'home') {
                 updateBuvi('1-1', '안녕하세요 어르신! 오늘의 기력을 건강히 돌보는 부비 플랫폼입니다.');
             } else if (pageId === 'survey-start') {
@@ -3737,6 +3740,7 @@
                 state.currentQuestionId = "gender";
                 setupSurveyQuestion();
             } else if (pageId === 'result') {
+                if (narrativeBox) narrativeBox.classList.add('hidden');
                 calculateLogisticRegression();
             } else if (pageId === 'chat') {
                 updateBuvi('1-3', '노쇠 예측 설문 결과를 기반으로 개별화된 건강 결과를 확인하고, 상담받아 보세요.');
