@@ -2738,20 +2738,8 @@
              ======================================================== -->
         <section id="page-result" class="app-page hidden space-y-4">
 
-            <!-- ① 히어로: 종합 판정 + 게이지 -->
+            <!-- ① 요약 카드: 트렌드 그래프 + KPI -->
             <div id="result-hero-card" class="rounded-3xl shadow-lg overflow-hidden border-2" style="border-color: var(--border-color);">
-                <!-- 상단 히어로 (강조 배경) -->
-                <div id="result-status-card" class="px-6 pt-6 pb-7" style="background: linear-gradient(160deg, #fff8e1 0%, #ffe9b8 55%, #ffd98a 100%);">
-                    <p class="text-xs font-bold text-charcoal/60 text-center mb-2 tracking-wide">어르신의 결과는</p>
-                    <div id="result-risk-badge-wrap" class="flex justify-center mb-3">
-                        <div id="result-risk-badge" class="rounded-2xl px-8 py-3 text-center shadow-sm" style="background:#fff; border:2px solid #fca5a5;">
-                            <span class="scaled-text-2xl font-black" style="color:#dc2626;">⚠ 노쇠 위험</span>
-                        </div>
-                    </div>
-                    <p id="result-grade-desc" class="text-sm font-black text-charcoal/80 text-center mb-4"></p>
-                    <div id="result-gauge-wrap" class="px-1"></div>
-                    <p class="text-[10px] text-charcoal/50 font-bold text-center mt-3">본 결과는 노쇠 위험 선별 참고용이며 의학적 진단이 아닙니다.</p>
-                </div>
                 <!-- 하단 상세 정보 (요약 그래프 + KPI) -->
                 <div class="bg-white px-4 lg:px-6 py-6" style="background-color: var(--card-bg);">
                     <!-- 상단 헤더: 좌측 타이틀 + 큰 수치 / 우측 라벨 -->
@@ -5395,7 +5383,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 }).join('');
 
                 wrap.innerHTML = `
-                <svg viewBox="0 0 ${W} ${H}" width="100%" height="150" preserveAspectRatio="none" style="display:block;">
+                <svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block; height:auto;">
                     ${gridLines}
                     <path d="${path}" fill="none" stroke="#f97316" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
                     <circle cx="${startX}" cy="${startY}" r="3.5" fill="#f97316"/>
