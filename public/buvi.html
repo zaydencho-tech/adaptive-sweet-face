@@ -5350,6 +5350,9 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 chartEl.innerHTML = headerRow + rows;
             }
 
+            // ── ④ 트렌드 라인차트 + KPI (요약 시각화) ─────────────────
+            renderTrendSummary(r);
+
             // ── 부비 브리핑 ───────────────────────────────────────────
             // 사양서 5-5: 영역 1위와 항목 1위 영역이 다를 경우 선제 설명
             const topItemDomain = r.sortedContribs[0]?.domain;
