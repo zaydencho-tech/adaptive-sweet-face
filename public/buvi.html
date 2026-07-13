@@ -3663,16 +3663,18 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
         function renderGenderInput(container) {
             const saved = state.answers.gender;
-            const baseCard = "gender-card group relative aspect-square w-full rounded-2xl border-4 bg-white shadow-md flex flex-col items-center justify-between p-4 lg:p-6 transition-all";
+            const baseCard = "gender-card group relative aspect-square w-full rounded-2xl bg-white shadow-md flex flex-col items-center justify-between p-4 lg:p-6 transition-all";
             const mSel = saved === 'male'   ? "border-blue-500 ring-4 ring-blue-200 bg-blue-50" : "border-black hover:border-blue-500";
             const fSel = saved === 'female' ? "border-pink-500 ring-4 ring-pink-200 bg-pink-50" : "border-black hover:border-pink-500";
+            const mBorder = saved === 'male' ? '#3B82F6' : '#000000';
+            const fBorder = saved === 'female' ? '#EC4899' : '#000000';
             const mSelText = saved === 'male' ? "text-blue-500" : "text-charcoal";
             const fSelText = saved === 'female' ? "text-pink-500" : "text-charcoal";
             container.innerHTML = `
                 <div class="grid grid-cols-2 gap-4 lg:gap-6 w-full max-w-md lg:max-w-lg mx-auto mt-2">
                     <button id="gender-btn-male"
                         onclick="state.answers.gender='male'; renderGenderInput(document.getElementById('survey-options-container')); updateNextButtonState(); setTimeout(nextSurveyQuestion, 200);"
-                        class="${baseCard} ${mSel}">
+                        class="${baseCard} ${mSel}" style="border: 4px solid ${mBorder};">
                         <div class="flex-1 w-full flex items-center justify-center">
                             <img src="/buvi-gender-male.png" alt="남성 어르신" loading="lazy" width="200" height="200" class="w-full h-full max-w-[70%] max-h-[70%] object-contain" />
                         </div>
@@ -3680,7 +3682,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     </button>
                     <button id="gender-btn-female"
                         onclick="state.answers.gender='female'; renderGenderInput(document.getElementById('survey-options-container')); updateNextButtonState(); setTimeout(nextSurveyQuestion, 200);"
-                        class="${baseCard} ${fSel}">
+                        class="${baseCard} ${fSel}" style="border: 4px solid ${fBorder};">
                         <div class="flex-1 w-full flex items-center justify-center">
                             <img src="/buvi-gender-female.png" alt="여성 어르신" loading="lazy" width="200" height="200" class="w-full h-full max-w-[70%] max-h-[70%] object-contain" />
                         </div>
