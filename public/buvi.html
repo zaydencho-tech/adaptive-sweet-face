@@ -1414,10 +1414,35 @@
             #page-records #quiz-panel > #card-news-body {
                 flex: 1 1 auto;
                 min-height: 0;
-                overflow-y: auto;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
             }
             #page-records #quiz-panel > #card-news-body > #card-text-scroll {
                 max-height: none !important;
+            }
+            /* 카드뉴스 뷰어: 이미지 영역이 좌측 6개 카드 높이와 동일하게 유동적으로 채워지도록 */
+            #page-records #quiz-panel > #card-news-body > div.select-none {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                min-height: 0;
+            }
+            #page-records #quiz-panel #cn-stage {
+                flex: 1 1 auto;
+                min-height: 0;
+                max-width: none !important;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+            }
+            #page-records #quiz-panel #cn-img {
+                height: 100% !important;
+                width: auto !important;
+                max-width: 100% !important;
+                aspect-ratio: 1 / 1;
+                object-fit: contain;
             }
             /* 데스크탑에서는 상세 패널이 항상 열려있으므로 닫기 버튼과 스크롤 안내 문구 숨김 */
             #page-records > div.records-wrapper > #quiz-panel button[title="읽기 그만하기"],
