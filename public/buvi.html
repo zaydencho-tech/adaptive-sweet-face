@@ -1600,11 +1600,165 @@
             body:has(#page-records:not(.hidden)) { overflow: auto !important; }
         }
 
-        /* 모바일 카드뉴스 인디케이터: 카운터가 한 줄에 들어가도록 도트 축소 */
+        /* 태블릿/모바일에서도 건강정보 배움터 상세 콘텐츠를 데스크탑과 동일한 구성/디자인으로 */
         @media (max-width: 1023px) {
-            #cn-dots-list { gap: 6px !important; }
-            #cn-dots .cn-dot { width: 10px !important; height: 10px !important; }
-            #cn-dots .cn-dot.active { width: 20px !important; }
+            #page-records #quiz-panel {
+                position: relative;
+                background: transparent !important;
+                border: none !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+                padding: 16px 0 4px 0 !important;
+                margin-top: 0 !important;
+            }
+            #page-records #quiz-panel button[title="읽기 그만하기"],
+            #page-records #quiz-panel > #card-scroll-hint {
+                display: none !important;
+            }
+            #page-records #quiz-panel > div:first-child {
+                padding-right: 200px;
+                padding-bottom: 4px !important;
+            }
+            #page-records #quiz-panel > div.bg-emerald-50 {
+                position: absolute;
+                top: 16px;
+                right: 0;
+                margin-top: 0 !important;
+                padding: 0 !important;
+                background: transparent !important;
+                border: none !important;
+                width: auto;
+                z-index: 5;
+                display: inline-flex;
+                gap: 20px;
+                align-items: center;
+            }
+            #page-records #quiz-panel > div.bg-emerald-50 > * { margin-top: 0 !important; margin-bottom: 0 !important; }
+            #page-records #quiz-panel > div.bg-emerald-50 > h4,
+            #page-records #quiz-panel > div.bg-emerald-50 > p { display: none !important; }
+            #page-records #quiz-panel > div.bg-emerald-50 > button#card-complete-btn {
+                width: auto !important;
+                min-width: 0 !important;
+                padding: 8px 18px !important;
+                font-size: 13px !important;
+                border-radius: 999px !important;
+                min-height: 0 !important;
+                height: 36px !important;
+                box-shadow: none !important;
+                flex-shrink: 0;
+                margin: 0 !important;
+            }
+            #page-records #quiz-panel > #card-news-body {
+                flex: 1 1 auto;
+                min-height: 0;
+                overflow: visible;
+                display: flex;
+                flex-direction: column;
+                margin-top: 0 !important;
+            }
+            #page-records #quiz-panel > #card-news-body > #card-text-scroll {
+                max-height: none !important;
+            }
+            #page-records #quiz-panel > #card-news-body > div.select-none {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                min-height: 0;
+            }
+            #page-records #quiz-panel #cn-stage {
+                flex: 1 1 auto;
+                min-height: 0;
+                max-width: none !important;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+            }
+            #page-records #quiz-panel #cn-img {
+                height: 100% !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                aspect-ratio: auto !important;
+                object-fit: contain;
+            }
+            #page-records #quiz-panel #cn-fullscreen-btn {
+                position: relative !important;
+                inset: auto !important;
+                width: auto !important;
+                height: 36px !important;
+                border-radius: 9999px !important;
+                background: rgba(107, 114, 128, 0.9) !important;
+                color: #fff;
+                font-size: 13px !important;
+                font-weight: 700;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 6px;
+                padding: 8px 14px !important;
+                box-shadow: none !important;
+                z-index: 6;
+                flex-shrink: 0;
+                margin: 0 !important;
+            }
+            #page-records #quiz-panel > #card-news-body > div.select-none > div.flex.items-center.justify-between {
+                margin-top: 18px !important;
+                gap: 16px !important;
+                padding: 0 8px;
+            }
+            #page-records #quiz-panel #cn-prev {
+                flex: 1 1 0 !important;
+                min-width: 0 !important;
+                padding: 14px 32px !important;
+                border-radius: 999px !important;
+                background: #F4F0E9 !important;
+                border: none !important;
+                box-shadow: none !important;
+                color: #1f2937 !important;
+            }
+            #page-records #quiz-panel #cn-counter {
+                flex: 0 0 auto;
+                text-align: center;
+            }
+            #page-records #quiz-panel #cn-next {
+                flex: 1 1 0 !important;
+                min-width: 0 !important;
+                padding: 14px 32px !important;
+                border-radius: 999px !important;
+            }
+            #page-records #quiz-panel #cn-dots {
+                margin-top: 20px !important;
+                margin-bottom: 0 !important;
+                justify-content: space-between;
+                gap: 12px;
+                flex-wrap: nowrap;
+                order: 2;
+            }
+            #page-records #quiz-panel #cn-stage { order: 1; }
+            #page-records #quiz-panel > #card-news-body > div.select-none > div.flex.items-center.justify-between { order: 3; }
+            #page-records #quiz-panel > #card-news-body > div.select-none > p { order: 4; }
+            #page-records #quiz-panel #cn-dots-list {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                flex: 1;
+                flex-wrap: nowrap;
+            }
+            #page-records #quiz-panel #cn-dots .cn-dot {
+                width: 14px !important;
+                height: 14px !important;
+            }
+            #page-records #quiz-panel #cn-dots .cn-dot.active {
+                width: 28px !important;
+            }
+            #page-records #quiz-panel #cn-counter {
+                text-align: right;
+                flex-shrink: 0;
+            }
+            #page-records #quiz-panel > #card-news-body > div.select-none > p {
+                margin-top: 14px !important;
+            }
         }
 
         /* Fluid typography for right column on tablet-over ~ under-desktop-max
