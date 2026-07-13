@@ -2785,29 +2785,90 @@
 
 
 
-            <!-- ④ 액션 버튼 그룹 -->
-            <div class="bg-white rounded-3xl px-1 py-5 lg:p-5 shadow-md border-2 space-y-3" style="background-color: var(--card-bg); border-color: var(--border-color);">
-                <button onclick="tryNavigateWithWarning('chat')" class="w-full bg-kakao text-charcoal font-black rounded-2xl py-4 shadow-md hover:brightness-95 transition-all flex flex-col items-center justify-center">
-                    <div class="flex items-center gap-2 scaled-text-base font-black">
-                        <span>부비와 함께하는 1:1 상담</span>
+            <!-- ④ 액션 카드 그룹 (Bento layout) -->
+            <div class="space-y-3">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
+
+                    <!-- Left: 1:1 상담 히어로 카드 -->
+                    <button onclick="tryNavigateWithWarning('chat')" class="group text-left rounded-3xl bg-white shadow-md border-2 p-6 lg:p-7 flex flex-col hover:shadow-lg transition-all overflow-hidden" style="background-color: var(--card-bg); border-color: var(--border-color);">
+                        <div>
+                            <h3 class="font-gapyeong text-xl lg:text-2xl font-black text-charcoal leading-tight">
+                                부비와 함께하는<br>1:1 맞춤 상담
+                            </h3>
+                            <p class="mt-2 text-xs lg:text-sm text-gray-500 font-bold leading-relaxed">
+                                노쇠 예측 설문 결과를 기반으로<br class="hidden lg:block">개별화된 건강 조언을 받아보세요.
+                            </p>
+                        </div>
+                        <div class="flex-1 flex items-center justify-center py-4 lg:py-6">
+                            <img src="/buvi-step3.png" alt="부비와 상담" loading="lazy" width="180" height="180" class="w-36 h-36 lg:w-44 lg:h-44 object-contain" />
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-kakao text-charcoal font-black text-sm shadow-sm group-hover:brightness-95 transition-all">
+                                상담 시작 <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </span>
+                            <span class="text-xs font-bold text-gray-400">지금 바로</span>
+                        </div>
+                    </button>
+
+                    <!-- Right: 결과 저장·공유 태스크 + 스탯 -->
+                    <div class="flex flex-col gap-3 lg:gap-4">
+
+                        <!-- 태스크 카드 (블루) -->
+                        <div class="rounded-3xl p-5 lg:p-6 shadow-md text-white flex flex-col" style="background-color: #4f46e5;">
+                            <div class="flex items-center gap-2 mb-1">
+                                <i class="fa-solid fa-clipboard-check text-white/80"></i>
+                                <span class="text-xs font-black tracking-wider text-white/80">RESULT ACTIONS</span>
+                            </div>
+                            <h3 class="font-gapyeong text-2xl lg:text-3xl font-black leading-tight mb-4">3가지 저장 방법</h3>
+                            <div class="space-y-2 flex-1">
+                                <button onclick="event.stopPropagation(); simulatePDFDownload()" class="w-full flex items-center gap-3 py-2.5 border-t border-white/20 text-left hover:bg-white/5 transition-colors -mx-1 px-1 rounded-lg">
+                                    <span class="w-7 h-7 rounded-full bg-white/15 flex items-center justify-center shrink-0"><i class="fa-solid fa-file-pdf text-white text-xs"></i></span>
+                                    <span class="flex-1 text-sm font-black">PDF 저장</span>
+                                    <i class="fa-solid fa-arrow-right text-white/70 text-xs"></i>
+                                </button>
+                                <button onclick="event.stopPropagation(); showAppModal('🖼️','이미지 공유 완료','노쇠 위험도 결과 그래프를 사진첩에 저장해 드렸습니다.')" class="w-full flex items-center gap-3 py-2.5 border-t border-white/20 text-left hover:bg-white/5 transition-colors -mx-1 px-1 rounded-lg">
+                                    <span class="w-7 h-7 rounded-full bg-white/15 flex items-center justify-center shrink-0"><i class="fa-solid fa-image text-white text-xs"></i></span>
+                                    <span class="flex-1 text-sm font-black">이미지 공유</span>
+                                    <i class="fa-solid fa-arrow-right text-white/70 text-xs"></i>
+                                </button>
+                                <button onclick="event.stopPropagation(); simulateTTSResult()" class="w-full flex items-center gap-3 py-2.5 border-t border-b border-white/20 text-left hover:bg-white/5 transition-colors -mx-1 px-1 rounded-lg">
+                                    <span class="w-7 h-7 rounded-full bg-white/15 flex items-center justify-center shrink-0"><i class="fa-solid fa-volume-high text-white text-xs"></i></span>
+                                    <span class="flex-1 text-sm font-black">음성 듣기</span>
+                                    <i class="fa-solid fa-arrow-right text-white/70 text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 하단 스탯 2개 -->
+                        <div class="grid grid-cols-2 gap-3 lg:gap-4">
+                            <div class="rounded-3xl bg-white shadow-md border-2 p-4 lg:p-5 flex flex-col justify-between min-h-[120px]" style="background-color: var(--card-bg); border-color: var(--border-color);">
+                                <div class="flex items-start justify-between gap-2">
+                                    <p class="text-3xl lg:text-4xl font-black text-charcoal leading-none">25.6<span class="text-xl lg:text-2xl">%</span></p>
+                                    <span class="inline-flex items-center gap-1 text-[10px] font-black text-orange-500 mt-1 whitespace-nowrap">
+                                        <i class="fa-solid fa-arrow-up text-[9px]"></i>509%
+                                    </span>
+                                </div>
+                                <p class="text-xs font-bold text-gray-500 mt-2">종합 노쇠 위험도</p>
+                            </div>
+                            <div class="rounded-3xl bg-white shadow-md border-2 p-4 lg:p-5 flex flex-col justify-between min-h-[120px]" style="background-color: var(--card-bg); border-color: var(--border-color);">
+                                <div class="flex items-start justify-between gap-2">
+                                    <p class="text-3xl lg:text-4xl font-black text-charcoal leading-none">5<span class="text-xl lg:text-2xl">개</span></p>
+                                    <span class="inline-flex items-center gap-1 text-[10px] font-black text-orange-500 mt-1 whitespace-nowrap">
+                                        <i class="fa-solid fa-triangle-exclamation text-[9px]"></i>주의
+                                    </span>
+                                </div>
+                                <p class="text-xs font-bold text-gray-500 mt-2">관리 필요 항목 수</p>
+                            </div>
+                        </div>
                     </div>
-                    <span class="text-xs font-bold text-gray-500 mt-0.5">노쇠 예측 설문 결과를 기반으로 개별화된 건강 결과를 확인하고, 상담받아 보세요.</span>
-                </button>
-                <div class="grid grid-cols-3 gap-3">
-                    <button onclick="simulatePDFDownload()" class="bg-gray-100 hover:bg-gray-200 font-black py-3 rounded-xl text-xs text-charcoal transition-all border min-h-[48px]">
-                        <i class="fa-solid fa-file-pdf mr-1 text-red-600"></i><br>노쇠 예측 설문 결과<br>PDF 저장
-                    </button>
-                    <button onclick="showAppModal('🖼️','이미지 공유 완료','노쇠 위험도 결과 그래프를 사진첩에 저장해 드렸습니다.')" class="bg-gray-100 hover:bg-gray-200 font-black py-3 rounded-xl text-xs text-charcoal transition-all border min-h-[48px]">
-                        <i class="fa-solid fa-image mr-1 text-blue-600"></i><br>노쇠 예측 설문 결과<br>PDF 공유
-                    </button>
-                    <button onclick="simulateTTSResult()" class="bg-gray-100 hover:bg-gray-200 font-black py-3 rounded-xl text-xs text-charcoal transition-all border min-h-[48px]">
-                        <i class="fa-solid fa-volume-high mr-1 text-green-600"></i><br>노쇠 예측 설문 결과<br>음성 듣기
-                    </button>
                 </div>
-                <div class="pt-2 border-t border-gray-100 text-center space-y-1" style="border-color: var(--border-color);">
+
+                <!-- 하단 안내 문구 -->
+                <div class="text-center px-4 py-3">
                     <p class="text-xs text-gray-400 font-bold leading-normal">⚠ 본 결과는 노쇠 위험 선별용 참고 자료이며 의학적 진단이 아닙니다.</p>
                 </div>
             </div>
+
 
         </section>
         <!-- 슬라이드 7: 부비와 상담 (Agent AI) -->
