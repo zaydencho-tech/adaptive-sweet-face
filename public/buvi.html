@@ -1592,6 +1592,13 @@
             body:has(#page-records:not(.hidden)) { overflow: auto !important; }
         }
 
+        /* 모바일 카드뉴스 인디케이터: 카운터가 한 줄에 들어가도록 도트 축소 */
+        @media (max-width: 1023px) {
+            #cn-dots-list { gap: 6px !important; }
+            #cn-dots .cn-dot { width: 10px !important; height: 10px !important; }
+            #cn-dots .cn-dot.active { width: 20px !important; }
+        }
+
         /* Fluid typography for right column on tablet-over ~ under-desktop-max
            (1024px <= vw <= 1440px). Uses rem+vw clamp so the 약속철학 cards
            and monitoring card scale down instead of overflowing on ~1280–1440. */
