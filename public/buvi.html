@@ -1576,8 +1576,11 @@
             body.subpage-mode main #page-records #records-cards-grid .card-item.card-active {
                 background: #FEE500 !important;
                 border: none !important;
-                box-shadow: 0 6px 20px rgba(0,0,0,0.12) !important;
+                box-shadow: none !important;
                 position: relative;
+            }
+            body.subpage-mode main #page-records #records-cards-grid .card-item.card-active .card-unread-badge {
+                background: #FFFFFF !important;
             }
             body.subpage-mode main #page-records #records-cards-grid .card-item.card-active::after {
                 content: "";
