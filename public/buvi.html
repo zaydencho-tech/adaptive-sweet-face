@@ -5367,6 +5367,68 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             updateBuvi(r.isAtRisk ? '2-5' : '2-2', buviMsg);
         }
 
+        function renderTrendSummary(r) {
+            const pPct = (r && r.p != null) ? r.p * 100 : 20;
+            // 목업: 지난 4번 검사의 노쇠 위험 확률 추이 (마지막은 이번 결과)
+            const points = [4.2, 6.1, 9.5, pPct];
+            const labels = ['2024.4Q', '2025.1Q', '2025.2Q', '오늘'];
+
+            const wrap = document.getElementById('trend-chart-wrap');
+            if (wrap) {
+                const W = 320, H = 150;
+                const padL = 14, padR = 18, padT = 22, padB = 24;
+                const maxY = Math.max(...points, 12) * 1.15;
+                const minY = 0;
+                const xs = points.map((_, i) => padL + (i * (W - padL - padR) / (points.length - 1)));
+                const ys = points.map(v => padT + (H - padT - padB) * (1 - (v - minY) / (maxY - minY)));
+                const path = points.map((_, i) => (i === 0 ? 'M' : 'L') + xs[i].toFixed(1) + ',' + ys[i].toFixed(1)).join(' ');
+                const gridLines = [0, 1, 2, 3].map(i => {
+                    const y = padT + (H - padT - padB) * (i / 3);
+                    return `<line x1="${padL}" x2="${W - padR}" y1="${y}" y2="${y}" stroke="#eef0f4" stroke-width="1"/>`;
+                }).join('');
+                const lastIdx = points.length - 1;
+                const lastX = xs[lastIdx], lastY = ys[lastIdx];
+                const startX = xs[0], startY = ys[0];
+                const xLabels = xs.map((x, i) => `<text x="${x}" y="${H - 6}" text-anchor="middle" font-size="9" font-weight="700" fill="#9ca3af">${labels[i]}</text>`).join('');
+
+                wrap.innerHTML = `
+                <svg viewBox="0 0 ${W} ${H}" width="100%" height="150" preserveAspectRatio="none" style="display:block;">
+                    ${gridLines}
+                    <path d="${path}" fill="none" stroke="#f97316" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="${startX}" cy="${startY}" r="3.5" fill="#f97316"/>
+                    <line x1="${lastX}" y1="${lastY}" x2="${lastX}" y2="${H - padB}" stroke="#111827" stroke-width="2"/>
+                    <circle cx="${lastX}" cy="${lastY}" r="16" fill="#2563eb"/>
+                    <text x="${lastX}" y="${lastY + 4}" text-anchor="middle" font-size="10" font-weight="900" fill="#ffffff">${pPct.toFixed(0)}%</text>
+                    ${xLabels}
+                </svg>`;
+            }
+
+            // 상단 히어로 대비 증감 (첫 검사 대비 %증가)
+            const baseline = points[0];
+            const growthPct = baseline > 0 ? ((pPct - baseline) / baseline * 100) : 0;
+            const arrowUp = growthPct >= 0;
+            const heroVal = document.getElementById('trend-hero-value');
+            const heroArrow = document.getElementById('trend-hero-arrow');
+            if (heroVal) heroVal.textContent = Math.abs(growthPct).toFixed(0) + '%';
+            if (heroArrow) {
+                heroArrow.textContent = arrowUp ? '↑' : '↓';
+                heroArrow.style.color = arrowUp ? '#f97316' : '#16a34a';
+            }
+
+            // KPI 목업 데이터
+            const risk = document.getElementById('kpi-risk');
+            if (risk) risk.textContent = pPct.toFixed(1) + '%';
+            const items = document.getElementById('kpi-items');
+            if (items && r && r.sortedContribs) {
+                const cnt = r.sortedContribs.filter(c => c.value > 0 && c.key !== 'age').length;
+                items.textContent = cnt || 4;
+            }
+            const tug = document.getElementById('kpi-tug');
+            if (tug) tug.textContent = (state.answers.tug ?? 13.5).toFixed(1);
+            const sgds = document.getElementById('kpi-sgds');
+            if (sgds) sgds.textContent = (state.answers.sgdsk_score ?? 6);
+        }
+
         function togglePasswordVisibility(inputId, iconId) {
             const input = document.getElementById(inputId);
             const icon = document.getElementById(iconId);
