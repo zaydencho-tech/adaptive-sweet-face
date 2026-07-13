@@ -3663,19 +3663,28 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
         function renderGenderInput(container) {
             const saved = state.answers.gender;
-            const mSel = saved === 'male'   ? "bg-blue-100 border-blue-400 ring-4 ring-blue-400" : "bg-blue-50 border-blue-200 hover:bg-blue-100";
-            const fSel = saved === 'female' ? "bg-pink-100 border-pink-400 ring-4 ring-pink-400" : "bg-pink-50 border-pink-200 hover:bg-pink-100";
+            const baseCard = "gender-card group relative aspect-square w-full rounded-2xl border-2 bg-white flex flex-col items-center justify-between p-4 lg:p-6 transition-all";
+            const mSel = saved === 'male'   ? "border-blue-400 ring-4 ring-blue-300 bg-blue-50" : "border-gray-200 hover:border-blue-300";
+            const fSel = saved === 'female' ? "border-pink-400 ring-4 ring-pink-300 bg-pink-50" : "border-gray-200 hover:border-pink-300";
+            const mSelText = saved === 'male' ? "text-blue-500" : "text-charcoal";
+            const fSelText = saved === 'female' ? "text-pink-500" : "text-charcoal";
             container.innerHTML = `
-                <div class="flex flex-col gap-4 w-full max-w-sm lg:max-w-md mx-auto mt-2 lg:px-8">
+                <div class="grid grid-cols-2 gap-4 lg:gap-6 w-full max-w-md lg:max-w-lg mx-auto mt-2">
                     <button id="gender-btn-male"
-                        onclick="state.answers.gender='male'; document.getElementById('gender-btn-male').className='w-full py-6 px-6 lg:px-12 rounded-2xl border-2 text-2xl font-black transition-all bg-blue-100 border-blue-400 ring-4 ring-blue-400'; document.getElementById('gender-btn-female').className='w-full py-6 px-6 lg:px-12 rounded-2xl border-2 text-2xl font-black transition-all bg-pink-50 border-pink-200'; updateNextButtonState(); setTimeout(nextSurveyQuestion, 200);"
-                        class="w-full py-6 px-6 lg:px-12 rounded-2xl border-2 text-2xl font-black transition-all ${mSel}">
-                        👨 남성
+                        onclick="state.answers.gender='male'; renderGenderInput(document.getElementById('gender-input-container')); updateNextButtonState(); setTimeout(nextSurveyQuestion, 200);"
+                        class="${baseCard} ${mSel}">
+                        <div class="flex-1 w-full flex items-center justify-center">
+                            <img src="/buvi-gender-male.png" alt="남성 어르신" loading="lazy" width="200" height="200" class="w-full h-full max-w-[70%] max-h-[70%] object-contain" />
+                        </div>
+                        <span class="scaled-text-lg lg:text-2xl font-black ${mSelText}">남성</span>
                     </button>
                     <button id="gender-btn-female"
-                        onclick="state.answers.gender='female'; document.getElementById('gender-btn-female').className='w-full py-6 px-6 lg:px-12 rounded-2xl border-2 text-2xl font-black transition-all bg-pink-100 border-pink-400 ring-4 ring-pink-400'; document.getElementById('gender-btn-male').className='w-full py-6 px-6 lg:px-12 rounded-2xl border-2 text-2xl font-black transition-all bg-blue-50 border-blue-200'; updateNextButtonState(); setTimeout(nextSurveyQuestion, 200);"
-                        class="w-full py-6 px-6 lg:px-12 rounded-2xl border-2 text-2xl font-black transition-all ${fSel}">
-                        👩 여성
+                        onclick="state.answers.gender='female'; renderGenderInput(document.getElementById('gender-input-container')); updateNextButtonState(); setTimeout(nextSurveyQuestion, 200);"
+                        class="${baseCard} ${fSel}">
+                        <div class="flex-1 w-full flex items-center justify-center">
+                            <img src="/buvi-gender-female.png" alt="여성 어르신" loading="lazy" width="200" height="200" class="w-full h-full max-w-[70%] max-h-[70%] object-contain" />
+                        </div>
+                        <span class="scaled-text-lg lg:text-2xl font-black ${fSelText}">여성</span>
                     </button>
                 </div>
             `;
