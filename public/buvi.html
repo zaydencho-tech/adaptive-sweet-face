@@ -2876,6 +2876,11 @@
             } else if (pageId === 'records') {
                 updateBuvi('1-3', '연세대학교 원주간호대학에서 준비한 건강 정보입니다.');
                 buildRecordsCardDeck();
+                // 데스크탑: 우측 상세 패널에 기본으로 '노쇠란?' 노출
+                if (window.matchMedia('(min-width: 1024px)').matches
+                    && !state.currentReadingCardId) {
+                    setTimeout(() => openDetailedStudyCard('frailty_intro'), 0);
+                }
             } else if (pageId === 'more') {
                 updateBuvi('1-1', '더보기 화면입니다. 원하시는 건강 돌봄 서비스를 가볍게 눌러주세요.');
             }
