@@ -1072,31 +1072,37 @@
             body.subpage-mode main #page-about .hidden.lg\:block > div:nth-child(3) > div {
                 flex: 1 1 0 !important;
                 min-height: 0 !important;
+            }
+            body.subpage-mode main #page-about .hidden.lg\:block > div:nth-child(3) > div > div.px-8 {
+                padding-top: clamp(4px, 0.8vh, 18px) !important;
+                padding-bottom: clamp(4px, 0.8vh, 18px) !important;
+                padding-left: clamp(14px, 2vw, 32px) !important;
+                padding-right: clamp(14px, 2vw, 32px) !important;
+                min-height: 0 !important;
                 overflow: hidden !important;
             }
-            body.subpage-mode main #page-about .hidden.lg\:block > div:nth-child(3) > div > div:first-child,
-            body.subpage-mode main #page-about .hidden.lg\:block > div:nth-child(3) > div > div {
-                padding-top: clamp(6px, 1vh, 20px) !important;
-                padding-bottom: clamp(6px, 1vh, 20px) !important;
+            body.subpage-mode main #page-about .hidden.lg\:block > div:nth-child(3) > div > div.px-8 > div.flex.items-center.gap-3 {
+                margin-bottom: clamp(4px, 0.6vh, 10px) !important;
             }
             body.subpage-mode main #page-about .hidden.lg\:block > div:nth-child(3) h3 {
-                font-size: clamp(18px, 2.6vh, 32px) !important;
-                margin-bottom: clamp(4px, 0.8vh, 12px) !important;
+                font-size: clamp(16px, 2.2vh, 30px) !important;
+                margin-bottom: clamp(3px, 0.6vh, 10px) !important;
             }
             body.subpage-mode main #page-about .hidden.lg\:block > div:nth-child(3) img[loading="lazy"]:not(.w-16) {
-                width: clamp(110px, 18vh, 220px) !important;
-                height: clamp(110px, 18vh, 220px) !important;
+                width: clamp(80px, 13vh, 200px) !important;
+                height: clamp(80px, 13vh, 200px) !important;
             }
             body.subpage-mode main #page-about .hidden.lg\:block > div:nth-child(3) img.w-16 {
-                width: clamp(38px, 5.5vh, 60px) !important;
-                height: clamp(38px, 5.5vh, 60px) !important;
+                width: clamp(32px, 4.5vh, 56px) !important;
+                height: clamp(32px, 4.5vh, 56px) !important;
             }
             body.subpage-mode main #page-about .hidden.lg\:block > div:nth-child(3) p {
-                font-size: clamp(11px, 1.35vh, 14px) !important;
-                line-height: 1.45 !important;
+                font-size: clamp(10px, 1.25vh, 14px) !important;
+                line-height: 1.4 !important;
+                margin-bottom: clamp(1px, 0.3vh, 4px) !important;
             }
             body.subpage-mode main #page-about .hidden.lg\:block > div:nth-child(3) .absolute[style*="font-size:120px"] {
-                font-size: clamp(60px, 10vh, 120px) !important;
+                font-size: clamp(50px, 9vh, 110px) !important;
             }
 
             /* 건강정보 카테고리 카드는 #F4F0E9 배경, 외곽선/그림자 제거 */
