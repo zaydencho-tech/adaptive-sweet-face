@@ -988,7 +988,7 @@
             }
             /* BUVI 알아보기: 데스크탑에서 상단 브리핑바/하단 퀵링크/홈 버튼 숨기고 뷰포트 높이에 맞춰 유동 배치 */
             body.subpage-mode:has(#page-about:not(.hidden)) main {
-                padding: 16px 20px 16px calc(33.333vw + 20px) !important;
+                padding: 20px 20px 16px calc(33.333vw + 20px) !important;
                 height: 100vh !important;
                 max-height: 100vh !important;
                 overflow: hidden !important;
@@ -1029,7 +1029,7 @@
                 flex-direction: column !important;
                 flex: 1 1 auto !important;
                 min-height: 0 !important;
-                gap: clamp(8px, 1.2vh, 20px) !important;
+                gap: 20px !important;
             }
             /* 히어로 영역 - 뷰포트에 따라 스케일 */
             body.subpage-mode main #page-about .hidden.lg\:block > div:first-child {
@@ -1062,7 +1062,7 @@
                 min-height: 0 !important;
                 display: flex !important;
                 flex-direction: column !important;
-                gap: clamp(6px, 0.9vh, 14px) !important;
+                gap: 20px !important;
             }
             /* 각 카드 - 뷰포트 높이에 따라 균등 유동 */
             body.subpage-mode main #page-about .hidden.lg\:block > div:nth-child(2) > div {
