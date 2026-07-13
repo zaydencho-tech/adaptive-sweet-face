@@ -1199,6 +1199,78 @@
             body.subpage-mode main [class*="bg-[#FFFDF"],
             body.subpage-mode main [class*="bg-[#FFFEF"] { background-color: #F7F5F1 !important; }
         }
+
+        /* ─────────────────────────────────────────────────────────────
+           BUVI 알아보기 (About): 태블릿/모바일에서도 데스크탑 레이아웃
+           (히어로 + 4개 가로 약속 카드)을 보여주고 반응형으로 스케일 조정
+           ───────────────────────────────────────────────────────────── */
+        @media (max-width: 1023px) {
+            /* 모바일/태블릿 전용 블록은 감추고 데스크탑 레이아웃을 노출 */
+            #page-about .lg\:hidden { display: none !important; }
+            #page-about .hidden.lg\:block { display: block !important; }
+
+            /* 컨테이너 간격 */
+            #page-about > div.max-w-5xl { gap: 12px; }
+            #page-about .hidden.lg\:block > div + div { margin-top: 12px; }
+            #page-about .hidden.lg\:block > div:nth-child(2) > div + div { margin-top: 10px; }
+        }
+
+        /* Tablet (768–1023) */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            #page-about .hidden.lg\:block > div:first-child .relative.grid {
+                padding: 28px 32px !important;
+                grid-template-columns: 1.15fr 1fr !important;
+                gap: 20px !important;
+            }
+            #page-about .hidden.lg\:block > div:first-child h1 { font-size: 40px !important; }
+            #page-about .hidden.lg\:block > div:first-child p { font-size: 15px !important; }
+            #page-about .hidden.lg\:block > div:first-child img[alt="BUVI 캐릭터"] { width: 260px !important; height: 260px !important; }
+            #page-about .hidden.lg\:block > div:first-child .absolute.w-\[380px\] { width: 240px !important; height: 240px !important; }
+
+            #page-about .hidden.lg\:block > div:nth-child(2) > div { grid-template-columns: 2.6fr 1fr !important; }
+            #page-about .hidden.lg\:block > div:nth-child(2) > div > div.px-8 { padding: 18px 22px !important; }
+            #page-about .hidden.lg\:block > div:nth-child(2) h3 { font-size: 26px !important; }
+            #page-about .hidden.lg\:block > div:nth-child(2) p { font-size: 13px !important; }
+            #page-about .hidden.lg\:block > div:nth-child(2) img[loading="lazy"]:not(.w-16) { width: 150px !important; height: 150px !important; }
+            #page-about .hidden.lg\:block > div:nth-child(2) img.w-16 { width: 44px !important; height: 44px !important; }
+            #page-about .hidden.lg\:block > div:nth-child(2) .promise-letter { font-size: 78px !important; }
+        }
+
+        /* Mobile (<768) */
+        @media (max-width: 767px) {
+            /* 히어로: 세로 스택으로 전환, 캐릭터 이미지 축소 */
+            #page-about .hidden.lg\:block > div:first-child .relative.grid {
+                padding: 20px !important;
+                grid-template-columns: 1fr !important;
+                gap: 12px !important;
+            }
+            #page-about .hidden.lg\:block > div:first-child h1 { font-size: 26px !important; line-height: 1.15 !important; margin-bottom: 8px !important; }
+            #page-about .hidden.lg\:block > div:first-child h1 span[style*="padding:2px 14px"] { padding: 2px 10px !important; border-radius: 10px !important; }
+            #page-about .hidden.lg\:block > div:first-child p { font-size: 13px !important; line-height: 1.5 !important; }
+            #page-about .hidden.lg\:block > div:first-child p br { display: none; }
+            #page-about .hidden.lg\:block > div:first-child .mt-6 { margin-top: 12px !important; }
+            #page-about .hidden.lg\:block > div:first-child span[style*="background:#111729"],
+            #page-about .hidden.lg\:block > div:first-child .px-4.py-2 { font-size: 12px !important; padding: 6px 12px !important; }
+            #page-about .hidden.lg\:block > div:first-child img[alt="BUVI 캐릭터"] { width: 160px !important; height: 160px !important; }
+            #page-about .hidden.lg\:block > div:first-child .absolute.w-\[380px\] { width: 150px !important; height: 150px !important; }
+            #page-about .hidden.lg\:block > div:first-child button[onclick="navTo('home')"] {
+                top: 12px !important; right: 12px !important; padding: 6px 12px !important; font-size: 12px !important;
+            }
+
+            /* 4개 약속 카드: 텍스트/이미지 축소, 좌우 비율 유지 */
+            #page-about .hidden.lg\:block > div:nth-child(2) > div { grid-template-columns: 2.2fr 1fr !important; }
+            #page-about .hidden.lg\:block > div:nth-child(2) > div > div.px-8 { padding: 12px 14px !important; }
+            #page-about .hidden.lg\:block > div:nth-child(2) .flex.items-center.gap-3.mb-3 { margin-bottom: 6px !important; gap: 8px !important; }
+            #page-about .hidden.lg\:block > div:nth-child(2) .flex.flex-wrap.items-baseline { margin-bottom: 6px !important; gap: 8px !important; }
+            #page-about .hidden.lg\:block > div:nth-child(2) h3 { font-size: 20px !important; }
+            #page-about .hidden.lg\:block > div:nth-child(2) h3 span { border-bottom-width: 3px !important; }
+            #page-about .hidden.lg\:block > div:nth-child(2) .text-\[15px\] { font-size: 12px !important; }
+            #page-about .hidden.lg\:block > div:nth-child(2) p.text-\[14px\] { font-size: 12px !important; line-height: 1.4 !important; }
+            #page-about .hidden.lg\:block > div:nth-child(2) img[loading="lazy"]:not(.w-16) { width: 92px !important; height: 92px !important; }
+            #page-about .hidden.lg\:block > div:nth-child(2) img.w-16 { width: 34px !important; height: 34px !important; }
+            #page-about .hidden.lg\:block > div:nth-child(2) .promise-letter { font-size: 52px !important; }
+        }
+
         .header-wordmark { display: none; }
 
         /* Mobile/Tablet: remove shadows and replace bordered sections with beige fill */
