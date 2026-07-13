@@ -1211,25 +1211,34 @@
                 display: grid !important;
                 flex-direction: row !important;
                 grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
-                grid-template-rows: auto auto;
+                grid-template-rows: auto minmax(0, 1fr);
                 column-gap: 24px;
                 row-gap: 16px;
-                align-items: start;
+                align-items: stretch;
+                max-height: calc(100vh - 180px);
+                min-height: 600px;
+                overflow: hidden;
             }
             #page-records > div.records-wrapper > .records-header { grid-column: 1; grid-row: 1; }
-            #page-records > div.records-wrapper > #records-cards-grid { grid-column: 1; grid-row: 2; }
+            #page-records > div.records-wrapper > #records-cards-grid {
+                grid-column: 1;
+                grid-row: 2;
+                overflow-y: auto;
+                min-height: 0;
+                padding-right: 6px;
+            }
             #page-records > div.records-wrapper > #quiz-panel {
                 grid-column: 2;
                 grid-row: 1 / span 2;
                 margin-top: 0 !important;
-                position: static;
+                position: relative;
                 transform: none;
                 width: auto;
-                max-height: none;
-                overflow: visible;
                 z-index: auto;
                 display: flex !important;
                 flex-direction: column;
+                min-height: 0;
+                overflow: hidden;
                 /* 왼쪽 카드 목록과 시각적으로 이어지도록 팝업 느낌 제거 */
                 background: transparent !important;
                 border: none !important;
@@ -1239,10 +1248,46 @@
                 padding: 4px 0 4px 24px !important;
                 margin-left: 4px;
             }
-            /* 데스크탑에서는 상세 패널이 항상 열려있으므로 닫기 버튼 숨김 */
-            #page-records > div.records-wrapper > #quiz-panel button[title="읽기 그만하기"] {
+            /* 본문(스크롤 영역)이 남는 공간을 모두 차지하도록 */
+            #page-records #quiz-panel > #card-news-body {
+                flex: 1 1 auto;
+                min-height: 0;
+                overflow-y: auto;
+            }
+            #page-records #quiz-panel > #card-news-body > #card-text-scroll {
+                max-height: none !important;
+            }
+            /* 데스크탑에서는 상세 패널이 항상 열려있으므로 닫기 버튼과 스크롤 안내 문구 숨김 */
+            #page-records > div.records-wrapper > #quiz-panel button[title="읽기 그만하기"],
+            #page-records #quiz-panel > #card-scroll-hint {
                 display: none !important;
             }
+            /* 정독 완료 확인 블록을 우측 상단 컴팩트 버튼으로 재배치 */
+            #page-records #quiz-panel > div.bg-emerald-50 {
+                position: absolute;
+                top: 0;
+                right: 0;
+                margin-top: 0 !important;
+                padding: 0 !important;
+                background: transparent !important;
+                border: none !important;
+                width: auto;
+                z-index: 5;
+            }
+            #page-records #quiz-panel > div.bg-emerald-50 > h4,
+            #page-records #quiz-panel > div.bg-emerald-50 > p { display: none !important; }
+            #page-records #quiz-panel > div.bg-emerald-50 > button#card-complete-btn {
+                width: auto !important;
+                min-width: 0 !important;
+                padding: 8px 18px !important;
+                font-size: 13px !important;
+                border-radius: 999px !important;
+                min-height: 0 !important;
+                height: auto !important;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.08) !important;
+            }
+            /* 헤더 제목 옆에 완료 버튼이 겹치지 않도록 여유 확보 */
+            #page-records #quiz-panel > div:first-child { padding-right: 96px; }
             /* 활성 카드 강조 — 오른쪽 상세 패널과 이어지는 느낌 */
             #page-records .card-item.card-active {
                 border-color: #FCD34D !important;
