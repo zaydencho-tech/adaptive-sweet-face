@@ -1351,7 +1351,7 @@
             body.subpage-mode main > #page-records:not(.hidden) > div.records-wrapper {
                 display: grid !important;
                 flex-direction: row !important;
-                grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+                grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
                 grid-template-rows: auto minmax(0, 1fr);
                 column-gap: 24px;
                 row-gap: 16px;
@@ -1414,10 +1414,35 @@
             #page-records #quiz-panel > #card-news-body {
                 flex: 1 1 auto;
                 min-height: 0;
-                overflow-y: auto;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
             }
             #page-records #quiz-panel > #card-news-body > #card-text-scroll {
                 max-height: none !important;
+            }
+            /* 카드뉴스 뷰어: 이미지 영역이 좌측 6개 카드 높이와 동일하게 유동적으로 채워지도록 */
+            #page-records #quiz-panel > #card-news-body > div.select-none {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                min-height: 0;
+            }
+            #page-records #quiz-panel #cn-stage {
+                flex: 1 1 auto;
+                min-height: 0;
+                max-width: none !important;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+            }
+            #page-records #quiz-panel #cn-img {
+                height: 100% !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                aspect-ratio: auto !important;
+                object-fit: contain;
             }
             /* 데스크탑에서는 상세 패널이 항상 열려있으므로 닫기 버튼과 스크롤 안내 문구 숨김 */
             #page-records > div.records-wrapper > #quiz-panel button[title="읽기 그만하기"],
@@ -3021,6 +3046,7 @@
                 image: "/buvi-topic-frailty.png",
                 readingMinutes: 3,
                 description: "노화와 노쇠의 과학적 차이점을 명확히 짚어 드립니다.",
+                cardNews: CARD_NEWS_GEUNSONSIL,
                 contentHtml: `
                     <p class="font-bold text-gray-800 text-lg">💡 노쇠(Frailty)와 단순 노화의 차이</p>
                     <p class="text-gray-600">나이가 드는 '노화'는 누구나 겪는 자연스러운 과정이지만, '노쇠'는 신체 예비 능력이 급격히 저하되어 작은 충격에도 크게 쓰러질 수 있는 심각한 기력 취약 상태를 뜻합니다. 예비 능력이 줄어들면 단순한 감기나 가벼운 발 디딤 실수만으로도 요양원에 가야 하거나 독립 생활이 불가능해질 수 있으므로, 반드시 조기에 식단과 근력 조절을 통해 극복해야 합니다.</p>
@@ -3050,6 +3076,7 @@
                 image: "/buvi-topic-exercise.png",
                 readingMinutes: 3,
                 description: "관절 무리 없이 하체 기력과 보행 속도를 올리는 걷기 운동법.",
+                cardNews: CARD_NEWS_GEUNSONSIL,
                 contentHtml: `
                     <p class="font-bold text-gray-800 text-lg">🚶 걷기는 노인 자립 생존을 결정짓는 핵심 지표</p>
                     <p class="text-gray-600">걷기는 어르신의 보행 속도를 유지하고 허벅지 근력을 단련하는 데 가장 경제적이고 효과적인 전신 운동입니다. 무조건 무리해서 1만 보를 달리기보다는 관절 피로도를 아끼기 위해 하루 5,000보에서 7,000보 내외를 올바른 자세로 걷는 것을 정중히 권합니다. 가슴을 곧게 펴고 이마에 땀이 살짝 맺히며 숨이 약간 차오를 정도의 빠른 속도로 걷는 것이 심폐 지구력과 하체 뼈 건강을 튼튼하게 지켜줍니다.</p>
@@ -3064,6 +3091,7 @@
                 image: "/buvi-topic-nutrition.png",
                 readingMinutes: 4,
                 description: "어르신들의 급격한 근감소를 방지하기 위한 정밀 영양 가이드.",
+                cardNews: CARD_NEWS_GEUNSONSIL,
                 contentHtml: `
                     <p class="font-bold text-gray-800 text-lg">🍖 노인 근력 유지를 위한 하루 단백질 권장량</p>
                     <p class="text-gray-600">어르신들은 단백질을 흡수하고 근육으로 합성하는 효율이 젊은이보다 현저히 떨어집니다. 따라서 몸무게 1kg당 약 1.2g 수준의 풍부한 단백질 공급이 규칙적으로 필요합니다. 예를 들어 60kg 몸무게의 어르신이라면 매일 72g 정도의 순수 단백질을 드셔야 합니다. 소화가 쉽고 부드러운 흰살 생선, 두부, 두유, 계란 등을 매 끼니 골고루 올리는 것이 좋습니다.</p>
@@ -3078,6 +3106,7 @@
                 image: "/buvi-topic-cognition.png",
                 readingMinutes: 4,
                 description: "뇌 세포를 자극하고 인지 능력을 짱짱하게 보존하는 생활 수칙.",
+                cardNews: CARD_NEWS_GEUNSONSIL,
                 contentHtml: `
                     <p class="font-bold text-gray-800 text-lg">🧠 뇌 신경을 깨우는 일상 속 인지 활동</p>
                     <p class="text-gray-600">치매와 뇌세포 기능 쇠퇴를 방지하기 위해서는 일상 생활 속에서 뇌에 자극을 끊임없이 주어야 합니다. 하루 종일 아무 생각 없이 TV만 멍하게 바라보는 생활을 반복하면 뇌의 인지 기능이 급격히 잠들어 퇴화합니다. 이웃들과 활발한 언어적 대화를 나누고, 매일 신문을 소리 내어 정독하거나, 일상적인 금전 계산을 직접 해보는 습관이 뇌의 전두엽 세포를 활발히 깨워 치매 위험성을 절반 이하로 줄여 줍니다.</p>
@@ -3092,6 +3121,7 @@
                 image: "/buvi-topic-mental.png",
                 readingMinutes: 3,
                 description: "주변과의 연결과 마음 돌봄이 노년기 건강에 미치는 영향을 알아봅니다.",
+                cardNews: CARD_NEWS_GEUNSONSIL,
                 contentHtml: `
                     <p class="font-bold text-gray-800 text-lg">😊 사람과의 연결이 곧 건강입니다</p>
                     <p class="text-gray-600">혼자 지내는 시간이 길어지고 만남이 줄어들면 마음이 위축되고, 이는 식욕 저하나 활동량 감소로 이어져 노쇠를 앞당길 수 있습니다. 가족이나 친구와 자주 안부를 나누고, 가까운 경로당이나 마을 모임, 종교 활동 등 사람들과 어울리는 자리에 꾸준히 참여하는 것이 정서적 안정에 큰 도움이 됩니다. 평소와 달리 입맛이 없거나 기운이 없고 외로움이 깊게 느껴지는 날이 계속된다면, 가족이나 보건소·정신건강복지센터에 편하게 마음을 털어놓아 보세요.</p>
@@ -5724,7 +5754,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     <span id="cn-counter" class="scaled-text-base font-black text-charcoal hc-text whitespace-nowrap px-1">1 / ${images.length}</span>
                     <button id="cn-next" onclick="cnGo(1)" class="flex-1 btn-height-secondary rounded-2xl border-2 border-kakao bg-kakao text-charcoal font-black scaled-text-base flex items-center justify-center hc-btn-primary">다음 ›</button>
                 </div>
-                <button onclick="cnOpenFullscreen()" class="w-full btn-height-secondary rounded-2xl border-2 border-charcoal bg-charcoal text-white font-black scaled-text-base flex items-center justify-center gap-2 mt-3 hover:brightness-110 transition-all">⛶ 전체화면으로 크게 보기</button>
+                
                 <p class="text-center scaled-text-sm text-gray-400 font-bold mt-2 hc-muted">사진을 좌우로 넘기거나, 사진 양쪽 끝 또는 아래 버튼을 누르면 넘어갑니다</p>
               </div>
             `;
