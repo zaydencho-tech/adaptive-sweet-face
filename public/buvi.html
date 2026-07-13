@@ -1205,30 +1205,36 @@
             }
         }
 
-        /* 데스크탑에서 건강정보 카테고리 상세 패널을 모달로 표시 */
+        /* 데스크탑에서 건강정보 카드 목록과 상세 패널을 좌우 2열로 배치 */
         @media (min-width: 1024px) {
-            #quiz-panel:not(.hidden) {
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: min(720px, 92vw);
-                max-height: 88vh;
-                overflow-y: auto;
-                z-index: 60;
+            body.subpage-mode main > #page-records:not(.hidden) > div.records-wrapper {
+                display: grid !important;
+                flex-direction: row !important;
+                grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+                grid-template-rows: auto auto;
+                column-gap: 24px;
+                row-gap: 16px;
+                align-items: start;
+            }
+            #page-records > div.records-wrapper > .records-header { grid-column: 1; grid-row: 1; }
+            #page-records > div.records-wrapper > #records-cards-grid { grid-column: 1; grid-row: 2; }
+            #page-records > div.records-wrapper > #quiz-panel {
+                grid-column: 2;
+                grid-row: 1 / span 2;
                 margin-top: 0 !important;
-                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+                position: static;
+                transform: none;
+                width: auto;
+                max-height: none;
+                overflow: visible;
+                z-index: auto;
+                box-shadow: none;
+                display: flex !important;
+                flex-direction: column;
             }
-            body:has(#quiz-panel:not(.hidden))::after {
-                content: '';
-                position: fixed;
-                inset: 0;
-                background: rgba(0, 0, 0, 0.5);
-                z-index: 55;
-            }
-            body:has(#quiz-panel:not(.hidden)) {
-                overflow: hidden;
-            }
+            /* 데스크탑에서는 상세 패널이 항상 노출되므로 모달 오버레이/스크롤 잠금 해제 */
+            body:has(#page-records:not(.hidden))::after { content: none !important; }
+            body:has(#page-records:not(.hidden)) { overflow: auto !important; }
         }
 
         /* Fluid typography for right column on tablet-over ~ under-desktop-max
@@ -2210,9 +2216,9 @@
              PAGE 7: RECORDS (건강정보 콘텐츠 카드뉴스)
              ======================================================== -->
         <section id="page-records" class="app-page hidden space-y-6">
-            <div class="rounded-3xl p-6 shadow-md border-2 hc-card" style="background-color: var(--card-bg); border-color: var(--border-color);">
+            <div class="records-wrapper rounded-3xl p-6 shadow-md border-2 hc-card" style="background-color: var(--card-bg); border-color: var(--border-color);">
                 
-                <div class="border-b pb-4 space-y-1" style="border-color: var(--border-color);">
+                <div class="records-header border-b pb-4 space-y-1" style="border-color: var(--border-color);">
                     <h2 class="scaled-text-2xl md:scaled-text-lg font-black text-charcoal hc-text">건강 정보 배움터</h2>
                     <p class="scaled-text-base text-gray-500 font-medium hc-muted">노쇠 및 근감소 예방, 운동, 영양 등의 건강 정보를 확인해보세요.</p>
                 </div>
@@ -2871,6 +2877,11 @@
             } else if (pageId === 'records') {
                 updateBuvi('1-3', '연세대학교 원주간호대학에서 준비한 건강 정보입니다.');
                 buildRecordsCardDeck();
+                // 데스크탑: 우측 상세 패널에 기본으로 '노쇠란?' 노출
+                if (window.matchMedia('(min-width: 1024px)').matches
+                    && !state.currentReadingCardId) {
+                    setTimeout(() => openDetailedStudyCard('frailty_intro'), 0);
+                }
             } else if (pageId === 'more') {
                 updateBuvi('1-1', '더보기 화면입니다. 원하시는 건강 돌봄 서비스를 가볍게 눌러주세요.');
             }
@@ -4998,9 +5009,9 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
                 item.innerHTML = `
                     <div class="flex items-center gap-4 min-w-0">
-                        <div class="w-16 h-16 rounded-full overflow-hidden flex-shrink-0 bg-yellow-50 flex items-center justify-center">
+                        <div class="w-24 h-24 flex items-center justify-center shrink-0">
                             ${card.image
-                                ? `<img src="${card.image}" alt="${card.title}" loading="lazy" width="64" height="64" class="w-full h-full object-cover" />`
+                                ? `<img src="${card.image}" alt="${card.title}" loading="lazy" width="96" height="96" class="w-24 h-24 rounded-full object-cover" />`
                                 : `<span class="text-3xl">${card.icon}</span>`}
                         </div>
                         <div class="min-w-0">
