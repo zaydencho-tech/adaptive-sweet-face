@@ -1030,6 +1030,11 @@
                 flex: 1 1 auto !important;
                 min-height: 0 !important;
                 gap: 20px !important;
+                margin-top: 0 !important;
+            }
+            /* About 페이지 상단 카드 위 여백을 정확히 20px로 (space-y-3 영향 제거) */
+            body.subpage-mode main #page-about > div > * + * {
+                margin-top: 0 !important;
             }
             /* 히어로 영역 - 뷰포트에 따라 스케일 */
             body.subpage-mode main #page-about .hidden.lg\:block > div:first-child {
