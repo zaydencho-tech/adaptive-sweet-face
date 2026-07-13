@@ -1495,7 +1495,7 @@
                 border: none !important;
                 border-radius: 0 !important;
                 box-shadow: none !important;
-                padding: 16px 0 4px 16px !important;
+                padding: 0 0 4px 16px !important;
                 margin-left: 0;
             }
             /* 본문(스크롤 영역)이 남는 공간을 모두 차지하도록 */
@@ -1505,8 +1505,9 @@
                 overflow: visible;
                 display: flex;
                 flex-direction: column;
-                /* 첨부 이미지처럼 타이틀과 본문 사이 여백 최소화 */
-                margin-top: 0 !important;
+                /* 타이틀+전체화면+완료와 카드섹션 사이 40px */
+                margin-top: 40px !important;
+                padding-top: 0 !important;
             }
             #page-records #quiz-panel > #card-news-body > #card-text-scroll {
                 max-height: none !important;
@@ -1579,12 +1580,12 @@
             }
             #page-records #quiz-panel #cn-counter {
                 text-align: center;
-                margin-top: 14px !important;
+                margin-top: 40px !important;
                 margin-bottom: 0 !important;
                 order: 2;
             }
             #page-records #quiz-panel #cn-dots {
-                margin-top: 14px !important;
+                margin-top: 12px !important;
                 margin-bottom: 0 !important;
                 justify-content: center;
                 gap: 12px;
@@ -1620,7 +1621,7 @@
             /* 정독 완료 확인 블록을 우측 상단 컴팩트 버튼으로 재배치 (전체화면 버튼과 flex로 20px 간격) */
             #page-records #quiz-panel > div.bg-emerald-50 {
                 position: absolute;
-                top: 16px;
+                top: 0;
                 right: 0;
                 margin-top: 0 !important;
                 padding: 0 !important;
@@ -1648,7 +1649,7 @@
                 margin: 0 !important;
             }
             /* 헤더 제목 옆에 버튼들이 겹치지 않도록 여유 확보, 첨부 이미지처럼 본문과 가깝게 */
-            #page-records #quiz-panel > div:first-child { padding-right: 200px; padding-bottom: 4px !important; }
+            #page-records #quiz-panel > div:first-child { padding-right: 200px; padding-bottom: 3px !important; border-bottom: none !important; }
             /* 활성 카드 강조 — 메인 강조색 #FEE500으로 비활성 카드와 명확히 구분 */
             body.subpage-mode main #page-records #records-cards-grid .card-item.card-active {
                 background: #FEE500 !important;
