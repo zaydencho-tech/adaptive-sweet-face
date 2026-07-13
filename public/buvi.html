@@ -3671,7 +3671,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             container.innerHTML = `
                 <div class="grid grid-cols-2 gap-4 lg:gap-6 w-full max-w-md lg:max-w-lg mx-auto mt-2">
                     <button id="gender-btn-male"
-                        onclick="state.answers.gender='male'; renderGenderInput(document.getElementById('gender-input-container')); updateNextButtonState(); setTimeout(nextSurveyQuestion, 200);"
+                        onclick="state.answers.gender='male'; renderGenderInput(document.getElementById('survey-options-container')); updateNextButtonState(); setTimeout(nextSurveyQuestion, 200);"
                         class="${baseCard} ${mSel}">
                         <div class="flex-1 w-full flex items-center justify-center">
                             <img src="/buvi-gender-male.png" alt="남성 어르신" loading="lazy" width="200" height="200" class="w-full h-full max-w-[70%] max-h-[70%] object-contain" />
@@ -3679,7 +3679,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                         <span class="scaled-text-lg lg:text-2xl font-black ${mSelText}">남성</span>
                     </button>
                     <button id="gender-btn-female"
-                        onclick="state.answers.gender='female'; renderGenderInput(document.getElementById('gender-input-container')); updateNextButtonState(); setTimeout(nextSurveyQuestion, 200);"
+                        onclick="state.answers.gender='female'; renderGenderInput(document.getElementById('survey-options-container')); updateNextButtonState(); setTimeout(nextSurveyQuestion, 200);"
                         class="${baseCard} ${fSel}">
                         <div class="flex-1 w-full flex items-center justify-center">
                             <img src="/buvi-gender-female.png" alt="여성 어르신" loading="lazy" width="200" height="200" class="w-full h-full max-w-[70%] max-h-[70%] object-contain" />
