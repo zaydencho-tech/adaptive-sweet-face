@@ -1602,6 +1602,12 @@
 
         /* 태블릿/모바일에서도 건강정보 배움터 상세 콘텐츠를 데스크탑과 동일한 구성/디자인으로 */
         @media (max-width: 1023px) {
+            /* 상단 안내 이미지 영역과 건강정보 배움터 텍스트 사이 간격 20px */
+            body:has(#page-records:not(.hidden)) #buvi-narrative-box { margin-bottom: 0 !important; }
+            #page-records .records-wrapper { padding-top: 20px !important; }
+            /* 상세 내용과 카드 메뉴 사이 가로 실선 제거 */
+            #page-records #quiz-panel > div:first-child { border-bottom: none !important; }
+
             #page-records #quiz-panel {
                 position: relative;
                 background: transparent !important;
