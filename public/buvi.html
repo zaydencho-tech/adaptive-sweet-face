@@ -469,6 +469,54 @@
                  border-radius: 16px !important;
                  height: 100%;
              }
+             /* 부비 약속철학 4카드: 색상 스트립을 카드 폭 전체로 유지하고 뷰포트에 맞춰 유동적으로 축소 */
+             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 > div.overflow-hidden,
+             body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 > div.overflow-hidden {
+                 padding: 0 !important;
+                 display: flex !important;
+                 flex-direction: column !important;
+                 min-height: 0 !important;
+                 overflow: hidden !important;
+             }
+             /* 캐릭터 색상 스트립: 높이 유동 */
+             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 > div.overflow-hidden > div:first-child,
+             body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 > div.overflow-hidden > div:first-child {
+                 flex: 0 0 auto !important;
+                 padding-top: clamp(6px, 0.8vh, 16px) !important;
+                 padding-bottom: clamp(6px, 0.8vh, 16px) !important;
+             }
+             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 > div.overflow-hidden > div:first-child img,
+             body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 > div.overflow-hidden > div:first-child img {
+                 width: clamp(64px, 11vh, 112px) !important;
+                 height: clamp(64px, 11vh, 112px) !important;
+             }
+             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 > div.overflow-hidden > div:first-child > div:last-child,
+             body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 > div.overflow-hidden > div:first-child > div:last-child {
+                 font-size: clamp(36px, 6vh, 64px) !important;
+             }
+             /* 텍스트 영역: 나머지 공간을 채우면서 축소 가능 */
+             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 > div.overflow-hidden > div:last-child,
+             body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 > div.overflow-hidden > div:last-child {
+                 flex: 1 1 auto !important;
+                 min-height: 0 !important;
+                 padding: clamp(10px, 1.4vh, 20px) clamp(12px, 1vw, 20px) !important;
+                 overflow: hidden !important;
+             }
+             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 > div.overflow-hidden > div:last-child h3,
+             body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 > div.overflow-hidden > div:last-child h3 {
+                 font-size: clamp(15px, 1.9vh, 20px) !important;
+                 margin-bottom: clamp(2px, 0.5vh, 8px) !important;
+             }
+             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 > div.overflow-hidden > div:last-child > div,
+             body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 > div.overflow-hidden > div:last-child > div {
+                 font-size: clamp(11px, 1.3vh, 13px) !important;
+                 margin-bottom: clamp(2px, 0.5vh, 8px) !important;
+             }
+             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 > div.overflow-hidden > div:last-child p,
+             body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex .grid.grid-cols-4 > div.overflow-hidden > div:last-child p {
+                 font-size: clamp(11px, 1.3vh, 14px) !important;
+                 line-height: 1.4 !important;
+             }
 
              /* Right-column white sections fill desktop height fluidly */
              body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex > .bg-white,
@@ -1030,6 +1078,11 @@
                 flex: 1 1 auto !important;
                 min-height: 0 !important;
                 gap: 20px !important;
+                margin-top: 0 !important;
+            }
+            /* About 페이지 상단 카드 위 여백을 정확히 20px로 (space-y-3 영향 제거) */
+            body.subpage-mode main #page-about > div > * + * {
+                margin-top: 0 !important;
             }
             /* 히어로 영역 - 뷰포트에 따라 스케일 */
             body.subpage-mode main #page-about .hidden.lg\:block > div:first-child {
