@@ -1447,18 +1447,21 @@
             /* 전체화면 버튼: 패널 헤더(완료 버튼 좌측)에 고정 */
             #page-records #quiz-panel > #cn-fullscreen-btn {
                 position: absolute;
-                top: 4px;
+                top: 0;
                 right: 110px;
-                width: 42px !important;
-                height: 42px !important;
-                border-radius: 12px !important;
+                width: auto !important;
+                height: auto !important;
+                border-radius: 9999px !important;
                 background: rgba(107, 114, 128, 0.9) !important;
                 color: #fff;
-                font-size: 16px !important;
-                display: flex;
+                font-size: 13px !important;
+                font-weight: 700;
+                display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                box-shadow: 0 2px 6px rgba(0,0,0,0.12) !important;
+                gap: 6px;
+                padding: 8px 14px !important;
+                box-shadow: none !important;
                 z-index: 6;
             }
             /* 카드 이미지 상단을 왼쪽 첫 카드 시작점과 맞추기 위한 여백 */
