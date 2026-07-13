@@ -1493,27 +1493,29 @@
                 box-shadow: none !important;
                 color: #1f2937 !important;
             }
-            #page-records #quiz-panel #cn-counter {
-                flex: 1 1 auto;
-                text-align: center;
-            }
             #page-records #quiz-panel #cn-next {
                 flex: 0 0 auto !important;
                 min-width: 200px;
                 padding: 14px 32px !important;
                 border-radius: 999px !important;
             }
-            #page-records #quiz-panel #cn-dots {
-                margin-top: 20px !important;
+            #page-records #quiz-panel #cn-counter {
+                text-align: center;
+                margin-top: 14px !important;
                 margin-bottom: 0 !important;
-                justify-content: space-between;
-                gap: 12px;
-                flex-wrap: nowrap;
                 order: 2;
             }
+            #page-records #quiz-panel #cn-dots {
+                margin-top: 14px !important;
+                margin-bottom: 0 !important;
+                justify-content: center;
+                gap: 12px;
+                flex-wrap: nowrap;
+                order: 3;
+            }
             #page-records #quiz-panel #cn-stage { order: 1; }
-            #page-records #quiz-panel > #card-news-body > div.select-none > div.flex.items-center.justify-between { order: 3; }
-            #page-records #quiz-panel > #card-news-body > div.select-none > p { order: 4; }
+            #page-records #quiz-panel > #card-news-body > div.select-none > div.flex.items-center.justify-between { order: 4; }
+            #page-records #quiz-panel > #card-news-body > div.select-none > p { order: 5; }
             #page-records #quiz-panel #cn-dots-list {
                 display: flex;
                 align-items: center;
@@ -1528,10 +1530,6 @@
             }
             #page-records #quiz-panel #cn-dots .cn-dot.active {
                 width: 28px;
-            }
-            #page-records #quiz-panel #cn-counter {
-                text-align: right;
-                flex-shrink: 0;
             }
             #page-records #quiz-panel > #card-news-body > div.select-none > p {
                 margin-top: 14px !important;
@@ -1722,27 +1720,29 @@
                 box-shadow: none !important;
                 color: #1f2937 !important;
             }
-            #page-records #quiz-panel #cn-counter {
-                flex: 0 0 auto;
-                text-align: center;
-            }
             #page-records #quiz-panel #cn-next {
                 flex: 1 1 0 !important;
                 min-width: 0 !important;
                 padding: 14px 32px !important;
                 border-radius: 999px !important;
             }
-            #page-records #quiz-panel #cn-dots {
-                margin-top: 20px !important;
+            #page-records #quiz-panel #cn-counter {
+                text-align: center;
+                margin-top: 14px !important;
                 margin-bottom: 0 !important;
-                justify-content: space-between;
-                gap: 12px;
-                flex-wrap: nowrap;
                 order: 2;
             }
+            #page-records #quiz-panel #cn-dots {
+                margin-top: 14px !important;
+                margin-bottom: 0 !important;
+                justify-content: center;
+                gap: 12px;
+                flex-wrap: nowrap;
+                order: 3;
+            }
             #page-records #quiz-panel #cn-stage { order: 1; }
-            #page-records #quiz-panel > #card-news-body > div.select-none > div.flex.items-center.justify-between { order: 3; }
-            #page-records #quiz-panel > #card-news-body > div.select-none > p { order: 4; }
+            #page-records #quiz-panel > #card-news-body > div.select-none > div.flex.items-center.justify-between { order: 4; }
+            #page-records #quiz-panel > #card-news-body > div.select-none > p { order: 5; }
             #page-records #quiz-panel #cn-dots-list {
                 display: flex;
                 align-items: center;
@@ -1757,10 +1757,6 @@
             }
             #page-records #quiz-panel #cn-dots .cn-dot.active {
                 width: 28px !important;
-            }
-            #page-records #quiz-panel #cn-counter {
-                text-align: right;
-                flex-shrink: 0;
             }
             #page-records #quiz-panel > #card-news-body > div.select-none > p {
                 margin-top: 14px !important;
@@ -6005,11 +6001,6 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             if (!bodyEl) return;
             bodyEl.innerHTML = `
               <div class="select-none">
-                <div id="cn-dots" class="flex items-center gap-3 flex-nowrap">
-                    <div id="cn-dots-list" class="flex items-center gap-2 flex-1 justify-center"></div>
-                    <span id="cn-counter" class="scaled-text-base font-black text-charcoal hc-text whitespace-nowrap">1 / ${images.length}</span>
-                </div>
-
                 <div id="cn-stage" class="relative mx-auto w-full touch-pan-y" style="max-width: min(100%, 78vh);">
                     <img id="cn-img" src="${images[0]}" alt="카드뉴스 1쪽"
                          class="w-full rounded-2xl border-2 shadow-md block bg-white"
@@ -6027,6 +6018,12 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                         <span class="text-lg leading-none">⛶</span>
                         <span>전체화면</span>
                     </button>
+                </div>
+
+                <div id="cn-counter" class="text-center scaled-text-base font-black text-charcoal hc-text whitespace-nowrap">1 / ${images.length}</div>
+
+                <div id="cn-dots" class="flex items-center justify-center gap-3 flex-nowrap">
+                    <div id="cn-dots-list" class="flex items-center gap-2 justify-center"></div>
                 </div>
 
                 <div class="flex items-center justify-between gap-3 mt-3">
