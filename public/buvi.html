@@ -1213,9 +1213,6 @@
             #page-about > div.max-w-5xl { gap: 12px; }
             #page-about .hidden.lg\:block > div + div { margin-top: 12px; }
             #page-about .hidden.lg\:block > div:nth-child(2) > div + div { margin-top: 10px; }
-
-            /* 모바일/태블릿에서는 데스크탑 히어로의 홈으로 버튼 유지 (기존 상태) */
-            #page-about .hidden.lg\:block > div:first-child button[onclick="navTo('home')"] { display: none !important; }
         }
 
         /* Tablet (768–1023) */
@@ -2443,7 +2440,7 @@
                             <p class="text-xs md:text-sm font-bold text-charcoal/70">어르신 곁을 지키는 건강 동반자</p>
                         </div>
                     </div>
-                    
+                    <button onclick="navTo('home')" class="shrink-0 bg-white text-charcoal font-black rounded-full px-3 py-2 text-xs md:text-sm shadow-sm"><i class="fa-solid fa-arrow-left mr-1"></i>홈으로</button>
                 </div>
 
                 <!-- Intro (mobile/tablet only) -->
@@ -2586,15 +2583,15 @@
                 <!-- ============ /DESKTOP-ONLY ============ -->
 
 
-                <!-- Quick shortcuts (desktop only) -->
-                <div class="hidden lg:grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
+                <!-- Quick shortcuts -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
                     <button onclick="tryNavigateWithWarning('survey-start')" class="rounded-2xl py-3 px-3 font-black flex items-center justify-center gap-2 text-sm md:text-base" style="background:#FFF3B0;"><i class="fa-solid fa-file-pen"></i> 설문</button>
                     <button onclick="tryNavigateWithWarning('chat')" class="rounded-2xl py-3 px-3 font-black flex items-center justify-center gap-2 text-sm md:text-base" style="background:#FFF3B0;"><i class="fa-solid fa-comments"></i> 상담</button>
                     <button onclick="tryNavigateWithWarning('records')" class="rounded-2xl py-3 px-3 font-black flex items-center justify-center gap-2 text-sm md:text-base" style="background:#FFF3B0;"><i class="fa-solid fa-book-medical"></i> 건강정보</button>
                     <button onclick="tryNavigateWithWarning('help')" class="rounded-2xl py-3 px-3 font-black flex items-center justify-center gap-2 text-sm md:text-base" style="background:#FFF3B0;"><i class="fa-solid fa-circle-info"></i> 도움말</button>
                 </div>
 
-                <button onclick="navTo('home')" class="hidden lg:block w-full bg-black text-white font-black rounded-2xl py-3.5 text-base md:text-lg hover:bg-neutral-800 transition">홈으로 돌아가기</button>
+                <button onclick="navTo('home')" class="w-full bg-black text-white font-black rounded-2xl py-3.5 text-base md:text-lg hover:bg-neutral-800 transition">홈으로 돌아가기</button>
             </div>
         </section>
 
