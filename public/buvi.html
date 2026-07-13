@@ -1392,7 +1392,7 @@
             }
             #page-records > div.records-wrapper > #quiz-panel {
                 grid-column: 2;
-                grid-row: 1 / span 2;
+                grid-row: 2;
                 margin-top: 0 !important;
                 position: relative;
                 transform: none;
@@ -1407,7 +1407,7 @@
                 border: none !important;
                 border-radius: 0 !important;
                 box-shadow: none !important;
-                padding: 4px 0 4px 16px !important;
+                padding: 16px 0 4px 16px !important;
                 margin-left: 0;
             }
             /* 본문(스크롤 영역)이 남는 공간을 모두 차지하도록 */
@@ -1447,23 +1447,22 @@
             /* 전체화면 버튼: 패널 헤더(완료 버튼 좌측)에 고정 */
             #page-records #quiz-panel > #cn-fullscreen-btn {
                 position: absolute;
-                top: 4px;
+                top: 0;
                 right: 110px;
-                width: 42px !important;
-                height: 42px !important;
-                border-radius: 12px !important;
+                width: auto !important;
+                height: auto !important;
+                border-radius: 9999px !important;
                 background: rgba(107, 114, 128, 0.9) !important;
                 color: #fff;
-                font-size: 16px !important;
-                display: flex;
+                font-size: 13px !important;
+                font-weight: 700;
+                display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                box-shadow: 0 2px 6px rgba(0,0,0,0.12) !important;
+                gap: 6px;
+                padding: 8px 14px !important;
+                box-shadow: none !important;
                 z-index: 6;
-            }
-            /* 카드 이미지 상단을 왼쪽 첫 카드 시작점과 맞추기 위한 여백 */
-            #page-records #quiz-panel > #card-news-body {
-                padding-top: 14px !important;
             }
             /* 하단 컨트롤: 이전은 텍스트 링크, 다음은 눈에 띄는 노랑 버튼 */
             #page-records #quiz-panel > #card-news-body > div.select-none > div.flex.items-center.justify-between {
@@ -5798,7 +5797,10 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                         <span class="opacity-0 group-active:opacity-100 transition-opacity bg-black/55 text-white rounded-full w-12 h-12 flex items-center justify-center text-3xl font-black">›</span>
                     </button>
                     <button onclick="cnOpenFullscreen()" aria-label="전체화면으로 크게 보기"
-                        class="absolute right-3 top-3 bg-black/55 text-white rounded-full w-11 h-11 flex items-center justify-center text-xl shadow-md hover:bg-black/70 transition-colors">⛶</button>
+                        class="absolute right-3 top-3 bg-black/55 text-white rounded-full px-3 py-2 inline-flex items-center gap-1.5 text-sm font-bold hover:bg-black/70 transition-colors">
+                        <span class="text-lg leading-none">⛶</span>
+                        <span>전체화면</span>
+                    </button>
                 </div>
 
                 <div id="cn-dots" class="flex items-center justify-center gap-1.5 mt-4 flex-wrap"></div>
