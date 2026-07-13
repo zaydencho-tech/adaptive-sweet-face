@@ -198,6 +198,18 @@
         /* ── 설문 선택지 ── */
         .option-card { border: 3px solid #D8D0C0; transition: all 0.2s ease; border-radius: 16px; background: #fff; }
         .option-card:hover { border-color: #FEE500; background: #FFFDF0; }
+
+        /* ── 결과 페이지 모바일/태블릿 섹션 구분용 얇은 border ── */
+        @media (max-width: 1023px) {
+            body:not(.high-contrast) #page-result .rounded-3xl.shadow-md,
+            body:not(.high-contrast) #page-result .rounded-3xl.shadow-lg {
+                border: 1px solid #E5E0D4 !important;
+            }
+            body.high-contrast #page-result .rounded-3xl.shadow-md,
+            body.high-contrast #page-result .rounded-3xl.shadow-lg {
+                border-width: 1px !important;
+            }
+        }
         .option-card.selected { border-color: #1A6BB5; background-color: #EBF4FF; }
 
         /* ── 결과 화면 차트 레이블 최소 크기 보장 ── */
