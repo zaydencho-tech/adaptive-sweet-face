@@ -5106,7 +5106,10 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             }
 
             panel.classList.remove('hidden');
-            window.scrollTo({ top: panel.offsetTop - 120, behavior: 'smooth' });
+            buildRecordsCardDeck();
+            if (!window.matchMedia('(min-width: 1024px)').matches) {
+                window.scrollTo({ top: panel.offsetTop - 120, behavior: 'smooth' });
+            }
         }
 
         function setCompleteButtonEnabled(enabled) {
