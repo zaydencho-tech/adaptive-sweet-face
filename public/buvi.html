@@ -2864,6 +2864,7 @@
                                         <i class="fa-solid fa-arrow-up text-[9px]"></i>509%
                                     </span>
                                 </div>
+                                <p id="result-stat-message" class="scaled-text-base font-bold text-charcoal leading-snug mt-1"></p>
                                 <p class="text-xs font-bold text-gray-500 mt-2">종합 노쇠 위험도</p>
                             </div>
                             <div class="rounded-3xl bg-white shadow-md border-2 p-4 lg:p-5 flex flex-col justify-between min-h-[120px]" style="background-color: var(--card-bg); border-color: var(--border-color);">
@@ -2875,12 +2876,6 @@
                                 </div>
                                 <p class="text-xs font-bold text-gray-500 mt-2">관리 필요 항목 수</p>
                             </div>
-                        </div>
-
-                        <!-- 결과 메시지 카드 -->
-                        <div id="result-message-card" class="rounded-3xl bg-white shadow-md border-2 p-4 lg:p-5 flex items-center gap-4" style="background-color: var(--card-bg); border-color: var(--border-color);">
-                            <img src="/owl-hero.svg" alt="BUVI" class="w-14 h-14 object-contain flex-shrink-0">
-                            <p class="text-sm lg:text-base font-bold text-charcoal leading-relaxed"></p>
                         </div>
                     </div>
                 </div>
@@ -5419,22 +5414,12 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             // ── ④ 트렌드 라인차트 + KPI (요약 시각화) ─────────────────
             renderTrendSummary(r);
 
-            // ── 결과 메시지 카드 ─────────────────────────────────────
-            // 사양서 5-5: 영역 1위와 항목 1위 영역이 다를 경우 선제 설명
-            const topItemDomain = r.sortedContribs[0]?.domain;
-            const topAreaIsPhys = r.physPos >= r.emoPos;
-            const topItemIsPhys = topItemDomain === 'phys';
-            let resultMsg = r.isAtRisk
+            // ── 509% 증가 아래 결과 메시지 ─────────────────────────────
+            const resultMsg = r.isAtRisk
                 ? `수고 많으셨습니다. 검사 결과 노쇠의 위험 수준은 기준치(${CUTOFF_PCT.toFixed(1)}%) 이상으로 나타났습니다.`
                 : `수고 많으셨습니다. 검사 결과 노쇠의 위험 수준은 기준치(${CUTOFF_PCT.toFixed(1)}%) 이하로 나타났습니다.`;
-            if (topAreaIsPhys !== topItemIsPhys) {
-                resultMsg += ' 아래 첫 번째 그래프는 신체·정서 영역 중 어느 영역이 전체적으로 더 영향을 주었는지, 두 번째 그래프는 각 영역별 개별 항목 중 어떠한 항목이 가장 영향을 주는지 보여줍니다. 두 그래프는 보는 관점이 다르므로 함께 살펴보시기 바랍니다.';
-            }
-            const msgCard = document.getElementById('result-message-card');
-            if (msgCard) {
-                const msgP = msgCard.querySelector('p');
-                if (msgP) msgP.textContent = resultMsg;
-            }
+            const statMsg = document.getElementById('result-stat-message');
+            if (statMsg) statMsg.textContent = resultMsg;
         }
 
         function renderTrendSummary(r) {
