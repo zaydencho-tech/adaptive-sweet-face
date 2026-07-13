@@ -6024,6 +6024,12 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     </button>
                 </div>
 
+                <div id="cn-counter" class="text-center scaled-text-base font-black text-charcoal hc-text whitespace-nowrap">1 / ${images.length}</div>
+
+                <div id="cn-dots" class="flex items-center justify-center gap-3 flex-nowrap">
+                    <div id="cn-dots-list" class="flex items-center gap-2 justify-center"></div>
+                </div>
+
                 <div class="flex items-center justify-between gap-3 mt-3">
                     <button id="cn-prev" onclick="cnGo(-1)" class="flex-1 btn-height-secondary rounded-2xl border-2 bg-white text-charcoal font-black scaled-text-base flex items-center justify-center hc-btn-secondary" style="border-color: var(--border-color);">‹ 이전</button>
                     <button id="cn-next" onclick="cnGo(1)" class="flex-1 btn-height-secondary rounded-2xl border-2 border-kakao bg-kakao text-charcoal font-black scaled-text-base flex items-center justify-center hc-btn-primary">다음 ›</button>
