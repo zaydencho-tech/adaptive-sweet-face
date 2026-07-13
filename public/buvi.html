@@ -1417,6 +1417,8 @@
                 overflow: visible;
                 display: flex;
                 flex-direction: column;
+                /* 첨부 이미지처럼 타이틀과 본문 사이 여백 최소화 */
+                margin-top: 0 !important;
             }
             #page-records #quiz-panel > #card-news-body > #card-text-scroll {
                 max-height: none !important;
@@ -1526,8 +1528,8 @@
                 height: auto !important;
                 box-shadow: 0 2px 6px rgba(0,0,0,0.08) !important;
             }
-            /* 헤더 제목 옆에 완료 버튼이 겹치지 않도록 여유 확보 */
-            #page-records #quiz-panel > div:first-child { padding-right: 96px; }
+            /* 헤더 제목 옆에 완료 버튼이 겹치지 않도록 여유 확보, 첨부 이미지처럼 본문과 가깝게 */
+            #page-records #quiz-panel > div:first-child { padding-right: 96px; padding-bottom: 4px !important; }
             /* 활성 카드 강조 — #F4F0E9 계열로 차분하게 */
             body.subpage-mode main #page-records #records-cards-grid .card-item.card-active {
                 background: #E8E2D4 !important;
