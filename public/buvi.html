@@ -1427,8 +1427,11 @@
                 margin-top: 0 !important;
                 margin-bottom: 20px !important;
             }
-            body.subpage-mode #page-survey-start > div > #survey-start-body > button {
+            body.subpage-mode #page-survey-start > div > #survey-start-body > button:nth-last-of-type(2) {
                 margin-top: auto !important;
+            }
+            body.subpage-mode #page-survey-start > div > #survey-start-body > button:last-of-type {
+                margin-top: 0 !important;
             }
         }
 
@@ -2660,6 +2663,9 @@
                 </div>
 
 
+                <button onclick="showMockSurveyResult()" class="w-full bg-gray-100 hover:bg-gray-200 text-charcoal font-black rounded-2xl flex items-center justify-center gap-2 shadow-sm transition-all btn-height-primary border-2 mb-3" style="font-size:22px; border-color: var(--border-color);">
+                    설문 결과 확인하기  <i class="fa-solid fa-chart-simple"></i>
+                </button>
                 <button onclick="startSurveyProcedure()" class="w-full bg-kakao text-charcoal font-black rounded-2xl flex items-center justify-center gap-2 shadow-md hover:brightness-95 transition-all btn-height-primary" style="font-size:22px;">
                     설문 시작하기  <i class="fa-solid fa-chevron-right"></i>
                 </button>
@@ -5074,6 +5080,22 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             },
             cutoff: 0.069
         };
+
+        // 목업 데이터로 설문 결과 페이지 노출
+        function showMockSurveyResult() {
+            state.answers.gender = 'F';
+            state.answers.age = 78;
+            state.answers.height_cm = 158;
+            state.answers.weight_kg = 55;
+            state.answers.bmi = +(55 / (1.58 * 1.58)).toFixed(1);
+            state.answers.polypharm = 5;
+            state.answers.met_score = 1200;
+            state.answers.tug = 13.5;
+            state.answers.sgds_answers = [1,1,0,1,0,1,0,1,1,0,0,1,0,1,1];
+            state.answers.sgdsk_score = 6;
+            calculateLogisticRegression();
+            navTo('result');
+        }
 
         function calculateLogisticRegression() {
             const a = state.answers;
