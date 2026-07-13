@@ -1308,13 +1308,13 @@
             /* 헤더 제목 옆에 완료 버튼이 겹치지 않도록 여유 확보 */
             #page-records #quiz-panel > div:first-child { padding-right: 96px; }
             /* 활성 카드 강조 — #F4F0E9 계열로 차분하게 */
-            #page-records .card-item.card-active {
+            body.subpage-mode main #page-records .card-item.card-active {
                 background: #E8E2D4 !important;
                 border: none !important;
                 box-shadow: none !important;
                 position: relative;
             }
-            #page-records .card-item.card-active::after {
+            body.subpage-mode main #page-records .card-item.card-active::after {
                 content: "";
                 position: absolute;
                 right: -14px;
