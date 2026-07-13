@@ -2752,21 +2752,56 @@
                     <div id="result-gauge-wrap" class="px-1"></div>
                     <p class="text-[10px] text-charcoal/50 font-bold text-center mt-3">본 결과는 노쇠 위험 선별 참고용이며 의학적 진단이 아닙니다.</p>
                 </div>
-                <!-- 하단 상세 정보 (흰색 카드) -->
-                <div class="bg-white px-1 lg:px-5 py-5 space-y-5" style="background-color: var(--card-bg);">
-                    <!-- 영역 요약 -->
-                    <div class="space-y-2">
-                        <h3 class="font-gapyeong scaled-text-base font-black text-charcoal">영역 요약</h3>
-                        <p class="text-xs text-gray-400 font-bold">위험에 기여하는 요인의 영역별 비중 (신체 5개 항목 · 정서 1개 항목)</p>
-                        <div id="domain-split-bar" class="flex flex-col gap-2 pt-1"></div>
+                <!-- 하단 상세 정보 (요약 그래프 + KPI) -->
+                <div class="bg-white px-4 lg:px-6 py-6" style="background-color: var(--card-bg);">
+                    <!-- 상단 헤더: 좌측 타이틀 + 큰 수치 / 우측 라벨 -->
+                    <div class="flex items-start justify-between mb-4">
+                        <div>
+                            <p class="text-xs font-black text-blue-600 tracking-wide mb-1">지난 검사 대비 노쇠 위험</p>
+                            <h3 class="font-gapyeong text-3xl md:text-4xl font-black text-charcoal leading-tight">
+                                <span id="trend-hero-value">72%</span> <span class="text-charcoal/80">증가</span>
+                                <span id="trend-hero-arrow" class="text-orange-500">↑</span>
+                            </h3>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-[11px] font-black text-gray-400 tracking-wider">BUVI · 4Q</p>
+                        </div>
                     </div>
-                    <!-- 구분선 -->
-                    <div class="h-px w-full" style="background-color: var(--border-color);"></div>
-                    <!-- 항목별 영향 요인 -->
-                    <div class="space-y-3">
-                        <h3 class="font-gapyeong scaled-text-base font-black text-charcoal">항목별 영향 요인</h3>
-                        <div id="bidir-bar-chart" class="flex flex-col gap-2"></div>
-                        <p class="text-[10px] text-gray-400 mt-1">나이(회색)는 비가역적 변수로 참고용입니다.</p>
+
+                    <!-- 중앙: 라인차트 (좌) + 요약 카드 (우) -->
+                    <div class="grid grid-cols-[1fr_auto] gap-3 mb-5">
+                        <div id="trend-chart-wrap" class="relative rounded-2xl border-b border-gray-100 pt-3 pb-6" style="border-color: var(--border-color);"></div>
+                        <div class="rounded-2xl border-l border-gray-100 pl-4 pr-1 flex flex-col justify-between min-w-[92px]" style="border-color: var(--border-color);">
+                            <p class="text-[11px] font-black text-blue-600 tracking-wider">TUG</p>
+                            <div>
+                                <p class="text-2xl md:text-3xl font-black text-charcoal leading-none">2배 <span class="text-orange-500">↑</span></p>
+                                <p class="text-[10px] font-bold text-gray-400 mt-1">평균 대비</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 하단: KPI 4개 -->
+                    <div class="grid grid-cols-4 gap-2 md:gap-3">
+                        <div class="text-center">
+                            <p class="text-[11px] md:text-xs font-black text-charcoal leading-tight mb-2 min-h-[32px]">종합<br>노쇠 위험도</p>
+                            <p class="text-xl md:text-3xl font-black text-charcoal leading-none"><span id="kpi-risk">20.0%</span><span class="text-orange-500">↑</span></p>
+                            <p class="text-[10px] font-bold text-gray-400 mt-1.5">확률</p>
+                        </div>
+                        <div class="text-center border-l border-gray-100" style="border-color: var(--border-color);">
+                            <p class="text-[11px] md:text-xs font-black text-charcoal leading-tight mb-2 min-h-[32px]">관리 필요<br>항목 수</p>
+                            <p class="text-xl md:text-3xl font-black text-charcoal leading-none"><span id="kpi-items">4</span><span class="text-base md:text-lg">개</span></p>
+                            <p class="text-[10px] font-bold text-gray-400 mt-1.5">주의 신호</p>
+                        </div>
+                        <div class="text-center border-l border-gray-100" style="border-color: var(--border-color);">
+                            <p class="text-[11px] md:text-xs font-black text-charcoal leading-tight mb-2 min-h-[32px]">보행 검사<br>TUG</p>
+                            <p class="text-xl md:text-3xl font-black text-charcoal leading-none"><span id="kpi-tug">13.5</span><span class="text-base md:text-lg">초</span></p>
+                            <p class="text-[10px] font-bold text-gray-400 mt-1.5">기준 12초</p>
+                        </div>
+                        <div class="text-center border-l border-gray-100" style="border-color: var(--border-color);">
+                            <p class="text-[11px] md:text-xs font-black text-charcoal leading-tight mb-2 min-h-[32px]">마음 건강<br>SGDS-K</p>
+                            <p class="text-xl md:text-3xl font-black text-charcoal leading-none"><span id="kpi-sgds">6</span><span class="text-base md:text-lg">점</span></p>
+                            <p class="text-[10px] font-bold text-gray-400 mt-1.5">15점 만점</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -5315,6 +5350,9 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 chartEl.innerHTML = headerRow + rows;
             }
 
+            // ── ④ 트렌드 라인차트 + KPI (요약 시각화) ─────────────────
+            renderTrendSummary(r);
+
             // ── 부비 브리핑 ───────────────────────────────────────────
             // 사양서 5-5: 영역 1위와 항목 1위 영역이 다를 경우 선제 설명
             const topItemDomain = r.sortedContribs[0]?.domain;
@@ -5327,6 +5365,71 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 buviMsg += ' 아래 첫 번째 그래프는 신체·정서 영역 중 어느 영역이 전체적으로 더 영향을 주었는지, 두 번째 그래프는 각 영역별 개별 항목 중 어떠한 항목이 가장 영향을 주는지 보여줍니다. 두 그래프는 보는 관점이 다르므로 함께 살펴보시기 바랍니다.';
             }
             updateBuvi(r.isAtRisk ? '2-5' : '2-2', buviMsg);
+        }
+
+        function renderTrendSummary(r) {
+            const pPct = (r && r.p != null) ? r.p * 100 : 20;
+            // 목업: 지난 4번 검사의 노쇠 위험 확률 추이 (마지막은 이번 결과)
+            const points = [4.2, 6.1, 9.5, pPct];
+            const labels = ['2024.4Q', '2025.1Q', '2025.2Q', '오늘'];
+
+            const wrap = document.getElementById('trend-chart-wrap');
+            if (wrap) {
+                const W = 320, H = 150;
+                const padL = 14, padR = 18, padT = 22, padB = 24;
+                const maxY = Math.max(...points, 12) * 1.15;
+                const minY = 0;
+                const xs = points.map((_, i) => padL + (i * (W - padL - padR) / (points.length - 1)));
+                const ys = points.map(v => padT + (H - padT - padB) * (1 - (v - minY) / (maxY - minY)));
+                const path = points.map((_, i) => (i === 0 ? 'M' : 'L') + xs[i].toFixed(1) + ',' + ys[i].toFixed(1)).join(' ');
+                const gridLines = [0, 1, 2, 3].map(i => {
+                    const y = padT + (H - padT - padB) * (i / 3);
+                    return `<line x1="${padL}" x2="${W - padR}" y1="${y}" y2="${y}" stroke="#eef0f4" stroke-width="1"/>`;
+                }).join('');
+                const lastIdx = points.length - 1;
+                const lastX = xs[lastIdx], lastY = ys[lastIdx];
+                const startX = xs[0], startY = ys[0];
+                const xLabels = xs.map((x, i) => {
+                    const anchor = i === 0 ? 'start' : (i === xs.length - 1 ? 'end' : 'middle');
+                    return `<text x="${x}" y="${H - 6}" text-anchor="${anchor}" font-size="9" font-weight="700" fill="#9ca3af">${labels[i]}</text>`;
+                }).join('');
+
+                wrap.innerHTML = `
+                <svg viewBox="0 0 ${W} ${H}" width="100%" height="150" preserveAspectRatio="none" style="display:block;">
+                    ${gridLines}
+                    <path d="${path}" fill="none" stroke="#f97316" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="${startX}" cy="${startY}" r="3.5" fill="#f97316"/>
+                    <line x1="${lastX}" y1="${lastY}" x2="${lastX}" y2="${H - padB}" stroke="#111827" stroke-width="2"/>
+                    <circle cx="${lastX}" cy="${lastY}" r="16" fill="#2563eb"/>
+                    <text x="${lastX}" y="${lastY + 4}" text-anchor="middle" font-size="10" font-weight="900" fill="#ffffff">${pPct.toFixed(0)}%</text>
+                    ${xLabels}
+                </svg>`;
+            }
+
+            // 상단 히어로 대비 증감 (첫 검사 대비 %증가)
+            const baseline = points[0];
+            const growthPct = baseline > 0 ? ((pPct - baseline) / baseline * 100) : 0;
+            const arrowUp = growthPct >= 0;
+            const heroVal = document.getElementById('trend-hero-value');
+            const heroArrow = document.getElementById('trend-hero-arrow');
+            if (heroVal) heroVal.textContent = Math.abs(growthPct).toFixed(0) + '%';
+            if (heroArrow) {
+                heroArrow.textContent = arrowUp ? '↑' : '↓';
+                heroArrow.style.color = arrowUp ? '#f97316' : '#16a34a';
+            }
+
+            // KPI 목업 데이터
+            const risk = document.getElementById('kpi-risk');
+            if (risk) risk.textContent = pPct.toFixed(1) + '%';
+            const items = document.getElementById('kpi-items');
+            if (items && r && r.sortedContribs) {
+                const cnt = r.sortedContribs.filter(c => c.value > 0 && c.key !== 'age').length;
+                items.textContent = cnt || 4;
+            }
+            const tug = document.getElementById('kpi-tug');
+            if (tug) tug.textContent = (state.answers.tug ?? 13.5).toFixed(1);
+            const sgds = document.getElementById('kpi-sgds');
+            if (sgds) sgds.textContent = (state.answers.sgdsk_score ?? 6);
         }
 
         function togglePasswordVisibility(inputId, iconId) {
