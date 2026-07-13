@@ -5472,8 +5472,8 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             // ── ② 미니 바 차트 (영역별 위험 기여도: 신체 vs 정서) ──
             const domEl = document.getElementById('detail-chart-domain');
             if (domEl) {
-                const physPct = r?.physPct ?? 81;
-                const emoPct = r?.emoPct ?? 19;
+                const physPct = Math.round(r?.physPct ?? 81);
+                const emoPct = Math.round(r?.emoPct ?? 19);
                 domEl.innerHTML = miniBarChart([
                     { label: '신체', value: physPct, suffix: '%', highlight: physPct >= emoPct },
                     { label: '정서', value: emoPct, suffix: '%', highlight: emoPct > physPct },
