@@ -1576,8 +1576,11 @@
             body.subpage-mode main #page-records #records-cards-grid .card-item.card-active {
                 background: #FEE500 !important;
                 border: none !important;
-                box-shadow: 0 6px 20px rgba(0,0,0,0.12) !important;
+                box-shadow: none !important;
                 position: relative;
+            }
+            body.subpage-mode main #page-records #records-cards-grid .card-item.card-active .card-unread-badge {
+                background: #FFFFFF !important;
             }
             body.subpage-mode main #page-records #records-cards-grid .card-item.card-active::after {
                 content: "";
@@ -5523,7 +5526,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     // 아직 안 본 책자: #F4F0E9 배경, 외곽선/그림자 없음
                     cardFancyClass = "bg-[#F4F0E9] hover:scale-[1.01]";
                     badgeFancyHtml = `
-                        <span class="scaled-text-xs md:scaled-text-sm font-extrabold text-charcoal bg-amber-200 px-3 py-1.5 rounded-full flex items-center gap-1 shrink-0 whitespace-nowrap">
+                        <span class="card-unread-badge scaled-text-xs md:scaled-text-sm font-extrabold text-charcoal bg-amber-200 px-3 py-1.5 rounded-full flex items-center gap-1 shrink-0 whitespace-nowrap">
                             <i class="fa-solid fa-book-open-reader"></i> 읽기 전
                         </span>`;
                 }
