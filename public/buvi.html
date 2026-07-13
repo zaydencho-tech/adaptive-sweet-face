@@ -2794,6 +2794,25 @@
                 </div>
             </div>
 
+            <!-- ② 결과 세부 그래픽 (3-card mini charts) -->
+            <div class="bg-white rounded-3xl px-4 lg:px-5 py-5 shadow-md border-2" style="background-color: var(--card-bg); border-color: var(--border-color);">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+                    <div id="detail-card-1" class="rounded-2xl border p-4" style="border-color: var(--border-color);">
+                        <h4 class="font-gapyeong text-sm md:text-base font-black text-charcoal leading-tight mb-1">노쇠 위험 확률<br><span class="text-xs font-bold text-gray-400">(분기별 추이)</span></h4>
+                        <div id="detail-chart-line" class="mt-2"></div>
+                    </div>
+                    <div id="detail-card-2" class="rounded-2xl border p-4" style="border-color: var(--border-color);">
+                        <h4 class="font-gapyeong text-sm md:text-base font-black text-charcoal leading-tight mb-1">영역별<br><span class="text-xs font-bold text-gray-400">위험 기여도</span></h4>
+                        <div id="detail-chart-domain" class="mt-2"></div>
+                    </div>
+                    <div id="detail-card-3" class="rounded-2xl border p-4" style="border-color: var(--border-color);">
+                        <h4 class="font-gapyeong text-sm md:text-base font-black text-charcoal leading-tight mb-1">주요 항목<br><span class="text-xs font-bold text-gray-400">기준선 대비</span></h4>
+                        <div id="detail-chart-items" class="mt-2"></div>
+                    </div>
+                </div>
+            </div>
+
+
             <!-- ④ 액션 버튼 그룹 -->
             <div class="bg-white rounded-3xl px-1 py-5 lg:p-5 shadow-md border-2 space-y-3" style="background-color: var(--card-bg); border-color: var(--border-color);">
                 <button onclick="tryNavigateWithWarning('chat')" class="w-full bg-kakao text-charcoal font-black rounded-2xl py-4 shadow-md hover:brightness-95 transition-all flex flex-col items-center justify-center">
@@ -5363,7 +5382,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
             const wrap = document.getElementById('trend-chart-wrap');
             if (wrap) {
-                const W = 320, H = 150;
+                const W = 320, H = 105;
                 const padL = 14, padR = 18, padT = 22, padB = 24;
                 const maxY = Math.max(...points, 12) * 1.15;
                 const minY = 0;
@@ -5418,6 +5437,88 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             if (tug) tug.textContent = (state.answers.tug ?? 13.5).toFixed(1);
             const sgds = document.getElementById('kpi-sgds');
             if (sgds) sgds.textContent = (state.answers.sgdsk_score ?? 6);
+
+            renderDetailCharts(r, pPct, points, labels);
+        }
+
+        function renderDetailCharts(r, pPct, trendPoints, trendLabels) {
+            // ── ① 미니 라인 차트 (분기별 노쇠 위험 확률) ──
+            const lineEl = document.getElementById('detail-chart-line');
+            if (lineEl) {
+                const W = 260, H = 150;
+                const padL = 18, padR = 18, padT = 26, padB = 26;
+                const maxY = Math.max(...trendPoints, 12) * 1.2;
+                const xs = trendPoints.map((_, i) => padL + (i * (W - padL - padR) / (trendPoints.length - 1)));
+                const ys = trendPoints.map(v => padT + (H - padT - padB) * (1 - v / maxY));
+                const path = trendPoints.map((_, i) => (i === 0 ? 'M' : 'L') + xs[i].toFixed(1) + ',' + ys[i].toFixed(1)).join(' ');
+                const dots = trendPoints.map((v, i) => {
+                    const isLast = i === trendPoints.length - 1;
+                    return `<circle cx="${xs[i]}" cy="${ys[i]}" r="${isLast ? 3.5 : 2.5}" fill="#f97316"/>`;
+                }).join('');
+                const values = trendPoints.map((v, i) => {
+                    const isLast = i === trendPoints.length - 1;
+                    return `<text x="${xs[i]}" y="${ys[i] - 8}" text-anchor="middle" font-size="10" font-weight="900" fill="${isLast ? '#f97316' : '#9ca3af'}">${v.toFixed(1)}%</text>`;
+                }).join('');
+                const xlab = xs.map((x, i) => {
+                    const anchor = i === 0 ? 'start' : (i === xs.length - 1 ? 'end' : 'middle');
+                    return `<text x="${x}" y="${H - 6}" text-anchor="${anchor}" font-size="9" font-weight="700" fill="#9ca3af">${trendLabels[i]}</text>`;
+                }).join('');
+                lineEl.innerHTML = `<svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block; height:auto;">
+                    <path d="${path}" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    ${dots}${values}${xlab}
+                </svg>`;
+            }
+
+            // ── ② 미니 바 차트 (영역별 위험 기여도: 신체 vs 정서) ──
+            const domEl = document.getElementById('detail-chart-domain');
+            if (domEl) {
+                const physPct = Math.round(r?.physPct ?? 81);
+                const emoPct = Math.round(r?.emoPct ?? 19);
+                domEl.innerHTML = miniBarChart([
+                    { label: '신체', value: physPct, suffix: '%', highlight: physPct >= emoPct },
+                    { label: '정서', value: emoPct, suffix: '%', highlight: emoPct > physPct },
+                ], 100);
+            }
+
+            // ── ③ 미니 바 차트 (주요 항목: 기준선 대비 상대값 %) ──
+            const itemEl = document.getElementById('detail-chart-items');
+            if (itemEl) {
+                const tug = state.answers.tug ?? 13.5;
+                const sgds = state.answers.sgdsk_score ?? 6;
+                const poly = state.answers.polypharm ?? 5;
+                // 기준선 대비 상대값 (기준=100)
+                const tugRel = Math.round((tug / 12) * 100);
+                const sgdsRel = Math.round((sgds / 4) * 100);
+                const polyRel = Math.round((poly / 4) * 100);
+                itemEl.innerHTML = miniBarChart([
+                    { label: 'TUG',   value: tugRel,  suffix: '',  highlight: tugRel >= 100 },
+                    { label: 'SGDS',  value: sgdsRel, suffix: '',  highlight: sgdsRel >= 100 },
+                    { label: '다약제', value: polyRel, suffix: '',  highlight: polyRel >= 100 },
+                ], Math.max(tugRel, sgdsRel, polyRel, 120));
+            }
+        }
+
+        function miniBarChart(items, maxY) {
+            const W = 260, H = 150;
+            const padL = 12, padR = 12, padT = 22, padB = 22;
+            const innerW = W - padL - padR;
+            const innerH = H - padT - padB;
+            const barW = Math.min(38, innerW / items.length * 0.55);
+            const gap = (innerW - barW * items.length) / (items.length + 1);
+            const bars = items.map((it, i) => {
+                const x = padL + gap + i * (barW + gap);
+                const h = innerH * Math.min(it.value, maxY) / maxY;
+                const y = padT + (innerH - h);
+                const fill = it.highlight ? '#f97316' : '#d1d5db';
+                const valColor = it.highlight ? '#f97316' : '#9ca3af';
+                const path = `M ${x} ${y + 6} Q ${x} ${y} ${x + 6} ${y} L ${x + barW - 6} ${y} Q ${x + barW} ${y} ${x + barW} ${y + 6} L ${x + barW} ${y + h} L ${x} ${y + h} Z`;
+                return `
+                    <path d="${path}" fill="${fill}"/>
+                    <text x="${x + barW / 2}" y="${y - 6}" text-anchor="middle" font-size="11" font-weight="900" fill="${valColor}">${it.value}${it.suffix || ''}</text>
+                    <text x="${x + barW / 2}" y="${H - 6}" text-anchor="middle" font-size="10" font-weight="700" fill="#9ca3af">${it.label}</text>
+                `;
+            }).join('');
+            return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block; height:auto;">${bars}</svg>`;
         }
 
         function togglePasswordVisibility(inputId, iconId) {
