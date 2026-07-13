@@ -5078,6 +5078,22 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             cutoff: 0.069
         };
 
+        // 목업 데이터로 설문 결과 페이지 노출
+        function showMockSurveyResult() {
+            state.answers.gender = 'F';
+            state.answers.age = 78;
+            state.answers.height_cm = 158;
+            state.answers.weight_kg = 55;
+            state.answers.bmi = +(55 / (1.58 * 1.58)).toFixed(1);
+            state.answers.polypharm = 5;
+            state.answers.met_score = 1200;
+            state.answers.tug = 13.5;
+            state.answers.sgds_answers = [1,1,0,1,0,1,0,1,1,0,0,1,0,1,1];
+            state.answers.sgdsk_score = 6;
+            calculateLogisticRegression();
+            navTo('result');
+        }
+
         function calculateLogisticRegression() {
             const a = state.answers;
             // 값이 없으면 모델 평균으로 대체
