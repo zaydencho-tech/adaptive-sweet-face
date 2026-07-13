@@ -5011,7 +5011,8 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     <div class="flex items-center gap-4 min-w-0">
                         <div class="w-24 h-24 flex items-center justify-center shrink-0">
                             ${card.image
-                                ? `<img src="${card.image}" alt="${card.title}" loading="lazy" width="96" height="96" class="w-24 h-24 rounded-full object-cover" />`
+                                ? `<img src="${card.image}?v=2" alt="${card.title}" loading="lazy" width="96" height="96" class="w-24 h-24 rounded-full object-cover" />`
+
                                 : `<span class="text-3xl">${card.icon}</span>`}
                         </div>
                         <div class="min-w-0">
