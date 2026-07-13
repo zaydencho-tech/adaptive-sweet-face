@@ -3664,8 +3664,8 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         function renderGenderInput(container) {
             const saved = state.answers.gender;
             const baseCard = "gender-card group relative aspect-square w-full rounded-2xl border-4 bg-white flex flex-col items-center justify-between p-4 lg:p-6 transition-all";
-            const mSel = saved === 'male'   ? "border-blue-500 ring-4 ring-blue-200 bg-blue-50" : "border-gray-300 hover:border-blue-400";
-            const fSel = saved === 'female' ? "border-pink-500 ring-4 ring-pink-200 bg-pink-50" : "border-gray-300 hover:border-pink-400";
+            const mSel = saved === 'male'   ? "border-blue-500 ring-4 ring-blue-200 bg-blue-50" : "border-slate-400 hover:border-blue-500";
+            const fSel = saved === 'female' ? "border-pink-500 ring-4 ring-pink-200 bg-pink-50" : "border-slate-400 hover:border-pink-500";
             const mSelText = saved === 'male' ? "text-blue-500" : "text-charcoal";
             const fSelText = saved === 'female' ? "text-pink-500" : "text-charcoal";
             container.innerHTML = `
