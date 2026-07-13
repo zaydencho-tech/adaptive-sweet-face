@@ -5028,7 +5028,8 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                         </span>`;
                 }
                 
-                item.className = `card-item p-5 rounded-3xl transition-all duration-300 flex items-center justify-between gap-4 cursor-pointer ${cardFancyClass}`;
+                const isActiveCard = state.currentReadingCardId === card.id;
+                item.className = `card-item p-5 rounded-3xl transition-all duration-300 flex items-center justify-between gap-4 cursor-pointer ${cardFancyClass}${isActiveCard ? ' card-active' : ''}`;
                 item.onclick = () => {
                     if (state.cardReadingLocked && state.currentReadingCardId !== card.id) {
                         requestSwitchCard(card.id);
