@@ -1228,9 +1228,39 @@
                 max-height: none;
                 overflow: visible;
                 z-index: auto;
-                box-shadow: none;
                 display: flex !important;
                 flex-direction: column;
+                /* 왼쪽 카드 목록과 시각적으로 이어지도록 팝업 느낌 제거 */
+                background: transparent !important;
+                border: none !important;
+                border-left: 3px solid #FCD34D !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+                padding: 4px 0 4px 24px !important;
+                margin-left: 4px;
+            }
+            /* 데스크탑에서는 상세 패널이 항상 열려있으므로 닫기 버튼 숨김 */
+            #page-records > div.records-wrapper > #quiz-panel button[title="읽기 그만하기"] {
+                display: none !important;
+            }
+            /* 활성 카드 강조 — 오른쪽 상세 패널과 이어지는 느낌 */
+            #page-records .card-item.card-active {
+                border-color: #FCD34D !important;
+                background: linear-gradient(90deg, #FFFBEB 0%, #FEF3C7 100%) !important;
+                box-shadow: 0 6px 18px -6px rgba(252, 211, 77, 0.55) !important;
+                position: relative;
+            }
+            #page-records .card-item.card-active::after {
+                content: "";
+                position: absolute;
+                right: -14px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 0;
+                height: 0;
+                border-top: 10px solid transparent;
+                border-bottom: 10px solid transparent;
+                border-left: 12px solid #FCD34D;
             }
             /* 데스크탑에서는 상세 패널이 항상 노출되므로 모달 오버레이/스크롤 잠금 해제 */
             body:has(#page-records:not(.hidden))::after { content: none !important; }
