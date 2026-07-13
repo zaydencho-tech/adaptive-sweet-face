@@ -1503,8 +1503,35 @@
                 border-radius: 999px !important;
             }
             #page-records #quiz-panel #cn-dots {
-                margin-top: 18px !important;
-                margin-bottom: 4px !important;
+                margin-top: 0 !important;
+                margin-bottom: 20px !important;
+                justify-content: space-between;
+                gap: 12px;
+                flex-wrap: nowrap;
+            }
+            #page-records #quiz-panel #cn-dots-list {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                flex: 1;
+                flex-wrap: nowrap;
+            }
+            #page-records #quiz-panel #cn-dots .cn-dot {
+                width: 14px;
+                height: 14px;
+            }
+            #page-records #quiz-panel #cn-dots .cn-dot.active {
+                width: 28px;
+            }
+            #page-records #quiz-panel #cn-counter {
+                text-align: right;
+                flex-shrink: 0;
+            }
+            @media (max-width: 1023px) {
+                #cn-dots-list { gap: 6px !important; }
+                #cn-dots .cn-dot { width: 10px !important; height: 10px !important; }
+                #cn-dots .cn-dot.active { width: 20px !important; }
             }
             #page-records #quiz-panel > #card-news-body > div.select-none > p {
                 margin-top: 14px !important;
@@ -1517,7 +1544,7 @@
             /* 정독 완료 확인 블록을 우측 상단 컴팩트 버튼으로 재배치 (전체화면 버튼과 flex로 20px 간격) */
             #page-records #quiz-panel > div.bg-emerald-50 {
                 position: absolute;
-                top: 0;
+                top: 16px;
                 right: 0;
                 margin-top: 0 !important;
                 padding: 0 !important;
@@ -5802,6 +5829,11 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             if (!bodyEl) return;
             bodyEl.innerHTML = `
               <div class="select-none">
+                <div id="cn-dots" class="flex items-center gap-3 flex-nowrap">
+                    <div id="cn-dots-list" class="flex items-center gap-2 flex-1 justify-center"></div>
+                    <span id="cn-counter" class="scaled-text-base font-black text-charcoal hc-text whitespace-nowrap">1 / ${images.length}</span>
+                </div>
+
                 <div id="cn-stage" class="relative mx-auto w-full touch-pan-y" style="max-width: min(100%, 78vh);">
                     <img id="cn-img" src="${images[0]}" alt="카드뉴스 1쪽"
                          class="w-full rounded-2xl border-2 shadow-md block bg-white"
@@ -5821,11 +5853,8 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     </button>
                 </div>
 
-                <div id="cn-dots" class="flex items-center justify-center gap-1.5 mt-4 flex-wrap"></div>
-
                 <div class="flex items-center justify-between gap-3 mt-3">
                     <button id="cn-prev" onclick="cnGo(-1)" class="flex-1 btn-height-secondary rounded-2xl border-2 bg-white text-charcoal font-black scaled-text-base flex items-center justify-center hc-btn-secondary" style="border-color: var(--border-color);">‹ 이전</button>
-                    <span id="cn-counter" class="scaled-text-base font-black text-charcoal hc-text whitespace-nowrap px-1">1 / ${images.length}</span>
                     <button id="cn-next" onclick="cnGo(1)" class="flex-1 btn-height-secondary rounded-2xl border-2 border-kakao bg-kakao text-charcoal font-black scaled-text-base flex items-center justify-center hc-btn-primary">다음 ›</button>
                 </div>
                 
@@ -5851,10 +5880,10 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         }
 
         function cnRenderDots() {
-            const dots = document.getElementById('cn-dots');
-            if (!dots) return;
-            dots.innerHTML = cnState.imgs.map((_, i) =>
-                `<button onclick="cnGoTo(${i})" aria-label="${i+1}장으로 이동" class="cn-dot h-2.5 rounded-full transition-all" style="width:10px;background:#D8D0C0;border:0;cursor:pointer;"></button>`
+            const dotsList = document.getElementById('cn-dots-list');
+            if (!dotsList) return;
+            dotsList.innerHTML = cnState.imgs.map((_, i) =>
+                `<button onclick="cnGoTo(${i})" aria-label="${i+1}장으로 이동" class="cn-dot h-3.5 rounded-full transition-all" style="width:14px;background:#D8D0C0;border:0;cursor:pointer;"></button>`
             ).join('');
         }
 
@@ -5877,8 +5906,8 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             if (counter) counter.innerText = `${cnState.idx + 1} / ${cnState.imgs.length}`;
             document.querySelectorAll('#cn-dots .cn-dot').forEach((d, i) => {
                 const on = (i === cnState.idx);
+                d.classList.toggle('active', on);
                 d.style.background = on ? '#FEE500' : '#D8D0C0';
-                d.style.width = on ? '22px' : '10px';
             });
             const prev = document.getElementById('cn-prev');
             const tapPrev = document.getElementById('cn-tap-prev');
