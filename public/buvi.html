@@ -4998,8 +4998,10 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
                 item.innerHTML = `
                     <div class="flex items-center gap-4 min-w-0">
-                        <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center text-3xl flex-shrink-0">
-                            ${card.icon}
+                        <div class="w-16 h-16 rounded-full overflow-hidden flex-shrink-0 bg-yellow-50 flex items-center justify-center">
+                            ${card.image
+                                ? `<img src="${card.image}" alt="${card.title}" loading="lazy" width="64" height="64" class="w-full h-full object-cover" />`
+                                : `<span class="text-3xl">${card.icon}</span>`}
                         </div>
                         <div class="min-w-0">
                             <span class="scaled-text-xs md:scaled-text-sm font-black text-amber-600 block">${card.categoryKo}</span>
