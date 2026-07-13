@@ -322,10 +322,11 @@
         /* ── 리뉴얼된 로그인/홈 페이지 적응형 규칙 ── */
         body:has(#page-login:not(.hidden)) #buvi-narrative-box,
         body:has(#page-home:not(.hidden)) #buvi-narrative-box { display: none !important; }
-        /* 태블릿/모바일: 설문 페이지 상단 부비 안내 박스 숨김 */
+        /* 태블릿/모바일: 설문 페이지 및 BUVI 알아보기 페이지 상단 부비 안내 박스 숨김 */
         @media (max-width: 1023px) {
             body:has(#page-survey:not(.hidden)) #buvi-narrative-box,
-            body:has(#page-survey-start:not(.hidden)) #buvi-narrative-box { display: none !important; }
+            body:has(#page-survey-start:not(.hidden)) #buvi-narrative-box,
+            body:has(#page-about:not(.hidden)) #buvi-narrative-box { display: none !important; }
         }
         body:has(#page-login:not(.hidden)) nav.fixed.bottom-0 { display: none !important; }
         body:has(#page-login:not(.hidden)),
