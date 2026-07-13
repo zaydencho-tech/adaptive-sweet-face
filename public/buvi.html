@@ -2756,33 +2756,26 @@
                         </div>
                     </div>
 
-                    <!-- 중앙: 라인차트 (좌) + 요약 카드 (우) -->
-                    <div class="grid grid-cols-[3fr_1fr] gap-4 mb-5">
-                        <div id="trend-chart-wrap" class="relative border-b-2 border-charcoal/80 pt-3 pb-6"></div>
-                        <div class="lg:border-l-2 lg:border-charcoal/80 pl-4 pr-1 flex flex-col justify-between min-w-[100px]">
-                            <p class="text-[11px] font-black text-blue-600 tracking-wider">TUG</p>
-                            <div>
-                                <p class="text-2xl md:text-3xl font-black text-charcoal leading-none">2배 <span class="text-orange-500">↑</span></p>
-                                <p class="text-[10px] font-bold text-gray-400 mt-1">평균 대비</p>
-                            </div>
-                        </div>
+                    <!-- 중앙: 라인차트 (풀 너비) -->
+                    <div class="mb-5">
+                        <div id="trend-chart-wrap" class="relative pt-3 pb-6"></div>
                     </div>
 
                     <!-- 하단: KPI 4개 -->
                     <div class="grid grid-cols-4 gap-2 md:gap-3">
-                        <div class="text-left px-2">
+                        <div class="text-left px-3 py-3 rounded-2xl bg-gray-100">
                             <p class="text-[11px] md:text-xs font-black text-charcoal leading-tight mb-2 min-h-[32px]">종합 노쇠 위험도</p>
                             <p class="text-xl md:text-3xl font-black text-charcoal leading-none whitespace-nowrap"><span id="kpi-risk">20.0%</span> <span class="text-[10px] md:text-xs font-bold text-gray-400 align-middle">확률</span> <span class="text-orange-500 align-middle">↑</span></p>
                         </div>
-                        <div class="text-left px-2 lg:border-l-2 lg:border-charcoal/80">
+                        <div class="text-left px-3 py-3 rounded-2xl bg-gray-100">
                             <p class="text-[11px] md:text-xs font-black text-charcoal leading-tight mb-2 min-h-[32px]">관리 필요 항목 수</p>
                             <p class="text-xl md:text-3xl font-black text-charcoal leading-none whitespace-nowrap"><span id="kpi-items">4</span><span class="text-base md:text-lg">개</span> <span class="text-[10px] md:text-xs font-bold text-gray-400 align-middle">주의 신호</span> <span class="text-orange-500 align-middle">↑</span></p>
                         </div>
-                        <div class="text-left px-2 lg:border-l-2 lg:border-charcoal/80">
-                            <p class="text-[11px] md:text-xs font-black text-charcoal leading-tight mb-2 min-h-[32px]">보행 검사 TUG</p>
+                        <div class="text-left px-3 py-3 rounded-2xl bg-gray-100">
+                            <p class="text-[11px] md:text-xs font-black text-charcoal leading-tight mb-2 min-h-[32px]">보행검사 TUG</p>
                             <p class="text-xl md:text-3xl font-black text-charcoal leading-none whitespace-nowrap"><span id="kpi-tug">13.5</span><span class="text-base md:text-lg">초</span> <span class="text-[10px] md:text-xs font-bold text-gray-400 align-middle">기준 12초</span></p>
                         </div>
-                        <div class="text-left px-2 lg:border-l-2 lg:border-charcoal/80">
+                        <div class="text-left px-3 py-3 rounded-2xl bg-gray-100">
                             <p class="text-[11px] md:text-xs font-black text-charcoal leading-tight mb-2 min-h-[32px]">마음 건강 SGDS-K</p>
                             <p class="text-xl md:text-3xl font-black text-charcoal leading-none whitespace-nowrap"><span id="kpi-sgds">6</span><span class="text-base md:text-lg">점</span> <span class="text-[10px] md:text-xs font-bold text-gray-400 align-middle">15점 만점</span></p>
                         </div>
