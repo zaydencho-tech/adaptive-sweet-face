@@ -2790,8 +2790,12 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
 
                     <!-- Left: 1:1 상담 히어로 카드 -->
-                    <button onclick="tryNavigateWithWarning('chat')" class="group text-left rounded-3xl bg-white shadow-md border-2 p-6 lg:p-7 flex flex-col hover:shadow-lg transition-all overflow-hidden" style="background-color: var(--card-bg); border-color: var(--border-color);">
-                        <div>
+                    <button onclick="tryNavigateWithWarning('chat')" class="group relative text-left rounded-3xl bg-white shadow-md border-2 p-6 lg:p-7 min-h-[360px] lg:min-h-[420px] flex flex-col justify-between hover:shadow-lg transition-all overflow-hidden" style="background-color: var(--card-bg); border-color: var(--border-color);">
+                        <!-- 큰 일러스트: 우측 하단 배치 -->
+                        <img src="/buvi-step3-cutout.png" alt="부비와 상담" loading="lazy" width="520" height="520" class="pointer-events-none select-none absolute right-[-8px] bottom-[-8px] w-[70%] lg:w-[68%] max-w-[420px] object-contain drop-shadow-sm" />
+
+                        <!-- 상단 텍스트 -->
+                        <div class="relative z-10 max-w-[70%]">
                             <h3 class="font-gapyeong text-xl lg:text-2xl font-black text-charcoal leading-tight">
                                 부비와 함께하는<br>1:1 맞춤 상담
                             </h3>
@@ -2799,16 +2803,16 @@
                                 노쇠 예측 설문 결과를 기반으로<br class="hidden lg:block">개별화된 건강 조언을 받아보세요.
                             </p>
                         </div>
-                        <div class="flex-1 flex items-center justify-center py-4 lg:py-6">
-                            <img src="/buvi-step3.png" alt="부비와 상담" loading="lazy" width="180" height="180" class="w-36 h-36 lg:w-44 lg:h-44 object-contain" />
-                        </div>
-                        <div class="flex items-center gap-3">
+
+                        <!-- 하단 CTA -->
+                        <div class="relative z-10 flex items-center gap-3">
                             <span class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-kakao text-charcoal font-black text-sm shadow-sm group-hover:brightness-95 transition-all">
                                 상담 시작 <i class="fa-solid fa-arrow-right text-xs"></i>
                             </span>
                             <span class="text-xs font-bold text-gray-400">지금 바로</span>
                         </div>
                     </button>
+
 
                     <!-- Right: 결과 저장·공유 태스크 + 스탯 -->
                     <div class="flex flex-col gap-3 lg:gap-4">
