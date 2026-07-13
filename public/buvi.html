@@ -5804,6 +5804,13 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 <p class="text-center scaled-text-sm text-gray-400 font-bold mt-2 hc-muted">사진을 좌우로 넘기거나, 사진 양쪽 끝 또는 아래 버튼을 누르면 넘어갑니다</p>
               </div>
             `;
+            // Move fullscreen button up to #quiz-panel so it sits in the panel header, next to 완료
+            const fsBtn = bodyEl.querySelector('button[aria-label="전체화면으로 크게 보기"]');
+            const panelEl = document.getElementById('quiz-panel');
+            if (fsBtn && panelEl) {
+                fsBtn.id = 'cn-fullscreen-btn';
+                panelEl.appendChild(fsBtn);
+            }
             cnRenderDots();
             cnUpdate();
             cnAttachSwipe();
