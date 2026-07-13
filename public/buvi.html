@@ -1572,13 +1572,12 @@
             }
             /* 헤더 제목 옆에 버튼들이 겹치지 않도록 여유 확보, 첨부 이미지처럼 본문과 가깝게 */
             #page-records #quiz-panel > div:first-child { padding-right: 200px; padding-bottom: 4px !important; }
-            /* 활성 카드 강조 — 부비와 상담 시작하기 버튼과 동일한 검은색 */
+            /* 활성 카드 강조 — #F4F0E9 계열로 차분하게 */
             body.subpage-mode main #page-records #records-cards-grid .card-item.card-active {
-                background: #000000 !important;
+                background: #E8E2D4 !important;
                 border: none !important;
                 box-shadow: none !important;
                 position: relative;
-                color: #FFFFFF !important;
             }
             body.subpage-mode main #page-records #records-cards-grid .card-item.card-active::after {
                 content: "";
@@ -1590,15 +1589,7 @@
                 height: 0;
                 border-top: 10px solid transparent;
                 border-bottom: 10px solid transparent;
-                border-left: 12px solid #000000;
-            }
-            /* 활성 카드 내부 텍스트 흰색 */
-            body.subpage-mode main #page-records #records-cards-grid .card-item.card-active .text-charcoal,
-            body.subpage-mode main #page-records #records-cards-grid .card-item.card-active .text-amber-600,
-            body.subpage-mode main #page-records #records-cards-grid .card-item.card-active .text-emerald-700,
-            body.subpage-mode main #page-records #records-cards-grid .card-item.card-active .scaled-text-xs,
-            body.subpage-mode main #page-records #records-cards-grid .card-item.card-active .scaled-text-sm {
-                color: #FFFFFF !important;
+                border-left: 12px solid #E8E2D4;
             }
             /* 데스크탑에서는 상세 패널이 항상 노출되므로 모달 오버레이/스크롤 잠금 해제 */
             body:has(#page-records:not(.hidden))::after { content: none !important; }
