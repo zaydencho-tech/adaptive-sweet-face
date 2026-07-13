@@ -1401,7 +1401,7 @@
                 display: flex !important;
                 flex-direction: column;
                 min-height: 0;
-                overflow: hidden;
+                overflow: visible;
                 /* 왼쪽 카드 목록과 시각적으로 이어지도록 팝업 느낌 제거, 노랑 세로 실선 제거 */
                 background: transparent !important;
                 border: none !important;
@@ -1414,7 +1414,7 @@
             #page-records #quiz-panel > #card-news-body {
                 flex: 1 1 auto;
                 min-height: 0;
-                overflow: hidden;
+                overflow: visible;
                 display: flex;
                 flex-direction: column;
             }
@@ -1443,6 +1443,52 @@
                 max-width: 100% !important;
                 aspect-ratio: auto !important;
                 object-fit: contain;
+            }
+            /* 전체화면 버튼을 카드 이미지 밖으로 꺼내 헤더(완료 버튼 좌측)에 배치 */
+            #page-records #quiz-panel #cn-stage > button[onclick="cnOpenFullscreen()"] {
+                position: absolute;
+                top: -88px;
+                right: 100px;
+                width: 42px !important;
+                height: 42px !important;
+                border-radius: 12px !important;
+                background: rgba(107, 114, 128, 0.9) !important;
+                font-size: 16px !important;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.12) !important;
+                z-index: 6;
+            }
+            /* 하단 컨트롤: 이전은 텍스트 링크, 다음은 눈에 띄는 노랑 버튼 */
+            #page-records #quiz-panel > #card-news-body > div.select-none > div.flex.items-center.justify-between {
+                margin-top: 18px !important;
+                gap: 16px !important;
+                padding: 0 8px;
+            }
+            #page-records #quiz-panel #cn-prev {
+                flex: 0 0 auto !important;
+                background: transparent !important;
+                border: none !important;
+                box-shadow: none !important;
+                color: #6b7280 !important;
+                padding: 8px 14px !important;
+                min-height: 0 !important;
+                min-width: 0 !important;
+            }
+            #page-records #quiz-panel #cn-counter {
+                flex: 1 1 auto;
+                text-align: center;
+            }
+            #page-records #quiz-panel #cn-next {
+                flex: 0 0 auto !important;
+                min-width: 200px;
+                padding: 14px 32px !important;
+                border-radius: 999px !important;
+            }
+            #page-records #quiz-panel #cn-dots {
+                margin-top: 18px !important;
+                margin-bottom: 4px !important;
+            }
+            #page-records #quiz-panel > #card-news-body > div.select-none > p {
+                margin-top: 14px !important;
             }
             /* 데스크탑에서는 상세 패널이 항상 열려있으므로 닫기 버튼과 스크롤 안내 문구 숨김 */
             #page-records > div.records-wrapper > #quiz-panel button[title="읽기 그만하기"],
