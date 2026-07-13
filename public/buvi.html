@@ -5389,7 +5389,10 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 const lastIdx = points.length - 1;
                 const lastX = xs[lastIdx], lastY = ys[lastIdx];
                 const startX = xs[0], startY = ys[0];
-                const xLabels = xs.map((x, i) => `<text x="${x}" y="${H - 6}" text-anchor="middle" font-size="9" font-weight="700" fill="#9ca3af">${labels[i]}</text>`).join('');
+                const xLabels = xs.map((x, i) => {
+                    const anchor = i === 0 ? 'start' : (i === xs.length - 1 ? 'end' : 'middle');
+                    return `<text x="${x}" y="${H - 6}" text-anchor="${anchor}" font-size="9" font-weight="700" fill="#9ca3af">${labels[i]}</text>`;
+                }).join('');
 
                 wrap.innerHTML = `
                 <svg viewBox="0 0 ${W} ${H}" width="100%" height="150" preserveAspectRatio="none" style="display:block;">
