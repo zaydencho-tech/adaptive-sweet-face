@@ -6005,11 +6005,6 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             if (!bodyEl) return;
             bodyEl.innerHTML = `
               <div class="select-none">
-                <div id="cn-dots" class="flex items-center gap-3 flex-nowrap">
-                    <div id="cn-dots-list" class="flex items-center gap-2 flex-1 justify-center"></div>
-                    <span id="cn-counter" class="scaled-text-base font-black text-charcoal hc-text whitespace-nowrap">1 / ${images.length}</span>
-                </div>
-
                 <div id="cn-stage" class="relative mx-auto w-full touch-pan-y" style="max-width: min(100%, 78vh);">
                     <img id="cn-img" src="${images[0]}" alt="카드뉴스 1쪽"
                          class="w-full rounded-2xl border-2 shadow-md block bg-white"
