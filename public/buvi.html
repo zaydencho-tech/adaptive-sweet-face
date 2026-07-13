@@ -326,7 +326,9 @@
         @media (max-width: 1023px) {
             body:has(#page-survey:not(.hidden)) #buvi-narrative-box,
             body:has(#page-survey-start:not(.hidden)) #buvi-narrative-box,
-            body:has(#page-about:not(.hidden)) #buvi-narrative-box { display: none !important; }
+            body:has(#page-about:not(.hidden)) #buvi-narrative-box,
+            body.subpage-mode:has(#page-about:not(.hidden)) #buvi-narrative-box,
+            main:has(#page-about:not(.hidden)) > #buvi-narrative-box { display: none !important; }
         }
         body:has(#page-login:not(.hidden)) nav.fixed.bottom-0 { display: none !important; }
         body:has(#page-login:not(.hidden)),
@@ -3619,6 +3621,15 @@
                 document.querySelectorAll('#desktop-hero-aside .hero-nav-btn').forEach(btn => {
                     btn.classList.toggle('is-active', btn.getAttribute('data-nav-key') === activeKey);
                 });
+            } catch(_) {}
+            // 모바일/태블릿에서 BUVI 알아보기 페이지 진입 시 상단 안내 박스 강제 숨김
+            try {
+                const narrativeBox = document.getElementById('buvi-narrative-box');
+                if (narrativeBox && window.matchMedia('(max-width: 1023px)').matches && pageId === 'about') {
+                    narrativeBox.style.setProperty('display', 'none', 'important');
+                } else if (narrativeBox) {
+                    narrativeBox.style.removeProperty('display');
+                }
             } catch(_) {}
             handlePageEntranceEffects(pageId);
         }
