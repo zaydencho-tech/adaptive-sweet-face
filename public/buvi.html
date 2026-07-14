@@ -2770,25 +2770,6 @@
                     </div>
 
 
-                    <!-- 하단: KPI 4개 -->
-                    <div class="grid grid-cols-4 gap-2 md:gap-3">
-                        <div class="text-left px-3 py-3 rounded-2xl bg-gray-100">
-                            <p class="text-[11px] md:text-xs font-black text-charcoal leading-tight mb-2 min-h-[32px]">종합 노쇠 위험도</p>
-                            <p class="text-xl md:text-3xl font-black text-charcoal leading-none whitespace-nowrap"><span id="kpi-risk">20.0%</span> <span class="text-[10px] md:text-xs font-bold text-gray-400 align-middle">확률</span> <span class="text-orange-500 align-middle">↑</span></p>
-                        </div>
-                        <div class="text-left px-3 py-3 rounded-2xl bg-gray-100">
-                            <p class="text-[11px] md:text-xs font-black text-charcoal leading-tight mb-2 min-h-[32px]">관리 필요 항목 수</p>
-                            <p class="text-xl md:text-3xl font-black text-charcoal leading-none whitespace-nowrap"><span id="kpi-items">4</span><span class="text-base md:text-lg">개</span> <span class="text-[10px] md:text-xs font-bold text-gray-400 align-middle">주의 신호</span> <span class="text-orange-500 align-middle">↑</span></p>
-                        </div>
-                        <div class="text-left px-3 py-3 rounded-2xl bg-gray-100">
-                            <p class="text-[11px] md:text-xs font-black text-charcoal leading-tight mb-2 min-h-[32px]">보행검사 TUG</p>
-                            <p class="text-xl md:text-3xl font-black text-charcoal leading-none whitespace-nowrap"><span id="kpi-tug">13.5</span><span class="text-base md:text-lg">초</span> <span class="text-[10px] md:text-xs font-bold text-gray-400 align-middle">기준 12초</span></p>
-                        </div>
-                        <div class="text-left px-3 py-3 rounded-2xl bg-gray-100">
-                            <p class="text-[11px] md:text-xs font-black text-charcoal leading-tight mb-2 min-h-[32px]">마음 건강 SGDS-K</p>
-                            <p class="text-xl md:text-3xl font-black text-charcoal leading-none whitespace-nowrap"><span id="kpi-sgds">6</span><span class="text-base md:text-lg">점</span> <span class="text-[10px] md:text-xs font-bold text-gray-400 align-middle">15점 만점</span></p>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -5584,18 +5565,6 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 heroArrow.style.color = arrowUp ? '#f97316' : '#16a34a';
             }
 
-            // KPI 목업 데이터
-            const risk = document.getElementById('kpi-risk');
-            if (risk) risk.textContent = pPct.toFixed(1) + '%';
-            const items = document.getElementById('kpi-items');
-            if (items && r && r.sortedContribs) {
-                const cnt = r.sortedContribs.filter(c => c.value > 0 && c.key !== 'age').length;
-                items.textContent = cnt || 4;
-            }
-            const tug = document.getElementById('kpi-tug');
-            if (tug) tug.textContent = (state.answers.tug ?? 13.5).toFixed(1);
-            const sgds = document.getElementById('kpi-sgds');
-            if (sgds) sgds.textContent = (state.answers.sgdsk_score ?? 6);
 
             renderDetailCharts(r, pPct, points, labels);
         }
