@@ -5481,32 +5481,32 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 </div>
 
                 <div class="grid grid-cols-3 gap-2 md:gap-3">
-                    <div class="rounded-2xl bg-gray-50 p-3 md:p-4 flex items-center gap-2 md:gap-3">
-                        <span class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style="background:#eef2ff;">
-                            <i class="fa-solid fa-heart-pulse" style="color:#6366f1;"></i>
+                    <div class="rounded-2xl bg-gray-50 p-3 md:p-4 flex flex-col items-center text-center gap-1 md:flex-row md:items-center md:text-left md:gap-3">
+                        <span class="w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center flex-shrink-0" style="background:#eef2ff;">
+                            <i class="fa-solid fa-heart-pulse text-sm md:text-base" style="color:#6366f1;"></i>
                         </span>
-                        <div class="flex flex-col min-w-0">
-                            <p class="text-2xl md:text-3xl font-black text-charcoal leading-none">${pPct.toFixed(1)}<span class="text-base md:text-lg">%</span></p>
-                            <p class="text-[10px] md:text-[11px] text-gray-500 font-bold mt-0.5">현재 위험도</p>
+                        <div class="flex flex-col min-w-0 items-center md:items-start">
+                            <p class="text-xl md:text-3xl font-black text-charcoal leading-none whitespace-nowrap">${pPct.toFixed(1)}<span class="text-sm md:text-lg">%</span></p>
+                            <p class="text-[10px] md:text-[11px] text-gray-500 font-bold mt-0.5 whitespace-nowrap">현재 위험도</p>
                         </div>
                     </div>
-                    <div class="rounded-2xl bg-gray-50 p-3 md:p-4 flex items-center gap-2 md:gap-3">
-                        <span class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style="background:#d1fae5;">
-                            <i class="fa-solid fa-flag-checkered" style="color:#10b981;"></i>
+                    <div class="rounded-2xl bg-gray-50 p-3 md:p-4 flex flex-col items-center text-center gap-1 md:flex-row md:items-center md:text-left md:gap-3">
+                        <span class="w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center flex-shrink-0" style="background:#d1fae5;">
+                            <i class="fa-solid fa-flag-checkered text-sm md:text-base" style="color:#10b981;"></i>
                         </span>
-                        <div class="flex flex-col min-w-0">
-                            <p class="text-2xl md:text-3xl font-black text-charcoal leading-none">${CUTOFF.toFixed(1)}<span class="text-base md:text-lg">%</span></p>
-                            <p class="text-[10px] md:text-[11px] text-gray-500 font-bold mt-0.5">기준선</p>
+                        <div class="flex flex-col min-w-0 items-center md:items-start">
+                            <p class="text-xl md:text-3xl font-black text-charcoal leading-none whitespace-nowrap">${CUTOFF.toFixed(1)}<span class="text-sm md:text-lg">%</span></p>
+                            <p class="text-[10px] md:text-[11px] text-gray-500 font-bold mt-0.5 whitespace-nowrap">기준선</p>
                         </div>
                     </div>
 
-                    <div class="rounded-2xl bg-gray-50 p-[30px] flex items-center gap-2 md:gap-3">
-                        <span class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style="background:${statusBg};">
-                            <i class="fa-solid ${isRisk ? 'fa-triangle-exclamation' : 'fa-shield-heart'}" style="color:${statusColor};"></i>
+                    <div class="rounded-2xl bg-gray-50 p-3 md:p-4 flex flex-col items-center text-center gap-1 md:flex-row md:items-center md:text-left md:gap-3">
+                        <span class="w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center flex-shrink-0" style="background:${statusBg};">
+                            <i class="fa-solid ${isRisk ? 'fa-triangle-exclamation' : 'fa-shield-heart'} text-sm md:text-base" style="color:${statusColor};"></i>
                         </span>
-                        <div class="flex flex-col min-w-0">
-                            <p class="text-2xl md:text-3xl font-black leading-none" style="color:${statusColor};">${statusLabel}</p>
-                            <p class="text-[10px] md:text-[11px] text-gray-500 font-bold mt-0.5">노쇠 상태</p>
+                        <div class="flex flex-col min-w-0 items-center md:items-start">
+                            <p class="text-xl md:text-3xl font-black leading-none whitespace-nowrap" style="color:${statusColor};">${statusLabel}</p>
+                            <p class="text-[10px] md:text-[11px] text-gray-500 font-bold mt-0.5 whitespace-nowrap">노쇠 상태</p>
                         </div>
                     </div>
                 </div>
