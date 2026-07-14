@@ -5431,8 +5431,10 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const wrap = document.getElementById('trend-chart-wrap');
             if (wrap) {
                 // 항목별 영향 요인 데이터를 세로 필(pill) 형태 바 차트로 렌더링
-                const contribs = (r && r.sortedContribs && r.sortedContribs.length)
-                    ? r.sortedContribs.slice()
+                const _rawContribs = (r && r.sortedContribs && r.sortedContribs.length) ? r.sortedContribs : [];
+                const _sum = _rawContribs.reduce((s,c)=>s+Math.abs(c.value||0),0);
+                const contribs = (_rawContribs.length && _sum > 0.01)
+                    ? _rawContribs.slice()
                     : [
                         { key:'gait',     label:'보행기능', value:-1.2, domain:'phys' },
                         { key:'activity', label:'활동량',   value: 0.7, domain:'phys' },
