@@ -5437,24 +5437,26 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const trendPct = 15;
             const trendUp = !isRisk;
 
-            // SVG 반원 - 굵은 캡슐형 세그먼트
-            const W = 320, H = 190;
-            const cx = W / 2, cy = 180;
-            const rInner = 92, rOuter = 148;
-            const SEG = 15;
+            // SVG 반원 - 연속형 두꺼운 라운드 아크
+            const W = 320, H = 180;
+            const cx = W / 2, cy = 170;
+            const R = 128;
             const startA = Math.PI, endA = 0;
-            const activeCount = Math.max(1, Math.round(SEG * Math.max(ratio, 0.02)));
 
             function polar(r, a) { return [cx + r * Math.cos(a), cy - r * Math.sin(a)]; }
+            const [bgX0, bgY0] = polar(R, startA);
+            const [bgX1, bgY1] = polar(R, endA);
+            const bgPath = `M ${bgX0.toFixed(2)} ${bgY0.toFixed(2)} A ${R} ${R} 0 0 1 ${bgX1.toFixed(2)} ${bgY1.toFixed(2)}`;
 
-            const segments = Array.from({ length: SEG }).map((_, i) => {
-                const t = (i + 0.5) / SEG;
-                const a = startA - Math.PI * t;
-                const [x1, y1] = polar(rInner, a);
-                const [x2, y2] = polar(rOuter, a);
-                const color = i < activeCount ? activeColor : inactiveColor;
-                return `<line x1="${x1.toFixed(2)}" y1="${y1.toFixed(2)}" x2="${x2.toFixed(2)}" y2="${y2.toFixed(2)}" stroke="${color}" stroke-width="22" stroke-linecap="round"/>`;
-            }).join('');
+            const fillEnd = startA - Math.PI * Math.max(ratio, 0.01);
+            const [fgX0, fgY0] = polar(R, startA);
+            const [fgX1, fgY1] = polar(R, fillEnd);
+            const fgPath = `M ${fgX0.toFixed(2)} ${fgY0.toFixed(2)} A ${R} ${R} 0 0 1 ${fgX1.toFixed(2)} ${fgY1.toFixed(2)}`;
+
+            const segments = `
+                <path d="${bgPath}" fill="none" stroke="${inactiveColor}" stroke-width="26" stroke-linecap="round"/>
+                <path d="${fgPath}" fill="none" stroke="${activeColor}" stroke-width="26" stroke-linecap="round"/>
+            `;
 
             wrap.innerHTML = `
             <div class="flex items-start justify-between mb-1">
