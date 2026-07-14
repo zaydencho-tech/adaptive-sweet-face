@@ -2754,26 +2754,26 @@
         <!-- ========================================================
              슬라이드 6: 검사 결과 리포트 v2
              ======================================================== -->
-        <section id="page-result" class="app-page hidden space-y-5">
+        <section id="page-result" class="app-page hidden space-y-3">
 
 
             <!-- ① 요약 카드: 트렌드 그래프 + KPI -->
             <div id="result-hero-card" class="rounded-3xl shadow-lg overflow-hidden border-2" style="border-color: var(--border-color);">
                 <!-- 하단 상세 정보 (요약 그래프 + KPI) -->
-                <div class="bg-white px-4 lg:px-6 py-6" style="background-color: var(--card-bg);">
+                <div class="bg-white px-4 lg:px-6 py-4 lg:py-5" style="background-color: var(--card-bg);">
                     <!-- 상단: 결과 메시지 -->
                     <div>
                         <p id="result-stat-message" class="scaled-text-base font-bold text-gray-500 leading-snug"></p>
                     </div>
 
                     <!-- 리스크 게이지 (반원형) -->
-                    <div class="mb-[30px]">
+                    <div class="mb-4 lg:mb-5">
                         <div id="risk-gauge-wrap" class="relative"></div>
                     </div>
 
                     <!-- 중앙: 라인차트 (풀 너비) -->
-                    <div class="mb-5">
-                        <div id="trend-chart-wrap" class="relative pt-3 pb-6"></div>
+                    <div class="mb-3 lg:mb-4">
+                        <div id="trend-chart-wrap" class="relative pt-2 pb-3 lg:pb-4"></div>
                     </div>
 
 
@@ -2787,7 +2787,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
 
                     <!-- Left: 1:1 상담 히어로 카드 -->
-                    <button onclick="tryNavigateWithWarning('chat')" class="group relative text-left rounded-3xl bg-white shadow-md border-2 p-6 lg:p-7 min-h-[360px] lg:min-h-[420px] flex flex-col justify-between hover:shadow-lg transition-all overflow-hidden" style="background-color: var(--card-bg); border-color: var(--border-color);">
+                    <button onclick="tryNavigateWithWarning('chat')" class="group relative text-left rounded-3xl bg-white shadow-md border-2 p-5 lg:p-6 min-h-[260px] lg:min-h-[300px] flex flex-col justify-between hover:shadow-lg transition-all overflow-hidden" style="background-color: var(--card-bg); border-color: var(--border-color);">
                         <!-- 큰 일러스트: 우측 하단 배치 -->
                         <img src="/buvi-step3-cutout.png" alt="부비와 상담" loading="lazy" width="520" height="520" class="pointer-events-none select-none absolute right-[-8px] bottom-[-8px] w-[70%] lg:w-[68%] max-w-[420px] object-contain drop-shadow-sm" />
 
@@ -2815,12 +2815,12 @@
                     <div class="flex flex-col gap-3 lg:gap-4">
 
                         <!-- 태스크 카드 (블루) -->
-                        <div class="rounded-3xl p-5 lg:p-6 shadow-md text-white flex flex-col" style="background-color: #4f46e5;">
+                        <div class="rounded-3xl p-4 lg:p-5 shadow-md text-white flex flex-col" style="background-color: #4f46e5;">
                             <div class="flex items-center gap-2 mb-1">
                                 <i class="fa-solid fa-clipboard-check text-white/80"></i>
                                 
                             </div>
-                            <h3 class="font-gapyeong text-2xl lg:text-3xl font-black leading-tight mb-4">3가지 저장 방법</h3>
+                            <h3 class="font-gapyeong text-2xl lg:text-3xl font-black leading-tight mb-2">3가지 저장 방법</h3>
                             <div class="space-y-2 flex-1">
                                 <button onclick="event.stopPropagation(); simulatePDFDownload()" class="w-full flex items-center gap-3 py-2.5 border-t border-white/20 text-left hover:bg-white/5 transition-colors -mx-1 px-1 rounded-lg">
                                     <span class="w-7 h-7 rounded-full bg-white/15 flex items-center justify-center shrink-0"><i class="fa-solid fa-file-pdf text-white text-xs"></i></span>
@@ -2842,7 +2842,7 @@
 
                         <!-- 하단 스탯 2개 -->
                         <div class="grid grid-cols-2 gap-3 lg:gap-4">
-                            <div class="rounded-3xl bg-white shadow-md border-2 p-4 lg:p-5 flex flex-col justify-between min-h-[120px]" style="background-color: var(--card-bg); border-color: var(--border-color);">
+                            <div class="rounded-3xl bg-white shadow-md border-2 p-3 lg:p-4 flex flex-col justify-between min-h-[90px]" style="background-color: var(--card-bg); border-color: var(--border-color);">
                                 <div class="flex items-start justify-between gap-2">
                                     <p class="text-3xl lg:text-4xl font-black text-charcoal leading-none">25.6<span class="text-xl lg:text-2xl">%</span></p>
                                     <span class="inline-flex items-center gap-1 text-[10px] lg:text-[13px] font-black text-orange-500 mt-1 whitespace-nowrap">
@@ -2851,7 +2851,7 @@
                                 </div>
                                 <p class="text-xs font-bold text-gray-500 mt-2">종합 노쇠 위험도</p>
                             </div>
-                            <div class="rounded-3xl bg-white shadow-md border-2 p-4 lg:p-5 flex flex-col justify-between min-h-[120px]" style="background-color: var(--card-bg); border-color: var(--border-color);">
+                            <div class="rounded-3xl bg-white shadow-md border-2 p-3 lg:p-4 flex flex-col justify-between min-h-[90px]" style="background-color: var(--card-bg); border-color: var(--border-color);">
                                 <div class="flex items-start justify-between gap-2">
                                     <p class="text-3xl lg:text-4xl font-black text-charcoal leading-none">5<span class="text-xl lg:text-2xl">개</span></p>
                                     <span class="inline-flex items-center gap-1 text-[10px] lg:text-[13px] font-black text-orange-500 mt-1 whitespace-nowrap">
@@ -2865,7 +2865,7 @@
                 </div>
 
                 <!-- 하단 안내 문구 -->
-                <div class="text-center px-4 py-3">
+                <div class="text-center px-4 py-2">
                     <p class="text-xs text-gray-400 font-bold leading-normal">⚠ 본 결과는 노쇠 위험 선별용 참고 자료이며 의학적 진단이 아닙니다.</p>
                 </div>
             </div>
@@ -5501,7 +5501,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     </div>
                 </div>
 
-                <p class="mt-5 text-center text-base md:text-lg font-bold text-gray-700">노쇠 위험 신호가 감지되었어요. 지금부터 관리해 보세요.</p>
+                <p class="mt-3 text-center text-base md:text-lg font-bold text-gray-700">노쇠 위험 신호가 감지되었어요. 지금부터 관리해 보세요.</p>
 
             </div>`;
         }
@@ -5534,7 +5534,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     ];
                 const isDesktop = window.innerWidth >= 1024;
                 const isMobile  = window.innerWidth < 640;
-                const H = isDesktop ? 150 : (isMobile ? 170 : 190);
+                const H = isDesktop ? 120 : (isMobile ? 170 : 190);
                 const maxAbs = Math.max(...contribs.map(c => Math.abs(c.value)), 0.001);
                 const avgAbs = contribs.reduce((s,c)=>s+Math.abs(c.value),0) / contribs.length;
                 const avgRatio = avgAbs / maxAbs;
