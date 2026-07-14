@@ -5458,26 +5458,32 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 </div>
 
                 <div class="grid grid-cols-3 gap-2 md:gap-3">
-                    <div class="rounded-2xl bg-gray-50 p-3 md:p-4 flex flex-col items-center text-center">
-                        <span class="w-10 h-10 rounded-full flex items-center justify-center mb-2" style="background:#eef2ff;">
+                    <div class="rounded-2xl bg-gray-50 p-3 md:p-4 flex items-center gap-2 md:gap-3">
+                        <span class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style="background:#eef2ff;">
                             <i class="fa-solid fa-heart-pulse" style="color:#6366f1;"></i>
                         </span>
-                        <p class="text-xl md:text-2xl font-black text-charcoal leading-none">${pPct.toFixed(1)}<span class="text-sm">%</span></p>
-                        <p class="text-[11px] md:text-xs text-gray-500 font-bold mt-1">현재 위험도</p>
+                        <div class="flex flex-col min-w-0">
+                            <p class="text-xl md:text-2xl font-black text-charcoal leading-none">${pPct.toFixed(1)}<span class="text-sm">%</span></p>
+                            <p class="text-[11px] md:text-xs text-gray-500 font-bold mt-0.5">현재 위험도</p>
+                        </div>
                     </div>
-                    <div class="rounded-2xl bg-gray-50 p-3 md:p-4 flex flex-col items-center text-center">
-                        <span class="w-10 h-10 rounded-full flex items-center justify-center mb-2" style="background:#d1fae5;">
+                    <div class="rounded-2xl bg-gray-50 p-3 md:p-4 flex items-center gap-2 md:gap-3">
+                        <span class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style="background:#d1fae5;">
                             <i class="fa-solid fa-flag-checkered" style="color:#10b981;"></i>
                         </span>
-                        <p class="text-xl md:text-2xl font-black text-charcoal leading-none">${CUTOFF.toFixed(1)}<span class="text-sm">%</span></p>
-                        <p class="text-[11px] md:text-xs text-gray-500 font-bold mt-1">기준선</p>
+                        <div class="flex flex-col min-w-0">
+                            <p class="text-xl md:text-2xl font-black text-charcoal leading-none">${CUTOFF.toFixed(1)}<span class="text-sm">%</span></p>
+                            <p class="text-[11px] md:text-xs text-gray-500 font-bold mt-0.5">기준선</p>
+                        </div>
                     </div>
-                    <div class="rounded-2xl bg-gray-50 p-3 md:p-4 flex flex-col items-center text-center">
-                        <span class="w-10 h-10 rounded-full flex items-center justify-center mb-2" style="background:${statusBg};">
+                    <div class="rounded-2xl bg-gray-50 p-3 md:p-4 flex items-center gap-2 md:gap-3">
+                        <span class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style="background:${statusBg};">
                             <i class="fa-solid ${isRisk ? 'fa-triangle-exclamation' : 'fa-shield-heart'}" style="color:${statusColor};"></i>
                         </span>
-                        <p class="text-xl md:text-2xl font-black leading-none" style="color:${statusColor};">${statusLabel}</p>
-                        <p class="text-[11px] md:text-xs text-gray-500 font-bold mt-1">노쇠 상태</p>
+                        <div class="flex flex-col min-w-0">
+                            <p class="text-xl md:text-2xl font-black leading-none" style="color:${statusColor};">${statusLabel}</p>
+                            <p class="text-[11px] md:text-xs text-gray-500 font-bold mt-0.5">노쇠 상태</p>
+                        </div>
                     </div>
                 </div>
 
