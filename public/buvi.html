@@ -2748,10 +2748,18 @@
         <!-- ========================================================
              슬라이드 6: 검사 결과 리포트 v2
              ======================================================== -->
-        <section id="page-result" class="app-page hidden space-y-4">
+        <section id="page-result" class="app-page hidden space-y-5">
 
-            <!-- 상단: 안내 섹션 (시각적으로 별도 카드) -->
-            <div id="result-guide-section" class="mb-5"></div>
+            <!-- 상단: 안내 섹션 (건강정보 메뉴 첫화면 안내섹션과 동일한 스타일) -->
+            <div id="result-guide-section" class="rounded-3xl p-5 shadow-md border-2 flex items-center gap-5" style="background-color: var(--card-bg); border-color: var(--border-color);">
+                <div class="w-20 h-20 md:w-24 md:h-24 flex-shrink-0">
+                    <img id="result-guide-img" src="/owl-hero.svg" alt="부비" class="w-full h-full object-contain">
+                </div>
+                <div class="flex-grow">
+                    <span id="result-guide-label" class="scaled-text-sm text-gray-400 font-bold block"></span>
+                    <p id="result-guide-text" class="scaled-text-base text-charcoal font-bold leading-tight"></p>
+                </div>
+            </div>
 
             <!-- ① 요약 카드: 트렌드 그래프 + KPI -->
             <div id="result-hero-card" class="rounded-3xl shadow-lg overflow-hidden border-2" style="border-color: var(--border-color);">
@@ -5394,10 +5402,18 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             // ── ④ 트렌드 라인차트 + KPI (요약 시각화) ─────────────────
             renderTrendSummary(r);
 
-            // ── ⑤ 상단 안내 섹션 제거 (첫 이미지 레이아웃에 맞춤) ──
+            // ── ⑤ 상단 안내 섹션 (건강정보 메뉴 첫화면 안내섹션과 동일) ──
             const guideSection = document.getElementById('result-guide-section');
-            if (guideSection) {
-                guideSection.innerHTML = '';
+            const guideText = document.getElementById('result-guide-text');
+            const guideImg = document.getElementById('result-guide-img');
+            if (guideSection && guideText) {
+                const guideMsg = r.isAtRisk
+                    ? '노쇠 위험 신호가 감지되었어요. 지금부터 관리해 보세요.'
+                    : '현재 노쇠 신호가 없습니다. 건강 관리를 잘 하고 계세요.';
+                guideText.textContent = guideMsg;
+                // 건강정보 메뉴 안내섹션과 동일한 부비 이미지 사용
+                const narrativeImg = document.getElementById('buvi-briefing-img');
+                if (guideImg && narrativeImg && narrativeImg.src) guideImg.src = narrativeImg.src;
             }
 
         }
@@ -5411,9 +5427,6 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const statusLabel = isRisk ? '비정상' : '정상';
             const statusColor = isRisk ? '#f97316' : '#10b981';
             const statusBg = isRisk ? '#ffedd5' : '#d1fae5';
-            const msg = isRisk
-                ? '노쇠 위험 신호가 감지되었어요. 지금부터 관리해 보세요.'
-                : '현재 노쇠 신호가 없습니다. 건강 관리를 잘 하고 계세요.';
 
             // 3-segment 구성 (합계 100)
             const physRaw = (r && r.physPos != null) ? r.physPos : 1;
@@ -5450,7 +5463,6 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     </span>
                     <p class="font-gapyeong text-5xl md:text-6xl font-black text-charcoal leading-none">${pPct.toFixed(1)}<span class="text-3xl md:text-4xl">%</span></p>
                     <p class="text-xs md:text-sm font-bold text-gray-500 leading-tight">종합<br>노쇠 위험도</p>
-                    <p class="ml-auto text-xs md:text-sm font-bold text-gray-500 leading-snug text-right max-w-[45%]">${msg}</p>
                 </div>
 
                 <div class="flex w-full h-2.5 overflow-hidden mb-2" style="gap:2px;">
