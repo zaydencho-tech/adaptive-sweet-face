@@ -2750,13 +2750,13 @@
              ======================================================== -->
         <section id="page-result" class="app-page hidden space-y-4">
 
+            <!-- 상단: 안내 섹션 (시각적으로 별도 카드) -->
+            <div id="result-guide-section" class="mb-5"></div>
+
             <!-- ① 요약 카드: 트렌드 그래프 + KPI -->
             <div id="result-hero-card" class="rounded-3xl shadow-lg overflow-hidden border-2" style="border-color: var(--border-color);">
                 <!-- 하단 상세 정보 (요약 그래프 + KPI) -->
                 <div class="bg-white px-4 lg:px-6 py-6" style="background-color: var(--card-bg);">
-                    <!-- 상단: 안내 섹션 -->
-                    <div id="result-guide-section" class="mb-4"></div>
-
                     <!-- 상단: 결과 메시지 -->
                     <div class="mb-4">
                         <p id="result-stat-message" class="scaled-text-base font-bold text-gray-500 leading-snug"></p>
@@ -5401,9 +5401,11 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     ? '수고 많으셨습니다. 검사 결과 노쇠의 위험 수준은 기준치(6.9%) 이상으로 나타났습니다.'
                     : '수고 많으셨습니다. 검사 결과 노쇠의 위험 수준은 기준치(6.9%) 미만으로 나타났습니다.';
                 guideSection.innerHTML = `
-                    <div class="records-wrapper rounded-3xl p-6 shadow-md border-2 hc-card" style="background-color: var(--card-bg); border-color: var(--border-color);">
+                    <div class="rounded-3xl p-6 shadow-xl border-2 hc-card" style="background-color: var(--card-bg); border-color: var(--border-color);">
                         <div class="flex items-center gap-4">
-                            <img src="/__l5e/assets-v1/2bb0bd55-00b8-4e02-a432-d00698287380/character.png" alt="캐릭터" class="h-20 w-auto object-contain flex-shrink-0">
+                            <div class="flex-shrink-0 rounded-full p-3" style="background-color: rgba(249, 115, 22, 0.12);">
+                                <img src="/__l5e/assets-v1/2bb0bd55-00b8-4e02-a432-d00698287380/character.png" alt="캐릭터" class="h-16 w-auto object-contain">
+                            </div>
                             <p class="text-base md:text-lg font-bold text-charcoal leading-snug">${guideMsg}</p>
                         </div>
                     </div>
