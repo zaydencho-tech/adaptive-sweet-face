@@ -5405,13 +5405,15 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             // ── ⑤ 상단 안내 섹션 (건강정보 메뉴 첫화면 안내섹션과 동일) ──
             const guideSection = document.getElementById('result-guide-section');
             const guideText = document.getElementById('result-guide-text');
-            const guideLabel = document.getElementById('result-guide-label');
+            const guideImg = document.getElementById('result-guide-img');
             if (guideSection && guideText) {
                 const guideMsg = r.isAtRisk
                     ? '노쇠 위험 신호가 감지되었어요. 지금부터 관리해 보세요.'
                     : '현재 노쇠 신호가 없습니다. 건강 관리를 잘 하고 계세요.';
                 guideText.textContent = guideMsg;
-                if (guideLabel) guideLabel.textContent = r.isAtRisk ? '노쇠 위험' : '건강 양호';
+                // 건강정보 메뉴 안내섹션과 동일한 부비 이미지 사용
+                const narrativeImg = document.getElementById('buvi-briefing-img');
+                if (guideImg && narrativeImg && narrativeImg.src) guideImg.src = narrativeImg.src;
             }
 
         }
