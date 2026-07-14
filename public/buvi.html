@@ -5391,12 +5391,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             // ── ④ 트렌드 라인차트 + KPI (요약 시각화) ─────────────────
             renderTrendSummary(r);
 
-            // ── 509% 증가 아래 결과 메시지 ─────────────────────────────
-            const resultMsg = r.isAtRisk
-                ? `수고 많으셨습니다. 검사 결과 노쇠의 위험 수준은 기준치(${CUTOFF_PCT.toFixed(1)}%) 이상으로 나타났습니다.`
-                : `수고 많으셨습니다. 검사 결과 노쇠의 위험 수준은 기준치(${CUTOFF_PCT.toFixed(1)}%) 이하로 나타났습니다.`;
-            const statMsg = document.getElementById('result-stat-message');
-            if (statMsg) statMsg.textContent = resultMsg;
+            // ── 509% 증가 아래 결과 메시지는 상단 안내 섹션에서 표시 ──
         }
 
         function renderRiskGauge(r) {
