@@ -5445,7 +5445,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const startA = Math.PI, endA = 0;
             const activeCount = Math.max(1, Math.round(SEG * Math.max(ratio, 0.02)));
 
-            function polar(r, a) { return [cx + r * Math.cos(a), cy + r * Math.sin(a)]; }
+            function polar(r, a) { return [cx + r * Math.cos(a), cy - r * Math.sin(a)]; }
 
             const segments = Array.from({ length: SEG }).map((_, i) => {
                 // 각 세그먼트 중심 각도
