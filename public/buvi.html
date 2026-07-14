@@ -5565,18 +5565,6 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 heroArrow.style.color = arrowUp ? '#f97316' : '#16a34a';
             }
 
-            // KPI 목업 데이터
-            const risk = document.getElementById('kpi-risk');
-            if (risk) risk.textContent = pPct.toFixed(1) + '%';
-            const items = document.getElementById('kpi-items');
-            if (items && r && r.sortedContribs) {
-                const cnt = r.sortedContribs.filter(c => c.value > 0 && c.key !== 'age').length;
-                items.textContent = cnt || 4;
-            }
-            const tug = document.getElementById('kpi-tug');
-            if (tug) tug.textContent = (state.answers.tug ?? 13.5).toFixed(1);
-            const sgds = document.getElementById('kpi-sgds');
-            if (sgds) sgds.textContent = (state.answers.sgdsk_score ?? 6);
 
             renderDetailCharts(r, pPct, points, labels);
         }
