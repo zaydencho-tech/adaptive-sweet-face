@@ -2814,53 +2814,32 @@
                     <!-- Right: 결과 저장·공유 태스크 + 스탯 -->
                     <div class="flex flex-col gap-3 lg:gap-4">
 
-                        <!-- 태스크 카드 (블루) -->
-                        <div class="rounded-3xl p-4 lg:p-5 shadow-md text-white flex flex-col" style="background-color: #4f46e5;">
+                        <!-- 태스크 카드 (화이트) -->
+                        <div class="rounded-3xl p-4 lg:p-5 shadow-md text-charcoal flex flex-col bg-white border-2" style="border-color: var(--border-color);">
                             <div class="flex items-center gap-2 mb-1">
-                                <i class="fa-solid fa-clipboard-check text-white/80"></i>
+                                <i class="fa-solid fa-clipboard-check text-gray-500"></i>
                                 
                             </div>
-                            <h3 class="font-gapyeong text-2xl lg:text-3xl font-black leading-tight mb-2">3가지 저장 방법</h3>
+                            <h3 class="font-gapyeong text-2xl lg:text-3xl font-black leading-tight mb-2 text-charcoal">3가지 저장 방법</h3>
                             <div class="space-y-2 flex-1">
-                                <button onclick="event.stopPropagation(); simulatePDFDownload()" class="w-full flex items-center gap-3 py-2.5 border-t border-white/20 text-left hover:bg-white/5 transition-colors -mx-1 px-1 rounded-lg">
-                                    <span class="w-7 h-7 rounded-full bg-white/15 flex items-center justify-center shrink-0"><i class="fa-solid fa-file-pdf text-white text-xs"></i></span>
-                                    <span class="flex-1 text-sm font-black">PDF 저장</span>
-                                    <i class="fa-solid fa-arrow-right text-white/70 text-xs"></i>
+                                <button onclick="event.stopPropagation(); simulatePDFDownload()" class="w-full flex items-center gap-3 py-2.5 border-t border-gray-200 text-left hover:bg-gray-50 transition-colors -mx-1 px-1 rounded-lg">
+                                    <span class="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-file-pdf text-charcoal text-xs"></i></span>
+                                    <span class="flex-1 text-sm font-black text-charcoal">PDF 저장</span>
+                                    <i class="fa-solid fa-arrow-right text-gray-400 text-xs"></i>
                                 </button>
-                                <button onclick="event.stopPropagation(); showAppModal('🖼️','이미지 공유 완료','노쇠 위험도 결과 그래프를 사진첩에 저장해 드렸습니다.')" class="w-full flex items-center gap-3 py-2.5 border-t border-white/20 text-left hover:bg-white/5 transition-colors -mx-1 px-1 rounded-lg">
-                                    <span class="w-7 h-7 rounded-full bg-white/15 flex items-center justify-center shrink-0"><i class="fa-solid fa-image text-white text-xs"></i></span>
-                                    <span class="flex-1 text-sm font-black">이미지 공유</span>
-                                    <i class="fa-solid fa-arrow-right text-white/70 text-xs"></i>
+                                <button onclick="event.stopPropagation(); showAppModal('🖼️','이미지 공유 완료','노쇠 위험도 결과 그래프를 사진첩에 저장해 드렸습니다.')" class="w-full flex items-center gap-3 py-2.5 border-t border-gray-200 text-left hover:bg-gray-50 transition-colors -mx-1 px-1 rounded-lg">
+                                    <span class="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-image text-charcoal text-xs"></i></span>
+                                    <span class="flex-1 text-sm font-black text-charcoal">이미지 공유</span>
+                                    <i class="fa-solid fa-arrow-right text-gray-400 text-xs"></i>
                                 </button>
-                                <button onclick="event.stopPropagation(); simulateTTSResult()" class="w-full flex items-center gap-3 py-2.5 border-t border-b border-white/20 text-left hover:bg-white/5 transition-colors -mx-1 px-1 rounded-lg">
-                                    <span class="w-7 h-7 rounded-full bg-white/15 flex items-center justify-center shrink-0"><i class="fa-solid fa-volume-high text-white text-xs"></i></span>
-                                    <span class="flex-1 text-sm font-black">음성 듣기</span>
-                                    <i class="fa-solid fa-arrow-right text-white/70 text-xs"></i>
+                                <button onclick="event.stopPropagation(); simulateTTSResult()" class="w-full flex items-center gap-3 py-2.5 border-t border-b border-gray-200 text-left hover:bg-gray-50 transition-colors -mx-1 px-1 rounded-lg">
+                                    <span class="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-volume-high text-charcoal text-xs"></i></span>
+                                    <span class="flex-1 text-sm font-black text-charcoal">음성 듣기</span>
+                                    <i class="fa-solid fa-arrow-right text-gray-400 text-xs"></i>
                                 </button>
                             </div>
                         </div>
-
-                        <!-- 하단 스탯 2개 -->
-                        <div class="grid grid-cols-2 gap-3 lg:gap-4">
-                            <div class="rounded-3xl bg-white shadow-md border-2 p-3 lg:p-4 flex flex-col justify-between min-h-[90px]" style="background-color: var(--card-bg); border-color: var(--border-color);">
-                                <div class="flex items-start justify-between gap-2">
-                                    <p class="text-3xl lg:text-4xl font-black text-charcoal leading-none">25.6<span class="text-xl lg:text-2xl">%</span></p>
-                                    <span class="inline-flex items-center gap-1 text-[10px] lg:text-[13px] font-black text-orange-500 mt-1 whitespace-nowrap">
-                                        <i class="fa-solid fa-arrow-up text-[9px] lg:text-[13px]"></i>509%
-                                    </span>
-                                </div>
-                                <p class="text-xs font-bold text-gray-500 mt-2">종합 노쇠 위험도</p>
-                            </div>
-                            <div class="rounded-3xl bg-white shadow-md border-2 p-3 lg:p-4 flex flex-col justify-between min-h-[90px]" style="background-color: var(--card-bg); border-color: var(--border-color);">
-                                <div class="flex items-start justify-between gap-2">
-                                    <p class="text-3xl lg:text-4xl font-black text-charcoal leading-none">5<span class="text-xl lg:text-2xl">개</span></p>
-                                    <span class="inline-flex items-center gap-1 text-[10px] lg:text-[13px] font-black text-orange-500 mt-1 whitespace-nowrap">
-                                        <i class="fa-solid fa-triangle-exclamation text-[9px] lg:text-[13px]"></i>주의
-                                    </span>
-                                </div>
-                                <p class="text-xs font-bold text-gray-500 mt-2">관리 필요 항목 수</p>
-                            </div>
-                        </div>
+                    </div>
                     </div>
                 </div>
 
