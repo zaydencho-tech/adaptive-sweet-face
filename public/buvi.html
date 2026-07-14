@@ -2754,25 +2754,21 @@
             <div id="result-hero-card" class="rounded-3xl shadow-lg overflow-hidden border-2" style="border-color: var(--border-color);">
                 <!-- 하단 상세 정보 (요약 그래프 + KPI) -->
                 <div class="bg-white px-4 lg:px-6 py-6" style="background-color: var(--card-bg);">
-                    <!-- 상단 헤더: 좌측 타이틀 + 큰 수치 / 우측 라벨 -->
-                    <div class="flex items-start justify-between mb-4">
-                        <div>
-                            <p class="text-xs font-black text-blue-600 tracking-wide mb-1">지난 검사 대비 노쇠 위험</p>
-                            <h3 class="font-gapyeong text-3xl md:text-4xl font-black text-charcoal leading-tight">
-                                <span id="trend-hero-value">72%</span> <span class="text-charcoal/80">증가</span>
-                                <span id="trend-hero-arrow" class="text-orange-500">↑</span>
-                            </h3>
-                            <p id="result-stat-message" class="scaled-text-base font-bold text-gray-500 leading-snug mt-4"></p>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-[11px] font-black text-gray-400 tracking-wider">BUVI · 4Q</p>
-                        </div>
+                    <!-- 상단: 결과 메시지 -->
+                    <div class="mb-4">
+                        <p id="result-stat-message" class="scaled-text-base font-bold text-gray-500 leading-snug"></p>
+                    </div>
+
+                    <!-- 리스크 게이지 (반원형) -->
+                    <div class="mb-5">
+                        <div id="risk-gauge-wrap" class="relative"></div>
                     </div>
 
                     <!-- 중앙: 라인차트 (풀 너비) -->
                     <div class="mb-5">
                         <div id="trend-chart-wrap" class="relative pt-3 pb-6"></div>
                     </div>
+
 
                     <!-- 하단: KPI 4개 -->
                     <div class="grid grid-cols-4 gap-2 md:gap-3">
@@ -5422,11 +5418,88 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             if (statMsg) statMsg.textContent = resultMsg;
         }
 
+        function renderRiskGauge(r) {
+            const wrap = document.getElementById('risk-gauge-wrap');
+            if (!wrap) return;
+            const pPct = (r && r.p != null) ? r.p * 100 : 0.2;
+            const CUTOFF = 6.9;
+            const MAX = 30; // 게이지 최대 스케일 (%)
+            const val = Math.min(Math.max(pPct, 0), MAX);
+            const ratio = val / MAX;
+            const isRisk = pPct >= CUTOFF;
+            const arcColor = isRisk ? '#f97316' : '#ef4444';
+            const statusLabel = isRisk ? '노쇠 위험' : '정상';
+            const statusColor = isRisk ? '#f97316' : '#10b981';
+
+            // SVG geometry: 반원 게이지
+            const W = 320, H = 180;
+            const cx = W / 2, cy = 160, R = 130, r2 = 118;
+            const startA = Math.PI, endA = 0;
+            function polar(cx, cy, r, a) { return [cx + r * Math.cos(a), cy + r * Math.sin(a)]; }
+            function arcPath(r, a0, a1) {
+                const [x0, y0] = polar(cx, cy, r, a0);
+                const [x1, y1] = polar(cx, cy, r, a1);
+                const large = 0;
+                const sweep = a1 < a0 ? 1 : 0;
+                return `M ${x0.toFixed(2)} ${y0.toFixed(2)} A ${r} ${r} 0 ${large} ${sweep} ${x1.toFixed(2)} ${y1.toFixed(2)}`;
+            }
+            // 채워진 각도: startA(π) → startA - π*ratio (반원)
+            const fillEnd = startA - Math.PI * ratio;
+            const bgPath  = arcPath(R, startA, endA);
+            const fgPath  = arcPath(R, startA, fillEnd);
+
+            // 눈금(틱) — 얇은 방사형 라인 60개
+            const TICKS = 60;
+            const ticks = Array.from({ length: TICKS + 1 }).map((_, i) => {
+                const a = startA - Math.PI * (i / TICKS);
+                const activeMax = Math.floor(TICKS * ratio);
+                const active = i <= activeMax;
+                const [x1, y1] = polar(cx, cy, R + 6, a);
+                const [x2, y2] = polar(cx, cy, R + 16, a);
+                return `<line x1="${x1.toFixed(2)}" y1="${y1.toFixed(2)}" x2="${x2.toFixed(2)}" y2="${y2.toFixed(2)}" stroke="${active ? arcColor : '#d1d5db'}" stroke-width="1.5" stroke-linecap="round"/>`;
+            }).join('');
+
+            // 미니 바늘 게이지 (하단 중앙)
+            const needleA = startA - Math.PI * ratio;
+            const nr = 26;
+            const [nx, ny] = polar(cx, cy, nr - 4, needleA);
+            const needle = `
+                <circle cx="${cx}" cy="${cy}" r="${nr}" fill="#ffffff" stroke="${arcColor}" stroke-width="4"/>
+                <line x1="${cx}" y1="${cy}" x2="${nx.toFixed(2)}" y2="${ny.toFixed(2)}" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round"/>
+                <circle cx="${cx}" cy="${cy}" r="3" fill="#1f2937"/>
+            `;
+
+            wrap.innerHTML = `
+            <div class="flex items-start justify-between mb-1">
+                <div>
+                    <p class="text-xs font-black text-blue-600 tracking-wide mb-1">종합 노쇠 위험도</p>
+                    <p class="font-gapyeong text-2xl md:text-3xl font-black" style="color:${statusColor};">${statusLabel}</p>
+                    <p class="text-[11px] font-bold text-gray-400 mt-0.5">기준선 ${CUTOFF.toFixed(1)}%</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-[11px] font-black text-gray-400 tracking-wider">Daily check</p>
+                    <p class="font-gapyeong text-xl md:text-2xl font-black text-charcoal mt-1">${MAX}%</p>
+                </div>
+            </div>
+            <div class="relative w-full" style="max-width:420px; margin:0 auto;">
+                <svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block;">
+                    <path d="${bgPath}" fill="none" stroke="#e5e7eb" stroke-width="18" stroke-linecap="butt"/>
+                    <path d="${fgPath}" fill="none" stroke="${arcColor}" stroke-width="18" stroke-linecap="butt"/>
+                    ${ticks}
+                    <text x="${cx}" y="${cy - 40}" text-anchor="middle" font-family="'gapyeong', sans-serif" font-size="42" font-weight="900" fill="#1f2937">${pPct.toFixed(1)}<tspan font-size="18" dx="2" fill="#6b7280">%</tspan></text>
+                    ${needle}
+                </svg>
+            </div>`;
+        }
+
         function renderTrendSummary(r) {
+            renderRiskGauge(r);
             const pPct = (r && r.p != null) ? r.p * 100 : 20;
             // 목업: 지난 4번 검사의 노쇠 위험 확률 추이 (마지막은 이번 결과)
             const points = [4.2, 6.1, 9.5, pPct];
             const labels = ['2024.4Q', '2025.1Q', '2025.2Q', '오늘'];
+
+
 
             const wrap = document.getElementById('trend-chart-wrap');
             if (wrap) {
