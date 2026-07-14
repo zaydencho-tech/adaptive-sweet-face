@@ -2828,7 +2828,7 @@
                         <div class="rounded-3xl p-5 lg:p-6 shadow-md text-white flex flex-col" style="background-color: #4f46e5;">
                             <div class="flex items-center gap-2 mb-1">
                                 <i class="fa-solid fa-clipboard-check text-white/80"></i>
-                                <span class="text-xs font-black tracking-wider text-white/80">RESULT ACTIONS</span>
+                                
                             </div>
                             <h3 class="font-gapyeong text-2xl lg:text-3xl font-black leading-tight mb-4">3가지 저장 방법</h3>
                             <div class="space-y-2 flex-1">
@@ -2855,8 +2855,8 @@
                             <div class="rounded-3xl bg-white shadow-md border-2 p-4 lg:p-5 flex flex-col justify-between min-h-[120px]" style="background-color: var(--card-bg); border-color: var(--border-color);">
                                 <div class="flex items-start justify-between gap-2">
                                     <p class="text-3xl lg:text-4xl font-black text-charcoal leading-none">25.6<span class="text-xl lg:text-2xl">%</span></p>
-                                    <span class="inline-flex items-center gap-1 text-[10px] font-black text-orange-500 mt-1 whitespace-nowrap">
-                                        <i class="fa-solid fa-arrow-up text-[9px]"></i>509%
+                                    <span class="inline-flex items-center gap-1 text-[10px] lg:text-[13px] font-black text-orange-500 mt-1 whitespace-nowrap">
+                                        <i class="fa-solid fa-arrow-up text-[9px] lg:text-[13px]"></i>509%
                                     </span>
                                 </div>
                                 <p class="text-xs font-bold text-gray-500 mt-2">종합 노쇠 위험도</p>
@@ -2864,8 +2864,8 @@
                             <div class="rounded-3xl bg-white shadow-md border-2 p-4 lg:p-5 flex flex-col justify-between min-h-[120px]" style="background-color: var(--card-bg); border-color: var(--border-color);">
                                 <div class="flex items-start justify-between gap-2">
                                     <p class="text-3xl lg:text-4xl font-black text-charcoal leading-none">5<span class="text-xl lg:text-2xl">개</span></p>
-                                    <span class="inline-flex items-center gap-1 text-[10px] font-black text-orange-500 mt-1 whitespace-nowrap">
-                                        <i class="fa-solid fa-triangle-exclamation text-[9px]"></i>주의
+                                    <span class="inline-flex items-center gap-1 text-[10px] lg:text-[13px] font-black text-orange-500 mt-1 whitespace-nowrap">
+                                        <i class="fa-solid fa-triangle-exclamation text-[9px] lg:text-[13px]"></i>주의
                                     </span>
                                 </div>
                                 <p class="text-xs font-bold text-gray-500 mt-2">관리 필요 항목 수</p>
@@ -5276,7 +5276,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 gaugeWrap.innerHTML = `
                 <!-- 기준선 레이블 -->
                 <div class="relative w-full" style="padding-bottom:2px;">
-                    <span class="absolute text-[11px] font-bold text-gray-500"
+                    <span class="absolute text-[11px] md:text-[13px] font-bold text-gray-500"
                         style="left:${cutRatio}%; transform:translateX(-50%); white-space:nowrap;">
                         기준선 (${CUT_G.toFixed(1)}%)
                     </span>
@@ -5337,7 +5337,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     return `flex:${pct} 1 0%; background:${color}`;
                 }
                 function domSegLabel(pct, label) {
-                    if (pct <= 0) return `<span class="text-[10px] font-black text-white whitespace-nowrap px-1.5">✓ ${label}</span>`;
+                    if (pct <= 0) return `<span class="text-[10px] md:text-[13px] font-black text-white whitespace-nowrap px-1.5">✓ ${label}</span>`;
                     if (pct > 18) return `<span class="font-black text-white text-sm">${label} ${pct.toFixed(0)}%</span>`;
                     return '';
                 }
@@ -5368,7 +5368,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             if (chartEl) {
                 const maxAbs = Math.max(...r.sortedContribs.map(c => Math.abs(c.value)), 0.001);
                 const headerRow = `
-                <div class="flex justify-between text-[11px] font-black px-1 mb-1">
+                <div class="flex justify-between text-[11px] md:text-[13px] font-black px-1 mb-1">
                     <span class="text-emerald-600">← 도움이 됨</span>
                     <span class="text-orange-500">위험을 키움 →</span>
                 </div>`;
@@ -5398,7 +5398,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                         <!-- 라벨(항목명) — 막대 안쪽/기준선 위에 오버레이 -->
                         <div class="absolute inset-0 flex items-center px-3 pointer-events-none">
                             <span class="text-sm font-black text-charcoal">${c.label}</span>
-                            <span class="ml-auto text-[11px] font-black px-2 py-0.5 rounded-full ${isAge ? 'bg-gray-200 text-gray-500' : (isRisk ? 'bg-orange-100 text-orange-600' : 'bg-emerald-100 text-emerald-700')}">${isAge ? '참고' : (isRisk ? '위험' : '보호')}</span>
+                            <span class="ml-auto text-[11px] md:text-[13px] font-black px-2 py-0.5 rounded-full ${isAge ? 'bg-gray-200 text-gray-500' : (isRisk ? 'bg-orange-100 text-orange-600' : 'bg-emerald-100 text-emerald-700')}">${isAge ? '참고' : (isRisk ? '위험' : '보호')}</span>
                         </div>
                     </div>`;
                 }).join('');
@@ -5487,7 +5487,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                         </span>
                         <div class="flex flex-col min-w-0 items-center md:items-start">
                             <p class="text-xl md:text-3xl font-black text-charcoal leading-none whitespace-nowrap">${pPct.toFixed(1)}<span class="text-sm md:text-lg">%</span></p>
-                            <p class="text-[10px] md:text-[11px] text-gray-500 font-bold mt-0.5 whitespace-nowrap">현재 위험도</p>
+                            <p class="text-[10px] md:text-[13px] text-gray-500 font-bold mt-0.5 whitespace-nowrap">현재 위험도</p>
                         </div>
                     </div>
                     <div class="rounded-2xl bg-gray-50 p-3 md:p-4 flex flex-col items-center text-center gap-1 md:flex-row md:items-center md:text-left md:gap-3">
@@ -5496,7 +5496,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                         </span>
                         <div class="flex flex-col min-w-0 items-center md:items-start">
                             <p class="text-xl md:text-3xl font-black text-charcoal leading-none whitespace-nowrap">${CUTOFF.toFixed(1)}<span class="text-sm md:text-lg">%</span></p>
-                            <p class="text-[10px] md:text-[11px] text-gray-500 font-bold mt-0.5 whitespace-nowrap">기준선</p>
+                            <p class="text-[10px] md:text-[13px] text-gray-500 font-bold mt-0.5 whitespace-nowrap">기준선</p>
                         </div>
                     </div>
 
@@ -5506,7 +5506,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                         </span>
                         <div class="flex flex-col min-w-0 items-center md:items-start">
                             <p class="text-xl md:text-3xl font-black leading-none whitespace-nowrap" style="color:${statusColor};">${statusLabel}</p>
-                            <p class="text-[10px] md:text-[11px] text-gray-500 font-bold mt-0.5 whitespace-nowrap">노쇠 상태</p>
+                            <p class="text-[10px] md:text-[13px] text-gray-500 font-bold mt-0.5 whitespace-nowrap">노쇠 상태</p>
                         </div>
                     </div>
                 </div>
@@ -5576,7 +5576,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 <div class="relative" style="height:${H}px;">
                     ${gridBg}
                     <div class="absolute left-0 right-0 flex items-center" style="top:${avgTopPct.toFixed(1)}%; transform:translateY(-50%); pointer-events:none;">
-                        <span class="text-[10px] font-black text-white px-2 py-0.5 rounded-md" style="background:#1f2937;">Avg. ${avgAbs.toFixed(2)}</span>
+                        <span class="text-[10px] md:text-[13px] font-black text-white px-2 py-0.5 rounded-md" style="background:#1f2937;">Avg. ${avgAbs.toFixed(2)}</span>
                         <div class="flex-1 ml-1" style="height:1px; background:#9ca3af;"></div>
                     </div>
                     <div class="absolute inset-0 flex items-end gap-1 md:gap-2 px-1">
