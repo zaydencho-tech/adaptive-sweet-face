@@ -5425,9 +5425,6 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const statusLabel = isRisk ? '비정상' : '정상';
             const statusColor = isRisk ? '#f97316' : '#10b981';
             const statusBg = isRisk ? '#ffedd5' : '#d1fae5';
-            const msg = isRisk
-                ? '노쇠 위험 신호가 감지되었어요. 지금부터 관리해 보세요.'
-                : '현재 노쇠 신호가 없습니다. 건강 관리를 잘 하고 계세요.';
 
             // 3-segment 구성 (합계 100)
             const physRaw = (r && r.physPos != null) ? r.physPos : 1;
