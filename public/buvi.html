@@ -5402,10 +5402,16 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             // ── ④ 트렌드 라인차트 + KPI (요약 시각화) ─────────────────
             renderTrendSummary(r);
 
-            // ── ⑤ 상단 안내 섹션 제거 (첫 이미지 레이아웃에 맞춤) ──
+            // ── ⑤ 상단 안내 섹션 (건강정보 메뉴 첫화면 안내섹션과 동일) ──
             const guideSection = document.getElementById('result-guide-section');
-            if (guideSection) {
-                guideSection.innerHTML = '';
+            const guideText = document.getElementById('result-guide-text');
+            const guideLabel = document.getElementById('result-guide-label');
+            if (guideSection && guideText) {
+                const guideMsg = r.isAtRisk
+                    ? '노쇠 위험 신호가 감지되었어요. 지금부터 관리해 보세요.'
+                    : '현재 노쇠 신호가 없습니다. 건강 관리를 잘 하고 계세요.';
+                guideText.textContent = guideMsg;
+                if (guideLabel) guideLabel.textContent = r.isAtRisk ? '노쇠 위험' : '건강 양호';
             }
 
         }
