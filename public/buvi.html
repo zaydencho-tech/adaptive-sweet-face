@@ -5437,24 +5437,23 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const trendPct = 15;
             const trendUp = !isRisk;
 
-            // SVG 반원 - 세그먼트 형태
+            // SVG 반원 - 굵은 캡슐형 세그먼트
             const W = 320, H = 190;
-            const cx = W / 2, cy = 175;
-            const rInner = 96, rOuter = 138;
-            const SEG = 22;
+            const cx = W / 2, cy = 180;
+            const rInner = 92, rOuter = 148;
+            const SEG = 15;
             const startA = Math.PI, endA = 0;
             const activeCount = Math.max(1, Math.round(SEG * Math.max(ratio, 0.02)));
 
             function polar(r, a) { return [cx + r * Math.cos(a), cy - r * Math.sin(a)]; }
 
             const segments = Array.from({ length: SEG }).map((_, i) => {
-                // 각 세그먼트 중심 각도
                 const t = (i + 0.5) / SEG;
                 const a = startA - Math.PI * t;
                 const [x1, y1] = polar(rInner, a);
                 const [x2, y2] = polar(rOuter, a);
                 const color = i < activeCount ? activeColor : inactiveColor;
-                return `<line x1="${x1.toFixed(2)}" y1="${y1.toFixed(2)}" x2="${x2.toFixed(2)}" y2="${y2.toFixed(2)}" stroke="${color}" stroke-width="14" stroke-linecap="round"/>`;
+                return `<line x1="${x1.toFixed(2)}" y1="${y1.toFixed(2)}" x2="${x2.toFixed(2)}" y2="${y2.toFixed(2)}" stroke="${color}" stroke-width="22" stroke-linecap="round"/>`;
             }).join('');
 
             wrap.innerHTML = `
