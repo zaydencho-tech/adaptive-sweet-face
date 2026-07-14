@@ -5534,7 +5534,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     ];
                 const isDesktop = window.innerWidth >= 1024;
                 const isMobile  = window.innerWidth < 640;
-                const H = isDesktop ? 150 : (isMobile ? 170 : 190);
+                const H = isDesktop ? 130 : (isMobile ? 170 : 190);
                 const maxAbs = Math.max(...contribs.map(c => Math.abs(c.value)), 0.001);
                 const avgAbs = contribs.reduce((s,c)=>s+Math.abs(c.value),0) / contribs.length;
                 const avgRatio = avgAbs / maxAbs;
