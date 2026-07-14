@@ -5430,41 +5430,64 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
             const wrap = document.getElementById('trend-chart-wrap');
             if (wrap) {
+                // 항목별 영향 요인 데이터를 세로 필(pill) 형태 바 차트로 렌더링
+                const _rawContribs = (r && r.sortedContribs && r.sortedContribs.length) ? r.sortedContribs : [];
+                const _sum = _rawContribs.reduce((s,c)=>s+Math.abs(c.value||0),0);
+                const contribs = (_rawContribs.length && _sum > 0.01)
+                    ? _rawContribs.slice()
+                    : [
+                        { key:'gait',     label:'보행기능', value:-1.2, domain:'phys' },
+                        { key:'activity', label:'활동량',   value: 0.7, domain:'phys' },
+                        { key:'age',      label:'나이',     value: 0.5, domain:'age'  },
+                        { key:'sgdsk',    label:'우울감',   value: 0.4, domain:'emo'  },
+                        { key:'meds',     label:'복용약물', value: 0.3, domain:'phys' },
+                        { key:'weight',   label:'체중',     value: 0.2, domain:'phys' },
+                    ];
                 const isDesktop = window.innerWidth >= 1024;
-                const W = 320;
-                const H = isDesktop ? 70 : 105;
-                const padL = 14, padR = 18;
-                const padT = isDesktop ? 16 : 22;
-                const padB = isDesktop ? 18 : 24;
-                const lineStroke = isDesktop ? 1.25 : 2.5;
-                const labelFontSize = isDesktop ? 4.5 : 9;
-                const maxY = Math.max(...points, 12) * 1.15;
-                const minY = 0;
-                const xs = points.map((_, i) => padL + (i * (W - padL - padR) / (points.length - 1)));
-                const ys = points.map(v => padT + (H - padT - padB) * (1 - (v - minY) / (maxY - minY)));
-                const path = points.map((_, i) => (i === 0 ? 'M' : 'L') + xs[i].toFixed(1) + ',' + ys[i].toFixed(1)).join(' ');
-                const gridLines = [0, 1, 2, 3].map(i => {
-                    const y = padT + (H - padT - padB) * (i / 3);
-                    return `<line x1="${padL}" x2="${W - padR}" y1="${y}" y2="${y}" stroke="#eef0f4" stroke-width="1"/>`;
+                const isMobile  = window.innerWidth < 640;
+                const H = isDesktop ? 150 : (isMobile ? 170 : 190);
+                const maxAbs = Math.max(...contribs.map(c => Math.abs(c.value)), 0.001);
+                const avgAbs = contribs.reduce((s,c)=>s+Math.abs(c.value),0) / contribs.length;
+                const avgRatio = avgAbs / maxAbs;
+                const avgTopPct = (1 - avgRatio) * 100;
+                const PAL_BAR = {
+                    phys: { top:'#ef4444', bot:'#fecaca', dot:'#ffffff' },
+                    emo:  { top:'#ec4899', bot:'#fbcfe8', dot:'#ffffff' },
+                    age:  { top:'#9ca3af', bot:'#e5e7eb', dot:'#ffffff' },
+                };
+                const barW = isDesktop ? 22 : (isMobile ? 20 : 26);
+                const bars = contribs.map(c => {
+                    const ratio = Math.abs(c.value) / maxAbs;
+                    const hPct  = Math.max(ratio * 100, 10);
+                    const pal = PAL_BAR[c.domain] || PAL_BAR.phys;
+                    return `
+                    <div class="flex-1 flex flex-col items-center justify-end h-full min-w-0">
+                        <div style="width:${barW}px; height:${hPct}%; background:linear-gradient(to bottom, ${pal.top}, ${pal.bot}); border-radius:${barW}px; position:relative; display:flex; justify-content:center; padding-top:6px;">
+                            <div style="width:6px; height:6px; border-radius:9999px; background:${pal.dot};"></div>
+                        </div>
+                    </div>`;
                 }).join('');
-                const lastIdx = points.length - 1;
-                const lastX = xs[lastIdx], lastY = ys[lastIdx];
-                const startX = xs[0], startY = ys[0];
-                const xLabels = xs.map((x, i) => {
-                    const anchor = i === 0 ? 'start' : (i === xs.length - 1 ? 'end' : 'middle');
-                    return `<text x="${x}" y="${H - 6}" text-anchor="${anchor}" font-size="${labelFontSize}" font-weight="700" fill="#9ca3af">${labels[i]}</text>`;
-                }).join('');
+                const labelsRow = contribs.map(c => `
+                    <div class="flex-1 text-center text-[10px] md:text-xs font-bold text-gray-500 truncate px-0.5">${c.label}</div>
+                `).join('');
+                const gridBg = [25, 50, 75].map(t => `
+                    <div class="absolute left-0 right-0" style="top:${t}%; height:1px; background:#eef0f4;"></div>
+                `).join('');
 
                 wrap.innerHTML = `
-                <svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block; height:auto;">
-                    ${gridLines}
-                    <path d="${path}" fill="none" stroke="#f97316" stroke-width="${lineStroke}" stroke-linecap="round" stroke-linejoin="round"/>
-                    <circle cx="${startX}" cy="${startY}" r="3.5" fill="#f97316"/>
-                    <line x1="${lastX}" y1="${lastY}" x2="${lastX}" y2="${H - padB}" stroke="#111827" stroke-width="2"/>
-                    <circle cx="${lastX}" cy="${lastY}" r="16" fill="#2563eb"/>
-                    <text x="${lastX}" y="${lastY + 4}" text-anchor="middle" font-size="10" font-weight="900" fill="#ffffff">${pPct.toFixed(0)}%</text>
-                    ${xLabels}
-                </svg>`;
+                <div class="relative" style="height:${H}px;">
+                    ${gridBg}
+                    <div class="absolute left-0 right-0 flex items-center" style="top:${avgTopPct.toFixed(1)}%; transform:translateY(-50%); pointer-events:none;">
+                        <span class="text-[10px] font-black text-white px-2 py-0.5 rounded-md" style="background:#1f2937;">Avg. ${avgAbs.toFixed(2)}</span>
+                        <div class="flex-1 ml-1" style="height:1px; background:#9ca3af;"></div>
+                    </div>
+                    <div class="absolute inset-0 flex items-end gap-1 md:gap-2 px-1">
+                        ${bars}
+                    </div>
+                </div>
+                <div class="flex mt-2 px-1 gap-1 md:gap-2">
+                    ${labelsRow}
+                </div>`;
             }
 
             // 상단 히어로 대비 증감 (첫 검사 대비 %증가)
