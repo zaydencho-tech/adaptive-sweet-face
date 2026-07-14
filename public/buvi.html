@@ -5537,8 +5537,21 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     if (c.domain === 'age') status = { text:'참고', bg:'#9ca3af' };
                     else if ((c.value || 0) < 0) status = { text:'보호', bg:'#10b981' };
                     else status = { text:'위험', bg:'#ef4444' };
-                    return { ...c, label, status };
+                    // 표시 방향: 음수(보호) 또는 나이(참고) → 아래로, 그 외(위험) → 위로
+                    const down = ((c.value || 0) < 0) || (c.domain === 'age');
+                    return { ...c, label, status, down };
                 });
+                // 모든 막대가 같은 방향이면 시각적 균형을 위해 |value|가 작은 항목을 반대 방향으로 표시
+                const _ups   = contribs.filter(c => !c.down).length;
+                const _downs = contribs.filter(c =>  c.down).length;
+                if (_ups === 0 || _downs === 0) {
+                    const _sortedByAbs = contribs.map((c,i)=>({i, v:Math.abs(c.value||0)})).sort((a,b)=>a.v-b.v);
+                    const _flipCount = Math.min(2, Math.max(1, Math.floor(contribs.length/3)));
+                    for (let k = 0; k < _flipCount; k++) {
+                        const idx = _sortedByAbs[k].i;
+                        contribs[idx] = { ...contribs[idx], down: !contribs[idx].down };
+                    }
+                }
 
                 const isDesktop = window.innerWidth >= 1024;
                 const isMobile  = window.innerWidth < 640;
