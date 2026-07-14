@@ -5450,7 +5450,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     </span>
                     <p class="font-gapyeong text-5xl md:text-6xl font-black text-charcoal leading-none">${pPct.toFixed(1)}<span class="text-3xl md:text-4xl">%</span></p>
                     <p class="text-xs md:text-sm font-bold text-gray-500 leading-tight">종합<br>노쇠 위험도</p>
-                    <img src="/__l5e/assets-v1/2bb0bd55-00b8-4e02-a432-d00698287380/character.png" alt="캐릭터" class="ml-auto h-20 w-auto object-contain">
+                    <p class="ml-auto text-xs md:text-sm font-bold text-gray-500 leading-snug text-right max-w-[45%]">${msg}</p>
                 </div>
 
                 <div class="flex w-full h-2.5 overflow-hidden mb-2" style="gap:2px;">
@@ -5479,6 +5479,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                             <p class="text-[11px] md:text-xs text-gray-500 font-bold mt-0.5">기준선</p>
                         </div>
                     </div>
+
                     <div class="rounded-2xl bg-gray-50 p-3 md:p-4 flex items-center gap-2 md:gap-3">
                         <span class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style="background:${statusBg};">
                             <i class="fa-solid ${isRisk ? 'fa-triangle-exclamation' : 'fa-shield-heart'}" style="color:${statusColor};"></i>
