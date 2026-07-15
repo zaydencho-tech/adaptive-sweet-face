@@ -5524,12 +5524,12 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 let contribs = (_rawContribs.length && _sum > 0.01)
                     ? _rawContribs.slice()
                     : [
-                        { key:'gait',     label:'보행기능',   value:-1.2, domain:'phys' },
-                        { key:'activity', label:'활동량',     value: 0.7, domain:'phys' },
-                        { key:'age',      label:'나이(참고)', value: 0.5, domain:'age'  },
-                        { key:'sgdsk',    label:'우울감',     value: 0.4, domain:'emo'  },
-                        { key:'meds',     label:'복용약물',   value: 0.3, domain:'phys' },
-                        { key:'weight',   label:'체중',       value: 0.2, domain:'phys' },
+                        { key:'gait',     label:'보행기능',   value:+1.08, domain:'phys' },
+                        { key:'activity', label:'활동량',     value:-0.70, domain:'phys' },
+                        { key:'sgdsk',    label:'우울감',     value:+0.55, domain:'emo'  },
+                        { key:'age',      label:'나이(참고)', value:+0.24, domain:'age'  },
+                        { key:'weight',   label:'체중',       value:-0.21, domain:'phys' },
+                        { key:'meds',     label:'복용약물',   value:+0.16, domain:'phys' },
                     ];
                 // 나이 라벨 보정 + 상태(보호/위험/참고) 부여
                 contribs = contribs.map(c => {
