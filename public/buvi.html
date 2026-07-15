@@ -2098,6 +2098,56 @@
             }
         }
 
+        /* 모바일/태블릿: 건강정보 상세 카드(quiz-panel)를 전체화면 모달로 표시 */
+        @media (max-width: 1023px) {
+            #page-records #quiz-panel:not(.hidden) {
+                position: fixed !important;
+                inset: 0 !important;
+                width: 100vw !important;
+                height: 100vh !important;
+                height: 100dvh !important;
+                max-width: none !important;
+                margin: 0 !important;
+                padding: 20px 20px 24px 20px !important;
+                background: #FFFBEB !important;
+                border: none !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+                z-index: 9999 !important;
+                overflow-y: auto !important;
+                display: flex !important;
+                flex-direction: column;
+            }
+            /* 모달 상단 닫기 버튼 다시 노출 (우측 상단 고정) */
+            #page-records #quiz-panel:not(.hidden) button[title="읽기 그만하기"] {
+                display: inline-flex !important;
+                position: fixed !important;
+                top: 12px !important;
+                right: 16px !important;
+                width: 44px !important;
+                height: 44px !important;
+                min-width: 44px !important;
+                min-height: 44px !important;
+                border-radius: 9999px !important;
+                background: rgba(0,0,0,0.55) !important;
+                color: #fff !important;
+                align-items: center;
+                justify-content: center;
+                font-size: 20px !important;
+                z-index: 10000 !important;
+                padding: 0 !important;
+            }
+            #page-records #quiz-panel:not(.hidden) > div:first-child {
+                padding-right: 64px !important;
+            }
+            /* 모달이 열려있는 동안 배경 스크롤 잠금 */
+            body:has(#page-records #quiz-panel:not(.hidden)) {
+                overflow: hidden !important;
+            }
+        }
+
+
+
         /* Fluid typography for right column on tablet-over ~ under-desktop-max
            (1024px <= vw <= 1440px). Uses rem+vw clamp so the 약속철학 cards
            and monitoring card scale down instead of overflowing on ~1280–1440. */
