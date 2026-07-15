@@ -2524,6 +2524,23 @@
                             <p class="text-sm font-bold text-gray-500 mt-2">설문이 끝나도 부비가 어르신을 보살펴 드려요!</p>
                         </div>
 
+                        <!-- Mobile/Tablet: 노쇠 위험 기여도 -->
+                        <div class="bg-white rounded-2xl p-4 shadow-sm border border-stone-100">
+                            <div class="flex items-center justify-between gap-3 mb-3">
+                                <h3 class="font-gapyeong font-black text-base text-charcoal">노쇠 위험 기여도</h3>
+                                <span class="text-[11px] font-black px-2.5 py-1.5 rounded-full whitespace-nowrap flex items-center gap-1" style="background:#2563EB;color:#FFFFFF">6가지 요인 <i class="fa-solid fa-chart-pie" style="color:#FFFFFF"></i></span>
+                            </div>
+                            <div id="home-contributions-grid-mobile" class="home-contributions-grid grid grid-cols-2 md:grid-cols-3 gap-3 monitoring-grid"></div>
+                        </div>
+
+                        <!-- Mobile/Tablet: 종합 노쇠 위험도 -->
+                        <div class="bg-white rounded-2xl p-4 shadow-sm border border-stone-100" style="padding-bottom:18px">
+                            <div class="flex items-start justify-between mb-3">
+                                <h3 class="font-gapyeong font-black text-base text-charcoal">종합 노쇠 위험도</h3>
+                            </div>
+                            <div id="home-risk-summary-mobile" class="home-risk-summary space-y-3"></div>
+                        </div>
+
                         <!-- 2 owl link cards -->
                         <div class="grid grid-cols-2 gap-3">
                             <button onclick="tryNavigateWithWarning('chat')" class="rounded-2xl p-4 flex flex-col items-center gap-2 text-center" style="background:#F4F0E9;">
