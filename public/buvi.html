@@ -1626,24 +1626,22 @@
             }
         }
 
-        /* 데스크탑에서 건강정보 카드 목록과 상세 패널을 좌우 2열로 배치 */
+        /* 데스크탑에서 건강정보: 카테고리 목록은 전체 폭, 상세는 오버레이로 대체 */
         @media (min-width: 1024px) {
             body.subpage-mode main > #page-records:not(.hidden) > div.records-wrapper {
                 display: grid !important;
-                flex-direction: row !important;
-                grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
-                grid-template-rows: auto minmax(0, 1fr);
-                column-gap: 24px;
-                row-gap: 16px;
+                grid-template-columns: minmax(0, 1fr);
+                grid-template-rows: minmax(0, 1fr);
+                column-gap: 0;
+                row-gap: 0;
                 align-items: stretch;
                 max-height: calc(100vh - 180px);
                 min-height: 600px;
                 overflow: hidden;
             }
-            #page-records > div.records-wrapper > .records-header { grid-column: 1; grid-row: 1; }
             #page-records > div.records-wrapper > #records-cards-grid {
                 grid-column: 1;
-                grid-row: 2;
+                grid-row: 1;
                 display: flex;
                 flex-direction: column;
                 gap: clamp(10px, 1.4vh, 18px);
@@ -1652,15 +1650,15 @@
                 padding-right: 6px;
                 align-self: stretch;
                 height: 100%;
+                width: 100%;
             }
             #page-records > div.records-wrapper > #records-cards-grid .card-item {
-                flex: 1 1 0;
                 min-height: clamp(64px, calc((100vh - 280px) / 6), 110px);
-                max-height: clamp(80px, calc((100vh - 240px) / 6), 130px);
                 padding: clamp(10px, 1.4vh, 18px) clamp(16px, 1.8vw, 24px) !important;
                 background-color: #F4F0E9 !important;
                 border: none !important;
                 box-shadow: none !important;
+                width: 100%;
             }
             #page-records > div.records-wrapper > #records-cards-grid .card-item img {
                 width: clamp(56px, 7vh, 88px) !important;
@@ -1672,26 +1670,37 @@
             #page-records > div.records-wrapper > #records-cards-grid .card-item .scaled-text-xs {
                 font-size: clamp(0.75rem, 1.1vh, 0.875rem);
             }
+            /* 상세 패널이 열리면 카테고리 목록 숨김, 상세는 전체 폭 */
+            body.subpage-mode #page-records > div.records-wrapper:has(> #quiz-panel:not(.hidden)) > #records-cards-grid {
+                display: none !important;
+            }
+            body.subpage-mode #page-records > div.records-wrapper > #quiz-panel,
             #page-records > div.records-wrapper > #quiz-panel {
-                grid-column: 2;
-                grid-row: 2;
+                grid-column: 1;
+                grid-row: 1;
                 margin-top: 0 !important;
                 position: relative;
                 transform: none;
-                width: auto;
+                width: 100%;
+                max-width: none !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
                 z-index: auto;
-                display: flex !important;
+                display: flex;
                 flex-direction: column;
                 min-height: 0;
                 overflow: visible;
-                /* 왼쪽 카드 목록과 시각적으로 이어지도록 팝업 느낌 제거, 노랑 세로 실선 제거 */
                 background: transparent !important;
                 border: none !important;
                 border-radius: 0 !important;
                 box-shadow: none !important;
-                padding: 0 0 4px 16px !important;
-                margin-left: 0;
+                padding: 0 !important;
             }
+            #page-records > div.records-wrapper > #quiz-panel.hidden {
+                display: none !important;
+            }
+
+
             /* 본문(스크롤 영역)이 남는 공간을 모두 차지하도록 */
             #page-records #quiz-panel > #card-news-body {
                 flex: 1 1 auto;
@@ -1807,11 +1816,14 @@
             #page-records #quiz-panel > #card-news-body > div.select-none > p {
                 margin-top: 14px !important;
             }
-            /* 데스크탑에서는 상세 패널이 항상 열려있으므로 닫기 버튼과 스크롤 안내 문구 숨김 */
-            #page-records > div.records-wrapper > #quiz-panel button[title="읽기 그만하기"],
+            /* 데스크탑: 스크롤 안내 문구는 숨기고 닫기 버튼은 목록으로 돌아가는 뒤로가기로 사용 */
             #page-records #quiz-panel > #card-scroll-hint {
                 display: none !important;
             }
+            #page-records > div.records-wrapper > #quiz-panel button[title="읽기 그만하기"] {
+                display: inline-flex !important;
+            }
+
             /* 정독 완료 확인 블록을 우측 상단 컴팩트 버튼으로 재배치 (전체화면 버튼과 flex로 20px 간격) */
             #page-records #quiz-panel > div.bg-emerald-50 {
                 position: absolute;
@@ -3799,11 +3811,7 @@
             } else if (pageId === 'records') {
                 updateBuvi('1-3', '연세대학교 원주간호대학에서 준비한 건강 정보입니다.');
                 buildRecordsCardDeck();
-                // 데스크탑: 우측 상세 패널에 기본으로 '노쇠란?' 노출
-                if (window.matchMedia('(min-width: 1024px)').matches
-                    && !state.currentReadingCardId) {
-                    setTimeout(() => openDetailedStudyCard('frailty_intro'), 0);
-                }
+            
             } else if (pageId === 'more') {
                 updateBuvi('1-1', '더보기 화면입니다. 원하시는 건강 돌봄 서비스를 가볍게 눌러주세요.');
             }
