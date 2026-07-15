@@ -1768,7 +1768,7 @@
                 aspect-ratio: auto !important;
                 object-fit: contain;
             }
-            /* 전체화면 버튼: 완료 버튼과 20px 간격, 동일 높이 */
+            /* 전체화면 버튼: 닫기 버튼과 20px 간격, 동일 높이 */
             #page-records #quiz-panel #cn-fullscreen-btn {
                 position: relative !important;
                 inset: auto !important;
@@ -1854,7 +1854,7 @@
                 display: inline-flex !important;
             }
 
-            /* 정독 완료 확인 블록을 우측 상단 컴팩트 버튼으로 재배치 (전체화면 버튼과 flex로 20px 간격) */
+            /* 정독 완료 확인 블록을 우측 상단 컴팩트 버튼 영역으로 재배치 */
             #page-records #quiz-panel > div.bg-emerald-50 {
                 position: absolute;
                 top: 0;
@@ -1872,19 +1872,7 @@
             #page-records #quiz-panel > div.bg-emerald-50 > * { margin-top: 0 !important; margin-bottom: 0 !important; }
             #page-records #quiz-panel > div.bg-emerald-50 > h4,
             #page-records #quiz-panel > div.bg-emerald-50 > p { display: none !important; }
-            #page-records #quiz-panel > div.bg-emerald-50 > button#card-complete-btn {
-                width: auto !important;
-                min-width: 0 !important;
-                padding: 8px 18px !important;
-                font-size: 13px !important;
-                border-radius: 999px !important;
-                min-height: 0 !important;
-                height: 36px !important;
-                box-shadow: none !important;
-                flex-shrink: 0;
-                margin: 0 !important;
-            }
-            /* 닫기 버튼: 완료 버튼 오른쪽에 배치하고 동일한 배경/모양 적용 */
+            /* 닫기 버튼: 우측 상단에 배치 */
             #page-records #quiz-panel > div.bg-emerald-50 > button#card-close-btn {
                 width: auto !important;
                 min-width: 0 !important;
@@ -1907,7 +1895,7 @@
             }
             #page-records #quiz-panel > div:first-child > button#card-close-btn { display: none !important; }
             /* 헤더 제목 옆에 버튼들이 겹치지 않도록 여유 확보, 첨부 이미지처럼 본문과 가깝게 */
-            #page-records #quiz-panel > div:first-child { padding-right: 260px; padding-bottom: 3px !important; border-bottom: none !important; }
+            #page-records #quiz-panel > div:first-child { padding-right: 200px; padding-bottom: 3px !important; border-bottom: none !important; }
             /* 활성 카드 강조 — 메인 강조색 #FEE500으로 비활성 카드와 명확히 구분 */
             body.subpage-mode main #page-records #records-cards-grid .card-item.card-active {
                 background: #FEE500 !important;
@@ -1975,18 +1963,6 @@
             #page-records #quiz-panel > div.bg-emerald-50 > * { margin-top: 0 !important; margin-bottom: 0 !important; }
             #page-records #quiz-panel > div.bg-emerald-50 > h4,
             #page-records #quiz-panel > div.bg-emerald-50 > p { display: none !important; }
-            #page-records #quiz-panel > div.bg-emerald-50 > button#card-complete-btn {
-                width: auto !important;
-                min-width: 0 !important;
-                padding: 8px 18px !important;
-                font-size: 13px !important;
-                border-radius: 999px !important;
-                min-height: 0 !important;
-                height: 36px !important;
-                box-shadow: none !important;
-                flex-shrink: 0;
-                margin: 0 !important;
-            }
             #page-records #quiz-panel > #card-news-body {
                 flex: 1 1 auto;
                 min-height: 0;
@@ -3283,18 +3259,15 @@
                     <div id="card-news-body" class="rounded-2xl border p-6 leading-relaxed space-y-4 shadow-sm hc-card" style="background-color: var(--card-bg); border-color: var(--border-color);">
                     </div>
 
-                    <p id="card-scroll-hint" class="text-xs text-amber-700 font-bold text-center">내용을 끝까지 읽으시면 완료 버튼이 켜집니다. (아래로 스크롤해 주세요)</p>
-                    
+                    <p id="card-scroll-hint" class="text-xs text-amber-700 font-bold text-center">내용을 끝까지 읽어주세요. (아래로 스크롤해 주세요)</p>
+
                     <div class="bg-emerald-50 p-5 rounded-2xl border border-emerald-300 space-y-3 mt-6">
                         <h4 class="scaled-text-base font-black text-emerald-800 flex items-center gap-1.5">
                             정독 완료 확인
                         </h4>
                         <p class="scaled-text-sm text-emerald-700 font-bold leading-normal">
-                            위의 건강 정보 배움터 내용을 천천히 모두 읽으셨나요? 아래 [완료] 버튼을 누르시면 읽음이 기록됩니다.
+                            위의 건강 정보 배움터 내용을 천천히 모두 읽으시면 읽음이 자동으로 기록됩니다.
                         </p>
-                        <button id="card-complete-btn" onclick="submitCardReadConfirmation()" disabled class="w-full bg-gray-300 text-gray-400 font-black py-4 rounded-xl text-center shadow-md scaled-text-base btn-height-primary transition-all flex items-center justify-center gap-2 cursor-not-allowed">
-                            완료
-                        </button>
                     </div>
                 </div>
 
@@ -6641,14 +6614,14 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             titleEl.innerText = isCardNews ? card.title : `${card.title} (기력 보완 가이드)`;
             if (iconEl) iconEl.innerText = '';
 
-            // 다 읽기 전에는 완료 버튼 잠금 + 다른 책자로 이동 제한
+            // 다 읽기 전에는 학습 완료 상태 잠금 + 다른 책자로 이동 제한
             state.cardReadingLocked = true;
             state.cardScrolledToEnd = false;
             state.cardNewsMode = isCardNews;
             setCompleteButtonEnabled(false);
 
             if (isCardNews) {
-                renderCardNewsViewer(card.cardNews); // 마지막 장에 도달하면 자동으로 완료 버튼이 켜짐
+                renderCardNewsViewer(card.cardNews); // 마지막 장에 도달하면 학습이 완료됨
             } else {
                 bodyEl.innerHTML = `<div id="card-text-scroll" class="overflow-y-auto" style="max-height: 360px;">${card.contentHtml}</div>`;
                 const scrollEl = document.getElementById('card-text-scroll');
@@ -6668,12 +6641,11 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
             panel.classList.remove('hidden');
 
-            // 데스크톱에서 닫기 버튼을 완료 버튼 오른쪽으로 이동
+            // 데스크톱에서 닫기 버튼을 우측 상단 완료 확인 영역으로 이동
             const closeBtn = document.getElementById('card-close-btn');
             const completeContainer = panel.querySelector('div.bg-emerald-50');
-            const completeBtn = document.getElementById('card-complete-btn');
-            if (closeBtn && completeContainer && completeBtn) {
-                completeContainer.insertBefore(closeBtn, completeBtn.nextSibling);
+            if (closeBtn && completeContainer) {
+                completeContainer.appendChild(closeBtn);
             }
 
             buildRecordsCardDeck();
@@ -6684,21 +6656,15 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
         function setCompleteButtonEnabled(enabled) {
             state.cardScrolledToEnd = enabled;
-            const btn = document.getElementById('card-complete-btn');
             const hint = document.getElementById('card-scroll-hint');
-            if (!btn) return;
-            if (enabled) {
-                btn.disabled = false;
-                btn.classList.remove('bg-gray-300', 'text-gray-400', 'cursor-not-allowed');
-                btn.classList.add('bg-emerald-600', 'hover:bg-emerald-700', 'text-white');
-                if (hint) hint.innerHTML = '모두 읽으셨어요! 완료 버튼을 눌러주세요.';
-            } else {
-                btn.disabled = true;
-                btn.classList.add('bg-gray-300', 'text-gray-400', 'cursor-not-allowed');
-                btn.classList.remove('bg-emerald-600', 'hover:bg-emerald-700', 'text-white');
-                if (hint) hint.innerHTML = state.cardNewsMode
-                    ? '마지막 장까지 넘겨 보시면 완료 버튼이 켜집니다.'
-                    : '내용을 끝까지 읽으시면 완료 버튼이 켜집니다. (아래로 스크롤해 주세요)';
+            if (hint) {
+                if (enabled) {
+                    hint.innerHTML = '모두 읽으셨어요! 닫기 버튼을 눌러주세요.';
+                } else {
+                    hint.innerHTML = state.cardNewsMode
+                        ? '마지막 장까지 넘겨 보시면 학습이 완료됩니다.'
+                        : '내용을 끝까지 읽으시면 학습이 완료됩니다. (아래로 스크롤해 주세요)';
+                }
             }
         }
 
@@ -6708,6 +6674,10 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             openDetailedStudyCard(targetCardId);
         }
         function requestStopReading() {
+            if (state.cardScrolledToEnd) {
+                submitCardReadConfirmation();
+                return;
+            }
             state.cardReadingLocked = false;
             document.getElementById('quiz-panel').classList.add('hidden');
         }
@@ -6971,7 +6941,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 <p class="text-center scaled-text-sm text-gray-400 font-bold mt-2 hc-muted">사진을 좌우로 넘기거나, 사진 양쪽 끝 또는 아래 버튼을 누르면 넘어갑니다</p>
               </div>
             `;
-            // Move fullscreen button into the complete-button container so it sits next to 완료 with a fixed 20px gap
+            // Move fullscreen button into the top-right container so it sits next to the close button with a fixed 20px gap
             const fsBtn = bodyEl.querySelector('button[aria-label="전체화면으로 크게 보기"]');
             const panelEl = document.getElementById('quiz-panel');
             const completeContainer = panelEl && panelEl.querySelector('div.bg-emerald-50');
@@ -7030,7 +7000,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             if (next) { next.style.opacity = atEnd ? '0.4' : '1'; next.disabled = atEnd; }
             if (tapNext) tapNext.style.display = atEnd ? 'none' : 'flex';
 
-            // 마지막 장에 도달하면 완료 버튼 잠금 해제 (다 읽기 전 비활성화 요건)
+            // 마지막 장에 도달하면 학습 완료 상태로 전환 (다 읽기 전 비활성화 요건)
             if (atEnd) { setCompleteButtonEnabled(true); }
 
             // 전체화면 동기화
