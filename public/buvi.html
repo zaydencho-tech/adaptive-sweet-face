@@ -5124,10 +5124,10 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             state.answers.gender = 'F';
             state.answers.age = 78;
             state.answers.height_cm = 158;
-            state.answers.weight_kg = 55;
-            state.answers.bmi = +(55 / (1.58 * 1.58)).toFixed(1);
+            state.answers.weight_kg = 67;
+            state.answers.bmi = +(67 / (1.58 * 1.58)).toFixed(1);
             state.answers.polypharm = 5;
-            state.answers.met_score = 1200;
+            state.answers.met_score = 5300;
             state.answers.tug = 13.5;
             state.answers.sgds_answers = [1,1,0,1,0,1,0,1,1,0,0,1,0,1,1];
             state.answers.sgdsk_score = 6;
@@ -5533,13 +5533,14 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     ];
                 // 나이 라벨 보정 + 상태(보호/위험/참고) 부여
                 contribs = contribs.map(c => {
-                    const label = (c.key === 'age' && !/참고/.test(c.label)) ? '나이(참고)' : c.label;
+                    const isAge = c.key === 'age' || c.domain === 'age' || /나이/.test(c.label || '');
+                    const label = (isAge && !/참고/.test(c.label)) ? '나이(참고)' : c.label;
                     let status;
-                    if (c.domain === 'age') status = { text:'참고', bg:'#9ca3af' };
+                    if (isAge) status = { text:'참고', bg:'#9ca3af' };
                     else if ((c.value || 0) < 0) status = { text:'보호', bg:'#10b981' };
                     else status = { text:'위험', bg:'#ef4444' };
                     // 표시 방향: 음수(보호) 또는 나이(참고) → 아래로, 그 외(위험) → 위로
-                    const down = ((c.value || 0) < 0) || (c.domain === 'age');
+                    const down = ((c.value || 0) < 0) || isAge;
                     return { ...c, label, status, down };
                 });
                 // 모든 막대가 같은 방향이면 시각적 균형을 위해 |value|가 작은 항목을 반대 방향으로 표시
@@ -5558,11 +5559,16 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 // 항목별 아이콘 + 컬러 팔레트 (정보에 맞는 시맨틱 컬러)
                 const KEY_META = {
                     gait:     { icon:'fa-person-walking',  ring:'#BFDBFE', accent:'#2563EB', iconBg:'#DBEAFE', iconFg:'#2563EB', track:'#DBEAFE' }, // 보행 - 블루
+                    tug:      { icon:'fa-person-walking',  ring:'#BFDBFE', accent:'#2563EB', iconBg:'#DBEAFE', iconFg:'#2563EB', track:'#DBEAFE' },
                     activity: { icon:'fa-bolt',            ring:'#FED7AA', accent:'#F97316', iconBg:'#FFEDD5', iconFg:'#EA580C', track:'#FFEDD5' }, // 활동량 - 오렌지
+                    met_score:{ icon:'fa-bolt',            ring:'#FED7AA', accent:'#F97316', iconBg:'#FFEDD5', iconFg:'#EA580C', track:'#FFEDD5' },
                     sgdsk:    { icon:'fa-face-frown',      ring:'#F9A8D4', accent:'#DB2777', iconBg:'#FCE7F3', iconFg:'#DB2777', track:'#FCE7F3' }, // 우울감 - 핑크
+                    sgdsk_score:{ icon:'fa-face-frown',    ring:'#F9A8D4', accent:'#DB2777', iconBg:'#FCE7F3', iconFg:'#DB2777', track:'#FCE7F3' },
                     age:      { icon:'fa-hourglass-half',  ring:'#D1D5DB', accent:'#6B7280', iconBg:'#E5E7EB', iconFg:'#4B5563', track:'#E5E7EB' }, // 나이 - 그레이
                     weight:   { icon:'fa-weight-scale',    ring:'#A7F3D0', accent:'#059669', iconBg:'#D1FAE5', iconFg:'#047857', track:'#D1FAE5' }, // 체중 - 그린
+                    bmi:      { icon:'fa-weight-scale',    ring:'#A7F3D0', accent:'#059669', iconBg:'#D1FAE5', iconFg:'#047857', track:'#D1FAE5' },
                     meds:     { icon:'fa-pills',           ring:'#C4B5FD', accent:'#7C3AED', iconBg:'#EDE9FE', iconFg:'#7C3AED', track:'#EDE9FE' }, // 복용약물 - 퍼플
+                    polypharm:{ icon:'fa-pills',           ring:'#C4B5FD', accent:'#7C3AED', iconBg:'#EDE9FE', iconFg:'#7C3AED', track:'#EDE9FE' },
                 };
                 const DEFAULT_META = { icon:'fa-circle-dot', ring:'#E5E7EB', accent:'#6B7280', iconBg:'#F3F4F6', iconFg:'#4B5563', track:'#F3F4F6' };
 
