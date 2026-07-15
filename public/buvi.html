@@ -1109,6 +1109,10 @@
                 flex: 1 1 0 !important;
                 min-height: 0 !important;
             }
+            /* 3개 섹션 비율 2:1:1 (히어로 결과 요약이 두 배 크기) */
+            body.subpage-mode main > #page-result:not(.hidden) > * > *:nth-child(1) { flex-grow: 2 !important; }
+            body.subpage-mode main > #page-result:not(.hidden) > * > *:nth-child(2) { flex-grow: 1 !important; }
+            body.subpage-mode main > #page-result:not(.hidden) > * > *:nth-child(3) { flex-grow: 1 !important; }
             /* 모바일/태블릿 전용 블록 및 퀵링크·홈버튼 숨김 */
             body.subpage-mode main #page-about .lg\:hidden,
             body.subpage-mode main #page-about > div > div.grid.grid-cols-2.md\:grid-cols-4,
