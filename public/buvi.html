@@ -6003,35 +6003,162 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 updateBuvi(hasResult && r.isAtRisk ? '2-5' : '1-1', '검사 분석이 끝났습니다. 결과를 설명해 드릴게요.');
             }, 1000);
 
-            // ── 2단계 도메인 분할 카드 ───────────────────────────────
+            // ── 2단계 결과 종합 카드 (결과 페이지 전체 시각 요약) ─────
             setTimeout(() => {
                 if (!hasResult) return;
-                const physPct = r.physPct.toFixed(1);
-                const emoPct  = r.emoPct.toFixed(1);
-                const physW = Math.max(r.physPct, 2).toFixed(0);
-                const emoW  = Math.max(r.emoPct, 2).toFixed(0);
-                appendBotMsg(`
-                    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 space-y-3 w-full">
-                        <h4 class="font-black text-charcoal text-sm flex items-center gap-1">📊 영역 요약</h4>
-                        <div class="flex rounded-full overflow-hidden h-6 w-full">
-                            <div style="width:${physW}%" class="bg-blue-500 flex items-center justify-center text-white text-xs font-bold transition-all duration-700">신체 ${physPct}%</div>
-                            <div style="width:${emoW}%"  class="bg-pink-400 flex items-center justify-center text-white text-xs font-bold transition-all duration-700">정신 ${emoPct}%</div>
+                const pPct    = (r.p * 100).toFixed(1);
+                const baseline = 6.9;
+                const atRisk  = r.isAtRisk;
+                const verdictBadge = atRisk
+                    ? `<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-white text-xs font-black" style="background:#ef4444;"><i class="fa-solid fa-triangle-exclamation"></i> 위험 감지</span>`
+                    : `<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-white text-xs font-black" style="background:#10b981;"><i class="fa-solid fa-circle-check"></i> 결과 정상</span>`;
+                const accent = atRisk ? '#ef4444' : '#10b981';
+
+                // 위치 마커 (0~15% 범위로 스케일)
+                const gaugeMax = 15;
+                const markerPct = Math.min(100, (r.p * 100) / gaugeMax * 100);
+                const basePct   = Math.min(100, baseline / gaugeMax * 100);
+
+                // 도메인 요약 (신체/정서/여유)
+                const physPct = r.physPct;
+                const emoPct  = r.emoPct;
+                const restPct = Math.max(0, 100 - physPct - emoPct);
+                const physW = Math.max(physPct, 2).toFixed(0);
+                const emoW  = Math.max(emoPct, 2).toFixed(0);
+                const restW = Math.max(restPct, 2).toFixed(0);
+
+                // 6개 기여 요인 카드
+                const raw = (r.sortedContribs && r.sortedContribs.length) ? r.sortedContribs.slice(0,6) : [
+                    { key:'gait', label:'보행기능', value:+1.08, domain:'phys' },
+                    { key:'activity', label:'활동량', value:-0.69, domain:'phys' },
+                    { key:'sgdsk', label:'우울감', value:+0.55, domain:'emo' },
+                    { key:'age', label:'나이(참고)', value:+0.24, domain:'age' },
+                    { key:'weight', label:'체중', value:-0.19, domain:'phys' },
+                    { key:'meds', label:'복용약물', value:+0.16, domain:'phys' },
+                ];
+                const maxAbs = Math.max(...raw.map(c=>Math.abs(c.value)), 0.001);
+                const PAL = {
+                    gait:{a:'#2563EB',b:'#DBEAFE'}, tug:{a:'#2563EB',b:'#DBEAFE'},
+                    activity:{a:'#F97316',b:'#FFEDD5'}, met_score:{a:'#F97316',b:'#FFEDD5'},
+                    sgdsk:{a:'#DB2777',b:'#FCE7F3'}, sgdsk_score:{a:'#DB2777',b:'#FCE7F3'},
+                    age:{a:'#6B7280',b:'#E5E7EB'},
+                    weight:{a:'#059669',b:'#D1FAE5'}, bmi:{a:'#059669',b:'#D1FAE5'},
+                    meds:{a:'#7C3AED',b:'#EDE9FE'}, polypharm:{a:'#7C3AED',b:'#EDE9FE'},
+                };
+                const cards = raw.map(c => {
+                    const isAge = c.key==='age' || c.domain==='age' || /나이/.test(c.label||'');
+                    const status = isAge ? {t:'참고',bg:'#9ca3af'} : ((c.value||0)<0 ? {t:'보호',bg:'#10b981'} : {t:'위험',bg:'#ef4444'});
+                    const pal = PAL[c.key] || {a:'#6B7280',b:'#F3F4F6'};
+                    const pct = Math.round(Math.abs(c.value)/maxAbs*100);
+                    const sign = (c.value>=0?'+':'−');
+                    const label = (isAge && !/참고/.test(c.label)) ? '나이(참고)' : c.label;
+                    return `
+                    <div class="rounded-xl px-2 py-3 flex flex-col items-center justify-around text-center gap-1.5" style="background:#fff;border:1px solid ${pal.b};">
+                        <span class="text-[11px] font-black text-white px-2 py-1 rounded-full leading-none" style="background:${status.bg};">${status.t}</span>
+                        <div class="text-[15px] font-black tabular-nums leading-none" style="color:#111827;">${sign}${Math.abs(c.value).toFixed(2)}</div>
+                        <div class="text-[11px] font-bold leading-none" style="color:#6B7280;">${label}</div>
+                        <div class="relative rounded-full flex items-center justify-center" style="width:44px;height:44px;background:conic-gradient(${pal.a} ${pct*3.6}deg, ${pal.b} 0);">
+                            <div class="rounded-full flex items-center justify-center" style="width:32px;height:32px;background:#fff;">
+                                <span class="text-[10px] font-black tabular-nums" style="color:${pal.a};">${pct}%</span>
+                            </div>
                         </div>
-                        <p class="text-xs text-gray-500 font-bold">
-                            ${r.physPct >= r.emoPct
-                                ? '신체영역이 위험 기여의 주된 부분을 차지하고 있습니다.'
-                                : '정서영역이 위험 기여의 주된 부분을 차지하고 있습니다.'}
-                        </p>
+                    </div>`;
+                }).join('');
+
+                appendBotMsg(`
+                    <div class="space-y-4 w-full">
+                        <!-- 종합 헤더 -->
+                        <div class="flex items-center justify-between gap-3 flex-wrap">
+                            <div class="flex items-center gap-3">
+                                ${verdictBadge}
+                                <div>
+                                    <div class="text-[11px] font-bold text-gray-500 leading-none mb-1">종합 노쇠 위험도 (기준선 ${baseline}%)</div>
+                                    <div class="text-2xl font-black tabular-nums leading-none" style="color:${accent};">${pPct}<span class="text-sm">%</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 그라디언트 게이지 -->
+                        <div>
+                            <div class="relative h-3 rounded-full overflow-hidden" style="background:linear-gradient(to right,#22c55e 0%,#eab308 55%,#ef4444 100%);">
+                                <div class="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-white shadow" style="left:${markerPct}%;transform:translate(-50%,-50%);background:${accent};"></div>
+                                <div class="absolute top-0 h-full w-0.5 bg-white/80" style="left:${basePct}%;"></div>
+                            </div>
+                            <div class="flex justify-between text-[10px] font-bold text-gray-500 mt-1">
+                                <span>정상</span><span>현재 ${pPct}%</span><span>노쇠 위험</span>
+                            </div>
+                        </div>
+
+                        <!-- 도메인 분할 (신체 / 정서 / 여유) -->
+                        <div>
+                            <div class="flex rounded-full overflow-hidden h-6 w-full">
+                                <div style="width:${physW}%" class="bg-blue-500 flex items-center justify-center text-white text-[11px] font-bold">신체 ${physPct.toFixed(0)}%</div>
+                                <div style="width:${emoW}%"  class="bg-emerald-500 flex items-center justify-center text-white text-[11px] font-bold">정서 ${emoPct.toFixed(0)}%</div>
+                                <div style="width:${restW}%" class="bg-orange-400 flex items-center justify-center text-white text-[11px] font-bold">여유 ${restPct.toFixed(0)}%</div>
+                            </div>
+                        </div>
+
+                        <!-- 6개 요인 카드 -->
+                        <div class="grid grid-cols-3 md:grid-cols-6 gap-2">
+                            ${cards}
+                        </div>
                     </div>`);
 
-                updateBuvi('1-3', '영역별 위험 기여 비율을 보여드렸어요.');
+                updateBuvi('1-3', '결과 페이지의 종합·영역·요인을 함께 요약해 드렸어요.');
             }, 3500);
 
-            // ── 3단계 행동 유도 칩 표시 ──────────────────────────────
+            // ── 3단계 텍스트 풀이 설명 ───────────────────────────────
+            setTimeout(() => {
+                if (!hasResult) return;
+                const pPct = (r.p * 100).toFixed(1);
+                const baseline = 6.9;
+                const atRisk = r.isAtRisk;
+                const physPct = r.physPct;
+                const emoPct  = r.emoPct;
+                const restPct = Math.max(0, 100 - physPct - emoPct);
+                const domainMain = physPct >= emoPct
+                    ? `신체 영역(${physPct.toFixed(0)}%)이 가장 큰 비중을 차지하고 있고, 정서 영역은 ${emoPct.toFixed(0)}%, 그 밖의 여유 요인은 ${restPct.toFixed(0)}% 수준입니다.`
+                    : `정서 영역(${emoPct.toFixed(0)}%)이 가장 큰 비중을 차지하고 있고, 신체 영역은 ${physPct.toFixed(0)}%, 그 밖의 여유 요인은 ${restPct.toFixed(0)}% 수준입니다.`;
+
+                const raw = (r.sortedContribs && r.sortedContribs.length) ? r.sortedContribs.slice(0,6) : [
+                    { key:'gait', label:'보행기능', value:+1.08 },
+                    { key:'activity', label:'활동량', value:-0.69 },
+                    { key:'sgdsk', label:'우울감', value:+0.55 },
+                    { key:'age', label:'나이(참고)', value:+0.24 },
+                    { key:'weight', label:'체중', value:-0.19 },
+                    { key:'meds', label:'복용약물', value:+0.16 },
+                ];
+                const risks = raw.filter(c => (c.value||0) > 0 && !(c.key==='age' || /나이/.test(c.label||'')));
+                const guards = raw.filter(c => (c.value||0) < 0);
+                const riskText = risks.length
+                    ? risks.map(c => `<strong>${c.label}(+${c.value.toFixed(2)})</strong>`).join(', ') + ' 항목이 위험을 <span style="color:#ef4444;font-weight:900;">키우는</span> 방향으로 작용했어요.'
+                    : '뚜렷하게 위험을 키우는 항목은 없었어요.';
+                const guardText = guards.length
+                    ? guards.map(c => `<strong>${c.label}(${c.value.toFixed(2)})</strong>`).join(', ') + ' 항목은 오히려 <span style="color:#10b981;font-weight:900;">보호</span> 요인으로 작용했습니다.'
+                    : '';
+                const ageC = raw.find(c => c.key==='age' || /나이/.test(c.label||''));
+                const ageText = ageC ? `나이(${ageC.value>=0?'+':''}${ageC.value.toFixed(2)})는 모델이 참고만 하는 값이라 개선 대상은 아니에요.` : '';
+
+                const verdictLine = atRisk
+                    ? `종합 노쇠 위험도는 <strong style="color:#ef4444;">${pPct}%</strong>로 기준선 ${baseline}%보다 <strong>높게</strong> 나타났어요.`
+                    : `종합 노쇠 위험도는 <strong style="color:#10b981;">${pPct}%</strong>로 기준선 ${baseline}% <strong>이하</strong>, 안정적인 편이에요.`;
+
+                appendBotMsg(`
+                    <div class="space-y-2 leading-relaxed">
+                        <p>${verdictLine}</p>
+                        <p>${domainMain}</p>
+                        <p>${riskText}</p>
+                        ${guardText ? `<p>${guardText}</p>` : ''}
+                        ${ageText ? `<p class="text-gray-500">${ageText}</p>` : ''}
+                    </div>`);
+            }, 5000);
+
+            // ── 4단계 행동 유도 칩 표시 ──────────────────────────────
             setTimeout(() => {
                 showChips();
                 updateBuvi('1-3', '노쇠 예측 설문 결과를 기반으로 개별화된 건강 결과를 확인하고, 상담받아 보세요.');
-            }, 5000);
+            }, 6500);
+
         }
 
         function appendBotMsg(html) {
