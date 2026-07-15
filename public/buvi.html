@@ -2813,23 +2813,23 @@
              슬라이드 6: 검사 결과 리포트 v2
              ======================================================== -->
         <section id="page-result" class="app-page hidden">
-          <div class="space-y-3 lg:space-y-0 lg:flex lg:flex-col lg:gap-[20px]">
+          <div class="space-y-3 lg:space-y-0 lg:flex lg:flex-col lg:gap-[20px] lg:min-h-[calc(100dvh-140px)]">
 
             <!-- ① 서브 히어로: 노쇠 결과 요약 (독립 카드) -->
-            <div id="result-hero-card" class="rounded-3xl overflow-hidden">
-                <div id="risk-gauge-wrap" class="relative"></div>
+            <div id="result-hero-card" class="rounded-3xl overflow-hidden lg:flex-1 lg:flex lg:flex-col lg:min-h-0">
+                <div id="risk-gauge-wrap" class="relative lg:flex-1 lg:flex lg:flex-col"></div>
             </div>
 
             <!-- ② 트렌드/항목별 영향 요인 (배경 없음, 카드만 배치) -->
-            <div>
+            <div class="lg:flex-1 lg:flex lg:flex-col lg:min-h-0">
                 <p id="result-stat-message" class="scaled-text-base font-bold text-gray-500 leading-snug mb-2"></p>
-                <div id="trend-chart-wrap" class="relative"></div>
+                <div id="trend-chart-wrap" class="relative lg:flex-1 lg:flex lg:flex-col lg:justify-center"></div>
             </div>
 
 
 
             <!-- ④ 액션 카드 그룹 (Bento layout) -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4 lg:flex-1 lg:min-h-0">
 
                     <!-- Left: 1:1 상담 히어로 카드 -->
                     <button onclick="tryNavigateWithWarning('chat')" class="group relative text-left rounded-3xl shadow-md border-2 p-5 lg:p-6 min-h-[260px] lg:min-h-0 lg:h-full flex flex-col justify-between hover:shadow-lg transition-all overflow-hidden" style="background-color:#ffffff; border-color: var(--border-color);">
