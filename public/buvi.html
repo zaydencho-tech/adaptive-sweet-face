@@ -3105,14 +3105,10 @@
         <section id="page-records" class="app-page hidden space-y-6">
             <div class="records-wrapper rounded-3xl p-6 shadow-md border-2 hc-card" style="background-color: var(--card-bg); border-color: var(--border-color);">
                 
-                <div class="records-header border-b pb-4 space-y-1" style="border-color: var(--border-color);">
-                    <h2 class="font-gapyeong scaled-text-lg font-black text-charcoal hc-text">건강 정보 배움터</h2>
-                    <p class="scaled-text-base text-gray-500 font-medium hc-muted">노쇠 및 근감소 예방, 운동, 영양 등의 건강 정보를 확인해보세요.</p>
+                <div id="records-cards-grid" class="flex flex-col gap-3">
+                    <!-- JS에서 동적 아코디언 바인딩 -->
                 </div>
 
-                <div id="records-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-5 pt-4">
-                    <!-- JS에서 동적 바인딩 -->
-                </div>
 
                 <!-- 읽음 완료 패널 -->
                 <div id="quiz-panel" class="hidden mt-8 p-6 bg-amber-50 rounded-3xl border-2 border-amber-300 space-y-4 transition-all duration-300 hc-card">
