@@ -1313,6 +1313,7 @@
                 overflow: hidden !important;
                 display: flex !important;
                 flex-direction: column !important;
+                margin: 20px !important;
             }
             body.login-as-about #login-about-mount > .lg\:block {
                 display: flex !important;
@@ -1320,6 +1321,25 @@
                 flex: 1 1 auto !important;
                 min-height: 0 !important;
                 gap: 20px !important;
+            }
+            /* 그림자·보더 효과 제거 (카드, 히어로 배지, 캐릭터 drop-shadow) */
+            body.login-as-about #login-about-mount .shadow-sm,
+            body.login-as-about #login-about-mount .shadow,
+            body.login-as-about #login-about-mount .shadow-md,
+            body.login-as-about #login-about-mount .shadow-lg,
+            body.login-as-about #login-about-mount .shadow-xl {
+                box-shadow: none !important;
+            }
+            body.login-as-about #login-about-mount [class*="drop-shadow-"],
+            body.login-as-about #login-about-mount [style*="drop-shadow"] {
+                filter: none !important;
+            }
+            body.login-as-about #login-about-mount .border,
+            body.login-as-about #login-about-mount .border-stone-200,
+            body.login-as-about #login-about-mount .border-stone-300,
+            body.login-as-about #login-about-mount .border-gray-200,
+            body.login-as-about #login-about-mount .border-gray-300 {
+                border-width: 0 !important;
             }
             /* 히어로: 뷰포트 높이에 따라 스케일 */
             body.login-as-about #login-about-mount > .lg\:block > div:first-child {
