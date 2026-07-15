@@ -3612,6 +3612,29 @@
                     narrativeBox.style.removeProperty('display');
                 }
             } catch(_) {}
+            // 데스크탑(≥1024px)에서 BUVI 알아보기 → 로그인 전 화면으로 대체
+            try {
+                const mount = document.getElementById('about-desktop-mount');
+                const loginOrig = document.getElementById('page-login');
+                if (mount && loginOrig) {
+                    if (!mount.firstElementChild) {
+                        const clone = loginOrig.cloneNode(true);
+                        // id는 유지해서 body:has(#page-login:not(.hidden)) CSS가 그대로 적용되게 함
+                        clone.classList.remove('hidden');
+                        // 페이지 전환 로직에서 제외되도록 app-page 클래스 제거
+                        clone.classList.remove('app-page');
+                        // 내부 폼이 원본 로그인 로직을 침범하지 않도록 이벤트/제출 비활성화
+                        clone.querySelectorAll('form').forEach(f => f.addEventListener('submit', e => e.preventDefault()));
+                        mount.appendChild(clone);
+                    }
+                    const clone = mount.firstElementChild;
+                    if (pageId === 'about') {
+                        clone.classList.remove('hidden');
+                    } else {
+                        clone.classList.add('hidden');
+                    }
+                }
+            } catch(_) {}
             handlePageEntranceEffects(pageId);
         }
 
