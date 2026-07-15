@@ -5694,8 +5694,8 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             wrap.innerHTML = `
             <!-- ── 서브 히어로: 결과 요약 (화이트 카드, 세로 꽉 채움) ── -->
             <div class="relative overflow-hidden rounded-3xl p-4 md:p-5 shadow-md bg-white text-charcoal lg:h-full lg:flex-1 flex flex-col" style="border:1px solid rgba(0,0,0,0.06);">
-                <!-- 상단: 아바타 + 타이틀/큰수치 + 링 게이지 -->
-                <div class="grid grid-cols-[auto_minmax(0,1fr)] md:grid-cols-[auto_minmax(0,1fr)_auto] gap-3 md:gap-4 items-start md:items-center">
+                <!-- 상단: 아바타 + 타이틀/큰수치 + 음성 듣기 아이콘 -->
+                <div class="grid grid-cols-[auto_minmax(0,1fr)_auto] gap-3 md:gap-4 items-start md:items-center">
                     <div class="w-24 h-24 md:w-28 md:h-28 rounded-2xl flex items-center justify-center shrink-0" style="background:#F7F5F0; border:1px solid rgba(0,0,0,0.05);">
                         <img src="/owl-hero.svg" alt="부비" class="w-[72px] h-[72px] md:w-[88px] md:h-[88px]" />
                     </div>
@@ -5714,19 +5714,10 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                             </span>
                         </div>
                     </div>
-                    <div class="flex flex-col md:flex-row items-center gap-2 shrink-0 justify-end md:justify-start md:col-start-3 md:row-start-1 col-span-2 md:col-span-1">
-                        <!-- Mobile: 안내 문구를 링 게이지 왼쪽에 배치 -->
-                        <div class="md:hidden flex items-start gap-3 w-full">
-                            <div class="min-w-0 flex-1 text-left">
-                                <p class="result-hero-headline text-[12px] font-semibold text-charcoal/75 leading-snug">${heroHeadline}</p>
-                                <p class="result-hero-subline mt-0.5 text-[12px] font-black" style="color:${statusColor};">${heroSubline}</p>
-                            </div>
-                            ${ringGaugeHTML('w-16 h-16', 'text-[12px]')}
-                        </div>
-                        <!-- Mobile: 음성 듣기 버튼을 링 게이지 하단으로 -->
-                        <button type="button" onclick="event.stopPropagation(); simulateTTSResult()" aria-label="음성 듣기" class="md:hidden inline-flex items-center gap-1.5 h-10 px-3 rounded-2xl bg-white hover:bg-gray-50 transition-colors shrink-0" style="border:1px solid rgba(0,0,0,0.08);">
-                            <span class="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-volume-high text-charcoal text-xs"></i></span>
-                            <span class="text-xs font-black text-charcoal">음성 듣기</span>
+                    <div class="flex flex-col md:flex-row items-center gap-2 shrink-0 justify-start md:col-start-3 md:row-start-1">
+                        <!-- Mobile: 링 게이지 대신 아이콘 형태 음성 듣기 버튼 -->
+                        <button type="button" onclick="event.stopPropagation(); simulateTTSResult()" aria-label="음성 듣기" class="md:hidden inline-flex items-center justify-center w-12 h-12 rounded-full bg-white hover:bg-gray-50 transition-colors shrink-0" style="border:1px solid rgba(0,0,0,0.08);">
+                            <i class="fa-solid fa-volume-high text-charcoal text-lg"></i>
                         </button>
                         <!-- Desktop: 기존 음성 듣기 + 링 게이지 -->
                         <button type="button" onclick="event.stopPropagation(); simulateTTSResult()" aria-label="음성 듣기" class="hidden md:inline-flex items-center gap-1.5 h-16 md:h-20 px-3 md:px-4 rounded-2xl bg-white hover:bg-gray-50 transition-colors shrink-0" style="border:1px solid rgba(0,0,0,0.08);">
@@ -5737,9 +5728,9 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     </div>
                 </div>
 
-                <!-- 안내 문구 (데스크탑 전용, 모바일은 상단 영역에 표시) -->
-                <p class="result-hero-headline mt-3 text-[12px] md:text-sm font-semibold text-charcoal/75 leading-snug hidden md:block">${heroHeadline}</p>
-                <p class="result-hero-subline mt-0.5 text-[12px] md:text-sm font-black hidden md:block" style="color:${statusColor};">${heroSubline}</p>
+                <!-- 안내 문구 -->
+                <p class="result-hero-headline mt-3 text-[12px] md:text-sm font-semibold text-charcoal/75 leading-snug">${heroHeadline}</p>
+                <p class="result-hero-subline mt-0.5 text-[12px] md:text-sm font-black" style="color:${statusColor};">${heroSubline}</p>
 
 
                 <!-- 세로 스페이서 (데스크탑에서 하단 요소를 아래로 밀어 꽉 채움) -->
