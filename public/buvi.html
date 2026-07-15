@@ -2116,6 +2116,11 @@
             #page-records #quiz-panel:not(.hidden) > div:first-child {
                 padding-right: 64px !important;
             }
+            /* 전체화면 버튼 컨테이너가 우측 고정 닫기 버튼과 겹치지 않도록 여백 확보 */
+            #page-records #quiz-panel:not(.hidden) > div.bg-emerald-50 {
+                top: 12px !important;
+                right: 76px !important;
+            }
             /* 모달이 열려있는 동안 배경 스크롤 잠금 */
             body:has(#page-records #quiz-panel:not(.hidden)) {
                 overflow: hidden !important;
