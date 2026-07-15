@@ -4474,7 +4474,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const sw = state.answers.weight_kg || '';
             container.innerHTML = `
             <div class="flex flex-col gap-5 max-w-sm mx-auto w-full">
-                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 text-gray-700 leading-relaxed">
+                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-[30px] text-gray-700 leading-relaxed">
                     <p class="scaled-text-lg font-black text-gray-900 leading-snug">어르신의 현재 키(cm)와 체중(kg)을 아래에서 조절해 주세요.</p>
                     <p class="font-normal text-gray-500 mt-3" style="font-size:16px">− / + 버튼으로 조절하거나, 숫자 칸을 눌러 직접 입력할 수 있습니다.</p>
                 </div>
@@ -4623,7 +4623,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         // ── IPAQ 공통 안내문 + 팝업 버튼 ───────────────────────────
         function ipaqHeader() {
             return `
-            <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 text-gray-700 leading-relaxed mb-2">
+            <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-[30px] text-gray-700 leading-relaxed mb-2">
                 <p class="scaled-text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">🦉 지난 <strong>7일간</strong>의 신체활동 조사</p>
                 <p class="scaled-text-lg font-black text-gray-900 leading-snug">"평소에 운동을 안 하신다고 생각되시더라도, 일상생활에서 움직이신 모든 시간을 편하게 기억해 주세요."</p>
                 <p class="font-normal text-gray-500 mt-3" style="font-size:16px"><strong>포함되는 활동:</strong> 집안일, 일터에서의 노동, 출퇴근 및 이동, 여가 시간, 스포츠 및 모든 운동</p>
@@ -4823,7 +4823,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             container.innerHTML = `
             <div class="flex flex-col gap-4">
                 ${ipaqHeader()}
-                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 text-gray-700 leading-relaxed">
+                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-[30px] text-gray-700 leading-relaxed">
                     <p class="scaled-text-lg font-black text-gray-900 leading-snug">1) 격렬한 신체활동을 한 날은 며칠입니까?</p>
                     <p class="font-normal text-gray-500 mt-2" style="font-size:16px">숨이 많이 차거나 힘이 드는 활동을 뜻합니다.</p>
                     <p class="font-normal text-gray-500 mt-1" style="font-size:16px"><strong>예시:</strong> 무거운 물건 나르기(20kg 이상), 땅파기, 계단으로 짐 옮기기, 격렬한 운동 등</p>
@@ -4839,7 +4839,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             container.innerHTML = `
             <div class="flex flex-col gap-4">
                 ${ipaqHeader()}
-                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 text-gray-700 leading-relaxed">
+                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-[30px] text-gray-700 leading-relaxed">
                     <p class="scaled-text-lg font-black text-gray-900 leading-snug">2) 그런 날, 하루 평균 몇 분(시간)이나 하셨습니까?</p>
                     <p class="font-normal text-gray-500 mt-2" style="font-size:16px">격렬한 활동을 했던 날 중, 하루에 보통 몇 시간(몇 분) 동안 움직이셨는지 평균 시간을 알려주세요.</p>
                 </div>
@@ -4853,14 +4853,14 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         function renderIpaqMod(container) {
             container.innerHTML = `
             <div class="flex flex-col gap-4">
-                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 text-gray-700 leading-relaxed">
+                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-[30px] text-gray-700 leading-relaxed">
                     <p class="scaled-text-lg font-black text-gray-900 leading-snug">중간정도 신체활동</p>
                     <p class="font-normal text-gray-500 mt-2" style="font-size:16px">어르신께서 지난 7일간 하신 모든 중간정도 신체활동을 생각해 보십시오. 중간정도 신체활동이란 중간정도 힘들게 움직이는 활동으로서 평소보다 숨이 조금 더 차게 만드는 활동입니다. 한 번에 적어도 10분 이상 지속한 활동만을 생각하여 응답해주시기 바랍니다.</p>
                 </div>
                 <button onclick="showIpaqPopup()" class="w-full mb-1 py-2.5 border-2 border-amber-400 bg-amber-50 text-amber-800 font-black rounded-xl text-sm hover:bg-amber-100 transition-all">
                     📋 신체활동 강도별 운동 종류 참고표 보기
                 </button>
-                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 text-gray-700 leading-relaxed">
+                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-[30px] text-gray-700 leading-relaxed">
                     <p class="scaled-text-lg font-black text-gray-900 leading-snug">3) 중간정도 신체활동을 한 날은 며칠입니까?</p>
                     <p class="font-normal text-gray-500 mt-2" style="font-size:16px">숨이 평소보다 조금 더 차는 활동을 뜻합니다. (한 번에 10분 이상 지속한 활동만)</p>
                     <p class="font-normal text-gray-500 mt-1" style="font-size:16px"><strong>예시:</strong> 빠르게 걷기, 가벼운 물건 나르기, 청소, 걸레질, 육아 등 (걷기는 제외)</p>
@@ -4878,7 +4878,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 <button onclick="showIpaqPopup()" class="w-full mb-1 py-2.5 border-2 border-amber-400 bg-amber-50 text-amber-800 font-black rounded-xl text-sm hover:bg-amber-100 transition-all">
                     📋 신체활동 강도별 운동 종류 참고표 보기
                 </button>
-                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 text-gray-700 leading-relaxed">
+                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-[30px] text-gray-700 leading-relaxed">
                     <p class="scaled-text-lg font-black text-gray-900 leading-snug">4) 그런 날, 하루 평균 몇 분(시간)이나 하셨습니까?</p>
                     <p class="font-normal text-gray-500 mt-2" style="font-size:16px">중간정도 활동을 했던 날 중, 하루에 보통 얼마나 움직이셨는지 평균 시간을 알려주세요.</p>
                 </div>
@@ -4892,7 +4892,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         function renderIpaqWalk(container) {
             container.innerHTML = `
             <div class="flex flex-col gap-4">
-                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 text-gray-700 leading-relaxed">
+                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-[30px] text-gray-700 leading-relaxed">
                     <p class="scaled-text-lg font-black text-gray-900 leading-snug">5) 한 번에 10분 이상 걸으신 날은 며칠입니까?</p>
                     <p class="font-normal text-gray-500 mt-2" style="font-size:16px">집·직장·이동 중 걷기뿐 아니라 산책, 운동 삼아 걸으신 것도 모두 포함합니다.</p>
                     <p class="font-normal text-red-600 mt-1" style="font-size:16px">※ 앞선 격렬한·중간정도 활동에 이미 포함된 걷기는 제외해 주세요.</p>
@@ -4907,7 +4907,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         function renderIpaqWalkDur(container) {
             container.innerHTML = `
             <div class="flex flex-col gap-4">
-                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 text-gray-700 leading-relaxed">
+                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-[30px] text-gray-700 leading-relaxed">
                     <p class="scaled-text-lg font-black text-gray-900 leading-snug">6) 그런 날, 하루 평균 몇 분(시간)이나 걸으셨습니까?</p>
                     <p class="font-normal text-gray-500 mt-2" style="font-size:16px">걸으신 날 중, 하루에 보통 얼마나 걸으셨는지 평균 시간을 알려주세요.</p>
                 </div>
@@ -4924,7 +4924,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const sm = a.ipaq_sit_min !== null ? a.ipaq_sit_min : '';
             container.innerHTML = `
             <div class="flex flex-col gap-4">
-                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 text-gray-700 leading-relaxed">
+                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-[30px] text-gray-700 leading-relaxed">
                     <p class="scaled-text-lg font-black text-gray-900 leading-snug">7) 주중 하루에 앉아서 보내신 시간은 평균 얼마나 됩니까?</p>
                     <p class="font-normal text-gray-500 mt-2" style="font-size:16px">집·직장에서 앉아 계신 시간과 TV 시청, 독서, 대화 등 앉거나 누워서 보낸 시간을 모두 포함합니다.</p>
                     <p class="font-normal text-gray-500 mt-1" style="font-size:16px">※ 이 문항은 참고용으로 수식 계산에는 포함되지 않습니다.</p>
@@ -5104,7 +5104,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const saved = state.answers.tug !== null ? state.answers.tug : '';
             container.innerHTML = `
             <div class="flex flex-col gap-4 max-w-sm mx-auto">
-                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 text-gray-700 leading-relaxed">
+                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-[30px] text-gray-700 leading-relaxed">
                     <p class="scaled-text-lg font-black text-gray-900 leading-snug">기능적 이동성 검사 (TUG)</p>
                     <p class="font-normal text-gray-500 mt-3" style="font-size:16px">의자에서 일어나 3m 걸어갔다 돌아와 다시 앉을 때까지의 시간을 측정합니다.</p>
                 </div>
