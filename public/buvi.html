@@ -5609,22 +5609,22 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     const displayVal = Math.abs(c.value).toFixed(2);
                     const sign = (c.value >= 0 ? '+' : '−');
                     return `
-                    <div class="buvi-bar-item rounded-xl px-2 py-2.5 md:px-2.5 md:py-3 flex flex-col items-center justify-center text-center h-full gap-1 md:gap-1.5" data-idx="${i}"
+                    <div class="buvi-bar-item rounded-xl px-2 py-3 md:px-3 md:py-4 flex flex-col items-center justify-around text-center h-full gap-1.5" data-idx="${i}"
                          style="background:#ffffff; border:1px solid ${pal.ring};">
-                        <div class="rounded-full flex items-center justify-center shrink-0" style="width:30px; height:30px; background:${pal.iconBg};">
-                            <i class="fa-solid ${icon}" style="color:${pal.iconFg}; font-size:13px;"></i>
+                        <div class="rounded-full flex items-center justify-center shrink-0" style="width:38px; height:38px; background:${pal.iconBg};">
+                            <i class="fa-solid ${icon}" style="color:${pal.iconFg}; font-size:16px;"></i>
                         </div>
-                        <div class="text-[13px] md:text-[15px] font-black tabular-nums leading-none" style="color:#111827;">
+                        <div class="text-[16px] md:text-[19px] font-black tabular-nums leading-none" style="color:#111827;">
                             ${sign}${displayVal}
                         </div>
-                        <div class="text-[10px] md:text-[11px] font-bold leading-none" style="color:#6B7280;">${c.label}</div>
+                        <div class="text-[11px] md:text-[13px] font-bold leading-none" style="color:#6B7280;">${c.label}</div>
                         <div class="relative rounded-full flex items-center justify-center shrink-0"
-                             style="width:44px; height:44px; background:${ringBg};">
-                            <div class="rounded-full flex items-center justify-center" style="width:34px; height:34px; background:#ffffff;">
-                                <span class="text-[10px] md:text-[11px] font-black tabular-nums" style="color:${pal.accent};">${pct}%</span>
+                             style="width:62px; height:62px; background:${ringBg};">
+                            <div class="rounded-full flex items-center justify-center" style="width:48px; height:48px; background:#ffffff;">
+                                <span class="text-[12px] md:text-[13px] font-black tabular-nums" style="color:${pal.accent};">${pct}%</span>
                             </div>
                         </div>
-                        <span class="text-[9px] md:text-[10px] font-black text-white px-1.5 py-0.5 rounded-full leading-none" style="background:${c.status.bg};">${c.status.text}</span>
+                        <span class="text-[10px] md:text-[11px] font-black text-white px-2 py-0.5 rounded-full leading-none" style="background:${c.status.bg};">${c.status.text}</span>
                     </div>`;
                 }).join('');
 
