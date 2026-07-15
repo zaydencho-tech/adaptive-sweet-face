@@ -6165,12 +6165,16 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                             </div>
                         </div>
 
-                        <!-- 도메인 분할 (신체 / 정서 / 여유) -->
+                        <!-- 도메인 분할 (신체 / 정서) -->
                         <div>
+                            <div class="text-[11px] font-bold text-gray-500 mb-1 text-center">위험 기여 영역 비율</div>
                             <div class="flex rounded-full overflow-hidden h-6 w-full">
                                 <div style="width:${physW}%" class="bg-blue-500 flex items-center justify-center text-white text-[11px] font-bold">신체 ${physPct.toFixed(0)}%</div>
-                                <div style="width:${emoW}%"  class="bg-emerald-500 flex items-center justify-center text-white text-[11px] font-bold">정서 ${emoPct.toFixed(0)}%</div>
-                                <div style="width:${restW}%" class="bg-orange-400 flex items-center justify-center text-white text-[11px] font-bold">여유 ${restPct.toFixed(0)}%</div>
+                                <div style="width:${emoW}%"  class="bg-pink-400 flex items-center justify-center text-white text-[11px] font-bold">정서 ${emoPct.toFixed(0)}%</div>
+                            </div>
+                            <div class="flex items-center justify-between gap-2 mt-2">
+                                <span class="inline-flex items-center gap-1 text-[11px] font-bold text-blue-500"><span class="inline-block w-2 h-2 rounded-full bg-blue-500"></span>신체영역 ${physPct.toFixed(0)}%</span>
+                                <span class="inline-flex items-center gap-1 text-[11px] font-bold text-pink-500"><span class="inline-block w-2 h-2 rounded-full bg-pink-400"></span>정서영역 ${emoPct.toFixed(0)}%</span>
                             </div>
                         </div>
 
