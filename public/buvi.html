@@ -2546,8 +2546,126 @@
                     </div>
                 </div>
 
-                <!-- ============ DESKTOP-ONLY: 로그인 전 화면을 이 마운트에 복제해 렌더 ============ -->
-                <div class="hidden lg:block" id="about-desktop-mount"></div>
+                <!-- ============ DESKTOP-ONLY: HERO + 4 HORIZONTAL PROMISE CARDS ============ -->
+                <div class="hidden lg:block">
+                    <!-- Hero (yellow) -->
+                    <div class="relative rounded-3xl overflow-hidden" style="background:linear-gradient(135deg,#FFF3B0 0%,#FEE500 100%);">
+                        <div class="absolute inset-0 opacity-30 pointer-events-none" style="background-image:radial-gradient(circle,#F5C400 1px,transparent 1.2px);background-size:22px 22px;"></div>
+                        <button onclick="navTo('home')" class="about-hero-home-btn absolute top-5 right-5 z-10 bg-white text-charcoal font-black rounded-full px-4 py-2 text-sm shadow-sm hover:brightness-95"><i class="fa-solid fa-arrow-left mr-1"></i>홈으로</button>
+                        <div class="relative grid grid-cols-[1.15fr_1fr] items-center gap-6 px-14 py-12">
+                            <div class="relative z-[1]">
+                                <h1 class="font-black leading-[1.05] text-charcoal mb-4" style="font-size:60px;letter-spacing:-0.02em;">
+                                    <span style="color:#111729;">어르신 곁의 </span><span style="color:#FE7F2B;">건강 동반자</span><span style="color:#111729;">,</span><br>
+                                    <span style="display:inline-block;padding:2px 14px;background:#111729;color:#FEE500;border-radius:14px;">BUVI</span> <span style="color:#111729;">입니다</span>
+                                </h1>
+                                <p class="text-[17px] font-bold text-charcoal/80 leading-relaxed max-w-[520px]">노쇠 신호를 미리 살피고, 어르신의 하루하루<br>활력을 되찾도록 돕는 <b>건강 동반 플랫폼</b>이에요.<br>더 오래, 더 가까이 곁을 지킵니다.</p>
+                                <div class="mt-6 flex items-center gap-3">
+                                    <span class="px-4 py-2 rounded-full bg-white font-black text-sm shadow-sm" style="color:#FE7F2B;">🦉 부비(BUVI)의 4가지 약속</span>
+                                </div>
+                            </div>
+                            <div class="relative flex items-center justify-center">
+                                <div class="absolute w-[380px] h-[380px] rounded-full" style="background:radial-gradient(circle,rgba(255,255,255,0.6),rgba(255,255,255,0));"></div>
+                                <img src="/buvi-promise-hero.png" alt="BUVI 캐릭터" class="relative w-[420px] h-[420px] object-contain drop-shadow-[0_10px_25px_rgba(0,0,0,0.08)]">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- 4 horizontal promise cards -->
+                    <div>
+                        <!-- 1. Beholding -->
+                        <div class="grid grid-cols-[3fr_1fr] rounded-2xl overflow-hidden bg-white border border-stone-200 shadow-sm">
+                            <div class="px-8 py-7 flex flex-col justify-center">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <img src="/buvi-promise-beholding.png" alt="" class="w-16 h-16 object-contain" loading="lazy">
+                                    <div>
+                                        <p class="text-[15px] font-bold text-charcoal/70">데이터 너머, 이야기를 봅니다</p>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap items-baseline gap-x-4 mb-3">
+                                    <h3 class="font-gapyeong font-black text-charcoal leading-tight" style="font-size:34px;"><span style="border-bottom:5px solid #FEE500;padding-bottom:2px;">바라봅니다</span></h3>
+                                    <p class="text-[15px] font-bold text-charcoal"><span style="color:#FE7F2B;">B</span>eholding &middot; BUVI는 어르신의 하루를 함께 응시합니다.</p>
+                                </div>
+                                <p class="text-[14px] text-gray-700 font-medium leading-relaxed">숫자로 나타난 건강 데이터만이 아니라, 어르신 한 분의 표정·말투·이야기 속 의미까지 놓치지 않고 주목합니다.</p>
+                            </div>
+                            <div class="relative flex items-center justify-center px-2" style="background:#FEE500;">
+                                <div class="relative flex items-center justify-center gap-2">
+                                    <img src="/buvi-promise-beholding.png" alt="바라보는 BUVI" class="relative w-[240px] h-[240px] object-contain" loading="lazy">
+                                    <div class="promise-letter font-black opacity-25" style="font-size:120px;line-height:1;color:#B78900;">B</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2. Understanding -->
+                        <div class="grid grid-cols-[3fr_1fr] rounded-2xl overflow-hidden bg-white border border-stone-200 shadow-sm">
+                            <div class="px-8 py-7 flex flex-col justify-center">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <img src="/buvi-promise-understanding.png" alt="" class="w-16 h-16 object-contain" loading="lazy">
+                                    <div>
+                                        <p class="text-[15px] font-bold text-charcoal/70">마음까지 들여다보는 이해</p>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap items-baseline gap-x-4 mb-3">
+                                    <h3 class="font-gapyeong font-black text-charcoal leading-tight" style="font-size:34px;"><span style="border-bottom:5px solid #FE7F2B;padding-bottom:2px;">이해합니다</span></h3>
+                                    <p class="text-[15px] font-bold text-charcoal"><span style="color:#FE7F2B;">U</span>nderstanding &middot; BUVI는 곁에서 조용히 듣습니다.</p>
+                                </div>
+                                <p class="text-[14px] text-gray-700 font-medium leading-relaxed">말투·생활습관·건강데이터를 종합해 어르신을 더 깊이 이해하고, 필요한 순간에 알맞은 도움을 준비합니다.</p>
+                            </div>
+                            <div class="relative flex items-center justify-center px-2" style="background:#FE7F2B;">
+                                <div class="relative flex items-center justify-center gap-2">
+                                    <img src="/buvi-promise-understanding.png" alt="이해하는 BUVI" class="relative w-[240px] h-[240px] object-contain" loading="lazy">
+                                    <div class="promise-letter font-black opacity-25" style="font-size:120px;line-height:1;color:#8A3A00;">U</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. Vitality -->
+                        <div class="grid grid-cols-[3fr_1fr] rounded-2xl overflow-hidden bg-white border border-stone-200 shadow-sm">
+                            <div class="px-8 py-7 flex flex-col justify-center">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <img src="/buvi-promise-vitality.png" alt="" class="w-16 h-16 object-contain" loading="lazy">
+                                    <div>
+                                        <p class="text-[15px] font-bold text-charcoal/70">활력이 되는 안내를 드려요</p>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap items-baseline gap-x-4 mb-3">
+                                    <h3 class="font-gapyeong font-black text-charcoal leading-tight" style="font-size:34px;"><span style="border-bottom:5px solid #6FCF97;padding-bottom:2px;">안내합니다</span></h3>
+                                    <p class="text-[15px] font-bold text-charcoal"><span style="color:#2F9E68;">V</span>itality &middot; BUVI는 오늘의 한 걸음을 함께 시작합니다.</p>
+                                </div>
+                                <p class="text-[14px] text-gray-700 font-medium leading-relaxed">이해를 바탕으로 노쇠 신호를 미리 살피고, 어르신의 활력을 되찾을 수 있는 맞춤 실천법을 친절히 안내드립니다.</p>
+                            </div>
+                            <div class="relative flex items-center justify-center px-2" style="background:#6FCF97;">
+                                <div class="relative flex items-center justify-center gap-2">
+                                    <img src="/buvi-promise-vitality.png" alt="안내하는 BUVI" class="relative w-[240px] h-[240px] object-contain" loading="lazy">
+                                    <div class="promise-letter font-black opacity-25" style="font-size:120px;line-height:1;color:#1E6B3F;">V</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4. Independence -->
+                        <div class="grid grid-cols-[3fr_1fr] rounded-2xl overflow-hidden bg-white border border-stone-200 shadow-sm">
+                            <div class="px-8 py-7 flex flex-col justify-center">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <img src="/buvi-promise-independence.png" alt="" class="w-16 h-16 object-contain" loading="lazy">
+                                    <div>
+                                        <p class="text-[15px] font-bold text-charcoal/70">오래도록, 스스로 지키는 힘</p>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap items-baseline gap-x-4 mb-3">
+                                    <h3 class="font-gapyeong font-black text-charcoal leading-tight" style="font-size:34px;"><span style="border-bottom:5px solid #5B8DEF;padding-bottom:2px;">곁을 지킵니다</span></h3>
+                                    <p class="text-[15px] font-bold text-charcoal"><span style="color:#2F5FBF;">I</span>ndependence &middot; BUVI는 어르신 곁에 오래 남습니다.</p>
+                                </div>
+                                <p class="text-[14px] text-gray-700 font-medium leading-relaxed">한 번의 검사가 아닌 오랜 시간의 동행으로, 어르신이 스스로 건강을 지켜가는 자립의 힘을 응원합니다.</p>
+                            </div>
+                            <div class="relative flex items-center justify-center px-2" style="background:#5B8DEF;">
+                                <div class="relative flex items-center justify-center gap-2">
+                                    <img src="/buvi-promise-independence.png" alt="곁을 지키는 BUVI" class="relative w-[240px] h-[240px] object-contain" loading="lazy">
+                                    <div class="promise-letter font-black opacity-25" style="font-size:120px;line-height:1;color:#1E3C7B;">I</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- ============ /DESKTOP-ONLY ============ -->
 
 
@@ -3610,29 +3728,6 @@
                     narrativeBox.style.setProperty('display', 'none', 'important');
                 } else if (narrativeBox) {
                     narrativeBox.style.removeProperty('display');
-                }
-            } catch(_) {}
-            // 데스크탑(≥1024px)에서 BUVI 알아보기 → 로그인 전 화면으로 대체
-            try {
-                const mount = document.getElementById('about-desktop-mount');
-                const loginOrig = document.getElementById('page-login');
-                if (mount && loginOrig) {
-                    if (!mount.firstElementChild) {
-                        const clone = loginOrig.cloneNode(true);
-                        // id는 유지해서 body:has(#page-login:not(.hidden)) CSS가 그대로 적용되게 함
-                        clone.classList.remove('hidden');
-                        // 페이지 전환 로직에서 제외되도록 app-page 클래스 제거
-                        clone.classList.remove('app-page');
-                        // 내부 폼이 원본 로그인 로직을 침범하지 않도록 이벤트/제출 비활성화
-                        clone.querySelectorAll('form').forEach(f => f.addEventListener('submit', e => e.preventDefault()));
-                        mount.appendChild(clone);
-                    }
-                    const clone = mount.firstElementChild;
-                    if (pageId === 'about') {
-                        clone.classList.remove('hidden');
-                    } else {
-                        clone.classList.add('hidden');
-                    }
                 }
             } catch(_) {}
             handlePageEntranceEffects(pageId);
