@@ -5276,11 +5276,11 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             else if (q.id === 'bmi')       hasAnswer = state.answers.bmi !== null;
             else if (q.id === 'polypharm') hasAnswer = state.answers.polypharm !== null;
             else if (q.id === 'ipaq_vig')     hasAnswer = state.answers.ipaq_vig_days !== null;
-            else if (q.id === 'ipaq_vig_dur') hasAnswer = state.answers.ipaq_vig_hr !== null || state.answers.ipaq_vig_min !== null;
+            else if (q.id === 'ipaq_vig_dur') hasAnswer = state.answers.ipaq_vig_days === 0 || state.answers.ipaq_vig_hr !== null || state.answers.ipaq_vig_min !== null;
             else if (q.id === 'ipaq_mod')     hasAnswer = state.answers.ipaq_mod_days !== null;
-            else if (q.id === 'ipaq_mod_dur') hasAnswer = state.answers.ipaq_mod_hr !== null || state.answers.ipaq_mod_min !== null;
+            else if (q.id === 'ipaq_mod_dur') hasAnswer = state.answers.ipaq_mod_days === 0 || state.answers.ipaq_mod_hr !== null || state.answers.ipaq_mod_min !== null;
             else if (q.id === 'ipaq_walk')    hasAnswer = state.answers.ipaq_walk_days !== null;
-            else if (q.id === 'ipaq_walk_dur') hasAnswer = state.answers.ipaq_walk_hr !== null || state.answers.ipaq_walk_min !== null;
+            else if (q.id === 'ipaq_walk_dur') hasAnswer = state.answers.ipaq_walk_days === 0 || state.answers.ipaq_walk_hr !== null || state.answers.ipaq_walk_min !== null;
             else if (q.id === 'ipaq_sit')     hasAnswer = true; // 선택적 입력
             else if (q.id === 'tug')          hasAnswer = state.answers.tug !== null;
             else if (q.type === 'sgds_single') hasAnswer = state.answers.sgds_answers[q.sgdsIdx] !== null;
