@@ -6039,38 +6039,16 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         function appendBotMsg(html) {
             const scroller = document.getElementById('chat-scroller');
             if(!scroller) return;
-
-            const lower = html.trim().toLowerCase();
-            let first = html, rest = '';
-            if (!lower.startsWith('<div')) {
-                const brIdx = lower.indexOf('<br');
-                if (brIdx !== -1) {
-                    first = html.slice(0, brIdx);
-                    rest = html.slice(brIdx);
-                }
-            }
-
-            const avatarHtml = `<div class="w-12 h-12 rounded-full bg-kakao flex items-center justify-center flex-shrink-0"><img src="${BUVI_IMG_11}" class="w-9 h-9 object-contain" alt=""></div>`;
-            const bubbleHtml = (content) => `<div class="bg-white p-4 rounded-3xl border shadow-sm font-bold scaled-text-base leading-snug max-w-[85%]">${content}</div>`;
-
             const row = document.createElement('div');
-            row.className = 'msg-row flex flex-col animate-fade-in';
-            if (rest) {
-                row.innerHTML = `
-                    <div class="flex items-center gap-3">
-                        ${avatarHtml}
-                        ${bubbleHtml(first)}
-                    </div>
-                    <div class="pl-[3.75rem] mt-2">${bubbleHtml(rest)}</div>
-                `;
-            } else {
-                row.innerHTML = `
-                    <div class="flex items-center gap-3">
-                        ${avatarHtml}
-                        ${bubbleHtml(first)}
-                    </div>
-                `;
-            }
+            row.className = 'msg-row flex items-start gap-3 animate-fade-in';
+            row.innerHTML = `
+                <div class="buvi-avatar-circle buvi-avatar-align">
+                    <img src="${BUVI_IMG_11}" class="w-9 h-9 object-contain" alt="">
+                </div>
+                <div class="bg-white p-4 rounded-3xl border shadow-sm font-bold scaled-text-base leading-snug max-w-[85%]">
+                    ${html}
+                </div>
+            `;
             scroller.appendChild(row);
             scroller.scrollTop = scroller.scrollHeight;
         }
