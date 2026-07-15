@@ -5985,7 +5985,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 const verdict = hasResult
                     ? (r.isAtRisk ? `노쇠 위험 확률이 <strong>${pPct}%</strong>로 기준(6.9%)을 초과했습니다.` : `노쇠 위험 확률이 <strong>${pPct}%</strong>로 기준(6.9%) 이하의 양호한 상태입니다.`)
                     : '설문 결과 없이 브리핑 모드로 돌아왔어요.';
-                appendBotMsg(`안녕하세요, 어르신! 방금 완료된 노쇠 예측 설문 결과를 살펴봤어요. 👋<br><br>${verdict}`, '1단계 · 인사');
+                appendBotMsg(`안녕하세요, 어르신! 방금 완료된 노쇠 예측 설문 결과를 살펴봤어요. 👋<br><br>${verdict}`);
                 updateBuvi(hasResult && r.isAtRisk ? '2-5' : '1-1', '검사 분석이 끝났습니다. 결과를 설명해 드릴게요.');
             }, 1000);
 
