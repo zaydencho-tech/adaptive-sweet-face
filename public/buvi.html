@@ -5555,7 +5555,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
                 const isDesktop = window.innerWidth >= 1024;
                 const isMobile  = window.innerWidth < 640;
-                const H = isDesktop ? 180 : (isMobile ? 220 : 240);
+                const H = isDesktop ? 110 : (isMobile ? 130 : 150);
                 const maxAbs = Math.max(...contribs.map(c => Math.abs(c.value)), 0.001);
                 // 0 기준선을 중앙에 위치. 각 바는 위(위험) 또는 아래(보호)로 뻗음.
                 const PAL_BAR = {
@@ -5564,11 +5564,11 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     age:  { solid:'#9ca3af', hatch:'#d1d5db' },  // 회색 계열
                 };
                 const PAL_NEG = { solid:'#10b981', hatch:'#6ee7b7' }; // 보호 (아래): 초록/노랑 hatch
-                const barW = isDesktop ? 28 : (isMobile ? 22 : 30);
+                const barW = isDesktop ? 24 : (isMobile ? 20 : 26);
 
                 const bars = contribs.map((c, i) => {
                     const ratio = Math.abs(c.value) / maxAbs;
-                    const hPct  = Math.max(ratio * 45, 6); // 상/하 각각 최대 45%
+                    const hPct  = Math.max(ratio * 48, 8); // 상/하 각각 최대 48%
                     const isNeg = !!c.down;
                     const pal = isNeg ? PAL_NEG : (PAL_BAR[c.domain] || PAL_BAR.phys);
                     const solidH = hPct * 0.55, hatchH = hPct * 0.45;
@@ -5612,15 +5612,15 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 <div class="relative" style="height:${H}px;">
                     ${gridBg}
                     <div class="absolute left-0 right-0" style="top:50%; height:2px; background:#1f2937;"></div>
-                    <div class="absolute inset-0 flex gap-1 md:gap-2 px-1">
+                    <div class="absolute inset-0 flex gap-1 px-1">
                         ${bars}
                     </div>
                     <div id="buvi-bar-tooltip" class="absolute" style="display:none; top:8px; left:50%; transform:translateX(-50%); background:#1f2937; color:#fff; padding:8px 12px; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,.15); pointer-events:none; min-width:170px;">
                         ${tooltipItems}
                     </div>
                 </div>
-                <div class="flex mt-1 px-1 gap-1 md:gap-2">${labelsRow}</div>
-                <div class="flex mt-1 px-1 gap-1 md:gap-2">${statusRow}</div>`;
+                <div class="flex mt-0 px-1 gap-1">${labelsRow}</div>
+                <div class="flex mt-0.5 px-1 gap-1">${statusRow}</div>`;
 
                 // hover 인터랙션
                 const tt = wrap.querySelector('#buvi-bar-tooltip');
