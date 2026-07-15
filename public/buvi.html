@@ -5304,9 +5304,9 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
             // 시간/분 키패드 문항: 분 미입력 시 팝업 안내
             const ipaqMinKeys = {
-                ipaq_vig:  { dKey: 'ipaq_vig_days',  mKey: 'ipaq_vig_min'  },
-                ipaq_mod:  { dKey: 'ipaq_mod_days',  mKey: 'ipaq_mod_min'  },
-                ipaq_walk: { dKey: 'ipaq_walk_days', mKey: 'ipaq_walk_min' },
+                ipaq_vig_dur:  { dKey: 'ipaq_vig_days',  mKey: 'ipaq_vig_min'  },
+                ipaq_mod_dur:  { dKey: 'ipaq_mod_days',  mKey: 'ipaq_mod_min'  },
+                ipaq_walk_dur: { dKey: 'ipaq_walk_days', mKey: 'ipaq_walk_min' },
             };
             if (ipaqMinKeys[q.id]) {
                 const { dKey, mKey } = ipaqMinKeys[q.id];
