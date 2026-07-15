@@ -6674,6 +6674,10 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             openDetailedStudyCard(targetCardId);
         }
         function requestStopReading() {
+            if (state.cardScrolledToEnd) {
+                submitCardReadConfirmation();
+                return;
+            }
             state.cardReadingLocked = false;
             document.getElementById('quiz-panel').classList.add('hidden');
         }
