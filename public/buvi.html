@@ -2828,10 +2828,6 @@
 
           </div>
 
-          <!-- 하단 안내 문구 -->
-          <div class="text-center px-4 py-2 mt-3">
-              <p class="text-xs text-gray-400 font-bold leading-normal">⚠ 본 결과는 노쇠 위험 선별용 참고 자료이며 의학적 진단이 아닙니다.</p>
-          </div>
 
         </section>
         <!-- 슬라이드 7: 부비와 상담 (Agent AI) -->
@@ -5443,18 +5439,8 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             wrap.innerHTML = `
             <!-- ── 서브 히어로: 결과 요약 (화이트 카드, 세로 꽉 채움) ── -->
             <div class="relative overflow-hidden rounded-3xl p-4 md:p-5 shadow-md bg-white text-charcoal lg:h-full lg:flex-1 flex flex-col" style="border:1px solid rgba(0,0,0,0.06);">
-                <!-- 우상단 액션 아이콘 -->
-                <div class="absolute top-3 right-3 md:top-4 md:right-4 flex gap-1.5 z-20">
-                    <button onclick="showAppModal('💬','상담 시작','부비와 상담을 시작합니다.')" aria-label="상담" class="w-8 h-8 rounded-full bg-charcoal/5 hover:bg-charcoal/10 flex items-center justify-center transition-colors">
-                        <i class="fa-regular fa-comment-dots text-charcoal text-xs"></i>
-                    </button>
-                    <button onclick="showAppModal('📤','공유 완료','결과 요약을 공유했습니다.')" aria-label="공유" class="w-8 h-8 rounded-full bg-charcoal/5 hover:bg-charcoal/10 flex items-center justify-center transition-colors">
-                        <i class="fa-solid fa-arrow-up-from-bracket text-charcoal text-xs"></i>
-                    </button>
-                </div>
-
                 <!-- 상단: 아바타 + 타이틀/큰수치 + 링 게이지 -->
-                <div class="grid grid-cols-[auto_minmax(0,1fr)_auto] gap-3 md:gap-4 items-center pr-20 md:pr-24">
+                <div class="grid grid-cols-[auto_minmax(0,1fr)_auto] gap-3 md:gap-4 items-center">
                     <div class="w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center shrink-0" style="background:#F7F5F0; border:1px solid rgba(0,0,0,0.05);">
                         <img src="/owl-hero.svg" alt="부비" class="w-9 h-9 md:w-11 md:h-11" />
                     </div>
