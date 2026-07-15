@@ -2943,16 +2943,40 @@
                         <div class="rounded-3xl p-4 lg:p-5 shadow-md text-charcoal flex flex-col justify-start gap-5 lg:gap-8 xl:gap-12 bg-white border-2 lg:flex-1" style="border-color: var(--border-color);">
                             <h3 class="font-gapyeong text-2xl font-black leading-tight text-charcoal">3가지 저장 방법</h3>
                             <div class="flex flex-col lg:mt-auto" style="gap:20px;">
-                                <button onclick="event.stopPropagation(); simulatePDFDownload()" class="w-full flex items-center gap-3 border-t-0 lg:border-t border-gray-200 text-left hover:bg-gray-50 transition-colors rounded-lg p-0">
-                                    <span class="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-file-pdf text-charcoal text-xs"></i></span>
-                                    <span class="flex-1 text-sm font-black text-charcoal">PDF 저장</span>
-                                    <i class="fa-solid fa-arrow-right text-gray-400 text-xs"></i>
-                                </button>
-                                <button onclick="event.stopPropagation(); showAppModal('🖼️','이미지 공유 완료','노쇠 위험도 결과 그래프를 사진첩에 저장해 드렸습니다.')" class="w-full flex items-center gap-3 border-t-0 lg:border-t border-gray-200 text-left hover:bg-gray-50 transition-colors rounded-lg p-0">
-                                    <span class="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-image text-charcoal text-xs"></i></span>
-                                    <span class="flex-1 text-sm font-black text-charcoal">이미지 공유</span>
-                                    <i class="fa-solid fa-arrow-right text-gray-400 text-xs"></i>
-                                </button>
+                                <div>
+                                    <button onclick="event.stopPropagation(); toggleSaveShareMenu('save')" class="w-full flex items-center gap-3 border-t-0 lg:border-t border-gray-200 text-left hover:bg-gray-50 transition-colors rounded-lg p-0">
+                                        <span class="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-download text-charcoal text-xs"></i></span>
+                                        <span class="flex-1 text-sm font-black text-charcoal">저장</span>
+                                        <i id="save-menu-caret" class="fa-solid fa-chevron-down text-gray-400 text-xs transition-transform"></i>
+                                    </button>
+                                    <div id="save-submenu" class="hidden flex-col gap-2 mt-2 pl-10">
+                                        <button onclick="event.stopPropagation(); simulatePDFDownload()" class="w-full flex items-center gap-2 text-left hover:bg-gray-50 transition-colors rounded-lg p-2">
+                                            <i class="fa-solid fa-file-pdf text-charcoal text-xs"></i>
+                                            <span class="flex-1 text-xs font-bold text-charcoal">PDF로 저장</span>
+                                        </button>
+                                        <button onclick="event.stopPropagation(); showAppModal('🖼️','이미지 저장 완료','노쇠 위험도 결과를 이미지로 저장했습니다.')" class="w-full flex items-center gap-2 text-left hover:bg-gray-50 transition-colors rounded-lg p-2">
+                                            <i class="fa-solid fa-image text-charcoal text-xs"></i>
+                                            <span class="flex-1 text-xs font-bold text-charcoal">이미지로 저장</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button onclick="event.stopPropagation(); toggleSaveShareMenu('share')" class="w-full flex items-center gap-3 border-t-0 lg:border-t border-gray-200 text-left hover:bg-gray-50 transition-colors rounded-lg p-0">
+                                        <span class="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-share-nodes text-charcoal text-xs"></i></span>
+                                        <span class="flex-1 text-sm font-black text-charcoal">공유</span>
+                                        <i id="share-menu-caret" class="fa-solid fa-chevron-down text-gray-400 text-xs transition-transform"></i>
+                                    </button>
+                                    <div id="share-submenu" class="hidden flex-col gap-2 mt-2 pl-10">
+                                        <button onclick="event.stopPropagation(); showAppModal('📱','SNS 공유','SNS로 결과를 공유했습니다.')" class="w-full flex items-center gap-2 text-left hover:bg-gray-50 transition-colors rounded-lg p-2">
+                                            <i class="fa-solid fa-share-from-square text-charcoal text-xs"></i>
+                                            <span class="flex-1 text-xs font-bold text-charcoal">SNS</span>
+                                        </button>
+                                        <button onclick="event.stopPropagation(); showAppModal('🔗','링크 저장','결과 링크를 복사했습니다.')" class="w-full flex items-center gap-2 text-left hover:bg-gray-50 transition-colors rounded-lg p-2">
+                                            <i class="fa-solid fa-link text-charcoal text-xs"></i>
+                                            <span class="flex-1 text-xs font-bold text-charcoal">링크저장</span>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
