@@ -4818,7 +4818,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             onIpaqChange();
         }
 
-        // ── IPAQ ① 격렬한 신체활동 ─────────────────────────────────
+        // ── IPAQ ① 격렬한 신체활동 (일수) ──────────────────────────
         function renderIpaqVig(container) {
             container.innerHTML = `
             <div class="flex flex-col gap-4">
@@ -4827,16 +4827,29 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     <p class="scaled-text-lg font-black text-gray-900 leading-snug">1) 격렬한 신체활동을 한 날은 며칠입니까?</p>
                     <p class="font-normal text-gray-500 mt-2" style="font-size:16px">숨이 많이 차거나 힘이 드는 활동을 뜻합니다.</p>
                     <p class="font-normal text-gray-500 mt-1" style="font-size:16px"><strong>예시:</strong> 무거운 물건 나르기(20kg 이상), 땅파기, 계단으로 짐 옮기기, 격렬한 운동 등</p>
-                    <p class="scaled-text-lg font-black text-gray-900 leading-snug mt-3">2) 그런 날, 하루 평균 몇 분(시간)이나 하셨습니까?</p>
-                    <p class="font-normal text-gray-500 mt-2" style="font-size:16px">격렬한 활동을 했던 날 중, 하루에 보통 몇 시간(몇 분) 동안 움직이셨는지 평균 시간을 알려주세요.</p>
                 </div>
-                ${ipaqGroup('ipaq_vig_days','ipaq_vig_hr','ipaq_vig_min','격렬한 신체활동')}
+                ${ipaqDaysGroup('ipaq_vig_days','격렬한 신체활동')}
                 <p id="ipaq-vig-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]"></p>
             </div>`;
             refreshIpaqOk('ipaq_vig_days','ipaq-vig-ok');
         }
 
-        // ── IPAQ ② 중간정도 신체활동 ───────────────────────────────
+        // ── IPAQ ①-2 격렬한 신체활동 (시간·분) ─────────────────────
+        function renderIpaqVigDur(container) {
+            container.innerHTML = `
+            <div class="flex flex-col gap-4">
+                ${ipaqHeader()}
+                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 text-gray-700 leading-relaxed">
+                    <p class="scaled-text-lg font-black text-gray-900 leading-snug">2) 그런 날, 하루 평균 몇 분(시간)이나 하셨습니까?</p>
+                    <p class="font-normal text-gray-500 mt-2" style="font-size:16px">격렬한 활동을 했던 날 중, 하루에 보통 몇 시간(몇 분) 동안 움직이셨는지 평균 시간을 알려주세요.</p>
+                </div>
+                ${ipaqTimeGroup('ipaq_vig_days','ipaq_vig_hr','ipaq_vig_min')}
+                <p id="ipaq-vig-dur-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]"></p>
+            </div>`;
+            refreshIpaqOk('ipaq_vig_days','ipaq-vig-dur-ok');
+        }
+
+        // ── IPAQ ② 중간정도 신체활동 (일수) ─────────────────────────
         function renderIpaqMod(container) {
             container.innerHTML = `
             <div class="flex flex-col gap-4">
@@ -4851,16 +4864,31 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     <p class="scaled-text-lg font-black text-gray-900 leading-snug">3) 중간정도 신체활동을 한 날은 며칠입니까?</p>
                     <p class="font-normal text-gray-500 mt-2" style="font-size:16px">숨이 평소보다 조금 더 차는 활동을 뜻합니다. (한 번에 10분 이상 지속한 활동만)</p>
                     <p class="font-normal text-gray-500 mt-1" style="font-size:16px"><strong>예시:</strong> 빠르게 걷기, 가벼운 물건 나르기, 청소, 걸레질, 육아 등 (걷기는 제외)</p>
-                    <p class="scaled-text-lg font-black text-gray-900 leading-snug mt-3">4) 그런 날, 하루 평균 몇 분(시간)이나 하셨습니까?</p>
-                    <p class="font-normal text-gray-500 mt-2" style="font-size:16px">중간정도 활동을 했던 날 중, 하루에 보통 얼마나 움직이셨는지 평균 시간을 알려주세요.</p>
                 </div>
-                ${ipaqGroup('ipaq_mod_days','ipaq_mod_hr','ipaq_mod_min','중간정도 신체활동')}
+                ${ipaqDaysGroup('ipaq_mod_days','중간정도 신체활동')}
                 <p id="ipaq-mod-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]"></p>
             </div>`;
             refreshIpaqOk('ipaq_mod_days','ipaq-mod-ok');
         }
 
-        // ── IPAQ ③ 걷기 ────────────────────────────────────────────
+        // ── IPAQ ②-2 중간정도 신체활동 (시간·분) ───────────────────
+        function renderIpaqModDur(container) {
+            container.innerHTML = `
+            <div class="flex flex-col gap-4">
+                <button onclick="showIpaqPopup()" class="w-full mb-1 py-2.5 border-2 border-amber-400 bg-amber-50 text-amber-800 font-black rounded-xl text-sm hover:bg-amber-100 transition-all">
+                    📋 신체활동 강도별 운동 종류 참고표 보기
+                </button>
+                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 text-gray-700 leading-relaxed">
+                    <p class="scaled-text-lg font-black text-gray-900 leading-snug">4) 그런 날, 하루 평균 몇 분(시간)이나 하셨습니까?</p>
+                    <p class="font-normal text-gray-500 mt-2" style="font-size:16px">중간정도 활동을 했던 날 중, 하루에 보통 얼마나 움직이셨는지 평균 시간을 알려주세요.</p>
+                </div>
+                ${ipaqTimeGroup('ipaq_mod_days','ipaq_mod_hr','ipaq_mod_min')}
+                <p id="ipaq-mod-dur-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]"></p>
+            </div>`;
+            refreshIpaqOk('ipaq_mod_days','ipaq-mod-dur-ok');
+        }
+
+        // ── IPAQ ③ 걷기 (일수) ─────────────────────────────────────
         function renderIpaqWalk(container) {
             container.innerHTML = `
             <div class="flex flex-col gap-4">
@@ -4868,13 +4896,25 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     <p class="scaled-text-lg font-black text-gray-900 leading-snug">5) 한 번에 10분 이상 걸으신 날은 며칠입니까?</p>
                     <p class="font-normal text-gray-500 mt-2" style="font-size:16px">집·직장·이동 중 걷기뿐 아니라 산책, 운동 삼아 걸으신 것도 모두 포함합니다.</p>
                     <p class="font-normal text-red-600 mt-1" style="font-size:16px">※ 앞선 격렬한·중간정도 활동에 이미 포함된 걷기는 제외해 주세요.</p>
-                    <p class="scaled-text-lg font-black text-gray-900 leading-snug mt-3">6) 그런 날, 하루 평균 몇 분(시간)이나 걸으셨습니까?</p>
-                    <p class="font-normal text-gray-500 mt-2" style="font-size:16px">걸으신 날 중, 하루에 보통 얼마나 걸으셨는지 평균 시간을 알려주세요.</p>
                 </div>
-                ${ipaqGroup('ipaq_walk_days','ipaq_walk_hr','ipaq_walk_min','걷기')}
+                ${ipaqDaysGroup('ipaq_walk_days','걷기')}
                 <p id="ipaq-walk-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]"></p>
             </div>`;
             refreshIpaqOk('ipaq_walk_days','ipaq-walk-ok');
+        }
+
+        // ── IPAQ ③-2 걷기 (시간·분) ─────────────────────────────────
+        function renderIpaqWalkDur(container) {
+            container.innerHTML = `
+            <div class="flex flex-col gap-4">
+                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 text-gray-700 leading-relaxed">
+                    <p class="scaled-text-lg font-black text-gray-900 leading-snug">6) 그런 날, 하루 평균 몇 분(시간)이나 걸으셨습니까?</p>
+                    <p class="font-normal text-gray-500 mt-2" style="font-size:16px">걸으신 날 중, 하루에 보통 얼마나 걸으셨는지 평균 시간을 알려주세요.</p>
+                </div>
+                ${ipaqTimeGroup('ipaq_walk_days','ipaq_walk_hr','ipaq_walk_min')}
+                <p id="ipaq-walk-dur-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]"></p>
+            </div>`;
+            refreshIpaqOk('ipaq_walk_days','ipaq-walk-dur-ok');
         }
 
         // ── IPAQ ④ 앉아서 보낸 시간 (계산에 포함 안됨) ─────────────
