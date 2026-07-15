@@ -2540,46 +2540,46 @@
                     </div>
 
                     <!-- 동반 보호자 연동 · 종합 노쇠 위험도 요약 (설문결과 동기화) -->
-                    <div class="bg-white rounded-2xl px-5 py-4">
+                    <div class="bg-white rounded-2xl px-5 pt-4 flex flex-col h-full" style="padding-bottom:20px">
                         <div class="flex items-start justify-between mb-3">
                             <div>
                                 <h3 class="font-gapyeong font-black text-lg">종합 노쇠 위험도</h3>
                             </div>
-                            <span class="text-xs font-black text-white px-3 py-2 rounded-full whitespace-nowrap flex items-center gap-1.5" style="background:#10B981"><i class="fa-solid fa-circle-check"></i> 정상 5.5%</span>
                         </div>
 
-                        <!-- 요약 헤더: 기준선 / 종합 위험도 / 결과 배지 -->
-                        <div class="flex flex-wrap items-center gap-3 rounded-2xl px-4 py-3" style="background:#F7F5F0">
-                            <img src="/owl-hero.svg" alt="" class="w-12 h-12 object-contain shrink-0">
-                            <div class="flex items-baseline gap-2">
+                        <div class="mt-auto space-y-4">
+                            <!-- 요약 헤더: 올빼미 / 기준선 / 종합 위험도 / 결과 배지 (compact inline) -->
+                            <div class="flex flex-wrap items-center gap-3 rounded-2xl px-4 py-3" style="background:#F7F5F0">
+                                <img src="/owl-hero.svg" alt="" class="w-12 h-12 object-contain shrink-0">
                                 <span class="text-xs font-bold text-gray-500">기준선 6.9%</span>
+                                <div class="flex items-baseline gap-1">
+                                    <span class="text-3xl font-black text-charcoal">5.5</span>
+                                    <span class="text-sm font-black text-charcoal">%</span>
+                                    <span class="text-xs font-bold text-gray-500 ml-1 leading-tight">종합<br>노쇠 위험도</span>
+                                </div>
+                                <span class="ml-auto text-xs font-black text-white px-3 py-2 rounded-full whitespace-nowrap inline-flex items-center gap-1.5" style="background:#10B981"><i class="fa-solid fa-circle-check"></i> 결과 정상</span>
                             </div>
-                            <div class="flex items-baseline gap-1">
-                                <span class="text-3xl font-black text-charcoal">5.5</span>
-                                <span class="text-sm font-black text-charcoal">%</span>
-                                <span class="text-xs font-bold text-gray-500 ml-1">종합 노쇠 위험도</span>
-                            </div>
-                        </div>
 
-                        <!-- 그라디언트 위험도 바 -->
-                        <div class="mt-4">
-                            <div class="relative h-3 rounded-full" style="background:linear-gradient(90deg,#34D399 0%,#FBBF24 55%,#EF4444 100%)">
-                                <div class="absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-white border-2" style="left:calc(5.5% / 15% * 100%);border-color:#10B981;box-shadow:0 0 0 2px rgba(16,185,129,0.25)"></div>
+                            <!-- 그라디언트 위험도 바 -->
+                            <div>
+                                <div class="relative h-3 rounded-full" style="background:linear-gradient(90deg,#34D399 0%,#FBBF24 55%,#EF4444 100%)">
+                                    <div class="absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-white border-2" style="left:calc(5.5% / 15% * 100%);border-color:#10B981;box-shadow:0 0 0 2px rgba(16,185,129,0.25)"></div>
+                                </div>
+                                <div class="flex justify-between text-[11px] font-bold text-gray-500 mt-1">
+                                    <span>정상</span><span>현재 5.5%</span><span>노쇠 위험</span>
+                                </div>
                             </div>
-                            <div class="flex justify-between text-[11px] font-bold text-gray-500 mt-1">
-                                <span>정상</span><span>현재 5.5%</span><span>노쇠 위험</span>
-                            </div>
-                        </div>
 
-                        <!-- 신체/정서 도메인 분해 -->
-                        <div class="mt-4">
-                            <div class="flex h-6 rounded-full overflow-hidden">
-                                <div class="flex items-center justify-center text-[11px] font-black text-white" style="width:73%;background:#2563EB">신체 73%</div>
-                                <div class="flex items-center justify-center text-[11px] font-black text-white" style="width:27%;background:#DB2777">정서 27%</div>
-                            </div>
-                            <div class="flex justify-between text-[11px] font-bold mt-1">
-                                <span style="color:#2563EB">● 신체영역 73%</span>
-                                <span style="color:#DB2777">● 정서영역 27%</span>
+                            <!-- 신체/정서 도메인 분해 -->
+                            <div>
+                                <div class="flex h-6 rounded-full overflow-hidden">
+                                    <div class="flex items-center justify-center text-[11px] font-black text-white" style="width:73%;background:#2563EB">신체 73%</div>
+                                    <div class="flex items-center justify-center text-[11px] font-black text-white" style="width:27%;background:#DB2777">정서 27%</div>
+                                </div>
+                                <div class="flex justify-between text-[11px] font-bold mt-1">
+                                    <span style="color:#2563EB">● 신체영역 73%</span>
+                                    <span style="color:#DB2777">● 정서영역 27%</span>
+                                </div>
                             </div>
                         </div>
                     </div>
