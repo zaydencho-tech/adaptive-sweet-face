@@ -1682,14 +1682,11 @@
                 position: relative;
                 transform: none;
                 width: 100%;
-                z-index: auto;
-                display: flex;
                 max-width: none !important;
                 margin-left: 0 !important;
                 margin-right: 0 !important;
-            }
-            #page-records > div.records-wrapper > #quiz-panel.hidden {
-                display: none !important;
+                z-index: auto;
+                display: flex;
                 flex-direction: column;
                 min-height: 0;
                 overflow: visible;
@@ -1698,8 +1695,11 @@
                 border-radius: 0 !important;
                 box-shadow: none !important;
                 padding: 0 !important;
-                margin-left: 0;
             }
+            #page-records > div.records-wrapper > #quiz-panel.hidden {
+                display: none !important;
+            }
+
 
             /* 본문(스크롤 영역)이 남는 공간을 모두 차지하도록 */
             #page-records #quiz-panel > #card-news-body {
