@@ -6020,20 +6020,14 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             }, 5000);
         }
 
-        function appendBotMsg(html, step) {
+        function appendBotMsg(html) {
             const scroller = document.getElementById('chat-scroller');
             if(!scroller) return;
             const row = document.createElement('div');
-            row.className = 'msg-row flex flex-col gap-2 items-start animate-fade-in';
-            const stepPill = step
-                ? `<span class="inline-flex items-center gap-1 bg-yellow-100 text-charcoal font-black scaled-text-xs px-3 py-1 rounded-full border border-yellow-300 shadow-sm">${step}</span>`
-                : '';
+            row.className = 'msg-row flex items-start gap-3 animate-fade-in';
             row.innerHTML = `
-                <div class="flex items-center gap-2">
-                    <img src="${BUVI_IMG_11}" class="w-9 h-9 object-contain flex-shrink-0" alt="">
-                    ${stepPill}
-                </div>
-                <div class="bg-white p-4 rounded-3xl border shadow-sm font-bold scaled-text-base leading-snug w-full">
+                <img src="${BUVI_IMG_11}" class="w-9 h-9 object-contain flex-shrink-0" alt="">
+                <div class="bg-white p-4 rounded-3xl border shadow-sm font-bold scaled-text-base leading-snug max-w-[85%]">
                     ${html}
                 </div>
             `;
