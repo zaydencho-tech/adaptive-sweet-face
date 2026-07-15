@@ -7000,7 +7000,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             if (next) { next.style.opacity = atEnd ? '0.4' : '1'; next.disabled = atEnd; }
             if (tapNext) tapNext.style.display = atEnd ? 'none' : 'flex';
 
-            // 마지막 장에 도달하면 완료 버튼 잠금 해제 (다 읽기 전 비활성화 요건)
+            // 마지막 장에 도달하면 학습 완료 상태로 전환 (다 읽기 전 비활성화 요건)
             if (atEnd) { setCompleteButtonEnabled(true); }
 
             // 전체화면 동기화
