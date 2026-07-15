@@ -2524,6 +2524,23 @@
                             <p class="text-sm font-bold text-gray-500 mt-2">설문이 끝나도 부비가 어르신을 보살펴 드려요!</p>
                         </div>
 
+                        <!-- Mobile/Tablet: 노쇠 위험 기여도 -->
+                        <div class="bg-white rounded-2xl p-4 shadow-sm border border-stone-100">
+                            <div class="flex items-center justify-between gap-3 mb-3">
+                                <h3 class="font-gapyeong font-black text-base text-charcoal">노쇠 위험 기여도</h3>
+                                <span class="text-[11px] font-black px-2.5 py-1.5 rounded-full whitespace-nowrap flex items-center gap-1" style="background:#2563EB;color:#FFFFFF">6가지 요인 <i class="fa-solid fa-chart-pie" style="color:#FFFFFF"></i></span>
+                            </div>
+                            <div id="home-contributions-grid-mobile" class="home-contributions-grid grid grid-cols-2 md:grid-cols-3 gap-3 monitoring-grid"></div>
+                        </div>
+
+                        <!-- Mobile/Tablet: 종합 노쇠 위험도 -->
+                        <div class="bg-white rounded-2xl p-4 shadow-sm border border-stone-100" style="padding-bottom:18px">
+                            <div class="flex items-start justify-between mb-3">
+                                <h3 class="font-gapyeong font-black text-base text-charcoal">종합 노쇠 위험도</h3>
+                            </div>
+                            <div id="home-risk-summary-mobile" class="home-risk-summary space-y-3"></div>
+                        </div>
+
                         <!-- 2 owl link cards -->
                         <div class="grid grid-cols-2 gap-3">
                             <button onclick="tryNavigateWithWarning('chat')" class="rounded-2xl p-4 flex flex-col items-center gap-2 text-center" style="background:#F4F0E9;">
@@ -2564,7 +2581,7 @@
                             </div>
                             <span class="text-xs font-black px-3 py-2 rounded-full whitespace-nowrap flex items-center gap-1.5" style="background:#2563EB;color:#FFFFFF">6가지 요인 <i class="fa-solid fa-chart-pie" style="color:#FFFFFF"></i></span>
                         </div>
-                        <div id="home-contributions-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 monitoring-grid"></div>
+                        <div id="home-contributions-grid" class="home-contributions-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 monitoring-grid"></div>
                     </div>
 
                     <!-- 2 owl action cards (matches login) -->
@@ -2593,7 +2610,7 @@
                             </div>
                         </div>
 
-                        <div id="home-risk-summary" class="space-y-4"></div>
+                        <div id="home-risk-summary" class="home-risk-summary space-y-4"></div>
                     </div>
 
                     <!-- BUVI 약속철학 4-col (matches login) -->
@@ -5886,18 +5903,19 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         }
 
         function renderHomeDashboard() {
-            const grid = document.getElementById('home-contributions-grid');
-            const summary = document.getElementById('home-risk-summary');
-            if (!grid || !summary) return;
+            const grids = document.querySelectorAll('.home-contributions-grid');
+            const summaries = document.querySelectorAll('.home-risk-summary');
+            if (!grids.length || !summaries.length) return;
 
             const hasResult = state.resultViewed && state.result && state.result.p !== null;
 
-            if (hasResult) {
-                const r = state.result;
-                const sorted = r.sortedContribs && r.sortedContribs.length ? r.sortedContribs : [];
-                const totalAbs = sorted.reduce((sum, it) => sum + Math.abs(it.value), 0) || 1;
-                const colorMap = { tug:'#2563EB', met_score:'#F97316', sgdsk_score:'#DB2777', age:'#6B7280', bmi:'#059669', polypharm:'#7C3AED' };
-                grid.innerHTML = sorted.map(it => {
+            const r = hasResult ? state.result : null;
+            const sorted = hasResult && r.sortedContribs && r.sortedContribs.length ? r.sortedContribs : [];
+            const totalAbs = sorted.reduce((sum, it) => sum + Math.abs(it.value), 0) || 1;
+            const colorMap = { tug:'#2563EB', met_score:'#F97316', sgdsk_score:'#DB2777', age:'#6B7280', bmi:'#059669', polypharm:'#7C3AED' };
+
+            const gridHtml = hasResult
+                ? sorted.map(it => {
                     const key = it.key;
                     const label = MODEL.vars[key] ? MODEL.vars[key].label : it.label;
                     const val = it.value;
@@ -5910,33 +5928,37 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     const barColor = colorMap[key] || '#9CA3AF';
                     const sign = val > 0 ? '+' : (val < 0 ? '-' : '');
                     return `<div class='monitoring-metric rounded-2xl p-3 flex flex-col items-center text-center' style='background:#F7F5F0'><span class='text-xs font-black text-white px-3 py-1 rounded-full mb-2' style='background:${badgeColor}'>${badgeText}</span><p class='metric-value'><span class='font-black' style='font-size:24px'>${sign}${Math.abs(val).toFixed(2)}</span></p><p class='metric-title text-xs font-bold text-gray-600 mt-1'>${label}</p><div class='mt-2 w-full h-1.5 bg-white rounded-full overflow-hidden'><div class='h-full rounded-full' style='width:${share}%;background:${barColor}'></div></div><p class='text-[11px] font-black mt-1' style='color:${barColor}'>${share}%</p></div>`;
-                }).join('');
+                }).join('')
+                : (() => {
+                    const defaults = [
+                        { label:'보행기능', color:'#2563EB' },
+                        { label:'활동량', color:'#F97316' },
+                        { label:'우울감', color:'#DB2777' },
+                        { label:'나이(참고)', color:'#6B7280' },
+                        { label:'체중', color:'#059669' },
+                        { label:'복용약물', color:'#7C3AED' }
+                    ];
+                    return defaults.map(d => `<div class='monitoring-metric rounded-2xl p-3 flex flex-col items-center text-center' style='background:#F7F5F0'><span class='text-xs font-black text-white px-3 py-1 rounded-full mb-2' style='background:#9CA3AF'>미측정</span><p class='metric-value'><span class='font-black' style='font-size:24px'>0.00</span></p><p class='metric-title text-xs font-bold text-gray-600 mt-1'>${d.label}</p><div class='mt-2 w-full h-1.5 bg-white rounded-full overflow-hidden'><div class='h-full rounded-full' style='width:0%;background:${d.color}'></div></div><p class='text-[11px] font-black mt-1' style='color:${d.color}'>0%</p></div>`).join('');
+                })();
 
-                const pPct = r.p * 100;
-                const baseline = MODEL.cutoff * 100;
-                const isAtRisk = r.isAtRisk;
-                const statusText = isAtRisk ? '노쇠 위험' : '결과 정상';
-                const statusColor = isAtRisk ? '#EF4444' : '#10B981';
-                const statusIcon = isAtRisk ? 'fa-triangle-exclamation' : 'fa-circle-check';
-                const markerColor = isAtRisk ? '#EF4444' : '#10B981';
-                const markerLeft = Math.min(Math.max((pPct / 15) * 100, 0), 100);
-                const physPct = Math.round(r.physPct || 0);
-                const emoPct = Math.round(r.emoPct || 0);
-                summary.innerHTML = `<div class='grid grid-cols-[auto_minmax(0,1fr)] gap-3 md:gap-4 items-center rounded-2xl p-3' style='background:#F7F5F0'><div class='w-24 h-24 rounded-2xl flex items-center justify-center shrink-0' style='background:#FFFFFF; border:1px solid rgba(0,0,0,0.05);'><img src='/owl-hero.svg' alt='부비' class='w-[72px] h-[72px] object-contain' /></div><div class='min-w-0'><div class='flex items-center gap-1.5 flex-wrap'><span class='text-[11px] font-bold text-charcoal/55'>기준선 ${baseline.toFixed(1)}%</span></div><div class='flex items-end gap-2 mt-1 flex-wrap'><h2 class='font-gapyeong leading-none font-black text-charcoal' style='font-size:clamp(26px,3.6vw,42px);'>${pPct.toFixed(1)}<span style='font-size:0.5em;'>%</span></h2><p class='text-[11px] font-bold text-charcoal/65 leading-tight'>종합<br>노쇠 위험도</p><span class='inline-flex items-center gap-1 px-3 rounded-full text-[14px] font-black h-[42px] whitespace-nowrap' style='background:${statusColor}; color:#fff;'><i class='fa-solid ${statusIcon} text-[9px]'></i>${statusText}</span></div></div></div><div><div class='relative h-3 rounded-full' style='background:linear-gradient(90deg,#34D399 0%,#FBBF24 55%,#EF4444 100%)'><div class='absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-white border-2' style='left:${markerLeft}%;border-color:${markerColor};box-shadow:0 0 0 2px ${markerColor}40'></div></div><div class='flex justify-between text-[11px] font-bold text-gray-500 mt-1'><span>정상</span><span>현재 ${pPct.toFixed(1)}%</span><span>노쇠 위험</span></div></div><div><div class='flex h-6 rounded-full overflow-hidden'><div class='flex items-center justify-center text-[11px] font-black text-white' style='width:${physPct}%;background:#2563EB'>${physPct > 0 ? '신체 ' + physPct + '%' : ''}</div><div class='flex items-center justify-center text-[11px] font-black text-white' style='width:${emoPct}%;background:#DB2777'>${emoPct > 0 ? '정서 ' + emoPct + '%' : ''}</div></div><div class='flex justify-between text-[11px] font-bold mt-1'><span style='color:#2563EB'>● 신체영역 ${physPct}%</span><span style='color:#DB2777'>● 정서영역 ${emoPct}%</span></div></div>`;
-            } else {
-                const defaults = [
-                    { label:'보행기능', color:'#2563EB' },
-                    { label:'활동량', color:'#F97316' },
-                    { label:'우울감', color:'#DB2777' },
-                    { label:'나이(참고)', color:'#6B7280' },
-                    { label:'체중', color:'#059669' },
-                    { label:'복용약물', color:'#7C3AED' }
-                ];
-                grid.innerHTML = defaults.map(d => `<div class='monitoring-metric rounded-2xl p-3 flex flex-col items-center text-center' style='background:#F7F5F0'><span class='text-xs font-black text-white px-3 py-1 rounded-full mb-2' style='background:#9CA3AF'>미측정</span><p class='metric-value'><span class='font-black' style='font-size:24px'>0.00</span></p><p class='metric-title text-xs font-bold text-gray-600 mt-1'>${d.label}</p><div class='mt-2 w-full h-1.5 bg-white rounded-full overflow-hidden'><div class='h-full rounded-full' style='width:0%;background:${d.color}'></div></div><p class='text-[11px] font-black mt-1' style='color:${d.color}'>0%</p></div>`).join('');
+            const baseline = (MODEL.cutoff * 100);
+            const summaryHtml = hasResult
+                ? (() => {
+                    const pPct = r.p * 100;
+                    const isAtRisk = r.isAtRisk;
+                    const statusText = isAtRisk ? '노쇠 위험' : '결과 정상';
+                    const statusColor = isAtRisk ? '#EF4444' : '#10B981';
+                    const statusIcon = isAtRisk ? 'fa-triangle-exclamation' : 'fa-circle-check';
+                    const markerColor = isAtRisk ? '#EF4444' : '#10B981';
+                    const markerLeft = Math.min(Math.max((pPct / 15) * 100, 0), 100);
+                    const physPct = Math.round(r.physPct || 0);
+                    const emoPct = Math.round(r.emoPct || 0);
+                    return `<div class='grid grid-cols-[auto_minmax(0,1fr)] gap-3 md:gap-4 items-center rounded-2xl p-3' style='background:#F7F5F0'><div class='w-24 h-24 rounded-2xl flex items-center justify-center shrink-0' style='background:#FFFFFF; border:1px solid rgba(0,0,0,0.05);'><img src='/owl-hero.svg' alt='부비' class='w-[72px] h-[72px] object-contain' /></div><div class='min-w-0'><div class='flex items-center gap-1.5 flex-wrap'><span class='text-[11px] font-bold text-charcoal/55'>기준선 ${baseline.toFixed(1)}%</span></div><div class='flex items-end gap-2 mt-1 flex-wrap'><h2 class='font-gapyeong leading-none font-black text-charcoal' style='font-size:clamp(26px,3.6vw,42px);'>${pPct.toFixed(1)}<span style='font-size:0.5em;'>%</span></h2><p class='text-[11px] font-bold text-charcoal/65 leading-tight'>종합<br>노쇠 위험도</p><span class='inline-flex items-center gap-1 px-3 rounded-full text-[14px] font-black h-[42px] whitespace-nowrap' style='background:${statusColor}; color:#fff;'><i class='fa-solid ${statusIcon} text-[9px]'></i>${statusText}</span></div></div></div><div><div class='relative h-3 rounded-full' style='background:linear-gradient(90deg,#34D399 0%,#FBBF24 55%,#EF4444 100%)'><div class='absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-white border-2' style='left:${markerLeft}%;border-color:${markerColor};box-shadow:0 0 0 2px ${markerColor}40'></div></div><div class='flex justify-between text-[11px] font-bold text-gray-500 mt-1'><span>정상</span><span>현재 ${pPct.toFixed(1)}%</span><span>노쇠 위험</span></div></div><div><div class='flex h-6 rounded-full overflow-hidden'><div class='flex items-center justify-center text-[11px] font-black text-white' style='width:${physPct}%;background:#2563EB'>${physPct > 0 ? '신체 ' + physPct + '%' : ''}</div><div class='flex items-center justify-center text-[11px] font-black text-white' style='width:${emoPct}%;background:#DB2777'>${emoPct > 0 ? '정서 ' + emoPct + '%' : ''}</div></div><div class='flex justify-between text-[11px] font-bold mt-1'><span style='color:#2563EB'>● 신체영역 ${physPct}%</span><span style='color:#DB2777'>● 정서영역 ${emoPct}%</span></div></div>`;
+                })()
+                : `<div class='grid grid-cols-[auto_minmax(0,1fr)] gap-3 md:gap-4 items-center rounded-2xl p-3' style='background:#F7F5F0'><div class='w-24 h-24 rounded-2xl flex items-center justify-center shrink-0' style='background:#FFFFFF; border:1px solid rgba(0,0,0,0.05);'><img src='/owl-hero.svg' alt='부비' class='w-[72px] h-[72px] object-contain' /></div><div class='min-w-0'><div class='flex items-center gap-1.5 flex-wrap'><span class='text-[11px] font-bold text-charcoal/55'>기준선 ${baseline.toFixed(1)}%</span></div><div class='flex items-end gap-2 mt-1 flex-wrap'><h2 class='font-gapyeong leading-none font-black text-charcoal' style='font-size:clamp(26px,3.6vw,42px);'>0.0<span style='font-size:0.5em;'>%</span></h2><p class='text-[11px] font-bold text-charcoal/65 leading-tight'>종합<br>노쇠 위험도</p><span class='inline-flex items-center gap-1 px-3 rounded-full text-[14px] font-black h-[42px] whitespace-nowrap' style='background:#9CA3AF; color:#fff;'><i class='fa-solid fa-circle-question text-[9px]'></i>미측정</span></div></div></div><div><div class='relative h-3 rounded-full' style='background:linear-gradient(90deg,#34D399 0%,#FBBF24 55%,#EF4444 100%)'><div class='absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-white border-2' style='left:0%;border-color:#9CA3AF;box-shadow:0 0 0 2px rgba(156,163,175,0.25)'></div></div><div class='flex justify-between text-[11px] font-bold text-gray-500 mt-1'><span>정상</span><span>현재 0.0%</span><span>노쇠 위험</span></div></div><div><div class='flex h-6 rounded-full overflow-hidden'><div class='flex items-center justify-center text-[11px] font-black text-white' style='width:0%;background:#2563EB'></div><div class='flex items-center justify-center text-[11px] font-black text-white' style='width:0%;background:#DB2777'></div></div><div class='flex justify-between text-[11px] font-bold mt-1'><span style='color:#2563EB'>● 신체영역 0%</span><span style='color:#DB2777'>● 정서영역 0%</span></div></div>`;
 
-                const baseline = (MODEL.cutoff * 100).toFixed(1);
-                summary.innerHTML = `<div class='grid grid-cols-[auto_minmax(0,1fr)] gap-3 md:gap-4 items-center rounded-2xl p-3' style='background:#F7F5F0'><div class='w-24 h-24 rounded-2xl flex items-center justify-center shrink-0' style='background:#FFFFFF; border:1px solid rgba(0,0,0,0.05);'><img src='/owl-hero.svg' alt='부비' class='w-[72px] h-[72px] object-contain' /></div><div class='min-w-0'><div class='flex items-center gap-1.5 flex-wrap'><span class='text-[11px] font-bold text-charcoal/55'>기준선 ${baseline}%</span></div><div class='flex items-end gap-2 mt-1 flex-wrap'><h2 class='font-gapyeong leading-none font-black text-charcoal' style='font-size:clamp(26px,3.6vw,42px);'>0.0<span style='font-size:0.5em;'>%</span></h2><p class='text-[11px] font-bold text-charcoal/65 leading-tight'>종합<br>노쇠 위험도</p><span class='inline-flex items-center gap-1 px-3 rounded-full text-[14px] font-black h-[42px] whitespace-nowrap' style='background:#9CA3AF; color:#fff;'><i class='fa-solid fa-circle-question text-[9px]'></i>미측정</span></div></div></div><div><div class='relative h-3 rounded-full' style='background:linear-gradient(90deg,#34D399 0%,#FBBF24 55%,#EF4444 100%)'><div class='absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-white border-2' style='left:0%;border-color:#9CA3AF;box-shadow:0 0 0 2px rgba(156,163,175,0.25)'></div></div><div class='flex justify-between text-[11px] font-bold text-gray-500 mt-1'><span>정상</span><span>현재 0.0%</span><span>노쇠 위험</span></div></div><div><div class='flex h-6 rounded-full overflow-hidden'><div class='flex items-center justify-center text-[11px] font-black text-white' style='width:0%;background:#2563EB'></div><div class='flex items-center justify-center text-[11px] font-black text-white' style='width:0%;background:#DB2777'></div></div><div class='flex justify-between text-[11px] font-bold mt-1'><span style='color:#2563EB'>● 신체영역 0%</span><span style='color:#DB2777'>● 정서영역 0%</span></div></div>`;
-            }
+            grids.forEach(grid => { grid.innerHTML = gridHtml; });
+            summaries.forEach(summary => { summary.innerHTML = summaryHtml; });
         }
 
         function renderDetailCharts(r, pPct, trendPoints, trendLabels) {
