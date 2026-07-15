@@ -2775,8 +2775,56 @@
 
                     <!-- Left: 1:1 상담 히어로 카드 -->
                     <button onclick="tryNavigateWithWarning('chat')" class="group relative text-left rounded-3xl bg-white shadow-md border-2 p-5 lg:p-6 min-h-[260px] lg:min-h-0 lg:h-full flex flex-col justify-between hover:shadow-lg transition-all overflow-hidden" style="background-color: var(--card-bg); border-color: var(--border-color);">
-...
-                </div>
+                        <!-- 큰 일러스트: 우측 하단 배치 -->
+                        <img src="/buvi-step3-cutout.png" alt="부비와 상담" loading="lazy" width="520" height="520" class="pointer-events-none select-none absolute right-[-8px] bottom-[-8px] w-[70%] lg:w-[68%] max-w-[420px] object-contain drop-shadow-sm" />
+
+                        <!-- 상단 텍스트 -->
+                        <div class="relative z-10 max-w-[70%]">
+                            <h3 class="font-gapyeong text-xl lg:text-2xl font-black text-charcoal leading-tight">
+                                부비와 함께하는<br>1:1 맞춤 상담
+                            </h3>
+                            <p class="mt-2 text-xs lg:text-sm text-gray-500 font-bold leading-relaxed">
+                                노쇠 예측 설문 결과를 기반으로<br class="hidden lg:block">개별화된 건강 조언을 받아보세요.
+                            </p>
+                        </div>
+
+                        <!-- 하단 CTA -->
+                        <div class="relative z-10 flex items-center gap-3">
+                            <span class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-kakao text-charcoal font-black text-sm shadow-sm group-hover:brightness-95 transition-all">
+                                상담 시작 <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </span>
+                            <span class="text-xs font-bold text-gray-400">지금 바로</span>
+                        </div>
+                    </button>
+
+
+                    <!-- Right: 결과 저장·공유 태스크 + 스탯 -->
+                    <div class="flex flex-col gap-3 lg:gap-4 lg:h-full">
+
+                        <!-- 태스크 카드 (화이트) -->
+                        <div class="rounded-3xl p-4 lg:p-5 shadow-md text-charcoal flex flex-col bg-white border-2 lg:flex-1" style="border-color: var(--border-color);">
+                            <h3 class="font-gapyeong text-2xl lg:text-3xl font-black leading-tight mb-2 text-charcoal">3가지 저장 방법</h3>
+                            <div class="space-y-2 flex-1 flex flex-col justify-around">
+                                <button onclick="event.stopPropagation(); simulatePDFDownload()" class="w-full flex items-center gap-3 py-2.5 border-t border-gray-200 text-left hover:bg-gray-50 transition-colors -mx-1 px-1 rounded-lg">
+                                    <span class="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-file-pdf text-charcoal text-xs"></i></span>
+                                    <span class="flex-1 text-sm font-black text-charcoal">PDF 저장</span>
+                                    <i class="fa-solid fa-arrow-right text-gray-400 text-xs"></i>
+                                </button>
+                                <button onclick="event.stopPropagation(); showAppModal('🖼️','이미지 공유 완료','노쇠 위험도 결과 그래프를 사진첩에 저장해 드렸습니다.')" class="w-full flex items-center gap-3 py-2.5 border-t border-gray-200 text-left hover:bg-gray-50 transition-colors -mx-1 px-1 rounded-lg">
+                                    <span class="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-image text-charcoal text-xs"></i></span>
+                                    <span class="flex-1 text-sm font-black text-charcoal">이미지 공유</span>
+                                    <i class="fa-solid fa-arrow-right text-gray-400 text-xs"></i>
+                                </button>
+                                <button onclick="event.stopPropagation(); simulateTTSResult()" class="w-full flex items-center gap-3 py-2.5 border-t border-b border-gray-200 text-left hover:bg-gray-50 transition-colors -mx-1 px-1 rounded-lg">
+                                    <span class="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-volume-high text-charcoal text-xs"></i></span>
+                                    <span class="flex-1 text-sm font-black text-charcoal">음성 듣기</span>
+                                    <i class="fa-solid fa-arrow-right text-gray-400 text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
 
           </div>
 
