@@ -6484,18 +6484,18 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             }
         }
 
-        // 다른 책자를 누르거나 다른 메뉴로 이동을 시도할 때, 아직 다 읽지 않았다면 확인을 요청
+        // 다른 책자를 누르거나 다른 메뉴로 이동을 시도할 때, 팝업 없이 바로 실행
         function requestSwitchCard(targetCardId) {
-            state.pendingCardExitAction = { type: 'card', target: targetCardId };
-            document.getElementById('card-exit-modal').classList.remove('hidden');
+            state.cardReadingLocked = false;
+            openDetailedStudyCard(targetCardId);
         }
         function requestStopReading() {
-            state.pendingCardExitAction = { type: 'close', target: null };
-            document.getElementById('card-exit-modal').classList.remove('hidden');
+            state.cardReadingLocked = false;
+            document.getElementById('quiz-panel').classList.add('hidden');
         }
         function requestLeaveRecordsPage(targetPageId) {
-            state.pendingCardExitAction = { type: 'page', target: targetPageId };
-            document.getElementById('card-exit-modal').classList.remove('hidden');
+            state.cardReadingLocked = false;
+            navTo(targetPageId);
         }
         function confirmStopReading() {
             document.getElementById('card-exit-modal').classList.add('hidden');
