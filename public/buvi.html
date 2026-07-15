@@ -6641,6 +6641,26 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             showAppModal('📄', 'PDF 저장', '노쇠 위험도 결과 보고서를 PDF로 저장했습니다. (시뮬레이션)');
         }
 
+        function toggleSaveShareMenu(which) {
+            const targetId = which + '-submenu';
+            const otherId = (which === 'save' ? 'share' : 'save') + '-submenu';
+            const targetCaret = document.getElementById(which + '-menu-caret');
+            const otherCaret = document.getElementById((which === 'save' ? 'share' : 'save') + '-menu-caret');
+            const target = document.getElementById(targetId);
+            const other = document.getElementById(otherId);
+            if (other && !other.classList.contains('hidden')) {
+                other.classList.add('hidden');
+                other.classList.remove('flex');
+                if (otherCaret) otherCaret.classList.remove('rotate-180');
+            }
+            if (target) {
+                const isHidden = target.classList.contains('hidden');
+                target.classList.toggle('hidden');
+                target.classList.toggle('flex', isHidden);
+                if (targetCaret) targetCaret.classList.toggle('rotate-180', isHidden);
+            }
+        }
+
         function simulateTTSResult() {
             const r = state.result;
             if (r.p !== null) {
