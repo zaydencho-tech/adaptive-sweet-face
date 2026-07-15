@@ -5554,87 +5554,72 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     }
                 }
 
-                const isDesktop = window.innerWidth >= 1024;
-                const isMobile  = window.innerWidth < 640;
-                const H = isDesktop ? 110 : (isMobile ? 130 : 150);
                 const maxAbs = Math.max(...contribs.map(c => Math.abs(c.value)), 0.001);
-                // 0 기준선을 중앙에 위치. 각 바는 위(위험) 또는 아래(보호)로 뻗음.
-                const PAL_BAR = {
-                    phys: { solid:'#2563eb', hatch:'#60a5fa' },  // 파랑 계열
-                    emo:  { solid:'#ec4899', hatch:'#f9a8d4' },  // 분홍 계열
-                    age:  { solid:'#9ca3af', hatch:'#d1d5db' },  // 회색 계열
+                const ICONS = {
+                    gait: 'fa-person-walking',
+                    activity: 'fa-bolt',
+                    age: 'fa-hourglass-half',
+                    sgdsk: 'fa-face-frown',
+                    meds: 'fa-pills',
+                    weight: 'fa-weight-scale',
                 };
-                const PAL_NEG = { solid:'#10b981', hatch:'#6ee7b7' }; // 보호 (아래): 초록/노랑 hatch
-                const barW = isDesktop ? 24 : (isMobile ? 20 : 26);
+                // 카드 팔레트: 상태별(위험/보호/참고) 부드러운 파스텔 톤 + 강조 컬러
+                const CARD_PAL = {
+                    '위험': { bg:'#FEF2F2', ring:'#FCA5A5', accent:'#EF4444', iconBg:'#FEE2E2', iconFg:'#EF4444', track:'#FEE2E2' },
+                    '보호': { bg:'#ECFDF5', ring:'#6EE7B7', accent:'#10B981', iconBg:'#D1FAE5', iconFg:'#059669', track:'#D1FAE5' },
+                    '참고': { bg:'#F3F4F6', ring:'#D1D5DB', accent:'#6B7280', iconBg:'#E5E7EB', iconFg:'#4B5563', track:'#E5E7EB' },
+                };
 
-                const bars = contribs.map((c, i) => {
-                    const ratio = Math.abs(c.value) / maxAbs;
-                    const hPct  = Math.max(ratio * 48, 8); // 상/하 각각 최대 48%
-                    const isNeg = !!c.down;
-                    const pal = isNeg ? PAL_NEG : (PAL_BAR[c.domain] || PAL_BAR.phys);
-                    const solidH = hPct * 0.55, hatchH = hPct * 0.45;
-                    const hatchBg = `repeating-linear-gradient(45deg, ${pal.hatch} 0 6px, transparent 6px 10px), ${pal.solid}`;
-                    // 절대 높이 계산 (percent of H)
-                    const stackAbsStyle = isNeg
-                        ? `top:50%; height:${hPct}%;`
-                        : `bottom:50%; height:${hPct}%;`;
+                const cards = contribs.map((c, i) => {
+                    const pal = CARD_PAL[c.status.text] || CARD_PAL['참고'];
+                    const pct = Math.round(Math.abs(c.value) / maxAbs * 100);
+                    const icon = ICONS[c.key] || 'fa-circle-dot';
+                    // 원형 진행 게이지 (conic-gradient)
+                    const ringBg = `conic-gradient(${pal.accent} ${pct*3.6}deg, ${pal.track} 0)`;
+                    // 값 표시: 절대값을 소수 2자리로
+                    const displayVal = Math.abs(c.value).toFixed(2);
+                    const sign = (c.value >= 0 ? '+' : '−');
                     return `
-                    <div class="flex-1 relative h-full min-w-0 buvi-bar-item" data-idx="${i}">
-                        <div style="width:${barW}px; position:absolute; left:50%; transform:translateX(-50%); ${stackAbsStyle} cursor:pointer;">
-                            <div style="position:relative; width:100%; height:100%; background:${hatchBg}; border-radius:${isNeg?'0 0 4px 4px':'4px 4px 0 0'};">
-                                <div style="width:100%; height:${(solidH/hPct*100).toFixed(1)}%; background:${pal.solid}; ${isNeg?'border-radius:0 0 4px 4px; position:absolute; bottom:0; left:0;':'border-radius:4px 4px 0 0;'}"></div>
+                    <div class="buvi-bar-item rounded-2xl p-3 md:p-4 flex flex-col items-center justify-between text-center" data-idx="${i}"
+                         style="background:${pal.bg}; border:1px solid ${pal.ring}; min-height:170px;">
+                        <div class="rounded-full flex items-center justify-center" style="width:38px; height:38px; background:${pal.iconBg};">
+                            <i class="fa-solid ${icon}" style="color:${pal.iconFg}; font-size:16px;"></i>
+                        </div>
+                        <div class="mt-2 text-[15px] md:text-[17px] font-black tabular-nums" style="color:#111827;">
+                            ${sign}${displayVal}
+                        </div>
+                        <div class="text-[11px] md:text-[12px] font-bold" style="color:#6B7280;">${c.label}</div>
+                        <div class="mt-2 relative rounded-full flex items-center justify-center"
+                             style="width:56px; height:56px; background:${ringBg};">
+                            <div class="rounded-full flex items-center justify-center" style="width:42px; height:42px; background:${pal.bg};">
+                                <span class="text-[11px] md:text-[12px] font-black tabular-nums" style="color:${pal.accent};">${pct}%</span>
                             </div>
+                        </div>
+                        <div class="mt-2">
+                            <span class="text-[10px] md:text-[11px] font-black text-white px-2 py-0.5 rounded-full" style="background:${c.status.bg};">${c.status.text}</span>
                         </div>
                     </div>`;
                 }).join('');
 
-                const labelsRow = contribs.map(c => `
-                    <div class="flex-1 text-center text-[11px] md:text-[13px] font-bold text-gray-700 truncate px-0.5">${c.label}</div>
-                `).join('');
-                const statusRow = contribs.map(c => `
-                    <div class="flex-1 flex justify-center px-0.5">
-                        <span class="text-[10px] md:text-[12px] font-black text-white px-2 py-0.5 rounded-full" style="background:${c.status.bg};">${c.status.text}</span>
-                    </div>
-                `).join('');
-                const gridBg = [25, 75].map(t => `
-                    <div class="absolute left-0 right-0" style="top:${t}%; height:1px; background:#eef0f4;"></div>
-                `).join('');
-
-                // 툴팁 데이터 (이미지1 스타일)
-                const tooltipItems = contribs.map((c,i) => {
-                    const color = c.status.bg;
-                    return `<div data-tt="${i}" style="display:none; align-items:center; justify-content:space-between; gap:12px; font-size:12px;">
-                        <span style="display:inline-flex; align-items:center; gap:6px;"><span style="width:8px;height:8px;border-radius:9999px;background:${color};display:inline-block;"></span>${c.label}</span>
-                        <span style="font-weight:900;">${(c.value>=0?'+':'')}${c.value.toFixed(2)}</span>
-                    </div>`;
-                }).join('');
-
                 wrap.innerHTML = `
-                <div class="relative" style="height:${H}px;">
-                    ${gridBg}
-                    <div class="absolute left-0 right-0" style="top:50%; height:2px; background:#1f2937;"></div>
-                    <div class="absolute inset-0 flex gap-1 px-1">
-                        ${bars}
-                    </div>
-                    <div id="buvi-bar-tooltip" class="absolute" style="display:none; top:8px; left:50%; transform:translateX(-50%); background:#1f2937; color:#fff; padding:8px 12px; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,.15); pointer-events:none; min-width:170px;">
-                        ${tooltipItems}
-                    </div>
-                </div>
-                <div class="flex mt-0 px-1 gap-1">${labelsRow}</div>
-                <div class="flex mt-0.5 px-1 gap-1">${statusRow}</div>`;
+                <div class="grid gap-2 md:gap-3" style="grid-template-columns:repeat(6,minmax(0,1fr));">
+                    ${cards}
+                </div>`;
 
-                // hover 인터랙션
-                const tt = wrap.querySelector('#buvi-bar-tooltip');
-                wrap.querySelectorAll('.buvi-bar-item').forEach(el => {
-                    el.addEventListener('mouseenter', () => {
-                        const idx = el.getAttribute('data-idx');
-                        tt.style.display = 'block';
-                        tt.querySelectorAll('[data-tt]').forEach(row => {
-                            row.style.display = (row.getAttribute('data-tt') === idx) ? 'flex' : 'none';
-                        });
-                    });
-                    el.addEventListener('mouseleave', () => { tt.style.display = 'none'; });
-                });
+                // 모바일에서 6열이 너무 좁을 경우 대응: 화면이 좁으면 3열로 자동 축소
+                const applyCols = () => {
+                    const gridEl = wrap.firstElementChild;
+                    if (!gridEl) return;
+                    const w = window.innerWidth;
+                    if (w < 480) gridEl.style.gridTemplateColumns = 'repeat(2,minmax(0,1fr))';
+                    else if (w < 768) gridEl.style.gridTemplateColumns = 'repeat(3,minmax(0,1fr))';
+                    else gridEl.style.gridTemplateColumns = 'repeat(6,minmax(0,1fr))';
+                };
+                applyCols();
+                if (!wrap._buviResizeBound) {
+                    window.addEventListener('resize', applyCols);
+                    wrap._buviResizeBound = true;
+                }
             }
 
             // 상단 히어로 대비 증감 (첫 검사 대비 %증가)
