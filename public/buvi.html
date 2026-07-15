@@ -217,35 +217,35 @@
         #deviation-bars .text-\[11px\] { font-size: max(13px, calc(11px * var(--font-scale))); }
         .bar-label-text { font-size: max(14px, calc(13px * var(--font-scale))); font-weight: 700; }
 
-        /* ── 결과 화면 데스크탑 폰트 위계: 최소 13px 보장 (h3 제목은 유지) ── */
+        /* ── 결과 화면 데스크탑 폰트 위계: 최소 13px 보장 + 글자크기 버튼(--font-scale) 반영 (h3 제목은 유지) ── */
         @media (min-width: 1024px) {
             #page-result :not(h3).text-xs,
-            #page-result :not(h3) .text-xs { font-size: 13px; line-height: 1.45; }
+            #page-result :not(h3) .text-xs { font-size: calc(13px * var(--font-scale)); line-height: 1.45; }
             #page-result :not(h3).text-sm,
-            #page-result :not(h3) .text-sm { font-size: 15px; line-height: 1.5; }
+            #page-result :not(h3) .text-sm { font-size: calc(15px * var(--font-scale)); line-height: 1.5; }
             #page-result :not(h3).text-base,
-            #page-result :not(h3) .text-base { font-size: 17px; line-height: 1.5; }
+            #page-result :not(h3) .text-base { font-size: calc(17px * var(--font-scale)); line-height: 1.5; }
             #page-result :not(h3).text-lg,
-            #page-result :not(h3) .text-lg { font-size: 19px; line-height: 1.4; }
+            #page-result :not(h3) .text-lg { font-size: calc(19px * var(--font-scale)); line-height: 1.4; }
             #page-result .scaled-text-xs { font-size: max(13px, calc(12px * var(--font-scale))); }
             #page-result .scaled-text-sm { font-size: max(15px, calc(15px * var(--font-scale))); }
             #page-result .scaled-text-base { font-size: max(17px, calc(18px * var(--font-scale))); }
-            /* 결과 뱃지·차트 라벨 등 arbitrary 소형 폰트도 데스크탑에서 최소 13px 보장 */
+            /* 결과 뱃지·차트 라벨 등 arbitrary 소형 폰트도 데스크탑에서 최소 13px 보장 + 스케일 반영 */
             #page-result [class*="text-\[9px\]"],
             #page-result [class*="text-\[10px\]"],
             #page-result [class*="text-\[11px\]"],
-            #page-result [class*="text-\[12px\]"] { font-size: 13px !important; line-height: 1.4 !important; }
+            #page-result [class*="text-\[12px\]"] { font-size: calc(13px * var(--font-scale)) !important; line-height: 1.4 !important; }
             #page-result i[class*="text-\[9px\]"],
             #page-result i[class*="text-\[10px\]"],
             #page-result i[class*="text-\[11px\]"],
-            #page-result i[class*="text-\[12px\]"] { font-size: 12px !important; line-height: 1 !important; }
-            /* 결과 히어로 안내문 + 상단 뱃지 폰트 위계 상향 */
+            #page-result i[class*="text-\[12px\]"] { font-size: calc(12px * var(--font-scale)) !important; line-height: 1 !important; }
+            /* 결과 히어로 안내문 + 상단 뱃지 폰트 위계 상향 (스케일 반영) */
             #page-result .result-hero-headline,
-            #page-result .result-hero-subline { font-size: 16px !important; line-height: 1.45 !important; }
-            #page-result .result-status-badge { font-size: 14px !important; }
-            #page-result .result-status-badge i { font-size: 12px !important; }
-            #page-result .result-baseline-label { font-size: 14px !important; }
-            #page-result .result-summary-label { font-size: 14px !important; }
+            #page-result .result-hero-subline { font-size: calc(16px * var(--font-scale)) !important; line-height: 1.45 !important; }
+            #page-result .result-status-badge { font-size: calc(14px * var(--font-scale)) !important; }
+            #page-result .result-status-badge i { font-size: calc(12px * var(--font-scale)) !important; }
+            #page-result .result-baseline-label { font-size: calc(14px * var(--font-scale)) !important; }
+            #page-result .result-summary-label { font-size: calc(14px * var(--font-scale)) !important; }
         }
 
         /* ── 홈 카드 hover ── */
