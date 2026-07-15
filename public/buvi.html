@@ -1086,6 +1086,29 @@
                 display: flex !important;
                 flex-direction: column !important;
             }
+            /* 결과 리포트: 데스크탑에서 3개 섹션 간격 20px 고정 + 뷰포트 꽉 채우기 */
+            body.subpage-mode:has(#page-result:not(.hidden)) main {
+                height: 100vh !important;
+                max-height: 100vh !important;
+                overflow: hidden !important;
+            }
+            body.subpage-mode main > #page-result:not(.hidden) {
+                flex: 1 1 auto !important;
+                min-height: 0 !important;
+                display: flex !important;
+                flex-direction: column !important;
+            }
+            body.subpage-mode main > #page-result:not(.hidden) > * {
+                flex: 1 1 auto !important;
+                min-height: 0 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 20px !important;
+            }
+            body.subpage-mode main > #page-result:not(.hidden) > * > * {
+                flex: 1 1 0 !important;
+                min-height: 0 !important;
+            }
             /* 모바일/태블릿 전용 블록 및 퀵링크·홈버튼 숨김 */
             body.subpage-mode main #page-about .lg\:hidden,
             body.subpage-mode main #page-about > div > div.grid.grid-cols-2.md\:grid-cols-4,
