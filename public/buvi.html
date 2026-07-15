@@ -5954,9 +5954,9 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
             // 설문 미완료 차단
             if (!hasResult) {
-                scroller.innerHTML = `<div class="msg-row flex flex-col gap-2 items-start">
+                scroller.innerHTML = `<div class="msg-row flex items-start gap-3 animate-fade-in">
                     <img src="${BUVI_IMG_11}" class="w-9 h-9 object-contain flex-shrink-0" alt="">
-                    <div class="bg-yellow-50 border-2 border-yellow-300 p-4 rounded-3xl w-full shadow-sm font-bold scaled-text-base leading-snug">
+                    <div class="bg-yellow-50 border-2 border-yellow-300 p-4 rounded-3xl shadow-sm font-bold scaled-text-base leading-snug max-w-[85%]">
                         설문이 아직 완료되지 않았어요. 설문을 모두 마친 뒤 상담을 진행하세요!
                     </div>
                 </div>`;
@@ -5965,12 +5965,9 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             }
 
             scroller.innerHTML = `
-                <div class="msg-row flex flex-col gap-2 items-start" id="chat-loading-status">
-                    <div class="flex items-center gap-2">
-                        <img src="/__l5e/assets-v1/87826ad7-dc5d-4dc8-a059-bb13feb0da85/buvi-character.png" class="w-12 h-12 object-contain flex-shrink-0" alt="BUVI 캐릭터">
-                        <span class="inline-flex items-center gap-1 bg-yellow-100 text-charcoal font-black scaled-text-xs px-3 py-1 rounded-full border border-yellow-300 shadow-sm">분석 중</span>
-                    </div>
-                    <div class="bg-gray-100 p-4 rounded-3xl w-full border shadow-sm font-bold scaled-text-base">
+                <div class="msg-row flex items-start gap-3" id="chat-loading-status">
+                    <img src="/__l5e/assets-v1/87826ad7-dc5d-4dc8-a059-bb13feb0da85/buvi-character.png" class="w-12 h-12 object-contain flex-shrink-0" alt="BUVI 캐릭터">
+                    <div class="bg-gray-100 p-4 rounded-3xl border shadow-sm font-bold scaled-text-base max-w-[85%]">
                         <span>어르신의 건강 검사 결과를 꼼꼼히 분석하고 있습니다. 잠시만요...</span>
                         <div class="flex gap-1 mt-2 justify-center">
                             <span class="w-2.5 h-2.5 bg-kakao rounded-full animate-bounce"></span>
@@ -5988,7 +5985,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 const verdict = hasResult
                     ? (r.isAtRisk ? `노쇠 위험 확률이 <strong>${pPct}%</strong>로 기준(6.9%)을 초과했습니다.` : `노쇠 위험 확률이 <strong>${pPct}%</strong>로 기준(6.9%) 이하의 양호한 상태입니다.`)
                     : '설문 결과 없이 브리핑 모드로 돌아왔어요.';
-                appendBotMsg(`안녕하세요, 어르신! 방금 완료된 노쇠 예측 설문 결과를 살펴봤어요. 👋<br><br>${verdict}`, '1단계 · 인사');
+                appendBotMsg(`안녕하세요, 어르신! 방금 완료된 노쇠 예측 설문 결과를 살펴봤어요. 👋<br><br>${verdict}`);
                 updateBuvi(hasResult && r.isAtRisk ? '2-5' : '1-1', '검사 분석이 끝났습니다. 결과를 설명해 드릴게요.');
             }, 1000);
 
@@ -6011,106 +6008,26 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                                 ? '신체영역이 위험 기여의 주된 부분을 차지하고 있습니다.'
                                 : '정서영역이 위험 기여의 주된 부분을 차지하고 있습니다.'}
                         </p>
-                    </div>`, '2단계 · 영역 요약');
+                    </div>`);
 
                 updateBuvi('1-3', '영역별 위험 기여 비율을 보여드렸어요.');
             }, 3500);
 
-            // ── 3단계 항목별 건강 안내 (위험 기여 내림차순) ──────────
-            setTimeout(() => {
-                if (!hasResult) return;
-                const isMale = (a.gender === 'male');
-                const metThreshold = isMale ? 495.65 : 283.50;
-                const adviceMap = {
-                    tug: (v) => {
-                        if (v <= 9.7)  return { grade:'양호', color:'text-emerald-700', bg:'bg-emerald-50 border-emerald-200', full: '어르신, 기능적 이동성 검사 결과가 양호하게 나왔습니다. 이 검사는 의자에서 일어나 평소 속도로 3m를 걷고, 돌아서서 다시 앉기까지의 시간을 측정합니다. 다리 근력과 힘, 몸의 균형, 걷는 속도, 방향 전환, 낙상위험을 함께 보는 기능평가입니다. 어르신은 또래에 비해 안정적으로 잘 걸으시는 편입니다. 지금처럼 꾸준히 다리 힘 기르기, 균형 잡기, 걷기 연습을 함께 하시면 건강한 이동 능력을 오래 유지하실 수 있습니다.' };
-                        if (v <= 17.8) return { grade:'보통', color:'text-amber-700', bg:'bg-amber-50 border-amber-200', full: '어르신, 기능적 이동성 검사 결과가 보통 수준으로 나왔습니다. 이 검사는 의자에서 일어나 평소 속도로 3m를 걷고, 돌아서서 다시 앉기까지의 시간을 측정합니다. 어르신은 아직 큰 문제는 없지만, 다리 힘과 균형, 걷는 속도를 조금 더 챙기시면 좋겠다는 신호입니다. 다리 힘 → 균형 → 걷기 순서로 진행하시는 것이 안전하고 효과적입니다. 처음에는 다리 힘 운동 한 가지부터 가볍게 시작하셔서, 몸이 적응하면 균형과 걷기를 더해가시는 것이 끝까지 지치지 않고 운동하시는 방법입니다.' };
-                        return { grade:'주의', color:'text-red-700', bg:'bg-red-50 border-red-200', full: '어르신, 기능적 이동성 검사 결과 주의가 필요한 것으로 나왔습니다. 이 검사는 의자에서 일어나 평소 속도로 3m를 걷고, 돌아서서 다시 앉기까지의 시간을 측정합니다. 어르신은 걷기와 균형이 다소 불안정한 상태로, 자칫 넘어지실 수 있어 운동을 시작하실 때 혼자보다는 보호자나 전문가의 도움을 받으시는 것이 가장 중요합니다. 다리 힘과 균형을 먼저 충분히 다진 뒤에 걷기로 넘어가는 것이 안전과 효과의 핵심입니다.' };
-                    },
-                    met_score: (v) => {
-                        const goodText = isMale
-                            ? '어르신, 신체활동량 검사 결과가 양호하게 나왔습니다. 신체활동량은 활동 강도, 시간, 일수를 합산하여 일주일 신체활동량을 확인할 수 있습니다. 어르신(남성 기준 주당 495.65 MET·min 이상)은 평소 신체활동량이 또래 어르신들에 비해 충분한 편으로 나왔습니다. 지금의 활동 습관을 꾸준히 이어가시는 것이 가장 중요합니다. 다만 한 시간에 한 번씩 일어나 가볍게 움직이는 습관을 더하시면 지금의 좋은 상태를 더 오래 지키실 수 있습니다.'
-                            : '어르신, 신체활동량 검사 결과가 양호하게 나왔습니다. 신체활동량은 활동 강도, 시간, 일수를 합산하여 일주일 신체활동량을 확인할 수 있습니다. 어르신(여성 기준 주당 283.50 MET·min 이상)은 평소 신체활동량이 또래 어르신들에 비해 충분한 편으로 나왔습니다. 지금의 활동 습관을 꾸준히 이어가시는 것이 가장 중요합니다. 다만 한 시간에 한 번씩 일어나 가볍게 움직이는 습관을 더하시면 지금의 좋은 상태를 더 오래 지키실 수 있습니다.';
-                        const warnText = isMale
-                            ? '어르신, 신체활동량 검사 결과 평소 몸을 움직이는 시간이 부족한 편으로 주의가 필요합니다. 남성 어르신 기준(주당 495.65 MET·min)에 미치지 못하였습니다. 오래 앉아 계시는 생활은 그 자체로 기력 저하와 낙상의 원인이 될 수 있으므로, 조금씩이라도 더 움직이시는 것이 중요합니다. 한 시간에 한 번은 자리에서 일어나 잠깐이라도 움직여 주시고, 평소 생활 속에 걷기, 계단 이용하기 등 움직임을 더해 주세요.'
-                            : '어르신, 신체활동량 검사 결과 평소 몸을 움직이는 시간이 부족한 편으로 주의가 필요합니다. 여성 어르신 기준(주당 283.50 MET·min)에 미치지 못하였습니다. 오래 앉아 계시는 생활은 그 자체로 기력 저하와 낙상의 원인이 될 수 있으므로, 조금씩이라도 더 움직이시는 것이 중요합니다. 한 시간에 한 번은 자리에서 일어나 잠깐이라도 움직여 주시고, 평소 생활 속에 걷기, 계단 이용하기 등 움직임을 더해 주세요.';
-                        if (v >= metThreshold) return { grade:'양호', color:'text-emerald-700', bg:'bg-emerald-50 border-emerald-200', full: goodText };
-                        return { grade:'주의', color:'text-red-700', bg:'bg-red-50 border-red-200', full: warnText };
-                    },
-                    sgdsk_score: (v) => {
-                        if (v <= 5)  return { grade:'양호', color:'text-emerald-700', bg:'bg-emerald-50 border-emerald-200', full: '어르신, 마음 건강 검사 결과가 양호하게 나왔습니다. 이 검사는 최근 어르신의 기분과 마음 상태를 살펴보는 검사입니다. 어르신은 마음이 비교적 편안한 상태이십니다. 지금처럼 즐거운 일과 사람들과의 만남을 가까이 하시고, 날이 좋을 때 햇볕을 쬐며 가볍게 산책하는 시간을 가져 주세요.' };
-                        if (v <= 9)  return { grade:'관심', color:'text-amber-700', bg:'bg-amber-50 border-amber-200', full: '어르신, 마음 건강 검사 결과 조금 신경 쓰이는 부분이 있습니다. 어르신은 요즘 외롭거나 기운이 없을 때가 있으신 듯합니다. 하루에 한 번은 가족이나 친구와 안부를 나누시고, 좋아하시는 취미나 모임에 꾸준히 참여해 보세요. 햇볕을 쬐며 30분 정도 걷는 것도 마음을 한결 가볍게 하는 데 도움이 됩니다.' };
-                        return { grade:'주의', color:'text-red-700', bg:'bg-red-50 border-red-200', full: '어르신, 마음 건강 검사 결과 마음이 많이 무겁고 힘드신 듯합니다. 이런 감정은 누구에게나 찾아올 수 있고, 도움을 받으면 충분히 나아질 수 있으니 혼자 견디지 않으셔도 됩니다. 가까운 가족이나 믿을 만한 분께 마음을 이야기해 주시고, 가까운 보건소의 정신건강복지센터나 병원에서 상담을 받아보시길 권해 드립니다.' };
-                    },
-                    bmi: (v) => {
-                        if (v < 18.5) return { grade:'저체중 주의', color:'text-amber-700', bg:'bg-amber-50 border-amber-200', full: '어르신, 체중 상태 검사 결과 체중이 낮은 편으로, 주의가 필요한 것으로 나왔습니다. 체중이 낮다는 것은 단순히 마르셨다는 뜻이 아니라, 근육과 기력이 줄어 노쇠로 이어질 수 있는 중요한 신호입니다. 끼니를 거르지 마시고, 고기·생선·달걀·두부·콩 같은 단백질 음식을 매 끼니 챙겨 주세요. 먹기만 하거나 운동만 해서는 근육이 잘 생기지 않으니 다리 힘 기르기 운동과 단백질 식사를 함께 하셔야 합니다.' };
-                        if (v < 23.0) return { grade:'양호', color:'text-emerald-700', bg:'bg-emerald-50 border-emerald-200', full: '어르신, 체중 상태 검사 결과 적정한 체중을 잘 유지하고 계십니다. 지금은 체중이 적정 범위에 있으시지만, 나이가 들면 근육이 줄고 지방이 느는 변화가 조용히 진행될 수 있습니다. 매 끼니 고기·생선·달걀·두부·콩 같은 단백질 음식을 한 가지는 꼭 챙기시고, 다리 힘 기르기 운동을 함께 하시면 근육을 지키는 데 효과적입니다.' };
-                        return { grade:'과체중 주의', color:'text-amber-700', bg:'bg-amber-50 border-amber-200', full: '어르신, 체중 상태 검사 결과 체중이 다소 높은 편으로 나타났습니다. 무리하게 굶거나 급하게 살을 빼시면 오히려 근육과 뼈가 함께 빠져 노쇠가 더 나빠질 수 있습니다. 목표는 살을 빼는 것이 아니라 근육은 지키면서 천천히 관리하는 것입니다. 단백질 음식은 매 끼니 꾸준히 챙기시고, 단맛이 강한 음식과 기름진 음식을 조금씩 줄여 주세요.' };
-                    },
-                    polypharm: (v) => {
-                        if (v <= 4) return { grade:'양호', color:'text-emerald-700', bg:'bg-emerald-50 border-emerald-200', full: '어르신, 복용 약물 검사 결과가 양호하게 나왔습니다. 어르신은 드시는 약이 많지 않아 노쇠와 관련된 부담이 적은 편입니다. 지금처럼 약을 정해진 시간에 정해진 양대로 잘 챙겨 드시면 됩니다. 의사와 상의 없이 스스로 끊거나 양을 바꾸지 마시고, 새로운 약이나 건강기능식품을 복용하기 전에는 꼭 의사나 약사와 먼저 상의해 주세요.' };
-                        if (v <= 9) return { grade:'보통', color:'text-amber-700', bg:'bg-amber-50 border-amber-200', full: '어르신, 복용 약물 검사 결과 여러 종류의 약을 드시고 계십니다. 약이 많아지면 서로 영향을 주거나 부작용이 생길 수 있어 꾸준한 관리가 필요합니다. 약은 임의로 끊지 마시고, 드시는 모든 약을 한 곳에 정리해 지니세요. 정기적으로 의사나 약사에게 약 전체를 점검받으시고, 어지럼·졸림·휘청거림 같은 증상이 새로 생기면 의료진과 점검해 주세요.' };
-                        return { grade:'주의', color:'text-red-700', bg:'bg-red-50 border-red-200', full: '어르신, 복용 약물 검사 결과 드시는 약의 가짓수가 매우 많아 세심한 관리가 필요합니다. 가까운 시일 안에 의사 또는 약사에게 복용하는 모든 약을 점검 받으시길 권해 드립니다. 빼거나 조정해도 되는 약이 있는지는 의료진이 판단할 수 있으니 스스로 약을 끊거나 줄이지 마세요. 새로 생긴 어지럼, 졸림, 기력 저하, 휘청거림은 약 때문일 수 있으니 반드시 의료진에게 알려 주세요.' };
-                    }
-                };
-
-                // 나이 제외 5개 항목 (기여도 내림차순, 양수/음수 모두 포함)
-                const allItems = r.sortedContribs.filter(c => c.key !== 'age').slice(0, 5);
-                if (allItems.length === 0) {
-                    appendBotMsg('모든 항목이 또래 평균보다 양호한 상태입니다. 지금처럼 건강한 생활을 유지해 주세요! 🎉', '3단계 · 항목별 안내');
-                    updateBuvi('2-2', '모든 항목이 양호합니다! 대단하세요.');
-                    return;
-                }
-
-                // 안내문 전문 소개
-                appendBotMsg('어르신, 설문을 진행하시느라 수고 많으셨습니다. 참고문헌과 임상 실무 기준을 바탕으로 어르신의 설문 결과를 설명드리겠습니다. 아래 내용은 어르신의 건강을 함께 챙기기 위한 참고 자료로 보아 주시고, 본격적으로 실천하시기 전에 의료진이나 운동 전문가와 한 번 상의해 주시면 좋겠습니다. 이제 관리가 필요한 영역 순서로 설명드리겠습니다.', '3단계 · 항목별 안내');
-
-                let html = `<div class="space-y-3 w-full">
-                    <p class="scaled-text-sm font-black text-charcoal">🎯 관리가 필요한 영역 순서로 안내해 드릴게요:</p>`;
-                allItems.forEach((c, i) => {
-                    const valRaw = a[c.key] ?? MODEL.vars[c.key].mean;
-                    const info = c.key === 'met_score' ? adviceMap.met_score(valRaw) : adviceMap[c.key]?.(valRaw);
-                    if (!info) return;
-                    const domainColor = c.domain === 'emo' ? 'text-pink-600' : 'text-blue-600';
-                    const domainBadge = c.domain === 'emo'
-                        ? '<span class="text-xs font-bold bg-pink-100 text-pink-600 rounded-full px-2 py-0.5">정서</span>'
-                        : '<span class="text-xs font-bold bg-blue-100 text-blue-600 rounded-full px-2 py-0.5">신체</span>';
-                    html += `
-                    <div class="rounded-xl border p-3 ${c.domain === 'emo' ? 'bg-pink-50 border-pink-200' : 'bg-blue-50 border-blue-200'}">
-                        <div class="flex items-center gap-2 mb-2 flex-wrap">
-                            <span class="scaled-text-xs font-black bg-white rounded-full px-2 py-0.5 border">${i + 1}위</span>
-                            ${domainBadge}
-                            <span class="font-black scaled-text-sm ${info.color}">${c.label}</span>
-                        </div>
-                        <p class="scaled-text-xs text-gray-700 leading-snug">${info.full}</p>
-                    </div>`;
-                });
-                html += `</div>`;
-                appendBotMsg(html, '3단계 · 항목별 안내');
-                updateBuvi('1-3', '위험 기여도가 높은 항목부터 차례로 안내해 드렸어요.');
-            }, 6500);
-
-            // ── 4단계 칩 표시 ────────────────────────────────────────
+            // ── 3단계 행동 유도 칩 표시 ──────────────────────────────
             setTimeout(() => {
                 showChips();
                 updateBuvi('1-3', '노쇠 예측 설문 결과를 기반으로 개별화된 건강 결과를 확인하고, 상담받아 보세요.');
-            }, 9500);
+            }, 5000);
         }
 
-        function appendBotMsg(html, step) {
+        function appendBotMsg(html) {
             const scroller = document.getElementById('chat-scroller');
             if(!scroller) return;
             const row = document.createElement('div');
-            row.className = 'msg-row flex flex-col gap-2 items-start animate-fade-in';
-            const stepPill = step
-                ? `<span class="inline-flex items-center gap-1 bg-yellow-100 text-charcoal font-black scaled-text-xs px-3 py-1 rounded-full border border-yellow-300 shadow-sm">${step}</span>`
-                : '';
+            row.className = 'msg-row flex items-start gap-3 animate-fade-in';
             row.innerHTML = `
-                <div class="flex items-center gap-2">
-                    <img src="${BUVI_IMG_11}" class="w-9 h-9 object-contain flex-shrink-0" alt="">
-                    ${stepPill}
-                </div>
-                <div class="bg-white p-4 rounded-3xl border shadow-sm font-bold scaled-text-base leading-snug w-full">
+                <img src="${BUVI_IMG_11}" class="w-9 h-9 object-contain flex-shrink-0" alt="">
+                <div class="bg-white p-4 rounded-3xl border shadow-sm font-bold scaled-text-base leading-snug max-w-[85%]">
                     ${html}
                 </div>
             `;
