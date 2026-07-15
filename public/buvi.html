@@ -5967,8 +5967,10 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             }
 
             scroller.innerHTML = `
-                <div class="msg-row flex items-start gap-3" id="chat-loading-status">
-                    <img src="/__l5e/assets-v1/87826ad7-dc5d-4dc8-a059-bb13feb0da85/buvi-character.png" class="w-12 h-12 object-contain flex-shrink-0" alt="BUVI 캐릭터">
+                <div class="msg-row flex items-center gap-3" id="chat-loading-status">
+                    <div class="w-12 h-12 rounded-full bg-kakao flex items-center justify-center flex-shrink-0">
+                        <img src="${BUVI_IMG_11}" class="w-9 h-9 object-contain" alt="BUVI 캐릭터">
+                    </div>
                     <div class="bg-gray-100 p-4 rounded-3xl border shadow-sm font-bold scaled-text-base max-w-[85%]">
                         <span>어르신의 건강 검사 결과를 꼼꼼히 분석하고 있습니다. 잠시만요...</span>
                         <div class="flex gap-1 mt-2 justify-center">
