@@ -2774,9 +2774,9 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4 lg:flex-1 lg:min-h-0">
 
                     <!-- Left: 1:1 상담 히어로 카드 -->
-                    <button onclick="tryNavigateWithWarning('chat')" class="group relative text-left rounded-3xl bg-white shadow-md border-2 p-5 lg:p-6 min-h-[260px] lg:min-h-0 lg:h-full flex flex-col justify-between hover:shadow-lg transition-all overflow-hidden" style="background-color: var(--card-bg); border-color: var(--border-color);">
-                        <!-- 큰 일러스트: 우측 하단 배치 -->
-                        <img src="/buvi-step3-cutout.png" alt="부비와 상담" loading="lazy" width="520" height="520" class="pointer-events-none select-none absolute right-[-8px] bottom-[-8px] w-[70%] lg:w-[68%] max-w-[420px] object-contain drop-shadow-sm" />
+                    <button onclick="tryNavigateWithWarning('chat')" class="group relative text-left rounded-3xl shadow-md border-2 p-5 lg:p-6 min-h-[260px] lg:min-h-0 lg:h-full flex flex-col justify-between hover:shadow-lg transition-all overflow-hidden" style="background-color:#ffffff; border-color: var(--border-color);">
+                        <!-- 큰 일러스트: 우측 하단 배치 (높이 기준 비율 스케일) -->
+                        <img src="/buvi-step3-cutout.png" alt="부비와 상담" loading="lazy" width="520" height="520" class="pointer-events-none select-none absolute right-[-8px] bottom-[-8px] h-[85%] w-auto max-h-[420px] object-contain drop-shadow-sm" />
 
                         <!-- 상단 텍스트 -->
                         <div class="relative z-10 max-w-[70%]">
@@ -5441,8 +5441,8 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             <div class="relative overflow-hidden rounded-3xl p-4 md:p-5 shadow-md bg-white text-charcoal lg:h-full lg:flex-1 flex flex-col" style="border:1px solid rgba(0,0,0,0.06);">
                 <!-- 상단: 아바타 + 타이틀/큰수치 + 링 게이지 -->
                 <div class="grid grid-cols-[auto_minmax(0,1fr)_auto] gap-3 md:gap-4 items-center">
-                    <div class="w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center shrink-0" style="background:#F7F5F0; border:1px solid rgba(0,0,0,0.05);">
-                        <img src="/owl-hero.svg" alt="부비" class="w-9 h-9 md:w-11 md:h-11" />
+                    <div class="w-24 h-24 md:w-28 md:h-28 rounded-2xl flex items-center justify-center shrink-0" style="background:#F7F5F0; border:1px solid rgba(0,0,0,0.05);">
+                        <img src="/owl-hero.svg" alt="부비" class="w-[72px] h-[72px] md:w-[88px] md:h-[88px]" />
                     </div>
                     <div class="min-w-0">
                         <div class="flex items-center gap-1.5 flex-wrap">
