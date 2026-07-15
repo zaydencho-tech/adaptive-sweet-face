@@ -276,6 +276,15 @@
         .more-menu-btn { transition: all 0.15s ease; }
         .more-menu-btn:hover { transform: translateX(4px); }
 
+        /* ── 설문 생년월일 미입력 표시: 빠르게 깜빡이는 밑줄+년 ── */
+        @keyframes blink-fast {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.25; }
+        }
+        .blink-fast {
+            animation: blink-fast 0.6s ease-in-out infinite;
+        }
+
         /* ── 공통 formula ── */
         .formula-container { font-family: serif; font-style: italic; background: #f8fafc; padding: 10px; border-radius: 8px; border: 1px solid #e2e8f0; }
 
