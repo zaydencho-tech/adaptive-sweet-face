@@ -1109,6 +1109,10 @@
                 flex: 1 1 0 !important;
                 min-height: 0 !important;
             }
+            /* 3개 섹션 비율 2:1:1 (히어로 결과 요약이 두 배 크기) */
+            body.subpage-mode main > #page-result:not(.hidden) > * > *:nth-child(1) { flex-grow: 2 !important; }
+            body.subpage-mode main > #page-result:not(.hidden) > * > *:nth-child(2) { flex-grow: 1 !important; }
+            body.subpage-mode main > #page-result:not(.hidden) > * > *:nth-child(3) { flex-grow: 1 !important; }
             /* 모바일/태블릿 전용 블록 및 퀵링크·홈버튼 숨김 */
             body.subpage-mode main #page-about .lg\:hidden,
             body.subpage-mode main #page-about > div > div.grid.grid-cols-2.md\:grid-cols-4,
@@ -5605,24 +5609,22 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     const displayVal = Math.abs(c.value).toFixed(2);
                     const sign = (c.value >= 0 ? '+' : '−');
                     return `
-                    <div class="buvi-bar-item rounded-2xl p-3 md:p-4 flex flex-col items-center justify-between text-center h-full" data-idx="${i}"
-                         style="background:#ffffff; border:1px solid ${pal.ring}; min-height:170px;">
-                        <div class="rounded-full flex items-center justify-center" style="width:38px; height:38px; background:${pal.iconBg};">
+                    <div class="buvi-bar-item rounded-xl px-2 py-3 md:px-3 md:py-4 flex flex-col items-center justify-around text-center h-full gap-1.5" data-idx="${i}"
+                         style="background:#ffffff; border:1px solid ${pal.ring};">
+                        <div class="rounded-full flex items-center justify-center shrink-0" style="width:38px; height:38px; background:${pal.iconBg};">
                             <i class="fa-solid ${icon}" style="color:${pal.iconFg}; font-size:16px;"></i>
                         </div>
-                        <div class="mt-2 text-[15px] md:text-[17px] font-black tabular-nums" style="color:#111827;">
+                        <div class="text-[16px] md:text-[19px] font-black tabular-nums leading-none" style="color:#111827;">
                             ${sign}${displayVal}
                         </div>
-                        <div class="text-[11px] md:text-[12px] font-bold" style="color:#6B7280;">${c.label}</div>
-                        <div class="mt-2 relative rounded-full flex items-center justify-center"
-                             style="width:56px; height:56px; background:${ringBg};">
-                            <div class="rounded-full flex items-center justify-center" style="width:42px; height:42px; background:#ffffff;">
-                                <span class="text-[11px] md:text-[12px] font-black tabular-nums" style="color:${pal.accent};">${pct}%</span>
+                        <div class="text-[11px] md:text-[13px] font-bold leading-none" style="color:#6B7280;">${c.label}</div>
+                        <div class="relative rounded-full flex items-center justify-center shrink-0"
+                             style="width:62px; height:62px; background:${ringBg};">
+                            <div class="rounded-full flex items-center justify-center" style="width:48px; height:48px; background:#ffffff;">
+                                <span class="text-[12px] md:text-[13px] font-black tabular-nums" style="color:${pal.accent};">${pct}%</span>
                             </div>
                         </div>
-                        <div class="mt-2">
-                            <span class="text-[10px] md:text-[11px] font-black text-white px-2 py-0.5 rounded-full" style="background:${c.status.bg};">${c.status.text}</span>
-                        </div>
+                        <span class="text-[10px] md:text-[11px] font-black text-white px-2 py-0.5 rounded-full leading-none" style="background:${c.status.bg};">${c.status.text}</span>
                     </div>`;
                 }).join('');
 
