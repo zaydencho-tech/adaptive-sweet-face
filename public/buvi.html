@@ -5614,10 +5614,6 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     </div>
                     <div class="min-w-0">
                         <div class="flex items-center gap-1.5 flex-wrap">
-                            <span class="result-status-badge inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] md:text-[11px] font-black" style="background:${statusColor}; color:#fff;">
-                                <i class="fa-solid ${isRisk ? 'fa-triangle-exclamation' : 'fa-circle-check'} text-[9px]"></i>
-                                결과 ${statusLabel}
-                            </span>
                             <span class="result-baseline-label text-[10px] md:text-[11px] font-bold text-charcoal/55">기준선 ${CUTOFF.toFixed(1)}%</span>
                         </div>
                         <div class="flex items-end gap-2 mt-1">
@@ -5625,6 +5621,10 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                                 ${pPct.toFixed(1)}<span style="font-size:0.5em;">%</span>
                             </h2>
                             <p class="result-summary-label pb-1 text-[10px] md:text-xs font-bold text-charcoal/65 leading-tight">종합<br>노쇠 위험도</p>
+                            <span class="result-status-badge inline-flex items-center gap-1 px-3 rounded-full text-[10px] md:text-[11px] font-black h-[42px]" style="background:${statusColor}; color:#fff;">
+                                <i class="fa-solid ${isRisk ? 'fa-triangle-exclamation' : 'fa-circle-check'} text-[9px]"></i>
+                                결과 ${statusLabel}
+                            </span>
                         </div>
                     </div>
                     <div class="flex items-center gap-2 shrink-0">
