@@ -1275,6 +1275,126 @@
         }
 
         /* ─────────────────────────────────────────────────────────────
+           LOGIN as ABOUT (데스크탑): 로그인 화면 우측 영역에 복제된
+           About 히어로 + 4카드를 About 페이지와 동일한 fluid 레이아웃과
+           20px gap/margin으로 뷰포트 한 화면에 맞춤
+           ───────────────────────────────────────────────────────────── */
+        @media (min-width: 1024px) {
+            body.login-as-about main {
+                height: 100vh !important;
+                max-height: 100vh !important;
+                overflow: hidden !important;
+                display: flex !important;
+                flex-direction: column !important;
+                padding: 20px !important;
+            }
+            body.login-as-about #page-login {
+                flex: 1 1 auto !important;
+                min-height: 0 !important;
+                display: flex !important;
+                flex-direction: column !important;
+            }
+            body.login-as-about #page-login > div {
+                display: grid !important;
+                grid-template-columns: 1fr 2fr !important;
+                gap: 20px !important;
+                align-items: stretch !important;
+                flex: 1 1 auto !important;
+                min-height: 0 !important;
+            }
+            /* 왼쪽(노란 히어로+로그인 폼) 컬럼은 필요 시 스크롤 허용 */
+            body.login-as-about #page-login > div > div:first-child {
+                min-height: 0 !important;
+                overflow-y: auto !important;
+            }
+            /* 오른쪽 마운트 컨테이너 */
+            body.login-as-about #login-about-mount {
+                min-height: 0 !important;
+                overflow: hidden !important;
+                display: flex !important;
+                flex-direction: column !important;
+            }
+            body.login-as-about #login-about-mount > .lg\:block {
+                display: flex !important;
+                flex-direction: column !important;
+                flex: 1 1 auto !important;
+                min-height: 0 !important;
+                gap: 20px !important;
+            }
+            /* 히어로: 뷰포트 높이에 따라 스케일 */
+            body.login-as-about #login-about-mount > .lg\:block > div:first-child {
+                flex: 0 1 auto !important;
+                min-height: 0 !important;
+            }
+            body.login-as-about #login-about-mount > .lg\:block > div:first-child > div.relative.grid {
+                padding: clamp(10px, 1.6vh, 26px) clamp(24px, 3.2vw, 48px) !important;
+            }
+            body.login-as-about #login-about-mount > .lg\:block > div:first-child h1 {
+                font-size: clamp(24px, 3vh, 46px) !important;
+                margin-bottom: clamp(4px, 0.8vh, 14px) !important;
+            }
+            body.login-as-about #login-about-mount > .lg\:block > div:first-child p {
+                font-size: clamp(11px, 1.3vh, 15px) !important;
+                line-height: 1.45 !important;
+            }
+            body.login-as-about #login-about-mount > .lg\:block > div:first-child img[alt="BUVI 캐릭터"] {
+                width: clamp(140px, 20vh, 300px) !important;
+                height: clamp(140px, 20vh, 300px) !important;
+            }
+            body.login-as-about #login-about-mount > .lg\:block > div:first-child .absolute.w-\[380px\] {
+                width: clamp(130px, 18vh, 280px) !important;
+                height: clamp(130px, 18vh, 280px) !important;
+            }
+            /* 4카드 컨테이너 */
+            body.login-as-about #login-about-mount > .lg\:block > div:nth-child(2) {
+                flex: 1 1 auto !important;
+                min-height: 0 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 20px !important;
+            }
+            body.login-as-about #login-about-mount > .lg\:block > div:nth-child(2) > div {
+                flex: 1 1 0 !important;
+                min-height: 0 !important;
+            }
+            body.login-as-about #login-about-mount > .lg\:block > div:nth-child(2) > div > div.px-8 {
+                padding-top: clamp(4px, 0.8vh, 18px) !important;
+                padding-bottom: clamp(4px, 0.8vh, 18px) !important;
+                padding-left: clamp(14px, 2vw, 32px) !important;
+                padding-right: clamp(14px, 2vw, 32px) !important;
+                min-height: 0 !important;
+                overflow: hidden !important;
+            }
+            body.login-as-about #login-about-mount > .lg\:block > div:nth-child(2) > div > div.px-8 > div.flex.items-center.gap-3 {
+                margin-bottom: clamp(4px, 0.6vh, 10px) !important;
+            }
+            body.login-as-about #login-about-mount > .lg\:block > div:nth-child(2) h3 {
+                font-size: clamp(16px, 2.2vh, 30px) !important;
+                margin-bottom: clamp(3px, 0.6vh, 10px) !important;
+            }
+            body.login-as-about #login-about-mount > .lg\:block > div:nth-child(2) img[loading="lazy"]:not(.w-16) {
+                width: clamp(80px, 11vh, 160px) !important;
+                height: clamp(80px, 11vh, 160px) !important;
+            }
+            body.login-as-about #login-about-mount > .lg\:block > div:nth-child(2) img.w-16 {
+                width: clamp(32px, 4.5vh, 56px) !important;
+                height: clamp(32px, 4.5vh, 56px) !important;
+            }
+            body.login-as-about #login-about-mount > .lg\:block > div:nth-child(2) p {
+                font-size: clamp(10px, 1.25vh, 14px) !important;
+                line-height: 1.4 !important;
+                margin-bottom: clamp(1px, 0.3vh, 4px) !important;
+            }
+            body.login-as-about #login-about-mount > .lg\:block > div:nth-child(2) .promise-letter {
+                font-size: clamp(36px, 7vh, 80px) !important;
+            }
+            /* 복제된 히어로의 홈으로 버튼 숨김(안전장치, JS에서도 제거) */
+            body.login-as-about #login-about-mount .about-hero-home-btn { display: none !important; }
+        }
+
+
+
+        /* ─────────────────────────────────────────────────────────────
            BUVI 알아보기 (About): 태블릿/모바일에서도 데스크탑 레이아웃
            (히어로 + 4개 가로 약속 카드)을 보여주고 반응형으로 스케일 조정
            ───────────────────────────────────────────────────────────── */
