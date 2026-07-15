@@ -3468,7 +3468,7 @@
     <script>
         // Populate redesigned login/home owl images from existing briefing image
         window.addEventListener('DOMContentLoaded', () => {
-            const src = document.getElementById('buvi-briefing-img')?.src || '';
+            const src = document.getElementById('buvi-briefing-img')?.src || '/owl-hero.svg';
             if (src) document.querySelectorAll('[data-owl-hero]').forEach(el => el.src = src);
         });
         // Keep subpage-mode class in sync with viewport across resize
