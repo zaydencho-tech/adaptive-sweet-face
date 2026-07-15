@@ -4617,10 +4617,10 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         // ── IPAQ 공통 안내문 + 팝업 버튼 ───────────────────────────
         function ipaqHeader() {
             return `
-            <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 scaled-text-sm font-bold text-gray-700 leading-relaxed mb-2">
-                <p>🦉 지난 <strong>7일간</strong>의 신체활동 조사</p>
-                <p class="mt-2">"평소에 운동을 안 하신다고 생각되시더라도, 일상생활에서 움직이신 모든 시간을 편하게 기억해 주세요."</p>
-                <p class="mt-2"><strong>포함되는 활동:</strong> 집안일, 일터에서의 노동, 출퇴근 및 이동, 여가 시간, 스포츠 및 모든 운동</p>
+            <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 text-gray-700 leading-relaxed mb-2">
+                <p class="scaled-text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">🦉 지난 <strong>7일간</strong>의 신체활동 조사</p>
+                <p class="scaled-text-lg font-black text-gray-900 leading-snug">"평소에 운동을 안 하신다고 생각되시더라도, 일상생활에서 움직이신 모든 시간을 편하게 기억해 주세요."</p>
+                <p class="font-normal text-gray-500 mt-3" style="font-size:16px"><strong>포함되는 활동:</strong> 집안일, 일터에서의 노동, 출퇴근 및 이동, 여가 시간, 스포츠 및 모든 운동</p>
             </div>
             <button onclick="showIpaqPopup()" class="w-full mb-3 py-2.5 border-2 border-amber-400 bg-amber-50 text-amber-800 font-black rounded-xl text-sm hover:bg-amber-100 transition-all">
                 📋 신체활동 강도별 운동 종류 참고표 보기
