@@ -5553,17 +5553,16 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const statusColor = isRisk ? '#f97316' : '#10b981';
             const statusBg = isRisk ? '#ffedd5' : '#d1fae5';
 
-            // 3-segment 구성 (합계 100)
+            // 2-segment 구성: 신체 vs 정서 (합계 100%)
             const physRaw = (r && r.physPos != null) ? r.physPos : 1;
             const emoRaw  = (r && r.emoPos  != null) ? r.emoPos  : 1;
             const rawTotal = physRaw + emoRaw;
-            const physShare = rawTotal > 0 ? (physRaw / rawTotal) * 60 : 30; // 신체
-            const emoShare  = rawTotal > 0 ? (emoRaw  / rawTotal) * 40 : 20; // 정서
-            const safeShare = Math.max(0, 100 - physShare - emoShare);        // 여유
+            const physShare = rawTotal > 0 ? (physRaw / rawTotal) * 100 : 50;
+            const emoShare  = 100 - physShare;
+            const safeShare = 0;
             const seg = [
-                { key: 'phys', label: '신체', value: physShare, color: '#6366f1' },
-                { key: 'emo',  label: '정서', value: emoShare,  color: '#10b981' },
-                { key: 'safe', label: '여유', value: safeShare, color: '#f97316' },
+                { key: 'phys', label: '신체', value: physShare, color: '#3b82f6' },
+                { key: 'emo',  label: '정서', value: emoShare,  color: '#f472b6' },
             ];
 
             const barSegs = seg.map((s, i) => {
