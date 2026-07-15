@@ -1661,6 +1661,15 @@
                 display: flex;
                 flex-direction: column;
             }
+            /* 아코디언이 펼쳐진(하위 메뉴가 존재하는) 카드: 하위 3개가 모두 보이도록 자연 높이로 확장 */
+            #page-records > div.records-wrapper > #records-cards-grid > div:has(> div.flex.flex-col) {
+                flex: 0 0 auto;
+                overflow: visible !important;
+            }
+            #page-records > div.records-wrapper > #records-cards-grid > div:has(> div.flex.flex-col) .card-item {
+                flex: 0 0 auto;
+                min-height: 0 !important;
+            }
             #page-records > div.records-wrapper > #records-cards-grid .card-item {
                 flex: 1 1 auto;
                 min-height: clamp(64px, calc((100vh - 160px) / 6), 130px);
