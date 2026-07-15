@@ -4479,14 +4479,8 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     <p class="font-normal text-gray-500 mt-3" style="font-size:16px">− / + 버튼으로 조절하거나, 숫자 칸을 눌러 직접 입력할 수 있습니다.</p>
                 </div>
                 <div class="flex flex-col gap-4">
-                    <div class="flex flex-col gap-2">
-                        <label class="font-black text-gray-700 text-base text-center">키 (cm)</label>
-                        ${makeStepper('inp-height','cm',100,220,1,sh,'onBmiInput',165)}
-                    </div>
-                    <div class="flex flex-col gap-2">
-                        <label class="font-black text-gray-700 text-base text-center">체중 (kg)</label>
-                        ${makeStepper('inp-weight','kg',20,200,1,sw,'onBmiInput',60)}
-                    </div>
+                    ${makeStepper('inp-height','cm',100,220,1,sh,'onBmiInput',165)}
+                    ${makeStepper('inp-weight','kg',20,200,1,sw,'onBmiInput',60)}
                 </div>
                 <p id="bmi-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]">${(sh&&sw)?'✓ 입력 완료':''}</p>
             </div>`;
@@ -4589,10 +4583,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     <p class="font-normal text-gray-500 mt-3" style="font-size:16px">(알약 / 정 / 캡슐 / 현탁액 / 가루약 / 흡입약 등)</p>
                     <p class="font-normal text-gray-500 mt-1" style="font-size:16px">예시: 혈압약 알약 2개, 고지혈증약 알약 3개 → 5개</p>
                 </div>
-                <div class="flex flex-col gap-2">
-                    <label class="font-black text-gray-700 text-base text-center">약 개수 (개)</label>
-                    ${makeStepper('inp-polypharm','개',0,30,1,saved,'onPolypharmInput',5)}
-                </div>
+                ${makeStepper('inp-polypharm','개',0,30,1,saved,'onPolypharmInput',5)}
 
                 <p id="poly-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]">${saved!==null?'✓ '+saved+'개 입력 완료':''}</p>
             </div>`;
@@ -4657,14 +4648,8 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 <div id="ipaq-time-row-${dKey}" class="${isHidden ? 'hidden' : 'flex flex-col gap-3'}">
                     <p class="font-bold text-gray-800">그런 날 하루에 보통 얼마나 하셨습니까?</p>
                     <div class="flex flex-col gap-3">
-                        <div class="flex flex-col gap-1">
-                            <label class="text-sm font-bold text-gray-500 text-center">시간</label>
-                            ${makeStepper(`inp-${hKey}`,'시간',0,23,1,hVal,'onIpaqChange',0)}
-                        </div>
-                        <div class="flex flex-col gap-1">
-                            <label class="text-sm font-bold text-gray-500 text-center">분</label>
-                            ${makeStepper(`inp-${mKey}`,'분',0,59,5,mVal,'onIpaqChange',0)}
-                        </div>
+                        ${makeStepper(`inp-${hKey}`,'시간',0,23,1,hVal,'onIpaqChange',0)}
+                        ${makeStepper(`inp-${mKey}`,'분',0,59,5,mVal,'onIpaqChange',0)}
                     </div>
                 </div>
 
@@ -4931,14 +4916,8 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 </div>
                 <!-- 앉아서 보낸 시간: 시간·분 스테퍼 -->
                 <div class="flex flex-col gap-3">
-                    <div class="flex flex-col gap-1">
-                        <label class="text-sm font-bold text-gray-500 text-center">시간</label>
-                        ${makeStepper('inp-sit-hr','시간',0,23,1,sh,'onIpaqSitChange',0)}
-                    </div>
-                    <div class="flex flex-col gap-1">
-                        <label class="text-sm font-bold text-gray-500 text-center">분</label>
-                        ${makeStepper('inp-sit-min','분',0,59,5,sm,'onIpaqSitChange',0)}
-                    </div>
+                    ${makeStepper('inp-sit-hr','시간',0,23,1,sh,'onIpaqSitChange',0)}
+                    ${makeStepper('inp-sit-min','분',0,59,5,sm,'onIpaqSitChange',0)}
                 </div>
                 <p id="ipaq-sit-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]"></p>
             </div>`;
