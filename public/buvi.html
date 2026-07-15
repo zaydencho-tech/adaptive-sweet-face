@@ -5453,14 +5453,11 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const softStatus = isRisk ? '#FDBA74' : '#6EE7B7';
             const iconMap = { phys: 'fa-person-walking', emo: 'fa-face-smile', safe: 'fa-shield-heart' };
             const statChips = seg.map(s => `
-                <div class="rounded-2xl px-2.5 py-2 md:px-3 md:py-2.5 flex items-center gap-2 min-w-0" style="background:#F7F5F0; border:1px solid rgba(0,0,0,0.05);">
-                    <div class="w-8 h-8 md:w-9 md:h-9 rounded-xl flex items-center justify-center shrink-0" style="background:${s.color}1F; color:${s.color};">
-                        <i class="fa-solid ${iconMap[s.key]} text-[12px] md:text-sm"></i>
+                <div class="rounded-full px-2.5 py-1.5 md:px-3 md:py-2 flex items-center gap-1.5 min-w-0 shrink-0" style="background:#F7F5F0; border:1px solid rgba(0,0,0,0.05);">
+                    <div class="w-6 h-6 md:w-7 md:h-7 rounded-full flex items-center justify-center shrink-0" style="background:${s.color}1F; color:${s.color};">
+                        <i class="fa-solid ${iconMap[s.key]} text-[11px] md:text-xs"></i>
                     </div>
-                    <div class="min-w-0 leading-tight">
-                        <p class="text-[10px] md:text-[11px] font-bold text-charcoal/55 truncate">${s.label}</p>
-                        <p class="text-sm md:text-base font-black" style="color:${s.color};">${s.value.toFixed(0)}<span class="text-[10px] md:text-xs font-bold text-charcoal/50 ml-0.5">%</span></p>
-                    </div>
+                    <p class="text-[11px] md:text-xs font-black leading-none" style="color:${s.color};">${s.label}</p>
                 </div>`).join('');
 
             wrap.innerHTML = `
