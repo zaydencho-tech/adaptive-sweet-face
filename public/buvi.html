@@ -4802,8 +4802,9 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         function renderIpaqMod(container) {
             container.innerHTML = `
             <div class="flex flex-col gap-4">
-                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 scaled-text-sm font-bold text-gray-700 leading-relaxed">
-                    <p>어르신께서 지난 7일간 하신 모든 <strong>중간정도 신체활동</strong>을 생각해 보십시오. 중간정도 신체활동이란 중간정도 힘들게 움직이는 활동으로서 평소보다 숨이 조금 더 차게 만드는 활동입니다. 한 번에 적어도 10분 이상 지속한 활동만을 생각하여 응답해주시기 바랍니다.</p>
+                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 text-gray-700 leading-relaxed">
+                    <p class="scaled-text-lg font-black text-gray-900 leading-snug">중간정도 신체활동</p>
+                    <p class="font-normal text-gray-500 mt-2" style="font-size:16px">어르신께서 지난 7일간 하신 모든 중간정도 신체활동을 생각해 보십시오. 중간정도 신체활동이란 중간정도 힘들게 움직이는 활동으로서 평소보다 숨이 조금 더 차게 만드는 활동입니다. 한 번에 적어도 10분 이상 지속한 활동만을 생각하여 응답해주시기 바랍니다.</p>
                 </div>
                 <button onclick="showIpaqPopup()" class="w-full mb-1 py-2.5 border-2 border-amber-400 bg-amber-50 text-amber-800 font-black rounded-xl text-sm hover:bg-amber-100 transition-all">
                     📋 신체활동 강도별 운동 종류 참고표 보기
