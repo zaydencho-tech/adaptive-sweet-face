@@ -3612,6 +3612,27 @@
                 setTimeout(() => { target.style.opacity = '1'; }, 50);
             }
 
+            // 로그인 페이지 우측 영역: About 우측 컨텐츠(히어로 + 4개 카드) 복제 마운트
+            try {
+                if (pageId === 'login') {
+                    const mount = document.getElementById('login-about-mount');
+                    const src = document.querySelector('#page-about .hidden.lg\\:block');
+                    if (mount && src && !mount.hasChildNodes()) {
+                        const clone = src.cloneNode(true);
+                        clone.classList.remove('hidden');
+                        // id 중복 방지
+                        clone.querySelectorAll('[id]').forEach(el => { el.id = el.id + '-login'; });
+                        // 홈으로 버튼 제거 (로그인 화면에서는 불필요)
+                        clone.querySelectorAll('.about-hero-home-btn').forEach(el => el.remove());
+                        mount.appendChild(clone);
+                    }
+                    document.body.classList.add('login-as-about');
+                } else {
+                    document.body.classList.remove('login-as-about');
+                }
+            } catch(_) {}
+
+
             document.querySelectorAll('.nav-tab').forEach((tab, i) => {
                 let isActive = false;
                 if (i === 0 && pageId === 'home') isActive = true;
