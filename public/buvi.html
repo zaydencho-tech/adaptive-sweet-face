@@ -1875,8 +1875,30 @@
                 flex-shrink: 0;
                 margin: 0 !important;
             }
+            /* 닫기 버튼: 완료 버튼 오른쪽에 배치하고 동일한 배경/모양 적용 */
+            #page-records #quiz-panel > div.bg-emerald-50 > button#card-close-btn {
+                width: auto !important;
+                min-width: 0 !important;
+                padding: 8px 18px !important;
+                font-size: 13px !important;
+                border-radius: 999px !important;
+                min-height: 0 !important;
+                height: 36px !important;
+                box-shadow: none !important;
+                flex-shrink: 0;
+                margin: 0 !important;
+                background: #10B981 !important;
+                color: #fff !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+            }
+            #page-records #quiz-panel > div.bg-emerald-50 > button#card-close-btn:hover {
+                background: #059669 !important;
+            }
+            #page-records #quiz-panel > div:first-child > button#card-close-btn { display: none !important; }
             /* 헤더 제목 옆에 버튼들이 겹치지 않도록 여유 확보, 첨부 이미지처럼 본문과 가깝게 */
-            #page-records #quiz-panel > div:first-child { padding-right: 200px; padding-bottom: 3px !important; border-bottom: none !important; }
+            #page-records #quiz-panel > div:first-child { padding-right: 260px; padding-bottom: 3px !important; border-bottom: none !important; }
             /* 활성 카드 강조 — 메인 강조색 #FEE500으로 비활성 카드와 명확히 구분 */
             body.subpage-mode main #page-records #records-cards-grid .card-item.card-active {
                 background: #FEE500 !important;
@@ -3149,7 +3171,7 @@
                         <div class="flex items-center gap-2">
                             <h3 id="panel-quiz-card-title" class="font-gapyeong scaled-text-lg font-black text-charcoal hc-text">카드뉴스 정독</h3>
                         </div>
-                        <button onclick="requestStopReading()" class="text-gray-400 hover:text-gray-600 font-black text-xl px-2 min-w-[36px] min-h-[36px]" title="읽기 그만하기">✕</button>
+                        <button id="card-close-btn" onclick="requestStopReading()" class="text-gray-400 hover:text-gray-600 font-black text-xl px-2 min-w-[36px] min-h-[36px]" title="읽기 그만하기">✕</button>
                     </div>
 
                     <div id="card-news-body" class="rounded-2xl border p-6 leading-relaxed space-y-4 shadow-sm hc-card" style="background-color: var(--card-bg); border-color: var(--border-color);">
@@ -6479,6 +6501,15 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             }
 
             panel.classList.remove('hidden');
+
+            // 데스크톱에서 닫기 버튼을 완료 버튼 오른쪽으로 이동
+            const closeBtn = document.getElementById('card-close-btn');
+            const completeContainer = panel.querySelector('div.bg-emerald-50');
+            const completeBtn = document.getElementById('card-complete-btn');
+            if (closeBtn && completeContainer && completeBtn) {
+                completeContainer.insertBefore(closeBtn, completeBtn.nextSibling);
+            }
+
             buildRecordsCardDeck();
             if (!window.matchMedia('(min-width: 1024px)').matches) {
                 window.scrollTo({ top: panel.offsetTop - 120, behavior: 'smooth' });
