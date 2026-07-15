@@ -5580,8 +5580,8 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     const displayVal = Math.abs(c.value).toFixed(2);
                     const sign = (c.value >= 0 ? '+' : '−');
                     return `
-                    <div class="buvi-bar-item rounded-2xl p-3 md:p-4 flex flex-col items-center justify-between text-center" data-idx="${i}"
-                         style="background:${pal.bg}; border:1px solid ${pal.ring}; min-height:170px;">
+                    <div class="buvi-bar-item rounded-2xl p-3 md:p-4 flex flex-col items-center justify-between text-center h-full" data-idx="${i}"
+                         style="background:#ffffff; border:1px solid ${pal.ring}; min-height:170px;">
                         <div class="rounded-full flex items-center justify-center" style="width:38px; height:38px; background:${pal.iconBg};">
                             <i class="fa-solid ${icon}" style="color:${pal.iconFg}; font-size:16px;"></i>
                         </div>
@@ -5591,7 +5591,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                         <div class="text-[11px] md:text-[12px] font-bold" style="color:#6B7280;">${c.label}</div>
                         <div class="mt-2 relative rounded-full flex items-center justify-center"
                              style="width:56px; height:56px; background:${ringBg};">
-                            <div class="rounded-full flex items-center justify-center" style="width:42px; height:42px; background:${pal.bg};">
+                            <div class="rounded-full flex items-center justify-center" style="width:42px; height:42px; background:#ffffff;">
                                 <span class="text-[11px] md:text-[12px] font-black tabular-nums" style="color:${pal.accent};">${pct}%</span>
                             </div>
                         </div>
@@ -5602,7 +5602,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 }).join('');
 
                 wrap.innerHTML = `
-                <div class="grid gap-2 md:gap-3" style="grid-template-columns:repeat(6,minmax(0,1fr));">
+                <div class="grid gap-2 md:gap-3 w-full lg:flex-1" style="grid-template-columns:repeat(6,minmax(0,1fr));">
                     ${cards}
                 </div>`;
 
