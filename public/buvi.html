@@ -5903,9 +5903,9 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         }
 
         function renderHomeDashboard() {
-            const grid = document.getElementById('home-contributions-grid');
-            const summary = document.getElementById('home-risk-summary');
-            if (!grid || !summary) return;
+            const grids = document.querySelectorAll('.home-contributions-grid');
+            const summaries = document.querySelectorAll('.home-risk-summary');
+            if (!grids.length || !summaries.length) return;
 
             const hasResult = state.resultViewed && state.result && state.result.p !== null;
 
