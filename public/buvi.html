@@ -6504,18 +6504,31 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         function setFontScale(scale) {
             state.fontScale = scale;
             document.documentElement.style.setProperty('--font-scale', scale);
+            try { localStorage.setItem('buvi.fontScale', String(scale)); } catch(e){}
             updateFontScaleUI(scale);
             speak("글자 크기를 조정해 드렸습니다.");
         }
         function updateFontScaleUI(scale) {
             document.querySelectorAll('.font-scale-btn').forEach(btn => {
                 const isActive = parseFloat(btn.dataset.scale) === parseFloat(scale);
+                btn.classList.toggle('is-active', isActive);
                 btn.classList.toggle('bg-white', isActive);
                 btn.classList.toggle('rounded-xl', isActive);
                 btn.classList.toggle('shadow-sm', isActive);
                 btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
             });
         }
+        (function initFontScaleFromStorage(){
+            try {
+                const saved = parseFloat(localStorage.getItem('buvi.fontScale'));
+                if (!isNaN(saved) && saved > 0) {
+                    state.fontScale = saved;
+                    document.documentElement.style.setProperty('--font-scale', saved);
+                    document.addEventListener('DOMContentLoaded', () => updateFontScaleUI(saved));
+                    if (document.readyState !== 'loading') updateFontScaleUI(saved);
+                }
+            } catch(e){}
+        })();
         function updateContrastUI() {
             const btn = document.getElementById('contrast-btn');
             if (!btn) return;
