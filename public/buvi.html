@@ -6641,12 +6641,11 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
             panel.classList.remove('hidden');
 
-            // 데스크톱에서 닫기 버튼을 완료 버튼 오른쪽으로 이동
+            // 데스크톱에서 닫기 버튼을 우측 상단 완료 확인 영역으로 이동
             const closeBtn = document.getElementById('card-close-btn');
             const completeContainer = panel.querySelector('div.bg-emerald-50');
-            const completeBtn = document.getElementById('card-complete-btn');
-            if (closeBtn && completeContainer && completeBtn) {
-                completeContainer.insertBefore(closeBtn, completeBtn.nextSibling);
+            if (closeBtn && completeContainer) {
+                completeContainer.appendChild(closeBtn);
             }
 
             buildRecordsCardDeck();
