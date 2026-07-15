@@ -859,14 +859,6 @@
 
             body.subpage-mode { background: #F4F0E9 !important; padding-bottom: 0 !important; position: relative; }
             body.subpage-mode nav.fixed.bottom-0 { display: none !important; }
-            /* 데스크탑에서도 상담/건강정보/도움말 상단에 인포박스 노출 (설문 페이지는 자체 인포박스 사용) */
-            body.subpage-mode:has(#page-survey:not(.hidden)) #buvi-narrative-box,
-            body.subpage-mode:has(#page-survey-start:not(.hidden)) #buvi-narrative-box { display: none !important; }
-            body.subpage-mode #buvi-narrative-box {
-                flex: 0 0 auto !important;
-                margin: 0 0 20px !important;
-                border-radius: 16px !important;
-            }
             body.subpage-mode main {
                 max-width: none !important; margin: 0 !important;
                 padding: 20px 20px 20px calc(33.333vw + 20px) !important;
