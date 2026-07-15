@@ -3105,14 +3105,10 @@
         <section id="page-records" class="app-page hidden space-y-6">
             <div class="records-wrapper rounded-3xl p-6 shadow-md border-2 hc-card" style="background-color: var(--card-bg); border-color: var(--border-color);">
                 
-                <div class="records-header border-b pb-4 space-y-1" style="border-color: var(--border-color);">
-                    <h2 class="font-gapyeong scaled-text-lg font-black text-charcoal hc-text">건강 정보 배움터</h2>
-                    <p class="scaled-text-base text-gray-500 font-medium hc-muted">노쇠 및 근감소 예방, 운동, 영양 등의 건강 정보를 확인해보세요.</p>
+                <div id="records-cards-grid" class="flex flex-col gap-3">
+                    <!-- JS에서 동적 아코디언 바인딩 -->
                 </div>
 
-                <div id="records-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-5 pt-4">
-                    <!-- JS에서 동적 바인딩 -->
-                </div>
 
                 <!-- 읽음 완료 패널 -->
                 <div id="quiz-panel" class="hidden mt-8 p-6 bg-amber-50 rounded-3xl border-2 border-amber-300 space-y-4 transition-all duration-300 hc-card">
@@ -6310,52 +6306,49 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         // ========================================================
         // HEALTH/RECORDS 카드뉴스 구성 & 검색 로직 기술 영역 (카테고리 제거, 팬시 대비 적용)
         // ========================================================
+        // 각 카테고리별 3개의 하위 메뉴 정의
+        const HEALTH_SUBITEMS = {
+            frailty_intro:     ["노쇠란?", "노쇠 자가 진단", "노쇠 예방 생활 수칙"],
+            muscle_loss_intro: ["근손실이란?", "근감소 자가 진단", "근감소 예방 운동"],
+            walk_5000:         ["걷기 운동법", "하체 근력 운동", "유연성·균형 운동"],
+            protein_eat:       ["단백질 섭취 규칙", "균형 잡힌 식단", "수분·비타민 관리"],
+            dementia_prev:     ["뇌 자극 활동", "치매 예방 습관", "일상 인지 훈련"],
+            social_support:    ["사회적 지지 만들기", "마음 돌봄", "우울감 관리"],
+        };
+
+        // 현재 펼쳐진 아코디언 카테고리 id
+        let openedAccordionId = null;
+
         function buildRecordsCardDeck() {
             const grid = document.getElementById('records-cards-grid');
             if(!grid) return;
-            
+
             grid.innerHTML = '';
 
             healthCards.forEach(card => {
                 const isRead = state.readCards[card.id];
-                const item = document.createElement('div');
-                
-                // 본 것과 안 본 것을 확연하게 분별해주는 고급진(Fancy) 색 대비 조합
-                let cardFancyClass = "";
-                let badgeFancyHtml = "";
-                
-                if (isRead) {
-                    // 읽은 책자: #F4F0E9 배경, 외곽선/그림자 없음
-                    cardFancyClass = "bg-[#F4F0E9] hover:scale-[1.01]";
-                    badgeFancyHtml = `
-                        <span class="scaled-text-xs md:scaled-text-sm font-black text-white bg-emerald-600 px-3 py-1.5 rounded-full flex items-center gap-1 shadow-sm shrink-0 whitespace-nowrap animate-pulse">
-                            <i class="fa-solid fa-circle-check"></i> 완독함
-                        </span>`;
-                } else {
-                    // 아직 안 본 책자: #F4F0E9 배경, 외곽선/그림자 없음
-                    cardFancyClass = "bg-[#F4F0E9] hover:scale-[1.01]";
-                    badgeFancyHtml = `
-                        <span class="card-unread-badge scaled-text-xs md:scaled-text-sm font-extrabold text-charcoal bg-amber-200 px-3 py-1.5 rounded-full flex items-center gap-1 shrink-0 whitespace-nowrap">
-                            <i class="fa-solid fa-book-open-reader"></i> 읽기 전
-                        </span>`;
-                }
-                
-                const isActiveCard = state.currentReadingCardId === card.id;
-                item.className = `card-item p-5 rounded-3xl transition-all duration-300 flex items-center justify-between gap-4 cursor-pointer ${cardFancyClass}${isActiveCard ? ' card-active' : ''}`;
-                item.onclick = () => {
-                    if (state.cardReadingLocked && state.currentReadingCardId !== card.id) {
-                        requestSwitchCard(card.id);
-                    } else {
-                        openDetailedStudyCard(card.id);
-                    }
+                const isOpen = openedAccordionId === card.id;
+                const subItems = HEALTH_SUBITEMS[card.id] || [];
+
+                const wrap = document.createElement('div');
+                wrap.className = 'rounded-2xl overflow-hidden bg-[#F4F0E9]';
+
+                const badgeHtml = isRead
+                    ? `<span class="scaled-text-xs md:scaled-text-sm font-black text-white bg-emerald-600 px-3 py-1.5 rounded-full flex items-center gap-1 shadow-sm shrink-0 whitespace-nowrap"><i class="fa-solid fa-circle-check"></i> 완독함</span>`
+                    : `<span class="card-unread-badge scaled-text-xs md:scaled-text-sm font-extrabold text-charcoal bg-amber-200 px-3 py-1.5 rounded-full flex items-center gap-1 shrink-0 whitespace-nowrap"><i class="fa-solid fa-book-open-reader"></i> 읽기 전</span>`;
+
+                const header = document.createElement('button');
+                header.type = 'button';
+                header.className = 'card-item w-full p-5 flex items-center justify-between gap-4 cursor-pointer text-left';
+                header.onclick = () => {
+                    openedAccordionId = isOpen ? null : card.id;
+                    buildRecordsCardDeck();
                 };
-
-                item.innerHTML = `
+                header.innerHTML = `
                     <div class="flex items-center gap-4 min-w-0">
-                        <div class="w-24 h-24 flex items-center justify-center shrink-0">
+                        <div class="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center shrink-0">
                             ${card.image
-                                ? `<img src="${card.image}?v=2" alt="${card.title}" loading="lazy" width="96" height="96" class="w-24 h-24 rounded-full object-cover" />`
-
+                                ? `<img src="${card.image}?v=2" alt="${card.title}" loading="lazy" class="w-full h-full rounded-full object-cover" />`
                                 : `<span class="text-3xl">${card.icon}</span>`}
                         </div>
                         <div class="min-w-0">
@@ -6363,11 +6356,50 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                             <h4 class="scaled-text-base md:scaled-text-lg font-black text-charcoal truncate mt-0.5">${card.title}</h4>
                         </div>
                     </div>
-                    ${badgeFancyHtml}
+                    <div class="flex items-center gap-3 shrink-0">
+                        ${badgeHtml}
+                        <i class="fa-solid ${isOpen ? 'fa-chevron-up' : 'fa-chevron-down'} text-charcoal text-lg"></i>
+                    </div>
                 `;
-                grid.appendChild(item);
+                wrap.appendChild(header);
+
+                if (isOpen && subItems.length) {
+                    const list = document.createElement('div');
+                    list.className = 'flex flex-col bg-white/60 border-t border-[#E5DFCF]';
+                    subItems.forEach((sub, idx) => {
+                        const row = document.createElement('button');
+                        row.type = 'button';
+                        row.className = 'w-full flex items-center justify-between gap-3 px-6 py-4 text-left hover:bg-white transition-colors' + (idx > 0 ? ' border-t border-[#EDE7D6]' : '');
+                        row.innerHTML = `
+                            <div class="flex items-center gap-3 min-w-0">
+                                <span class="w-7 h-7 rounded-full bg-amber-100 text-amber-700 font-black flex items-center justify-center text-sm shrink-0">${idx+1}</span>
+                                <span class="scaled-text-base font-black text-charcoal truncate">${sub}</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-gray-400"></i>
+                        `;
+                        row.onclick = (e) => {
+                            e.stopPropagation();
+                            if (state.cardReadingLocked && state.currentReadingCardId !== card.id) {
+                                requestSwitchCard(card.id);
+                            } else {
+                                openHealthSubItem(card.id, sub);
+                            }
+                        };
+                        list.appendChild(row);
+                    });
+                    wrap.appendChild(list);
+                }
+
+                grid.appendChild(wrap);
             });
         }
+
+        function openHealthSubItem(cardId, subTitle) {
+            openDetailedStudyCard(cardId);
+            const titleEl = document.getElementById('panel-quiz-card-title');
+            if (titleEl && subTitle) titleEl.innerText = subTitle;
+        }
+
 
         // ========================================================
         // 카드뉴스 스와이프 뷰어 (탭/스와이프/버튼으로 넘기기)
