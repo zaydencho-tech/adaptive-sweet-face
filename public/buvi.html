@@ -5553,29 +5553,26 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const statusColor = isRisk ? '#f97316' : '#10b981';
             const statusBg = isRisk ? '#ffedd5' : '#d1fae5';
 
-            // 3-segment 구성 (합계 100)
+            // 2-segment 구성: 신체 vs 정서 (합계 100%)
             const physRaw = (r && r.physPos != null) ? r.physPos : 1;
             const emoRaw  = (r && r.emoPos  != null) ? r.emoPos  : 1;
             const rawTotal = physRaw + emoRaw;
-            const physShare = rawTotal > 0 ? (physRaw / rawTotal) * 60 : 30; // 신체
-            const emoShare  = rawTotal > 0 ? (emoRaw  / rawTotal) * 40 : 20; // 정서
-            const safeShare = Math.max(0, 100 - physShare - emoShare);        // 여유
+            const physShare = rawTotal > 0 ? (physRaw / rawTotal) * 100 : 50;
+            const emoShare  = 100 - physShare;
+            const safeShare = 0;
             const seg = [
-                { key: 'phys', label: '신체', value: physShare, color: '#6366f1' },
-                { key: 'emo',  label: '정서', value: emoShare,  color: '#10b981' },
-                { key: 'safe', label: '여유', value: safeShare, color: '#f97316' },
+                { key: 'phys', label: '신체', value: physShare, color: '#3b82f6' },
+                { key: 'emo',  label: '정서', value: emoShare,  color: '#f472b6' },
             ];
 
             const barSegs = seg.map((s, i) => {
                 const rounded = i === 0 ? 'border-radius:9999px 0 0 9999px;'
                               : i === seg.length - 1 ? 'border-radius:0 9999px 9999px 0;'
                               : '';
-                return `<div style="flex:${s.value} 0 0%; background:${s.color}; ${rounded}"></div>`;
+                return `<div class="flex items-center justify-center text-white font-black text-xs md:text-sm whitespace-nowrap" style="flex:${s.value} 0 0%; background:${s.color}; ${rounded}">${s.label} ${s.value.toFixed(0)}%</div>`;
             }).join('');
 
-            const barLabels = seg.map(s =>
-                `<span class="text-[10px] md:text-[13px] font-black" style="flex:${s.value} 0 0%; color:${s.color};">${s.value.toFixed(0)}%</span>`
-            ).join('');
+            const barLabels = '';
 
             // 이미지3 안내문
             const heroHeadline = isRisk
@@ -5594,14 +5591,10 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 : 'linear-gradient(135deg,#E9F7CF 0%,#B8E986 100%)';
 
             const ringPct = Math.max(2, Math.min(100, pPct));
-            const softStatus = isRisk ? '#FDBA74' : '#6EE7B7';
-            const iconMap = { phys: 'fa-person-walking', emo: 'fa-face-smile', safe: 'fa-shield-heart' };
             const statChips = seg.map(s => `
-                <div class="rounded-full px-2.5 py-1.5 md:px-3 md:py-2 flex items-center gap-1.5 min-w-0 shrink-0" style="background:#F7F5F0; border:1px solid rgba(0,0,0,0.05);">
-                    <div class="w-6 h-6 md:w-7 md:h-7 rounded-full flex items-center justify-center shrink-0" style="background:${s.color}1F; color:${s.color};">
-                        <i class="fa-solid ${iconMap[s.key]} text-[11px] md:text-xs"></i>
-                    </div>
-                    <p class="text-[11px] md:text-xs font-black leading-none" style="color:${s.color};">${s.label}</p>
+                <div class="inline-flex items-center gap-1.5 shrink-0">
+                    <span class="inline-block w-2 h-2 rounded-full" style="background:${s.color};"></span>
+                    <span class="text-[11px] md:text-xs font-black leading-none" style="color:${s.color};">${s.label}영역 ${s.value.toFixed(0)}%</span>
                 </div>`).join('');
 
             wrap.innerHTML = `
@@ -5667,13 +5660,12 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     </div>
                 </div>
 
-                <!-- 영역별 기여 스택 바 + 우측 정렬 아이콘 칩 -->
+                <!-- 영역별 기여 스택 바 + 우측 정렬 뱃지 -->
                 <div class="mt-3 grid items-center gap-3 grid-cols-1 md:grid-cols-[1.6fr_1fr] lg:grid-cols-[3fr_1fr]">
                     <div class="min-w-0 rounded-2xl px-3 py-2" style="background:#F7F5F0; border:1px solid rgba(0,0,0,0.04);">
-                        <div class="flex w-full h-2 overflow-hidden mb-1" style="gap:2px;">${barSegs}</div>
-                        <div class="flex w-full" style="gap:2px;">${barLabels}</div>
+                        <div class="flex w-full h-8 rounded-full overflow-hidden" style="gap:2px;">${barSegs}</div>
                     </div>
-                    <div class="flex items-center justify-start md:justify-end gap-1.5 min-w-0 flex-wrap">
+                    <div class="flex items-center justify-start md:justify-end gap-3 min-w-0 flex-wrap">
                         ${statChips}
                     </div>
                 </div>
