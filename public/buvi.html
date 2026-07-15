@@ -5695,7 +5695,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             <!-- ── 서브 히어로: 결과 요약 (화이트 카드, 세로 꽉 채움) ── -->
             <div class="relative overflow-hidden rounded-3xl p-4 md:p-5 shadow-md bg-white text-charcoal lg:h-full lg:flex-1 flex flex-col" style="border:1px solid rgba(0,0,0,0.06);">
                 <!-- 상단: 아바타 + 타이틀/큰수치 + 음성 듣기 아이콘 -->
-                <div class="grid grid-cols-[auto_minmax(0,1fr)_auto] gap-3 md:gap-4 items-center">
+                <div class="grid grid-cols-[auto_minmax(0,1fr)] md:grid-cols-[auto_minmax(0,1fr)_auto] gap-3 md:gap-4 items-center">
                     <div class="w-24 h-24 md:w-28 md:h-28 rounded-2xl flex items-center justify-center shrink-0" style="background:#F7F5F0; border:1px solid rgba(0,0,0,0.05);">
                         <img src="/owl-hero.svg" alt="부비" class="w-[72px] h-[72px] md:w-[88px] md:h-[88px]" />
                     </div>
@@ -5703,7 +5703,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                         <div class="flex items-center gap-1.5 flex-wrap">
                             <span class="result-baseline-label text-[10px] md:text-[11px] font-bold text-charcoal/55">기준선 ${CUTOFF.toFixed(1)}%</span>
                         </div>
-                        <div class="flex items-center md:items-end gap-2 mt-1">
+                        <div class="flex items-center md:items-end gap-2 mt-1 flex-nowrap">
                             <h2 class="font-gapyeong leading-none font-black text-charcoal" style="font-size:clamp(26px,3.6vw,42px);">
                                 ${pPct.toFixed(1)}<span style="font-size:0.5em;">%</span>
                             </h2>
@@ -5712,15 +5712,15 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                                 <i class="fa-solid ${isRisk ? 'fa-triangle-exclamation' : 'fa-circle-check'} text-[9px]"></i>
                                 결과 ${statusLabel}
                             </span>
+                            <!-- Mobile: 링 게이지 대신 아이콘 형태 음성 듣기 버튼 (4개 객체 수직 중앙 정렬을 위해 같은 줄에 배치) -->
+                            <button type="button" onclick="event.stopPropagation(); simulateTTSResult()" aria-label="음성 듣기" class="md:hidden inline-flex items-center justify-center w-12 h-12 rounded-full bg-white hover:bg-gray-50 transition-colors shrink-0" style="border:1px solid rgba(0,0,0,0.08);">
+                                <i class="fa-solid fa-volume-high text-charcoal text-lg"></i>
+                            </button>
                         </div>
                     </div>
-                    <div class="flex flex-col md:flex-row items-center gap-2 shrink-0 justify-start md:col-start-3 md:row-start-1">
-                        <!-- Mobile: 링 게이지 대신 아이콘 형태 음성 듣기 버튼 -->
-                        <button type="button" onclick="event.stopPropagation(); simulateTTSResult()" aria-label="음성 듣기" class="md:hidden inline-flex items-center justify-center w-12 h-12 rounded-full bg-white hover:bg-gray-50 transition-colors shrink-0" style="border:1px solid rgba(0,0,0,0.08);">
-                            <i class="fa-solid fa-volume-high text-charcoal text-lg"></i>
-                        </button>
+                    <div class="hidden md:flex flex-col md:flex-row items-center gap-2 shrink-0 justify-start md:col-start-3 md:row-start-1">
                         <!-- Desktop: 기존 음성 듣기 + 링 게이지 -->
-                        <button type="button" onclick="event.stopPropagation(); simulateTTSResult()" aria-label="음성 듣기" class="hidden md:inline-flex items-center gap-1.5 h-16 md:h-20 px-3 md:px-4 rounded-2xl bg-white hover:bg-gray-50 transition-colors shrink-0" style="border:1px solid rgba(0,0,0,0.08);">
+                        <button type="button" onclick="event.stopPropagation(); simulateTTSResult()" aria-label="음성 듣기" class="inline-flex items-center gap-1.5 h-16 md:h-20 px-3 md:px-4 rounded-2xl bg-white hover:bg-gray-50 transition-colors shrink-0" style="border:1px solid rgba(0,0,0,0.08);">
                             <span class="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-volume-high text-charcoal text-xs"></i></span>
                             <span class="text-xs md:text-sm font-black text-charcoal">음성 듣기</span>
                         </button>
