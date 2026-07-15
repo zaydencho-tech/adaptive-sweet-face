@@ -2953,11 +2953,6 @@
                                     <span class="flex-1 text-sm font-black text-charcoal">이미지 공유</span>
                                     <i class="fa-solid fa-arrow-right text-gray-400 text-xs"></i>
                                 </button>
-                                <button onclick="event.stopPropagation(); simulateTTSResult()" class="w-full flex items-center gap-3 border-t-0 border-b-0 lg:border-t lg:border-b border-gray-200 text-left hover:bg-gray-50 transition-colors rounded-lg p-0">
-                                    <span class="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-volume-high text-charcoal text-xs"></i></span>
-                                    <span class="flex-1 text-sm font-black text-charcoal">음성 듣기</span>
-                                    <i class="fa-solid fa-arrow-right text-gray-400 text-xs"></i>
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -5607,13 +5602,19 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                             <p class="result-summary-label pb-1 text-[10px] md:text-xs font-bold text-charcoal/65 leading-tight">종합<br>노쇠 위험도</p>
                         </div>
                     </div>
-                    <div class="relative w-16 h-16 md:w-20 md:h-20 shrink-0">
-                        <svg viewBox="0 0 36 36" class="w-full h-full -rotate-90">
-                            <circle cx="18" cy="18" r="15.9" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="3.2"/>
-                            <circle cx="18" cy="18" r="15.9" fill="none" stroke="${statusColor}" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="${ringPct.toFixed(1)}, 100"/>
-                        </svg>
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <span class="text-[12px] md:text-sm font-black text-charcoal">${pPct.toFixed(0)}%</span>
+                    <div class="flex items-center gap-2 shrink-0">
+                        <button type="button" onclick="event.stopPropagation(); simulateTTSResult()" aria-label="음성 듣기" class="inline-flex items-center gap-1.5 h-16 md:h-20 px-3 md:px-4 rounded-2xl bg-white hover:bg-gray-50 transition-colors shrink-0" style="border:1px solid rgba(0,0,0,0.08);">
+                            <span class="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-volume-high text-charcoal text-xs"></i></span>
+                            <span class="text-xs md:text-sm font-black text-charcoal">음성 듣기</span>
+                        </button>
+                        <div class="relative w-16 h-16 md:w-20 md:h-20 shrink-0">
+                            <svg viewBox="0 0 36 36" class="w-full h-full -rotate-90">
+                                <circle cx="18" cy="18" r="15.9" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="3.2"/>
+                                <circle cx="18" cy="18" r="15.9" fill="none" stroke="${statusColor}" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="${ringPct.toFixed(1)}, 100"/>
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <span class="text-[12px] md:text-sm font-black text-charcoal">${pPct.toFixed(0)}%</span>
+                            </div>
                         </div>
                     </div>
                 </div>
