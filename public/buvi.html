@@ -6656,21 +6656,15 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
         function setCompleteButtonEnabled(enabled) {
             state.cardScrolledToEnd = enabled;
-            const btn = document.getElementById('card-complete-btn');
             const hint = document.getElementById('card-scroll-hint');
-            if (!btn) return;
-            if (enabled) {
-                btn.disabled = false;
-                btn.classList.remove('bg-gray-300', 'text-gray-400', 'cursor-not-allowed');
-                btn.classList.add('bg-emerald-600', 'hover:bg-emerald-700', 'text-white');
-                if (hint) hint.innerHTML = '모두 읽으셨어요! 완료 버튼을 눌러주세요.';
-            } else {
-                btn.disabled = true;
-                btn.classList.add('bg-gray-300', 'text-gray-400', 'cursor-not-allowed');
-                btn.classList.remove('bg-emerald-600', 'hover:bg-emerald-700', 'text-white');
-                if (hint) hint.innerHTML = state.cardNewsMode
-                    ? '마지막 장까지 넘겨 보시면 완료 버튼이 켜집니다.'
-                    : '내용을 끝까지 읽으시면 완료 버튼이 켜집니다. (아래로 스크롤해 주세요)';
+            if (hint) {
+                if (enabled) {
+                    hint.innerHTML = '모두 읽으셨어요! 닫기 버튼을 눌러주세요.';
+                } else {
+                    hint.innerHTML = state.cardNewsMode
+                        ? '마지막 장까지 넘겨 보시면 학습이 완료됩니다.'
+                        : '내용을 끝까지 읽으시면 학습이 완료됩니다. (아래로 스크롤해 주세요)';
+                }
             }
         }
 
