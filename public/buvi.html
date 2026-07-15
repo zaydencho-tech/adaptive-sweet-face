@@ -5555,25 +5555,21 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 }
 
                 const maxAbs = Math.max(...contribs.map(c => Math.abs(c.value)), 0.001);
-                const ICONS = {
-                    gait: 'fa-person-walking',
-                    activity: 'fa-bolt',
-                    age: 'fa-hourglass-half',
-                    sgdsk: 'fa-face-frown',
-                    meds: 'fa-pills',
-                    weight: 'fa-weight-scale',
+                // 항목별 아이콘 + 컬러 팔레트 (정보에 맞는 시맨틱 컬러)
+                const KEY_META = {
+                    gait:     { icon:'fa-person-walking',  ring:'#BFDBFE', accent:'#2563EB', iconBg:'#DBEAFE', iconFg:'#2563EB', track:'#DBEAFE' }, // 보행 - 블루
+                    activity: { icon:'fa-bolt',            ring:'#FED7AA', accent:'#F97316', iconBg:'#FFEDD5', iconFg:'#EA580C', track:'#FFEDD5' }, // 활동량 - 오렌지
+                    sgdsk:    { icon:'fa-face-frown',      ring:'#F9A8D4', accent:'#DB2777', iconBg:'#FCE7F3', iconFg:'#DB2777', track:'#FCE7F3' }, // 우울감 - 핑크
+                    age:      { icon:'fa-hourglass-half',  ring:'#D1D5DB', accent:'#6B7280', iconBg:'#E5E7EB', iconFg:'#4B5563', track:'#E5E7EB' }, // 나이 - 그레이
+                    weight:   { icon:'fa-weight-scale',    ring:'#A7F3D0', accent:'#059669', iconBg:'#D1FAE5', iconFg:'#047857', track:'#D1FAE5' }, // 체중 - 그린
+                    meds:     { icon:'fa-pills',           ring:'#C4B5FD', accent:'#7C3AED', iconBg:'#EDE9FE', iconFg:'#7C3AED', track:'#EDE9FE' }, // 복용약물 - 퍼플
                 };
-                // 카드 팔레트: 상태별(위험/보호/참고) 부드러운 파스텔 톤 + 강조 컬러
-                const CARD_PAL = {
-                    '위험': { bg:'#FEF2F2', ring:'#FCA5A5', accent:'#EF4444', iconBg:'#FEE2E2', iconFg:'#EF4444', track:'#FEE2E2' },
-                    '보호': { bg:'#ECFDF5', ring:'#6EE7B7', accent:'#10B981', iconBg:'#D1FAE5', iconFg:'#059669', track:'#D1FAE5' },
-                    '참고': { bg:'#F3F4F6', ring:'#D1D5DB', accent:'#6B7280', iconBg:'#E5E7EB', iconFg:'#4B5563', track:'#E5E7EB' },
-                };
+                const DEFAULT_META = { icon:'fa-circle-dot', ring:'#E5E7EB', accent:'#6B7280', iconBg:'#F3F4F6', iconFg:'#4B5563', track:'#F3F4F6' };
 
                 const cards = contribs.map((c, i) => {
-                    const pal = CARD_PAL[c.status.text] || CARD_PAL['참고'];
+                    const pal = KEY_META[c.key] || DEFAULT_META;
                     const pct = Math.round(Math.abs(c.value) / maxAbs * 100);
-                    const icon = ICONS[c.key] || 'fa-circle-dot';
+                    const icon = pal.icon;
                     // 원형 진행 게이지 (conic-gradient)
                     const ringBg = `conic-gradient(${pal.accent} ${pct*3.6}deg, ${pal.track} 0)`;
                     // 값 표시: 절대값을 소수 2자리로
