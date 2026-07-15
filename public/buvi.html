@@ -1809,11 +1809,14 @@
             #page-records #quiz-panel > #card-news-body > div.select-none > p {
                 margin-top: 14px !important;
             }
-            /* 데스크탑에서는 상세 패널이 항상 열려있으므로 닫기 버튼과 스크롤 안내 문구 숨김 */
-            #page-records > div.records-wrapper > #quiz-panel button[title="읽기 그만하기"],
+            /* 데스크탑: 스크롤 안내 문구는 숨기고 닫기 버튼은 목록으로 돌아가는 뒤로가기로 사용 */
             #page-records #quiz-panel > #card-scroll-hint {
                 display: none !important;
             }
+            #page-records > div.records-wrapper > #quiz-panel button[title="읽기 그만하기"] {
+                display: inline-flex !important;
+            }
+
             /* 정독 완료 확인 블록을 우측 상단 컴팩트 버튼으로 재배치 (전체화면 버튼과 flex로 20px 간격) */
             #page-records #quiz-panel > div.bg-emerald-50 {
                 position: absolute;
