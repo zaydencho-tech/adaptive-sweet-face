@@ -5569,12 +5569,10 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 const rounded = i === 0 ? 'border-radius:9999px 0 0 9999px;'
                               : i === seg.length - 1 ? 'border-radius:0 9999px 9999px 0;'
                               : '';
-                return `<div style="flex:${s.value} 0 0%; background:${s.color}; ${rounded}"></div>`;
+                return `<div class="flex items-center justify-center text-white font-black text-xs md:text-sm whitespace-nowrap" style="flex:${s.value} 0 0%; background:${s.color}; ${rounded}">${s.label} ${s.value.toFixed(0)}%</div>`;
             }).join('');
 
-            const barLabels = seg.map(s =>
-                `<span class="text-[10px] md:text-[13px] font-black" style="flex:${s.value} 0 0%; color:${s.color};">${s.value.toFixed(0)}%</span>`
-            ).join('');
+            const barLabels = '';
 
             // 이미지3 안내문
             const heroHeadline = isRisk
