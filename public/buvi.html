@@ -5430,93 +5430,93 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const softStatus = isRisk ? '#FDBA74' : '#6EE7B7';
             const iconMap = { phys: 'fa-person-walking', emo: 'fa-face-smile', safe: 'fa-shield-heart' };
             const statChips = seg.map(s => `
-                <div class="rounded-2xl px-2.5 py-2 md:px-3 md:py-2.5 flex items-center gap-2 min-w-0" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.06);">
-                    <div class="w-8 h-8 md:w-9 md:h-9 rounded-xl flex items-center justify-center shrink-0" style="background:${s.color}26; color:${s.color};">
+                <div class="rounded-2xl px-2.5 py-2 md:px-3 md:py-2.5 flex items-center gap-2 min-w-0" style="background:#F7F5F0; border:1px solid rgba(0,0,0,0.05);">
+                    <div class="w-8 h-8 md:w-9 md:h-9 rounded-xl flex items-center justify-center shrink-0" style="background:${s.color}1F; color:${s.color};">
                         <i class="fa-solid ${iconMap[s.key]} text-[12px] md:text-sm"></i>
                     </div>
                     <div class="min-w-0 leading-tight">
-                        <p class="text-[10px] md:text-[11px] font-bold text-white/60 truncate">${s.label}</p>
-                        <p class="text-sm md:text-base font-black" style="color:${s.color};">${s.value.toFixed(0)}<span class="text-[10px] md:text-xs font-bold text-white/50 ml-0.5">%</span></p>
+                        <p class="text-[10px] md:text-[11px] font-bold text-charcoal/55 truncate">${s.label}</p>
+                        <p class="text-sm md:text-base font-black" style="color:${s.color};">${s.value.toFixed(0)}<span class="text-[10px] md:text-xs font-bold text-charcoal/50 ml-0.5">%</span></p>
                     </div>
                 </div>`).join('');
 
             wrap.innerHTML = `
-            <!-- ── 서브 히어로: 결과 요약 (image1 다크 카드 스타일) ── -->
-            <div class="relative overflow-hidden rounded-3xl p-4 md:p-5 shadow-xl" style="background:linear-gradient(160deg,#1F2433 0%,#0F1420 100%); color:#fff;">
+            <!-- ── 서브 히어로: 결과 요약 (화이트 카드, 세로 꽉 채움) ── -->
+            <div class="relative overflow-hidden rounded-3xl p-4 md:p-5 shadow-md bg-white text-charcoal lg:h-full lg:flex-1 flex flex-col" style="border:1px solid rgba(0,0,0,0.06);">
                 <!-- 우상단 액션 아이콘 -->
                 <div class="absolute top-3 right-3 md:top-4 md:right-4 flex gap-1.5 z-20">
-                    <button onclick="showAppModal('💬','상담 시작','부비와 상담을 시작합니다.')" aria-label="상담" class="w-8 h-8 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center transition-colors backdrop-blur-sm">
-                        <i class="fa-regular fa-comment-dots text-white text-xs"></i>
+                    <button onclick="showAppModal('💬','상담 시작','부비와 상담을 시작합니다.')" aria-label="상담" class="w-8 h-8 rounded-full bg-charcoal/5 hover:bg-charcoal/10 flex items-center justify-center transition-colors">
+                        <i class="fa-regular fa-comment-dots text-charcoal text-xs"></i>
                     </button>
-                    <button onclick="showAppModal('📤','공유 완료','결과 요약을 공유했습니다.')" aria-label="공유" class="w-8 h-8 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center transition-colors backdrop-blur-sm">
-                        <i class="fa-solid fa-arrow-up-from-bracket text-white text-xs"></i>
+                    <button onclick="showAppModal('📤','공유 완료','결과 요약을 공유했습니다.')" aria-label="공유" class="w-8 h-8 rounded-full bg-charcoal/5 hover:bg-charcoal/10 flex items-center justify-center transition-colors">
+                        <i class="fa-solid fa-arrow-up-from-bracket text-charcoal text-xs"></i>
                     </button>
                 </div>
 
                 <!-- 상단: 아바타 + 타이틀/큰수치 + 링 게이지 -->
                 <div class="grid grid-cols-[auto_minmax(0,1fr)_auto] gap-3 md:gap-4 items-center pr-20 md:pr-24">
-                    <!-- 아바타 (부비 미니) -->
-                    <div class="w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center shrink-0" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.08);">
+                    <div class="w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center shrink-0" style="background:#F7F5F0; border:1px solid rgba(0,0,0,0.05);">
                         <img src="/owl-hero.svg" alt="부비" class="w-9 h-9 md:w-11 md:h-11" />
                     </div>
-                    <!-- 타이틀/뱃지/큰 수치 -->
                     <div class="min-w-0">
                         <div class="flex items-center gap-1.5 flex-wrap">
                             <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] md:text-[11px] font-black" style="background:${statusColor}; color:#fff;">
                                 <i class="fa-solid ${isRisk ? 'fa-triangle-exclamation' : 'fa-circle-check'} text-[9px]"></i>
                                 결과 ${statusLabel}
                             </span>
-                            <span class="text-[10px] md:text-[11px] font-bold text-white/55">기준선 ${CUTOFF.toFixed(1)}%</span>
+                            <span class="text-[10px] md:text-[11px] font-bold text-charcoal/55">기준선 ${CUTOFF.toFixed(1)}%</span>
                         </div>
                         <div class="flex items-end gap-2 mt-1">
-                            <h2 class="font-gapyeong leading-none font-black text-white" style="font-size:clamp(26px,3.6vw,42px);">
+                            <h2 class="font-gapyeong leading-none font-black text-charcoal" style="font-size:clamp(26px,3.6vw,42px);">
                                 ${pPct.toFixed(1)}<span style="font-size:0.5em;">%</span>
                             </h2>
-                            <p class="pb-1 text-[10px] md:text-xs font-bold text-white/70 leading-tight">종합<br>노쇠 위험도</p>
+                            <p class="pb-1 text-[10px] md:text-xs font-bold text-charcoal/65 leading-tight">종합<br>노쇠 위험도</p>
                         </div>
                     </div>
-                    <!-- 링 게이지 -->
                     <div class="relative w-16 h-16 md:w-20 md:h-20 shrink-0">
                         <svg viewBox="0 0 36 36" class="w-full h-full -rotate-90">
-                            <circle cx="18" cy="18" r="15.9" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="3.2"/>
+                            <circle cx="18" cy="18" r="15.9" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="3.2"/>
                             <circle cx="18" cy="18" r="15.9" fill="none" stroke="${statusColor}" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="${ringPct.toFixed(1)}, 100"/>
                         </svg>
                         <div class="absolute inset-0 flex items-center justify-center">
-                            <span class="text-[12px] md:text-sm font-black text-white">${pPct.toFixed(0)}%</span>
+                            <span class="text-[12px] md:text-sm font-black text-charcoal">${pPct.toFixed(0)}%</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- 안내 문구 -->
-                <p class="mt-3 text-[12px] md:text-sm font-semibold text-white/80 leading-snug">${heroHeadline}</p>
-                <p class="mt-0.5 text-[12px] md:text-sm font-black" style="color:${softStatus};">${heroSubline}</p>
+                <p class="mt-3 text-[12px] md:text-sm font-semibold text-charcoal/75 leading-snug">${heroHeadline}</p>
+                <p class="mt-0.5 text-[12px] md:text-sm font-black" style="color:${statusColor};">${heroSubline}</p>
 
-                <!-- 진행 트랙 (image1 flame marker 스타일) -->
+                <!-- 세로 스페이서 (데스크탑에서 하단 요소를 아래로 밀어 꽉 채움) -->
+                <div class="hidden lg:block lg:flex-1 lg:min-h-0"></div>
+
+                <!-- 진행 트랙 -->
                 <div class="mt-3 relative">
-                    <div class="relative w-full h-5 md:h-6 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.1);">
+                    <div class="relative w-full h-5 md:h-6 rounded-full overflow-hidden" style="background:#F1EFEA;">
                         <div class="h-full rounded-full" style="width:${markerPct}%; background:linear-gradient(90deg,#86efac 0%,#4ade80 35%,#fbbf24 60%,#fb923c 85%,#ef4444 100%);"></div>
-                        <div class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-7 h-7 md:w-8 md:h-8 rounded-full bg-white shadow-lg flex items-center justify-center border-2" style="left:${markerPct}%; border-color:${statusColor};">
+                        <div class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-7 h-7 md:w-8 md:h-8 rounded-full bg-white shadow-md flex items-center justify-center border-2" style="left:${markerPct}%; border-color:${statusColor};">
                             <i class="fa-solid fa-fire text-[11px] md:text-xs" style="color:${statusColor};"></i>
                         </div>
                     </div>
-                    <div class="mt-1 flex justify-between text-[10px] md:text-[11px] font-bold text-white/55">
+                    <div class="mt-1 flex justify-between text-[10px] md:text-[11px] font-bold text-charcoal/55">
                         <span>정상</span>
-                        <span class="tabular-nums text-white/70">현재 ${pPct.toFixed(1)}%</span>
+                        <span class="tabular-nums text-charcoal/70">현재 ${pPct.toFixed(1)}%</span>
                         <span>노쇠 위험</span>
                     </div>
                 </div>
 
-                <!-- 영역별 기여 스택 바 (컴팩트) -->
-                <div class="mt-3 rounded-2xl px-3 py-2" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.06);">
+                <!-- 영역별 기여 스택 바 -->
+                <div class="mt-3 rounded-2xl px-3 py-2" style="background:#F7F5F0; border:1px solid rgba(0,0,0,0.04);">
                     <div class="flex items-center justify-between mb-1 gap-2">
-                        <p class="text-[10px] md:text-[11px] font-black text-white/85 truncate">영역별 기여 <span class="font-bold text-white/45">· 신체 · 정서 · 여유</span></p>
-                        <p class="text-[9px] md:text-[10px] font-bold text-white/40 shrink-0">참고용 · 의학적 진단 아님</p>
+                        <p class="text-[10px] md:text-[11px] font-black text-charcoal/85 truncate">영역별 기여 <span class="font-bold text-charcoal/45">· 신체 · 정서 · 여유</span></p>
+                        <p class="text-[9px] md:text-[10px] font-bold text-charcoal/40 shrink-0">참고용 · 의학적 진단 아님</p>
                     </div>
                     <div class="flex w-full h-2 overflow-hidden mb-1" style="gap:2px;">${barSegs}</div>
                     <div class="flex w-full" style="gap:2px;">${barLabels}</div>
                 </div>
 
-                <!-- 하단 스탯 칩 (image1 Total food/Work out 스타일) -->
+                <!-- 하단 스탯 칩 -->
                 <div class="mt-3 grid grid-cols-3 gap-2">
                     ${statChips}
                 </div>
