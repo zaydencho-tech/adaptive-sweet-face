@@ -5591,14 +5591,10 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 : 'linear-gradient(135deg,#E9F7CF 0%,#B8E986 100%)';
 
             const ringPct = Math.max(2, Math.min(100, pPct));
-            const softStatus = isRisk ? '#FDBA74' : '#6EE7B7';
-            const iconMap = { phys: 'fa-person-walking', emo: 'fa-face-smile', safe: 'fa-shield-heart' };
             const statChips = seg.map(s => `
-                <div class="rounded-full px-2.5 py-1.5 md:px-3 md:py-2 flex items-center gap-1.5 min-w-0 shrink-0" style="background:#F7F5F0; border:1px solid rgba(0,0,0,0.05);">
-                    <div class="w-6 h-6 md:w-7 md:h-7 rounded-full flex items-center justify-center shrink-0" style="background:${s.color}1F; color:${s.color};">
-                        <i class="fa-solid ${iconMap[s.key]} text-[11px] md:text-xs"></i>
-                    </div>
-                    <p class="text-[11px] md:text-xs font-black leading-none" style="color:${s.color};">${s.label}</p>
+                <div class="inline-flex items-center gap-1.5 shrink-0">
+                    <span class="inline-block w-2 h-2 rounded-full" style="background:${s.color};"></span>
+                    <span class="text-[11px] md:text-xs font-black leading-none" style="color:${s.color};">${s.label}영역 ${s.value.toFixed(0)}%</span>
                 </div>`).join('');
 
             wrap.innerHTML = `
