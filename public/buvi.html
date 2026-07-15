@@ -3979,10 +3979,13 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             else if (q.type === 'age')         renderAgeInput(container);
             else if (q.type === 'bmi')         renderBmiInput(container);
             else if (q.type === 'polypharm')   renderPolypharmInput(container);
-            else if (q.type === 'ipaq_vig')    renderIpaqVig(container);
-            else if (q.type === 'ipaq_mod')    renderIpaqMod(container);
-            else if (q.type === 'ipaq_walk')   renderIpaqWalk(container);
-            else if (q.type === 'ipaq_sit')    renderIpaqSit(container);
+            else if (q.type === 'ipaq_vig')     renderIpaqVig(container);
+            else if (q.type === 'ipaq_vig_dur') renderIpaqVigDur(container);
+            else if (q.type === 'ipaq_mod')     renderIpaqMod(container);
+            else if (q.type === 'ipaq_mod_dur') renderIpaqModDur(container);
+            else if (q.type === 'ipaq_walk')    renderIpaqWalk(container);
+            else if (q.type === 'ipaq_walk_dur') renderIpaqWalkDur(container);
+            else if (q.type === 'ipaq_sit')     renderIpaqSit(container);
             else if (q.type === 'tug')         renderTugInput(container);
             else if (q.type === 'sgds_single') renderSgdsSingle(container, q.sgdsIdx);
 
