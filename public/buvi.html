@@ -5675,6 +5675,16 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 : 'linear-gradient(135deg,#E9F7CF 0%,#B8E986 100%)';
 
             const ringPct = Math.max(2, Math.min(100, pPct));
+            const ringGaugeHTML = (sizeClass, textClass) => `
+                <div class="relative ${sizeClass} shrink-0">
+                    <svg viewBox="0 0 36 36" class="w-full h-full -rotate-90">
+                        <circle cx="18" cy="18" r="15.9" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="3.2"/>
+                        <circle cx="18" cy="18" r="15.9" fill="none" stroke="${statusColor}" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="${ringPct.toFixed(1)}, 100"/>
+                    </svg>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <span class="${textClass} font-black text-charcoal">${pPct.toFixed(0)}%</span>
+                    </div>
+                </div>`;
             const statChips = seg.map(s => `
                 <div class="inline-flex items-center gap-1.5 shrink-0">
                     <span class="inline-block w-2 h-2 rounded-full" style="background:${s.color};"></span>
