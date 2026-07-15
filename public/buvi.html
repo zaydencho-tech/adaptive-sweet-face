@@ -2670,15 +2670,17 @@
                 <!-- ============ /DESKTOP-ONLY ============ -->
 
 
-                <!-- Quick shortcuts -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
-                    <button onclick="tryNavigateWithWarning('survey-start')" class="rounded-2xl py-3 px-3 font-black flex items-center justify-center gap-2 text-sm md:text-base" style="background:#FFF3B0;"><i class="fa-solid fa-file-pen"></i> 설문</button>
-                    <button onclick="tryNavigateWithWarning('chat')" class="rounded-2xl py-3 px-3 font-black flex items-center justify-center gap-2 text-sm md:text-base" style="background:#FFF3B0;"><i class="fa-solid fa-comments"></i> 상담</button>
-                    <button onclick="tryNavigateWithWarning('records')" class="rounded-2xl py-3 px-3 font-black flex items-center justify-center gap-2 text-sm md:text-base" style="background:#FFF3B0;"><i class="fa-solid fa-book-medical"></i> 건강정보</button>
-                    <button onclick="tryNavigateWithWarning('help')" class="rounded-2xl py-3 px-3 font-black flex items-center justify-center gap-2 text-sm md:text-base" style="background:#FFF3B0;"><i class="fa-solid fa-circle-info"></i> 도움말</button>
-                </div>
+                <!-- Quick shortcuts + 홈으로 돌아가기 -->
+                <div class="hidden lg:block space-y-3">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
+                        <button onclick="tryNavigateWithWarning('survey-start')" class="rounded-2xl py-3 px-3 font-black flex items-center justify-center gap-2 text-sm md:text-base" style="background:#FFF3B0;"><i class="fa-solid fa-file-pen"></i> 설문</button>
+                        <button onclick="tryNavigateWithWarning('chat')" class="rounded-2xl py-3 px-3 font-black flex items-center justify-center gap-2 text-sm md:text-base" style="background:#FFF3B0;"><i class="fa-solid fa-comments"></i> 상담</button>
+                        <button onclick="tryNavigateWithWarning('records')" class="rounded-2xl py-3 px-3 font-black flex items-center justify-center gap-2 text-sm md:text-base" style="background:#FFF3B0;"><i class="fa-solid fa-book-medical"></i> 건강정보</button>
+                        <button onclick="tryNavigateWithWarning('help')" class="rounded-2xl py-3 px-3 font-black flex items-center justify-center gap-2 text-sm md:text-base" style="background:#FFF3B0;"><i class="fa-solid fa-circle-info"></i> 도움말</button>
+                    </div>
 
-                <button onclick="navTo('home')" class="w-full bg-black text-white font-black rounded-2xl py-3.5 text-base md:text-lg hover:bg-neutral-800 transition">홈으로 돌아가기</button>
+                    <button onclick="navTo('home')" class="w-full bg-black text-white font-black rounded-2xl py-3.5 text-base md:text-lg hover:bg-neutral-800 transition">홈으로 돌아가기</button>
+                </div>
             </div>
         </section>
 
