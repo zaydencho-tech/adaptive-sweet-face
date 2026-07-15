@@ -6092,13 +6092,16 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 const markerPct = Math.min(100, (r.p * 100) / gaugeMax * 100);
                 const basePct   = Math.min(100, baseline / gaugeMax * 100);
 
-                // 도메인 요약 (신체/정서/여유)
-                const physPct = r.physPct;
-                const emoPct  = r.emoPct;
-                const restPct = Math.max(0, 100 - physPct - emoPct);
+                // 도메인 요약 (신체/정서) — 두 영역 합이 100%가 되도록 정규화
+                const _physRaw = r.physPct;
+                const _emoRaw  = r.emoPct;
+                const _sum = (_physRaw + _emoRaw) > 0 ? (_physRaw + _emoRaw) : 1;
+                const physPct = (_physRaw / _sum) * 100;
+                const emoPct  = 100 - physPct;
+                const restPct = 0;
                 const physW = Math.max(physPct, 2).toFixed(0);
                 const emoW  = Math.max(emoPct, 2).toFixed(0);
-                const restW = Math.max(restPct, 2).toFixed(0);
+                const restW = '0';
 
                 // 6개 기여 요인 카드
                 const raw = (r.sortedContribs && r.sortedContribs.length) ? r.sortedContribs.slice(0,6) : [
