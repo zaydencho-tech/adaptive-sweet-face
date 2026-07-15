@@ -5714,26 +5714,32 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                             </span>
                         </div>
                     </div>
-                    <div class="flex items-center gap-2 shrink-0 justify-end md:justify-start md:col-start-3 md:row-start-1 col-span-2 md:col-span-1">
-                        <button type="button" onclick="event.stopPropagation(); simulateTTSResult()" aria-label="음성 듣기" class="inline-flex items-center gap-1.5 h-16 md:h-20 px-3 md:px-4 rounded-2xl bg-white hover:bg-gray-50 transition-colors shrink-0" style="border:1px solid rgba(0,0,0,0.08);">
+                    <div class="flex flex-col md:flex-row items-center gap-2 shrink-0 justify-end md:justify-start md:col-start-3 md:row-start-1 col-span-2 md:col-span-1">
+                        <!-- Mobile: 안내 문구를 링 게이지 왼쪽에 배치 -->
+                        <div class="md:hidden flex items-start gap-3 w-full">
+                            <div class="min-w-0 flex-1 text-left">
+                                <p class="result-hero-headline text-[12px] font-semibold text-charcoal/75 leading-snug">${heroHeadline}</p>
+                                <p class="result-hero-subline mt-0.5 text-[12px] font-black" style="color:${statusColor};">${heroSubline}</p>
+                            </div>
+                            ${ringGaugeHTML('w-16 h-16', 'text-[12px]')}
+                        </div>
+                        <!-- Mobile: 음성 듣기 버튼을 링 게이지 하단으로 -->
+                        <button type="button" onclick="event.stopPropagation(); simulateTTSResult()" aria-label="음성 듣기" class="md:hidden inline-flex items-center gap-1.5 h-10 px-3 rounded-2xl bg-white hover:bg-gray-50 transition-colors shrink-0" style="border:1px solid rgba(0,0,0,0.08);">
+                            <span class="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-volume-high text-charcoal text-xs"></i></span>
+                            <span class="text-xs font-black text-charcoal">음성 듣기</span>
+                        </button>
+                        <!-- Desktop: 기존 음성 듣기 + 링 게이지 -->
+                        <button type="button" onclick="event.stopPropagation(); simulateTTSResult()" aria-label="음성 듣기" class="hidden md:inline-flex items-center gap-1.5 h-16 md:h-20 px-3 md:px-4 rounded-2xl bg-white hover:bg-gray-50 transition-colors shrink-0" style="border:1px solid rgba(0,0,0,0.08);">
                             <span class="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-volume-high text-charcoal text-xs"></i></span>
                             <span class="text-xs md:text-sm font-black text-charcoal">음성 듣기</span>
                         </button>
-                        <div class="relative w-16 h-16 md:w-20 md:h-20 shrink-0">
-                            <svg viewBox="0 0 36 36" class="w-full h-full -rotate-90">
-                                <circle cx="18" cy="18" r="15.9" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="3.2"/>
-                                <circle cx="18" cy="18" r="15.9" fill="none" stroke="${statusColor}" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="${ringPct.toFixed(1)}, 100"/>
-                            </svg>
-                            <div class="absolute inset-0 flex items-center justify-center">
-                                <span class="text-[12px] md:text-sm font-black text-charcoal">${pPct.toFixed(0)}%</span>
-                            </div>
-                        </div>
+                        ${ringGaugeHTML('hidden md:block w-16 h-16 md:w-20 md:h-20', 'text-[12px] md:text-sm')}
                     </div>
                 </div>
 
-                <!-- 안내 문구 -->
-                <p class="result-hero-headline mt-3 text-[12px] md:text-sm font-semibold text-charcoal/75 leading-snug">${heroHeadline}</p>
-                <p class="result-hero-subline mt-0.5 text-[12px] md:text-sm font-black" style="color:${statusColor};">${heroSubline}</p>
+                <!-- 안내 문구 (데스크탑 전용, 모바일은 상단 영역에 표시) -->
+                <p class="result-hero-headline mt-3 text-[12px] md:text-sm font-semibold text-charcoal/75 leading-snug hidden md:block">${heroHeadline}</p>
+                <p class="result-hero-subline mt-0.5 text-[12px] md:text-sm font-black hidden md:block" style="color:${statusColor};">${heroSubline}</p>
 
 
                 <!-- 세로 스페이서 (데스크탑에서 하단 요소를 아래로 밀어 꽉 채움) -->
