@@ -6614,14 +6614,14 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             titleEl.innerText = isCardNews ? card.title : `${card.title} (기력 보완 가이드)`;
             if (iconEl) iconEl.innerText = '';
 
-            // 다 읽기 전에는 완료 버튼 잠금 + 다른 책자로 이동 제한
+            // 다 읽기 전에는 학습 완료 상태 잠금 + 다른 책자로 이동 제한
             state.cardReadingLocked = true;
             state.cardScrolledToEnd = false;
             state.cardNewsMode = isCardNews;
             setCompleteButtonEnabled(false);
 
             if (isCardNews) {
-                renderCardNewsViewer(card.cardNews); // 마지막 장에 도달하면 자동으로 완료 버튼이 켜짐
+                renderCardNewsViewer(card.cardNews); // 마지막 장에 도달하면 학습이 완료됨
             } else {
                 bodyEl.innerHTML = `<div id="card-text-scroll" class="overflow-y-auto" style="max-height: 360px;">${card.contentHtml}</div>`;
                 const scrollEl = document.getElementById('card-text-scroll');
