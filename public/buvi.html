@@ -2549,17 +2549,28 @@
 
                         <div class="space-y-4">
 
-                            <!-- 요약 헤더: 올빼미 / 기준선 / 종합 위험도 / 결과 배지 (compact inline) -->
-                            <div class="flex flex-wrap items-center gap-3 rounded-2xl px-4 py-3" style="background:#F7F5F0">
-                                <img src="/owl-hero.svg" alt="" class="w-12 h-12 object-contain shrink-0">
-                                <span class="text-xs font-bold text-gray-500">기준선 6.9%</span>
-                                <div class="flex items-baseline gap-1">
-                                    <span class="text-3xl font-black text-charcoal">5.5</span>
-                                    <span class="text-sm font-black text-charcoal">%</span>
-                                    <span class="text-xs font-bold text-gray-500 ml-1 leading-tight">종합<br>노쇠 위험도</span>
+                            <!-- 요약 헤더: 올빼미(타일) / 기준선+수치+라벨+결과 배지 -->
+                            <div class="grid grid-cols-[auto_minmax(0,1fr)] gap-3 md:gap-4 items-center rounded-2xl p-3" style="background:#F7F5F0">
+                                <div class="w-24 h-24 rounded-2xl flex items-center justify-center shrink-0" style="background:#FFFFFF; border:1px solid rgba(0,0,0,0.05);">
+                                    <img src="/owl-hero.svg" alt="부비" class="w-[72px] h-[72px] object-contain" />
                                 </div>
-                                <span class="ml-auto text-xs font-black text-white px-3 py-2 rounded-full whitespace-nowrap inline-flex items-center gap-1.5" style="background:#10B981"><i class="fa-solid fa-circle-check"></i> 결과 정상</span>
+                                <div class="min-w-0">
+                                    <div class="flex items-center gap-1.5 flex-wrap">
+                                        <span class="text-[11px] font-bold text-charcoal/55">기준선 6.9%</span>
+                                    </div>
+                                    <div class="flex items-end gap-2 mt-1 flex-wrap">
+                                        <h2 class="font-gapyeong leading-none font-black text-charcoal" style="font-size:clamp(26px,3.6vw,42px);">
+                                            5.5<span style="font-size:0.5em;">%</span>
+                                        </h2>
+                                        <p class="text-[11px] font-bold text-charcoal/65 leading-tight">종합<br>노쇠 위험도</p>
+                                        <span class="inline-flex items-center gap-1 px-3 rounded-full text-[11px] font-black h-[42px] whitespace-nowrap" style="background:#10B981; color:#fff;">
+                                            <i class="fa-solid fa-circle-check text-[9px]"></i>
+                                            결과 정상
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
+
 
                             <!-- 그라디언트 위험도 바 -->
                             <div>
