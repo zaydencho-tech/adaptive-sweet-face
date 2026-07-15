@@ -5954,8 +5954,10 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
             // 설문 미완료 차단
             if (!hasResult) {
-                scroller.innerHTML = `<div class="msg-row flex items-start gap-3 animate-fade-in">
-                    <img src="${BUVI_IMG_11}" class="w-9 h-9 object-contain flex-shrink-0" alt="">
+                scroller.innerHTML = `<div class="msg-row flex items-center gap-3 animate-fade-in">
+                    <div class="w-12 h-12 rounded-full bg-kakao flex items-center justify-center flex-shrink-0">
+                        <img src="${BUVI_IMG_11}" class="w-9 h-9 object-contain" alt="">
+                    </div>
                     <div class="bg-yellow-50 border-2 border-yellow-300 p-4 rounded-3xl shadow-sm font-bold scaled-text-base leading-snug max-w-[85%]">
                         설문이 아직 완료되지 않았어요. 설문을 모두 마친 뒤 상담을 진행하세요!
                     </div>
