@@ -180,12 +180,13 @@
         .btn-height-primary   { height: 60px; }
         .btn-height-secondary { height: 60px; }
 
+        /* 한국어 문장을 단어(어절) 단위로 자연스럽게 줄바꿈 */
+        body { word-break: keep-all; overflow-wrap: break-word; }
+
         @media (max-width: 768px) {
             .buvi-input           { height: 64px; }
             .btn-height-primary   { height: 68px; }
             .btn-height-secondary { height: 64px; }
-            /* 모바일: 한국어 문장을 단어(어절) 단위로 줄바꿈 */
-            body { word-break: keep-all; overflow-wrap: break-word; }
         }
 
         /* ── 부비 캐릭터 ── */
