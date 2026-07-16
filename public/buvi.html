@@ -3714,11 +3714,7 @@
         }
 
         function tryNavigateWithWarning(targetPageId) {
-            if (state.surveyInProgress && targetPageId !== 'survey') {
-                state.pendingNavigationTarget = targetPageId;
-                document.getElementById('survey-exit-modal').classList.remove('hidden');
-                speak("설문을 중간에 멈추시겠습니까? 지금까지의 답변은 보존됩니다.");
-            } else if (state.cardReadingLocked && targetPageId !== 'records') {
+            if (state.cardReadingLocked && targetPageId !== 'records') {
                 requestLeaveRecordsPage(targetPageId);
             } else {
                 // 설문 완료 후 설문탭 누르면 결과페이지로
