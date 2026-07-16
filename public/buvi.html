@@ -1551,12 +1551,21 @@
             border-color: transparent !important;
             border-width: 0 !important;
         }
-        /* 설문 시작 페이지 카드: 크림톤 배경/노랑 외곽선 → 뉴트럴 베이지 */
+        /* 설문 시작 페이지 카드: 모바일/태블릿은 배경 제거 + 실선 외곽선, 데스크탑은 뉴트럴 베이지 */
         #page-survey-start .bg-\[\#FFFBED\]\/40.border-yellow-200,
         #page-survey-start .bg-\[\#FFFDF4\].border-yellow-200 {
-            background-color: #F4F0E9 !important;
-            border-color: transparent !important;
-            border-width: 0 !important;
+            background-color: transparent !important;
+            border-color: #D9D3C7 !important;
+            border-width: 1px !important;
+            border-style: solid !important;
+        }
+        @media (min-width: 1024px) {
+            #page-survey-start .bg-\[\#FFFBED\]\/40.border-yellow-200,
+            #page-survey-start .bg-\[\#FFFDF4\].border-yellow-200 {
+                background-color: #F4F0E9 !important;
+                border-color: transparent !important;
+                border-width: 0 !important;
+            }
         }
         /* 설문 시작 페이지: 모바일/태블릿 좌우 여백을 상담/건강정보/도움말과 동일하게 유지 */
         @media (max-width: 1023px) {
