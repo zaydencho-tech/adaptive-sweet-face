@@ -209,6 +209,13 @@
         .nav-tab { transition: all 0.2s; color: #888; }
         .nav-tab.active { color: #1A1A1A !important; background-color: #FEE500; font-weight: 900; border-radius: 18px; }
 
+        /* 모바일/태블릿에서 하단 네비바 상단에 은은한 그림자로 콘텐츠 구분 */
+        @media (max-width: 1023px) {
+            .bottom-nav-shadow {
+                box-shadow: 0 -4px 14px rgba(0, 0, 0, 0.06) !important;
+            }
+        }
+
         /* ── 설문 선택지 ── */
         .option-card { border: 3px solid #D8D0C0; transition: all 0.2s ease; border-radius: 16px; background: #fff; }
         .option-card:hover { border-color: #FEE500; background: #FFFDF0; }
