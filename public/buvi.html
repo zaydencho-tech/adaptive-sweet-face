@@ -1709,10 +1709,20 @@
                 height: clamp(56px, 7vh, 88px) !important;
             }
             #page-records > div.records-wrapper > #records-cards-grid .card-item h4 {
-                font-size: clamp(1rem, 1.6vh, 1.25rem);
+                font-size: clamp(1.2rem, 1.92vh, 1.5rem);
             }
-            #page-records > div.records-wrapper > #records-cards-grid .card-item .scaled-text-xs {
-                font-size: clamp(0.75rem, 1.1vh, 0.875rem);
+            #page-records > div.records-wrapper > #records-cards-grid .card-item .scaled-text-xs,
+            #page-records > div.records-wrapper > #records-cards-grid .card-item .scaled-text-sm {
+                font-size: clamp(0.9rem, 1.32vh, 1.05rem);
+            }
+            /* 아코디언 하위 메뉴 텍스트도 20% 확대 */
+            #page-records > div.records-wrapper > #records-cards-grid > div:has(> div.flex.flex-col) .scaled-text-base {
+                font-size: calc(1rem * 1.2);
+            }
+            #page-records > div.records-wrapper > #records-cards-grid > div:has(> div.flex.flex-col) .w-7.h-7.rounded-full {
+                font-size: calc(0.875rem * 1.2);
+                width: calc(1.75rem * 1.2);
+                height: calc(1.75rem * 1.2);
             }
             /* 상세 패널이 열리면 카테고리 목록 숨김, 상세는 전체 폭 */
             body.subpage-mode #page-records > div.records-wrapper:has(> #quiz-panel:not(.hidden)) > #records-cards-grid {
