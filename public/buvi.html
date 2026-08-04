@@ -2962,7 +2962,10 @@
                         <h1 class="font-gapyeong scaled-text-2xl font-black text-charcoal">노쇠 예측 설문 결과</h1>
                         <p class="scaled-text-base font-bold text-gray-600 mt-1">노쇠 예측 설문 결과를 기반으로 개별화된 건강 결과를 확인하고, 상담 받아 보세요.</p>
                     </div>
-                    <button type="button" onclick="simulateTTSResult()" class="tts-listen-btn inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-kakao text-charcoal font-black shrink-0" aria-label="노쇠 예측 설문 결과 음성 듣기"><i class="fa-solid fa-volume-high"></i><span class="hidden md:inline">결과 듣기</span></button>
+                    <div class="flex flex-col sm:flex-row gap-2 shrink-0">
+                        <button type="button" onclick="restartSurvey()" class="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-2xl border-2 border-gray-300 bg-white text-charcoal font-black" aria-label="설문 다시 진행하기"><i class="fa-solid fa-rotate-right"></i><span>설문 다시 진행하기</span></button>
+                        <button type="button" onclick="simulateTTSResult()" class="tts-listen-btn inline-flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-kakao text-charcoal font-black" aria-label="노쇠 예측 설문 결과 음성 듣기"><i class="fa-solid fa-volume-high"></i><span class="hidden md:inline">결과 듣기</span></button>
+                    </div>
                 </div>
             </div>
 
@@ -3031,6 +3034,10 @@
                                             <i class="fa-solid fa-image text-charcoal text-xs"></i>
                                             <span class="flex-1 text-xs font-bold text-charcoal">이미지로 저장</span>
                                         </button>
+                                        <button onclick="event.stopPropagation(); downloadSurveyRecords()" class="w-full flex items-center gap-2 text-left hover:bg-white transition-colors rounded-lg p-2">
+                                            <i class="fa-solid fa-file-csv text-charcoal text-xs"></i>
+                                            <span class="flex-1 text-xs font-bold text-charcoal">설문 원자료 CSV</span>
+                                        </button>
                                     </div>
                                 </div>
                                 <!-- 공유 영역 -->
@@ -3069,7 +3076,10 @@
                         <h1 class="font-gapyeong scaled-text-xl font-black text-charcoal">부비와 함께하는 1:1 상담</h1>
                         <p class="scaled-text-sm font-bold text-gray-500">노쇠 예측 설문 결과를 바탕으로 궁금한 점을 물어보세요.</p>
                     </div>
-                    <button type="button" onclick="endChatConversation()" class="shrink-0 px-4 py-3 rounded-2xl border-2 border-gray-300 bg-white text-charcoal font-black hover:bg-gray-50">대화 종료하기</button>
+                    <div class="flex flex-col sm:flex-row gap-2 shrink-0">
+                        <button type="button" onclick="downloadChatRecords()" class="px-4 py-3 rounded-2xl border-2 border-gray-300 bg-white text-charcoal font-black hover:bg-gray-50"><i class="fa-solid fa-file-csv mr-1"></i>상담 원자료</button>
+                        <button type="button" onclick="endChatConversation()" class="px-4 py-3 rounded-2xl border-2 border-gray-300 bg-white text-charcoal font-black hover:bg-gray-50">대화 종료하기</button>
+                    </div>
                 </div>
 
                 <div id="chat-scroller" class="flex-grow overflow-y-auto pt-3 pb-4 space-y-4 pr-1"></div>
@@ -3607,6 +3617,11 @@
             },
             learningRecords: [],
             chatRecords: [],
+            chatSessions: [],
+            currentChatSessionSaved: false,
+            surveyRecords: [],
+            participantId: "ID01",
+            currentSurveyRecordSaved: false,
             // 계산 결과 저장
             result: {
                 logit: null, p: null, isAtRisk: null,
@@ -3619,20 +3634,17 @@
         };
 
         // ─────────────────────────────────────────────────────────────
-        // 설문 문항 정의 (사양서 v4 — IPAQ 4페이지 분리, SGDS 1문항씩)
+        // 설문 문항 정의 (사양서 v4 — IPAQ 강도별 한 페이지, SGDS 1문항씩)
         // ─────────────────────────────────────────────────────────────
         const surveyQuestions = [
             { id: "gender",    type: "gender",    category: "1단계 · 성별",            question_ko: "어르신의 성별을 선택해 주세요." },
             { id: "age",        type: "age",        category: "2단계 · 연령",          question_ko: "어르신의 연령은?" },
             { id: "bmi",        type: "bmi",        category: "3단계 · 체질량지수",     question_ko: "어르신의 현재 키와 체중은?" },
             { id: "polypharm",  type: "polypharm",  category: "4단계 · 복용 약물",      question_ko: "다약제 복용 여부" },
-            { id: "ipaq_vig",     type: "ipaq_vig",     category: "5단계 · 신체활동 ①",    question_ko: "격렬한 신체활동" },
-            { id: "ipaq_vig_dur", type: "ipaq_vig_dur", category: "5단계 · 신체활동 ②",    question_ko: "격렬한 신체활동 시간" },
-            { id: "ipaq_mod",     type: "ipaq_mod",     category: "5단계 · 신체활동 ③",    question_ko: "중간정도 신체활동" },
-            { id: "ipaq_mod_dur", type: "ipaq_mod_dur", category: "5단계 · 신체활동 ④",    question_ko: "중간정도 신체활동 시간" },
-            { id: "ipaq_walk",    type: "ipaq_walk",    category: "5단계 · 신체활동 ⑤",    question_ko: "걷기" },
-            { id: "ipaq_walk_dur", type: "ipaq_walk_dur", category: "5단계 · 신체활동 ⑥",    question_ko: "걷기 시간" },
-            { id: "ipaq_sit",     type: "ipaq_sit",     category: "5단계 · 신체활동 ⑦",    question_ko: "앉아서 보낸 시간" },
+            { id: "ipaq_vig",     type: "ipaq_vig",     category: "5단계 · 신체활동 1/4",    question_ko: "격렬한 신체활동" },
+            { id: "ipaq_mod",     type: "ipaq_mod",     category: "5단계 · 신체활동 2/4",    question_ko: "중간정도 신체활동" },
+            { id: "ipaq_walk",    type: "ipaq_walk",    category: "5단계 · 신체활동 3/4",    question_ko: "걷기" },
+            { id: "ipaq_sit",     type: "ipaq_sit",     category: "5단계 · 신체활동 4/4",    question_ko: "앉아서 보낸 시간" },
             { id: "tug",          type: "tug",          category: "6단계 · 기능적 이동성",  question_ko: "기능적 이동성 검사 (TUG)" },
             // SGDS 15문항 — 각 1페이지씩
             ...Array.from({length:15}, (_, i) => ({
@@ -4029,6 +4041,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         function startSurveyProcedure() {
             state.surveyInProgress = true;
             state.resultViewed = false;
+            state.currentSurveyRecordSaved = false;
             state.surveyHistory = [];
             state.currentQuestionId = 'gender';
             state.answers = {
@@ -4042,6 +4055,11 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             state.answers_metadata = {};
             Object.assign(state.result, { logit:null, p:null, isAtRisk:null, contributions:{}, domainPhys:null, domainEmo:null, physPct:null, emoPct:null, sortedContribs:[] });
             navTo('survey');
+        }
+
+        function restartSurvey() {
+            startSurveyProcedure();
+            speak('새 설문을 처음부터 시작합니다. 이전 설문 결과는 별도 기록으로 안전하게 보존됩니다.');
         }
 
         // ─────────────────────────────────────────────────────────────
@@ -4089,11 +4107,8 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             else if (q.type === 'bmi')         renderBmiInput(container);
             else if (q.type === 'polypharm')   renderPolypharmInput(container);
             else if (q.type === 'ipaq_vig')     renderIpaqVig(container);
-            else if (q.type === 'ipaq_vig_dur') renderIpaqVigDur(container);
             else if (q.type === 'ipaq_mod')     renderIpaqMod(container);
-            else if (q.type === 'ipaq_mod_dur') renderIpaqModDur(container);
             else if (q.type === 'ipaq_walk')    renderIpaqWalk(container);
-            else if (q.type === 'ipaq_walk_dur') renderIpaqWalkDur(container);
             else if (q.type === 'ipaq_sit')     renderIpaqSit(container);
             else if (q.type === 'tug')         renderTugInput(container);
             else if (q.type === 'sgds_single') renderSgdsSingle(container, q.sgdsIdx);
@@ -4777,14 +4792,16 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             <div class="flex flex-col gap-4">
                 <p class="font-black text-gray-700 text-center">일주일에 며칠? <span class="text-gray-400 font-normal text-sm">(− / + 로 조절하거나 직접 입력)</span></p>
                 ${makeStepper(`inp-${dKey}`,'일',0,7,1,dInit,'onIpaqDaysChange',0)}
-
-
+                <button id="btn-none-${dKey}" type="button" onclick="setIpaqNone('${dKey}','${hKey}','${mKey}')"
+                    class="w-full min-h-[54px] px-4 rounded-2xl border-2 font-black transition-all ${isNone ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-700 border-gray-300 hover:border-blue-400'}">
+                    해당 ${noneLabel}이 없었음 (0일)
+                </button>
 
                 <!-- 시간·분 스테퍼 (일수 선택 후 표시) -->
                 <div id="ipaq-time-row-${dKey}" class="${isHidden ? 'hidden' : 'flex flex-col gap-3'}">
                     <p class="font-bold text-gray-800">그런 날 하루에 보통 얼마나 하셨습니까?</p>
                     <div class="flex flex-col gap-3">
-                        ${makeStepper(`inp-${hKey}`,'시간',0,23,1,hVal,'onIpaqChange',0)}
+                        ${makeStepper(`inp-${hKey}`,'시간',0,24,1,hVal,'onIpaqChange',0)}
                         ${makeStepper(`inp-${mKey}`,'분',0,59,5,mVal,'onIpaqChange',0)}
                     </div>
                 </div>
@@ -4848,7 +4865,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const isHour = tab === 'h';
             const id = isHour ? `inp-${hKey}` : `inp-${mKey}`;
             const dispId = isHour ? `disp-${hKey}` : `disp-${mKey}`;
-            const max = isHour ? 23 : 59;
+            const max = isHour ? 24 : 59;
             const inp = document.getElementById(id);
             const disp = document.getElementById(dispId);
             if (!inp || !disp) return;
@@ -4891,6 +4908,8 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         function onIpaqDaysChange() {
             ['ipaq_vig','ipaq_mod','ipaq_walk'].forEach(t => {
                 const dKey = `${t}_days`;
+                const hKey = `${t}_hr`;
+                const mKey = `${t}_min`;
                 const inp = document.getElementById(`inp-${dKey}`);
                 if (!inp) return;
                 const raw = inp.value;
@@ -4901,7 +4920,23 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 } else {
                     const n = parseInt(raw);
                     if (isNaN(n) || n < 0 || n > 7) return;
+                    const previousDays = state.answers[dKey];
                     state.answers[dKey] = n;
+                    if (n === 0) {
+                        state.answers[hKey] = 0;
+                        state.answers[mKey] = 0;
+                    } else if (previousDays === 0) {
+                        state.answers[hKey] = null;
+                        state.answers[mKey] = null;
+                        const hourInput = document.getElementById(`inp-${hKey}`);
+                        const minuteInput = document.getElementById(`inp-${mKey}`);
+                        if (hourInput) hourInput.value = '';
+                        if (minuteInput) minuteInput.value = '';
+                    }
+                    const noneButton = document.getElementById(`btn-none-${dKey}`);
+                    if (noneButton) {
+                        noneButton.className = `w-full min-h-[54px] px-4 rounded-2xl border-2 font-black transition-all ${n === 0 ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-700 border-gray-300 hover:border-blue-400'}`;
+                    }
                     if (timeRow) timeRow.className = (n === 0) ? 'hidden' : 'flex flex-col gap-3';
                 }
             });
@@ -4933,103 +4968,47 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             onIpaqChange();
         }
 
-        // ── IPAQ ① 격렬한 신체활동 (일수) ──────────────────────────
+        // ── IPAQ ① 격렬한 신체활동 (일수 + 하루 평균 시간) ─────────
         function renderIpaqVig(container) {
             container.innerHTML = `
             <div class="flex flex-col gap-4">
                 ${ipaqHeader()}
                 <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-[30px] text-gray-700 leading-relaxed">
-                    <p class="scaled-text-lg font-black text-gray-900 leading-snug">격렬한 신체활동을 한 날은 며칠입니까?</p>
-                    <p class="font-normal text-gray-500 mt-2" style="font-size:16px">숨이 많이 차거나 힘이 드는 활동을 뜻합니다.</p>
-                    <p class="font-normal text-gray-500 mt-1" style="font-size:16px"><strong>예시:</strong> 무거운 물건 나르기(20kg 이상), 땅파기, 계단으로 짐 옮기기, 격렬한 운동 등</p>
+                    <p class="scaled-text-lg font-black text-gray-900 leading-snug"><strong><u>지난 7일간</u></strong>, 무거운 것을 들어 올리거나 나르는 일(약 20kg 이상), 땅파기, 건설 현장에서의 노동, 계단으로 물건 나르기 등과 같은 <strong>격렬한 신체활동</strong>을 며칠간 하셨습니까? (격렬한 운동 또는 스포츠 포함)</p>
                 </div>
-                ${ipaqDaysGroup('ipaq_vig_days','격렬한 신체활동')}
+                ${ipaqGroup('ipaq_vig_days','ipaq_vig_hr','ipaq_vig_min','격렬한 신체활동')}
                 <p id="ipaq-vig-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]"></p>
             </div>`;
             refreshIpaqOk('ipaq_vig_days','ipaq-vig-ok');
         }
 
-        // ── IPAQ ①-2 격렬한 신체활동 (시간·분) ─────────────────────
-        function renderIpaqVigDur(container) {
+        // ── IPAQ ② 중간정도 신체활동 (일수 + 하루 평균 시간) ────────
+        function renderIpaqMod(container) {
             container.innerHTML = `
             <div class="flex flex-col gap-4">
                 ${ipaqHeader()}
                 <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-[30px] text-gray-700 leading-relaxed">
-                    <p class="scaled-text-lg font-black text-gray-900 leading-snug">그런 날, 하루 평균 몇 분(시간)이나 하셨습니까?</p>
-                    <p class="font-normal text-gray-500 mt-2" style="font-size:16px">격렬한 활동을 했던 날 중, 하루에 보통 몇 시간(몇 분) 동안 움직이셨는지 평균 시간을 알려주세요.</p>
+                    <p class="scaled-text-lg font-black text-gray-900 leading-snug"><strong><u>지난 7일간</u></strong>, <strong>집 안 또는 야외 활동을 모두 포함하여</strong>, 빠르게 걷기(일하는 중에), 가벼운 물건 나르기, 청소(야외), 유리창을 닦거나 마루를 닦거나 집안을 닦는 것, 쓰는 것, 육아(목욕시키기, 아이 안아주기 등) 등과 같은 <strong>중간정도 신체활동</strong>을 며칠간 하셨습니까? 걷기는 포함시키지 마십시오. (중간정도 운동 또는 스포츠 포함.)</p>
                 </div>
-                ${ipaqTimeGroup('ipaq_vig_days','ipaq_vig_hr','ipaq_vig_min')}
-                <p id="ipaq-vig-dur-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]"></p>
-            </div>`;
-            refreshIpaqOk('ipaq_vig_days','ipaq-vig-dur-ok');
-        }
-
-        // ── IPAQ ② 중간정도 신체활동 (일수) ─────────────────────────
-        function renderIpaqMod(container) {
-            container.innerHTML = `
-            <div class="flex flex-col gap-4">
-                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-[30px] text-gray-700 leading-relaxed">
-                    <p class="scaled-text-lg font-black text-gray-900 leading-snug">중간정도 신체활동</p>
-                    <p class="font-normal text-gray-500 mt-2" style="font-size:16px">어르신께서 지난 7일간 하신 모든 중간정도 신체활동을 생각해 보십시오. 중간정도 신체활동이란 중간정도 힘들게 움직이는 활동으로서 평소보다 숨이 조금 더 차게 만드는 활동입니다. 한 번에 적어도 10분 이상 지속한 활동만을 생각하여 응답해주시기 바랍니다.</p>
-                </div>
-                <button onclick="showIpaqPopup()" class="w-full mb-1 py-2.5 border-2 border-amber-400 bg-amber-50 text-amber-800 font-black rounded-xl text-sm hover:bg-amber-100 transition-all">
-                    📋 신체활동 강도별 운동 종류 참고표 보기
-                </button>
-                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-[30px] text-gray-700 leading-relaxed">
-                    <p class="scaled-text-lg font-black text-gray-900 leading-snug">중간정도 신체활동을 한 날은 며칠입니까?</p>
-                    <p class="font-normal text-gray-500 mt-2" style="font-size:16px">숨이 평소보다 조금 더 차는 활동을 뜻합니다. (한 번에 10분 이상 지속한 활동만)</p>
-                    <p class="font-normal text-gray-500 mt-1" style="font-size:16px"><strong>예시:</strong> 빠르게 걷기, 가벼운 물건 나르기, 청소, 걸레질, 육아 등 (걷기는 제외)</p>
-                </div>
-                ${ipaqDaysGroup('ipaq_mod_days','중간정도 신체활동')}
+                ${ipaqGroup('ipaq_mod_days','ipaq_mod_hr','ipaq_mod_min','중간정도 신체활동')}
                 <p id="ipaq-mod-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]"></p>
             </div>`;
             refreshIpaqOk('ipaq_mod_days','ipaq-mod-ok');
         }
 
-        // ── IPAQ ②-2 중간정도 신체활동 (시간·분) ───────────────────
-        function renderIpaqModDur(container) {
-            container.innerHTML = `
-            <div class="flex flex-col gap-4">
-                <button onclick="showIpaqPopup()" class="w-full mb-1 py-2.5 border-2 border-amber-400 bg-amber-50 text-amber-800 font-black rounded-xl text-sm hover:bg-amber-100 transition-all">
-                    📋 신체활동 강도별 운동 종류 참고표 보기
-                </button>
-                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-[30px] text-gray-700 leading-relaxed">
-                    <p class="scaled-text-lg font-black text-gray-900 leading-snug">그런 날, 하루 평균 몇 분(시간)이나 하셨습니까?</p>
-                    <p class="font-normal text-gray-500 mt-2" style="font-size:16px">중간정도 활동을 했던 날 중, 하루에 보통 얼마나 움직이셨는지 평균 시간을 알려주세요.</p>
-                </div>
-                ${ipaqTimeGroup('ipaq_mod_days','ipaq_mod_hr','ipaq_mod_min')}
-                <p id="ipaq-mod-dur-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]"></p>
-            </div>`;
-            refreshIpaqOk('ipaq_mod_days','ipaq-mod-dur-ok');
-        }
-
-        // ── IPAQ ③ 걷기 (일수) ─────────────────────────────────────
+        // ── IPAQ ③ 걷기 (일수 + 하루 평균 시간) ────────────────────
         function renderIpaqWalk(container) {
             container.innerHTML = `
             <div class="flex flex-col gap-4">
+                ${ipaqHeader()}
                 <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-[30px] text-gray-700 leading-relaxed">
-                    <p class="scaled-text-lg font-black text-gray-900 leading-snug">한 번에 10분 이상 걸으신 날은 며칠입니까?</p>
-                    <p class="font-normal text-gray-500 mt-2" style="font-size:16px">집·직장·이동 중 걷기뿐 아니라 산책, 운동 삼아 걸으신 것도 모두 포함합니다.</p>
-                    <p class="font-normal text-red-600 mt-1" style="font-size:16px">※ 앞선 격렬한·중간정도 활동에 이미 포함된 걷기는 제외해 주세요.</p>
+                    <p class="scaled-text-lg font-black text-gray-900 leading-snug"><strong><u>지난 7일간</u></strong>, 한 번에 적어도 10분 이상 걸은 날이 며칠입니까?</p>
+                    <p class="font-bold text-red-600 mt-2" style="font-size:16px">(‘걷기’가 격렬한 신체활동 또는 중간정도 신체활동에 포함된 경우, 제외시키기)</p>
                 </div>
-                ${ipaqDaysGroup('ipaq_walk_days','걷기')}
+                ${ipaqGroup('ipaq_walk_days','ipaq_walk_hr','ipaq_walk_min','걷기')}
                 <p id="ipaq-walk-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]"></p>
             </div>`;
             refreshIpaqOk('ipaq_walk_days','ipaq-walk-ok');
-        }
-
-        // ── IPAQ ③-2 걷기 (시간·분) ─────────────────────────────────
-        function renderIpaqWalkDur(container) {
-            container.innerHTML = `
-            <div class="flex flex-col gap-4">
-                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-[30px] text-gray-700 leading-relaxed">
-                    <p class="scaled-text-lg font-black text-gray-900 leading-snug">그런 날, 하루 평균 몇 분(시간)이나 걸으셨습니까?</p>
-                    <p class="font-normal text-gray-500 mt-2" style="font-size:16px">걸으신 날 중, 하루에 보통 얼마나 걸으셨는지 평균 시간을 알려주세요.</p>
-                </div>
-                ${ipaqTimeGroup('ipaq_walk_days','ipaq_walk_hr','ipaq_walk_min')}
-                <p id="ipaq-walk-dur-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]"></p>
-            </div>`;
-            refreshIpaqOk('ipaq_walk_days','ipaq-walk-dur-ok');
         }
 
         // ── IPAQ ④ 앉아서 보낸 시간 (계산에 포함 안됨) ─────────────
@@ -5046,7 +5025,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 </div>
                 <!-- 앉아서 보낸 시간: 시간·분 스테퍼 -->
                 <div class="flex flex-col gap-3">
-                    ${makeStepper('inp-sit-hr','시간',0,23,1,sh,'onIpaqSitChange',0)}
+                    ${makeStepper('inp-sit-hr','시간',0,24,1,sh,'onIpaqSitChange',0)}
                     ${makeStepper('inp-sit-min','분',0,59,5,sm,'onIpaqSitChange',0)}
                 </div>
                 <p id="ipaq-sit-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]"></p>
@@ -5080,7 +5059,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const isHour = window._sitTab === 'h';
             const id = isHour ? 'inp-sit-hr' : 'inp-sit-min';
             const dispId = isHour ? 'disp-sit-hr' : 'disp-sit-min';
-            const max = isHour ? 23 : 59;
+            const max = isHour ? 24 : 59;
             const inp = document.getElementById(id);
             const disp = document.getElementById(dispId);
             if (!inp || !disp) return;
@@ -5118,7 +5097,12 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
         function onIpaqSitChange() {
             const h = parseInt(document.getElementById('inp-sit-hr')?.value) || 0;
-            const m = parseInt(document.getElementById('inp-sit-min')?.value) || 0;
+            let m = parseInt(document.getElementById('inp-sit-min')?.value) || 0;
+            if (h === 24 && m > 0) {
+                m = 0;
+                const minuteInput = document.getElementById('inp-sit-min');
+                if (minuteInput) minuteInput.value = '0';
+            }
             state.answers.ipaq_sit_hr = h;
             state.answers.ipaq_sit_min = m;
             const ok = document.getElementById('ipaq-sit-ok');
@@ -5141,7 +5125,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             if (timeRow) { timeRow.classList.add('hidden'); timeRow.classList.remove('flex'); }
             // '없었음' 버튼 활성화 스타일
             const btn = document.getElementById('btn-none-'+dKey);
-            if (btn) btn.className = 'h-14 col-span-1 text-base font-black rounded-2xl border-2 transition-all select-none bg-blue-600 text-white border-blue-600';
+            if (btn) btn.className = 'w-full min-h-[54px] px-4 rounded-2xl border-2 font-black transition-all bg-blue-600 text-white border-blue-600';
             // OK 라벨
             const cur = state.currentQuestionId;
             if (cur === 'ipaq_vig') refreshIpaqOk('ipaq_vig_days','ipaq-vig-ok');
@@ -5162,11 +5146,15 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 }
                 if (hEl) {
                     const n = hEl.value === '' ? null : parseInt(hEl.value);
-                    state.answers[`ipaq_${t}_hr`] = (n !== null && n >= 0 && n <= 23) ? n : state.answers[`ipaq_${t}_hr`];
+                    state.answers[`ipaq_${t}_hr`] = (n === null || (n >= 0 && n <= 24)) ? n : state.answers[`ipaq_${t}_hr`];
                 }
                 if (mEl) {
                     const n = mEl.value === '' ? null : parseInt(mEl.value);
-                    state.answers[`ipaq_${t}_min`] = (n !== null && n >= 0 && n <= 59) ? n : state.answers[`ipaq_${t}_min`];
+                    state.answers[`ipaq_${t}_min`] = (n === null || (n >= 0 && n <= 59)) ? n : state.answers[`ipaq_${t}_min`];
+                }
+                if (state.answers[`ipaq_${t}_hr`] === 24 && state.answers[`ipaq_${t}_min`] > 0) {
+                    state.answers[`ipaq_${t}_min`] = 0;
+                    if (mEl) mEl.value = '0';
                 }
             });
             // 현재 페이지 OK 라벨 갱신
@@ -5181,7 +5169,9 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const el = document.getElementById(okId);
             if (!el) return;
             const d = state.answers[dKey];
-            el.textContent = d !== null ? '✓ 입력 완료' : '';
+            const h = state.answers[dKey.replace('_days', '_hr')];
+            const m = state.answers[dKey.replace('_days', '_min')];
+            el.textContent = d === 0 || (d > 0 && h !== null && m !== null) ? '✓ 입력 완료' : '';
         }
 
         function computeIpaqMet() {
@@ -5214,7 +5204,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             container.innerHTML = `
             <div class="flex flex-col gap-4 max-w-sm mx-auto">
                 <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-[30px] text-gray-700 leading-relaxed">
-                    <p class="scaled-text-lg font-black text-gray-900 leading-snug">기능적 이동성 검사 (TUG)</p>
+                    <p class="scaled-text-lg font-black text-gray-900 leading-snug">기능적 이동성 검사 (Timed Up and Go, TUG)</p>
                     <p class="font-normal text-gray-500 mt-3" style="font-size:16px">의자에서 일어나 3m 걸어갔다 돌아와 다시 앉을 때까지의 시간을 측정합니다.</p>
                 </div>
                 <!-- 타이머 -->
@@ -5232,7 +5222,13 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     </div>
                     <button onclick="tugReset()" class="text-sm text-gray-400 font-bold underline">↺ 초기화</button>
                 </div>
-                <input id="inp-tug" type="hidden" value="${saved}">
+                <label for="inp-tug" class="font-black text-gray-800 scaled-text-base">측정값을 직접 입력할 수도 있습니다.</label>
+                <div class="stepper-field border-2 border-blue-300 rounded-2xl bg-white px-4">
+                    <input id="inp-tug" type="text" inputmode="decimal" value="${saved}" placeholder="_"
+                        oninput="this.value=this.value.replace(/[^0-9.]/g,'').replace(/(\\..*)\\./g,'$1'); onTugInput(this.value)"
+                        class="stepper-input" aria-label="TUG 측정 시간 직접 입력">
+                    <span class="stepper-unit">초</span>
+                </div>
                 <p id="tug-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]">${saved?'✓ '+saved+'초 입력 완료':''}</p>
             </div>`;
         }
@@ -5382,12 +5378,9 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             else if (q.id === 'age')       hasAnswer = state.answers.age !== null;
             else if (q.id === 'bmi')       hasAnswer = state.answers.bmi !== null;
             else if (q.id === 'polypharm') hasAnswer = state.answers.polypharm !== null;
-            else if (q.id === 'ipaq_vig')     hasAnswer = state.answers.ipaq_vig_days !== null;
-            else if (q.id === 'ipaq_vig_dur') hasAnswer = state.answers.ipaq_vig_days === 0 || state.answers.ipaq_vig_hr !== null || state.answers.ipaq_vig_min !== null;
-            else if (q.id === 'ipaq_mod')     hasAnswer = state.answers.ipaq_mod_days !== null;
-            else if (q.id === 'ipaq_mod_dur') hasAnswer = state.answers.ipaq_mod_days === 0 || state.answers.ipaq_mod_hr !== null || state.answers.ipaq_mod_min !== null;
-            else if (q.id === 'ipaq_walk')    hasAnswer = state.answers.ipaq_walk_days !== null;
-            else if (q.id === 'ipaq_walk_dur') hasAnswer = state.answers.ipaq_walk_days === 0 || state.answers.ipaq_walk_hr !== null || state.answers.ipaq_walk_min !== null;
+            else if (q.id === 'ipaq_vig')     hasAnswer = state.answers.ipaq_vig_days === 0 || (state.answers.ipaq_vig_days > 0 && state.answers.ipaq_vig_hr !== null && state.answers.ipaq_vig_min !== null);
+            else if (q.id === 'ipaq_mod')     hasAnswer = state.answers.ipaq_mod_days === 0 || (state.answers.ipaq_mod_days > 0 && state.answers.ipaq_mod_hr !== null && state.answers.ipaq_mod_min !== null);
+            else if (q.id === 'ipaq_walk')    hasAnswer = state.answers.ipaq_walk_days === 0 || (state.answers.ipaq_walk_days > 0 && state.answers.ipaq_walk_hr !== null && state.answers.ipaq_walk_min !== null);
             else if (q.id === 'ipaq_sit')     hasAnswer = state.answers.ipaq_sit_hr !== null && state.answers.ipaq_sit_min !== null;
             else if (q.id === 'tug')          hasAnswer = state.answers.tug !== null;
             else if (q.type === 'sgds_single') hasAnswer = state.answers.sgds_answers[q.sgdsIdx] !== null;
@@ -5416,9 +5409,9 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
             // 시간/분 키패드 문항: 분 미입력 시 팝업 안내
             const ipaqMinKeys = {
-                ipaq_vig_dur:  { dKey: 'ipaq_vig_days',  mKey: 'ipaq_vig_min'  },
-                ipaq_mod_dur:  { dKey: 'ipaq_mod_days',  mKey: 'ipaq_mod_min'  },
-                ipaq_walk_dur: { dKey: 'ipaq_walk_days', mKey: 'ipaq_walk_min' },
+                ipaq_vig:  { dKey: 'ipaq_vig_days',  mKey: 'ipaq_vig_min'  },
+                ipaq_mod:  { dKey: 'ipaq_mod_days',  mKey: 'ipaq_mod_min'  },
+                ipaq_walk: { dKey: 'ipaq_walk_days', mKey: 'ipaq_walk_min' },
             };
             if (ipaqMinKeys[q.id]) {
                 const { dKey, mKey } = ipaqMinKeys[q.id];
@@ -5563,8 +5556,93 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             // state 저장
             Object.assign(state.result, { logit, p, isAtRisk, contributions, physPos, emoPos, physPct, emoPct, sortedContribs });
 
+            saveSurveyRecord();
+
             renderResultPage();
         }
+
+        function nextParticipantRecordId(records, participantId) {
+            const prefix = `${participantId}-`;
+            const maxSequence = records.reduce((max, record) => {
+                if (!String(record.record_id || '').startsWith(prefix)) return max;
+                const sequence = parseInt(String(record.record_id).slice(prefix.length), 10);
+                return Number.isFinite(sequence) ? Math.max(max, sequence) : max;
+            }, 0);
+            return `${participantId}-${String(maxSequence + 1).padStart(2, '0')}`;
+        }
+
+        function saveSurveyRecord() {
+            if (state.currentSurveyRecordSaved || state.result.p === null) return;
+            const a = state.answers;
+            if (!Array.isArray(a.sgds_answers) || a.sgds_answers.some(answer => answer === null)) return;
+
+            try {
+                const saved = JSON.parse(localStorage.getItem('buvi.surveyRecords') || '[]');
+                if (Array.isArray(saved)) state.surveyRecords = saved;
+            } catch (_) {}
+
+            const participantId = state.participantId || 'ID01';
+            const record = {
+                record_id: nextParticipantRecordId(state.surveyRecords, participantId),
+                participant_id: participantId,
+                completed_at: new Date().toISOString(),
+                gender: a.gender,
+                birth_date: a.birth_date,
+                age: a.age,
+                height_cm: a.height_cm,
+                weight_kg: a.weight_kg,
+                bmi: a.bmi,
+                polypharm: a.polypharm,
+                ipaq_vig_days: a.ipaq_vig_days,
+                ipaq_vig_hr: a.ipaq_vig_hr,
+                ipaq_vig_min: a.ipaq_vig_min,
+                ipaq_mod_days: a.ipaq_mod_days,
+                ipaq_mod_hr: a.ipaq_mod_hr,
+                ipaq_mod_min: a.ipaq_mod_min,
+                ipaq_walk_days: a.ipaq_walk_days,
+                ipaq_walk_hr: a.ipaq_walk_hr,
+                ipaq_walk_min: a.ipaq_walk_min,
+                ipaq_sit_hr: a.ipaq_sit_hr,
+                ipaq_sit_min: a.ipaq_sit_min,
+                met_score: a.met_score,
+                tug_seconds: a.tug,
+                ...Object.fromEntries(a.sgds_answers.map((answer, index) => [`sgds_${index + 1}`, answer ? '예' : '아니오'])),
+                sgdsk_score: a.sgdsk_score,
+                risk_probability_pct: Number((state.result.p * 100).toFixed(2)),
+                risk_status: state.result.isAtRisk ? '노쇠 위험' : '정상',
+                contributions_json: JSON.stringify(state.result.contributions)
+            };
+
+            state.surveyRecords.push(record);
+            state.currentSurveyRecordSaved = true;
+            try { localStorage.setItem('buvi.surveyRecords', JSON.stringify(state.surveyRecords)); } catch (_) {}
+        }
+
+        function downloadSurveyRecords() {
+            try {
+                const saved = JSON.parse(localStorage.getItem('buvi.surveyRecords') || '[]');
+                if (Array.isArray(saved)) state.surveyRecords = saved;
+            } catch (_) {}
+            if (!state.surveyRecords.length) {
+                showAppModal('📋', '저장된 설문 원자료가 없어요', '설문을 끝까지 완료하면 응답과 결과가 별도 행으로 저장됩니다.');
+                return;
+            }
+            const columns = [
+                'record_id','participant_id','completed_at','gender','birth_date','age','height_cm','weight_kg','bmi','polypharm',
+                'ipaq_vig_days','ipaq_vig_hr','ipaq_vig_min','ipaq_mod_days','ipaq_mod_hr','ipaq_mod_min',
+                'ipaq_walk_days','ipaq_walk_hr','ipaq_walk_min','ipaq_sit_hr','ipaq_sit_min','met_score','tug_seconds',
+                ...Array.from({length:15}, (_, index) => `sgds_${index + 1}`),
+                'sgdsk_score','risk_probability_pct','risk_status','contributions_json'
+            ];
+            downloadCsvFile(`buvi-survey-records-${new Date().toISOString().slice(0,10)}.csv`, columns, state.surveyRecords);
+        }
+
+        (function initSurveyRecords() {
+            try {
+                const saved = JSON.parse(localStorage.getItem('buvi.surveyRecords') || '[]');
+                if (Array.isArray(saved)) state.surveyRecords = saved;
+            } catch (_) {}
+        })();
 
         function renderResultPage() {
             state.resultViewed = true;
@@ -6667,15 +6745,81 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         function resetAgentAI() {
             briefingRunning = false;
             state.chatRecords = [];
+            state.currentChatSessionSaved = false;
             triggerAgentBriefing();
+        }
+
+        function nextChatSessionId(sessions) {
+            const participantId = state.participantId || 'ID01';
+            const prefix = `CHAT-${participantId}-`;
+            const maxSequence = sessions.reduce((max, session) => {
+                if (!String(session.session_id || '').startsWith(prefix)) return max;
+                const sequence = parseInt(String(session.session_id).slice(prefix.length), 10);
+                return Number.isFinite(sequence) ? Math.max(max, sequence) : max;
+            }, 0);
+            return `${prefix}${String(maxSequence + 1).padStart(2, '0')}`;
+        }
+
+        function saveCurrentChatSession() {
+            if (state.currentChatSessionSaved || !state.chatRecords.length) return;
+            try {
+                const saved = JSON.parse(localStorage.getItem('buvi.chatSessions') || '[]');
+                if (Array.isArray(saved)) state.chatSessions = saved;
+            } catch (_) {}
+            state.chatSessions.push({
+                session_id: nextChatSessionId(state.chatSessions),
+                participant_id: state.participantId || 'ID01',
+                ended_at: new Date().toISOString(),
+                messages: state.chatRecords.map(record => ({ ...record }))
+            });
+            state.currentChatSessionSaved = true;
+            try { localStorage.setItem('buvi.chatSessions', JSON.stringify(state.chatSessions)); } catch (_) {}
+        }
+
+        function downloadChatRecords() {
+            try {
+                const saved = JSON.parse(localStorage.getItem('buvi.chatSessions') || '[]');
+                if (Array.isArray(saved)) state.chatSessions = saved;
+            } catch (_) {}
+            const sessions = state.chatSessions.map(session => ({ ...session, messages: [...(session.messages || [])] }));
+            if (!state.currentChatSessionSaved && state.chatRecords.length) {
+                sessions.push({
+                    session_id: nextChatSessionId(sessions),
+                    participant_id: state.participantId || 'ID01',
+                    ended_at: '',
+                    messages: state.chatRecords.map(record => ({ ...record }))
+                });
+            }
+            const rows = sessions.flatMap(session => session.messages.map((message, index) => ({
+                session_id: session.session_id,
+                participant_id: session.participant_id,
+                ended_at: session.ended_at,
+                message_order: index + 1,
+                role: message.role,
+                message: message.message,
+                timestamp: message.timestamp
+            })));
+            if (!rows.length) {
+                showAppModal('💬', '저장된 상담 원자료가 없어요', '부비와 대화를 나누면 질문과 응답이 순서대로 기록됩니다.');
+                return;
+            }
+            downloadCsvFile(`buvi-chat-records-${new Date().toISOString().slice(0,10)}.csv`, ['session_id','participant_id','ended_at','message_order','role','message','timestamp'], rows);
         }
 
         function endChatConversation() {
             const messageCount = state.chatRecords.filter(record => record.role === 'user').length;
             try { localStorage.setItem('buvi.chatRecords', JSON.stringify(state.chatRecords)); } catch (_) {}
+            saveCurrentChatSession();
             showAppModal('✅', '대화를 종료했습니다', `이번 상담에서 어르신이 보낸 질문 ${messageCount}건을 안전하게 기록했습니다. 홈 화면으로 이동합니다.`);
             setTimeout(() => navTo('home'), 700);
         }
+
+        (function initChatSessions() {
+            try {
+                const saved = JSON.parse(localStorage.getItem('buvi.chatSessions') || '[]');
+                if (Array.isArray(saved)) state.chatSessions = saved;
+            } catch (_) {}
+        })();
 
         // ========================================================
         // HEALTH/RECORDS 카드뉴스 구성 & 검색 로직 기술 영역 (카테고리 제거, 팬시 대비 적용)
@@ -6870,6 +7014,18 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             speak(`건강 지식 정독이 완료되었습니다. 다음 배움 책자도 함께 읽어 볼까요?`);
         }
 
+        function downloadCsvFile(filename, columns, rows) {
+            const escapeCsv = value => `"${String(value ?? '').replace(/"/g, '""')}"`;
+            const csv = '\uFEFF' + [columns.join(','), ...rows.map(row => columns.map(key => escapeCsv(row[key])).join(','))].join('\n');
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(new Blob([csv], { type:'text/csv;charset=utf-8' }));
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+        }
+
         function downloadLearningRecords() {
             try {
                 const saved = JSON.parse(localStorage.getItem('buvi.learningRecords') || '[]');
@@ -6880,13 +7036,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 return;
             }
             const columns = ['card_id','title','started_at','completed_at','duration_seconds'];
-            const escapeCsv = value => `"${String(value ?? '').replace(/"/g, '""')}"`;
-            const csv = '\uFEFF' + [columns.join(','), ...state.learningRecords.map(row => columns.map(key => escapeCsv(row[key])).join(','))].join('\n');
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(new Blob([csv], { type:'text/csv;charset=utf-8' }));
-            link.download = `buvi-learning-records-${new Date().toISOString().slice(0,10)}.csv`;
-            link.click();
-            setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+            downloadCsvFile(`buvi-learning-records-${new Date().toISOString().slice(0,10)}.csv`, columns, state.learningRecords);
         }
 
         (function initLearningRecords() {
@@ -7289,11 +7439,11 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
          onclick="if(event.target===this)closeIpaqPopup()">
         <div class="bg-white rounded-3xl shadow-2xl w-full max-w-lg max-h-[85vh] flex flex-col overflow-hidden">
             <div class="flex items-center justify-between px-5 pt-5 pb-3 border-b border-gray-200">
-                <h3 class="font-black text-gray-900 text-base">신체활동 강도에 따른 운동의 종류</h3>
+                <h3 class="font-black text-gray-900 scaled-text-base">신체활동 강도에 따른 운동의 종류</h3>
                 <button onclick="closeIpaqPopup()" class="text-3xl font-black text-gray-400 hover:text-gray-700 leading-none">&times;</button>
             </div>
             <div class="overflow-y-auto px-4 py-4">
-                <table class="w-full text-sm border-collapse">
+                <table class="w-full scaled-text-sm border-collapse">
                     <thead>
                         <tr>
                             <th class="bg-blue-100 text-blue-900 font-black py-2 px-3 border border-blue-200 rounded-tl-xl">가벼운 활동</th>
