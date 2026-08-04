@@ -2374,8 +2374,10 @@
         <div class="flex items-center gap-3">
             <img src="./buvi-wordmark.png" alt="BUVI 어르신 건강 지킴이 - 홈으로 이동" class="header-wordmark" style="cursor:pointer;" onclick="tryNavigateWithWarning('home')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();tryNavigateWithWarning('home');}" />
             <div class="bg-gray-100 p-1 rounded-2xl flex gap-1 header-controls">
-                <button onclick="setFontScale(1.0)" data-scale="1.0" class="font-scale-btn is-active px-3 py-2 bg-white rounded-xl shadow-sm text-xs font-bold min-h-[44px]">가</button>
-                <button onclick="setFontScale(1.3)" data-scale="1.3" class="font-scale-btn px-3 py-2 text-sm font-bold min-h-[44px]">가+</button>
+                <button onclick="setFontScale(0.95)" data-scale="0.95" class="font-scale-btn px-3 py-2 text-xs font-bold min-h-[44px]" aria-label="글자 크기 작게">가−</button>
+                <button onclick="setFontScale(1.0)" data-scale="1.0" class="font-scale-btn is-active px-3 py-2 bg-white rounded-xl shadow-sm text-sm font-bold min-h-[44px]" aria-label="글자 크기 보통">가</button>
+                <button onclick="setFontScale(1.15)" data-scale="1.15" class="font-scale-btn px-3 py-2 text-base font-bold min-h-[44px]" aria-label="글자 크기 크게">가+</button>
+                <button onclick="setFontScale(1.3)" data-scale="1.3" class="font-scale-btn px-3 py-2 text-lg font-bold min-h-[44px]" aria-label="글자 크기 가장 크게">가++</button>
                 <button id="tts-btn" onclick="toggleTTS()" class="tts-listen-btn px-3 py-2 text-base font-bold min-h-[44px]">소리듣기</button>
             </div>
         </div>
@@ -2396,8 +2398,8 @@
                     <div class="rounded-3xl px-6 pt-8 pb-12 lg:pb-16 relative overflow-hidden" style="background:#FEE500;">
                         <div class="flex items-start justify-between gap-3">
                             <div class="space-y-4">
-                                <h1 class="font-gapyeong text-4xl md:text-5xl font-black leading-tight text-charcoal">안녕하세요<br>어르신<em class="not-italic">!</em></h1>
-                                <p class="text-base md:text-lg font-bold leading-relaxed text-charcoal">건강한 매일을 약속할<br><strong>어르신의 소중한<br>건강 동반자</strong>입니다.</p>
+                                <h1 class="font-gapyeong text-4xl md:text-5xl font-black leading-tight text-charcoal">어르신 건강 지킴이,<br><strong>BUVI</strong>입니다</h1>
+                                <p class="text-base md:text-lg font-bold leading-relaxed text-charcoal">건강한 매일을 함께하며 건강을 돌보는<br><strong>어르신의 건강 지킴이</strong>입니다.</p>
                             </div>
                             <div class="flex flex-col items-end gap-1 flex-shrink-0">
                                 <div class="buvi-speech-svg font-gapyeong text-lg md:text-base font-black text-center leading-tight"><svg viewBox="0 0 153 156" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M3.48999 65.0096C3.48999 31.0136 36.1992 3.48999 76.49 3.48999C116.781 3.48999 149.49 31.0136 149.49 65.0096C149.49 99.9251 129.82 138.383 89.1246 152.398C92.7306 146.201 98.2083 129.756 76.271 127.112C35.8916 127.112 3.48999 98.9306 3.48999 65.0096Z" fill="#1A1A1A" stroke="black" stroke-width="6.98008" stroke-miterlimit="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>반가워요,<br>부비예요.</span></div>
@@ -2410,7 +2412,7 @@
                         <div id="login-alert-box" class="hidden p-3 rounded-xl border-2 text-center">
                             <p id="login-alert-msg" class="scaled-text-base font-bold text-errRed"></p>
                             <div id="login-hint-block" class="hidden mt-3 pt-3 border-t border-red-200 text-left">
-                                <p class="text-sm text-charcoal font-bold">💡 로그인 도움 정보: 기본 체험 아이디 <b>buvi_test</b> / 비밀번호 <b>1234</b></p>
+                                <p class="text-sm text-charcoal font-bold">아이디 또는 비밀번호가 기억나지 않으면 아래의 로그인 정보 찾기를 이용해 주세요.</p>
                             </div>
                         </div>
                         <div class="space-y-2">
@@ -2428,11 +2430,10 @@
                         </div>
                         <label class="flex items-center gap-3 cursor-pointer select-none">
                             <input type="checkbox" id="auto-login" class="w-6 h-6 accent-black" checked>
-                            <span class="font-black text-charcoal">자동으로 로그인하기(7일간 유지)</span>
+                            <span class="font-black text-charcoal">자동으로 로그인하기</span>
                         </label>
                         <button onclick="handleLogin()" class="w-full h-14 bg-black text-white font-black rounded-2xl text-lg hover:bg-neutral-800 transition">로그인</button>
-
-
+                        <button onclick="navTo('find')" class="w-full h-14 border-2 border-gray-300 bg-white text-charcoal font-black rounded-2xl text-lg hover:bg-gray-50 transition">아이디·비밀번호 찾기</button>
                     </div>
                 </div>
 
@@ -2529,25 +2530,10 @@
                             </div>
                         </div>
                     </div>
-                    <!-- White nav card (desktop only) -->
-                    <div class="hidden lg:block bg-white rounded-3xl lg:mt-6 px-6 py-8 relative z-10 shadow-lg space-y-4">
-                        <div>
-                            <p class="font-gapyeong text-xl font-black text-charcoal">무엇을 도와드릴까요?</p>
-                            <p class="text-sm text-gray-500 font-bold mt-1">아래 메뉴에서 바로 이동하실 수 있어요.</p>
-                        </div>
-                        <div class="grid grid-cols-2 gap-3">
-                            <button onclick="tryNavigateWithWarning('survey-start')" class="rounded-2xl py-4 px-4 font-black flex items-center gap-3" style="background:#FFF3B0;"><i class="fa-solid fa-file-pen"></i> 설문</button>
-                            <button onclick="tryNavigateWithWarning('chat')" class="rounded-2xl py-4 px-4 font-black flex items-center gap-3" style="background:#FFF3B0;"><i class="fa-solid fa-comments"></i> 상담</button>
-                            <button onclick="tryNavigateWithWarning('records')" class="rounded-2xl py-4 px-4 font-black flex items-center gap-3" style="background:#FFF3B0;"><i class="fa-solid fa-book-medical"></i> 건강정보</button>
-                            <button onclick="tryNavigateWithWarning('help')" class="rounded-2xl py-4 px-4 font-black flex items-center gap-3" style="background:#FFF3B0;"><i class="fa-solid fa-circle-info"></i> 도움말</button>
-                        </div>
-                        <button onclick="tryNavigateWithWarning('chat')" class="w-full h-14 bg-black text-white font-black rounded-2xl text-lg hover:bg-neutral-800 transition">부비와 상담 시작하기</button>
-                    </div>
-
                     <!-- Mobile/Tablet only: link-focused layout -->
                     <div class="lg:hidden -mt-4 relative z-10 rounded-t-2xl px-4 pt-4 pb-4 space-y-3" style="background:#FFFFFF;">
                         <!-- Mobile/Tablet: 노쇠 위험 기여도 -->
-                        <div class="bg-white rounded-2xl shadow-sm">
+                        <div class="home-result-only bg-white rounded-2xl shadow-sm hidden">
                             <div class="flex items-center justify-between gap-3 mb-3">
                                 <h3 class="font-gapyeong font-black text-base text-charcoal">노쇠 위험 기여도</h3>
                                 <span class="text-[11px] font-black px-2.5 py-1.5 rounded-full whitespace-nowrap flex items-center gap-1" style="background:#2563EB;color:#FFFFFF">6가지 요인 <i class="fa-solid fa-chart-pie" style="color:#FFFFFF"></i></span>
@@ -2556,7 +2542,7 @@
                         </div>
 
                         <!-- Mobile/Tablet: 종합 노쇠 위험도 -->
-                        <div class="bg-white rounded-2xl shadow-sm">
+                        <div class="home-result-only bg-white rounded-2xl shadow-sm hidden">
                             <div class="flex items-start justify-between mb-3">
                                 <h3 class="font-gapyeong font-black text-base text-charcoal">종합 노쇠 위험도</h3>
                             </div>
@@ -2570,14 +2556,14 @@
                                 <p class="font-black text-sm text-charcoal flex-1 flex items-center justify-center">노쇠 예측 설문</p>
                                 <span class="text-white font-black rounded-xl px-4 py-2 text-sm mt-auto" style="background:#FE7F2B">설문 시작하기</span>
                             </button>
-                            <button onclick="tryNavigateWithWarning('chat')" class="rounded-2xl p-4 flex flex-col items-center text-center h-full" style="background:#F4F0E9;">
+                            <button onclick="tryNavigateWithWarning('chat')" data-requires-result="true" class="rounded-2xl p-4 flex flex-col items-center text-center h-full" style="background:#F4F0E9;">
                                 <img src="./owl-hero.svg" alt="" class="w-24 h-24 object-contain">
-                                <p class="font-black text-sm text-charcoal flex-1 flex items-center justify-center">부비와 1:1 기력 상담</p>
+                                <p class="font-black text-sm text-charcoal flex-1 flex items-center justify-center">부비와 함께하는 1:1 상담</p>
                                 <span class="text-white font-black rounded-xl px-4 py-2 text-sm mt-auto" style="background:#6FCF97">상담 시작하기</span>
                             </button>
                             <button onclick="tryNavigateWithWarning('records')" class="rounded-2xl p-4 flex flex-col items-center text-center h-full" style="background:#F4F0E9;">
                                 <img src="./owl-idea.svg" alt="" class="w-24 h-24 object-contain">
-                                <p class="font-black text-sm text-charcoal flex-1 flex items-center justify-center">어르신 건강 배움 책자</p>
+                                <p class="font-black text-sm text-charcoal flex-1 flex items-center justify-center">건강정보 배움터</p>
                                 <span class="text-white font-black rounded-xl px-4 py-2 text-sm mt-auto" style="background:#5B8DEF">배움터 이동하기</span>
                             </button>
                         </div>
@@ -2594,7 +2580,7 @@
                 <div class="hidden lg:flex flex-col gap-5">
 
                     <!-- 건강 모니터링 · 노쇠 기여도 요약 (설문결과 동기화) -->
-                    <div class="bg-white rounded-2xl px-5 py-4">
+                    <div class="home-result-only bg-white rounded-2xl px-5 py-4 hidden">
                         <div class="flex items-center justify-between gap-4 mb-3">
                             <div>
                                 <h3 class="font-gapyeong font-black text-lg">노쇠 위험 기여도</h3>
@@ -2616,21 +2602,21 @@
                         <div class="bg-white rounded-2xl p-3 flex items-center justify-center gap-3">
                             <img src="./owl-welcome.svg" alt="" class="w-28 h-28 object-contain shrink-0">
                             <div class="flex flex-col items-start">
-                                <p class="font-black mb-2 text-[15px]">부비와 1:1 기력 상담</p>
-                                <button onclick="tryNavigateWithWarning('chat')" class="text-white font-black rounded-xl px-4 py-2 text-sm" style="background:#6FCF97">상담 시작하기</button>
+                                <p class="font-black mb-2 text-[15px]">부비와 함께하는 1:1 상담</p>
+                                <button onclick="tryNavigateWithWarning('chat')" data-requires-result="true" class="text-white font-black rounded-xl px-4 py-2 text-sm" style="background:#6FCF97">상담 시작하기</button>
                             </div>
                         </div>
                         <div class="bg-white rounded-2xl p-3 flex items-center justify-center gap-3">
                             <img src="./owl-idea.svg" alt="" class="w-28 h-28 object-contain shrink-0">
                             <div class="flex flex-col items-start">
-                                <p class="font-black mb-2 text-[15px]">어르신 건강 배움 책자</p>
+                                <p class="font-black mb-2 text-[15px]">건강정보 배움터</p>
                                 <button onclick="tryNavigateWithWarning('records')" class="text-white font-black rounded-xl px-4 py-2 text-sm" style="background:#5B8DEF">배움터 이동하기</button>
                             </div>
                         </div>
                     </div>
 
                     <!-- 동반 보호자 연동 · 종합 노쇠 위험도 요약 (설문결과 동기화) -->
-                    <div class="bg-white rounded-2xl px-5 pt-4" style="padding-bottom:20px">
+                    <div class="home-result-only bg-white rounded-2xl px-5 pt-4 hidden" style="padding-bottom:20px">
                         <div class="flex items-start justify-between mb-3">
                             <div>
                                 <h3 class="font-gapyeong font-black text-lg">종합 노쇠 위험도</h3>
@@ -2690,10 +2676,10 @@
                 <div class="lg:hidden bg-white rounded-2xl p-4 md:p-5">
                     <h2 class="font-gapyeong font-black text-base md:text-lg text-charcoal mb-3">부비(BUVI)의 약속철학</h2>
                     <div class="grid grid-cols-2 gap-2 md:gap-3">
-                        <div class="rounded-xl p-3 md:p-4" style="background:#F7F5F0"><div class="text-2xl md:text-3xl mb-1 leading-none">🤓</div><div class="font-gapyeong text-sm md:text-base font-black leading-tight text-charcoal">바라봅니다</div><div class="text-xs md:text-sm font-semibold mb-1" style="color:var(--blue-main)"><b>B</b>eholding</div><p class="text-xs md:text-sm text-gray-700 font-medium leading-snug">데이터만이 아니라 어르신 한 분의 이야기 속 의미까지 주목합니다.</p></div>
-                        <div class="rounded-xl p-3 md:p-4" style="background:#F7F5F0"><div class="text-2xl md:text-3xl mb-1 leading-none">🥰</div><div class="font-gapyeong text-sm md:text-base font-black leading-tight text-charcoal">이해합니다</div><div class="text-xs md:text-sm font-semibold mb-1" style="color:var(--blue-main)"><b>U</b>nderstanding</div><p class="text-xs md:text-sm text-gray-700 font-medium leading-snug">말투·생활습관·건강데이터를 종합해 어르신을 더 잘 이해합니다.</p></div>
-                        <div class="rounded-xl p-3 md:p-4" style="background:#F7F5F0"><div class="text-2xl md:text-3xl mb-1 leading-none">👨‍🍳</div><div class="font-gapyeong text-sm md:text-base font-black leading-tight text-charcoal">안내합니다</div><div class="text-xs md:text-sm font-semibold mb-1" style="color:var(--blue-main)"><b>V</b>itality</div><p class="text-xs md:text-sm text-gray-700 font-medium leading-snug">이해를 바탕으로 노쇠 신호를 미리 살피고 활력을 되찾도록 돕습니다.</p></div>
-                        <div class="rounded-xl p-3 md:p-4" style="background:#F7F5F0"><div class="text-2xl md:text-3xl mb-1 leading-none">😎</div><div class="font-gapyeong text-sm md:text-base font-black leading-tight text-charcoal">곁을 지킵니다</div><div class="text-xs md:text-sm font-semibold mb-1" style="color:var(--blue-main)"><b>I</b>ndependence</div><p class="text-xs md:text-sm text-gray-700 font-medium leading-snug">오랜 기간 곁을 지키며 스스로 건강을 관리하는 자립을 응원합니다.</p></div>
+                        <div class="rounded-xl p-3 md:p-4" style="background:#F7F5F0"><div class="text-2xl md:text-3xl mb-1 leading-none">🤓</div><div class="font-gapyeong text-sm md:text-base font-black leading-tight text-charcoal">바라봅니다</div><div class="text-xs md:text-sm font-semibold mb-1" style="color:var(--blue-main)"><b>B</b>eholding (바라봄)</div><p class="text-xs md:text-sm text-gray-700 font-medium leading-snug">BUVI는 어르신의 건강 상태와 변화를 함께 바라봅니다.</p></div>
+                        <div class="rounded-xl p-3 md:p-4" style="background:#F7F5F0"><div class="text-2xl md:text-3xl mb-1 leading-none">🥰</div><div class="font-gapyeong text-sm md:text-base font-black leading-tight text-charcoal">이해합니다</div><div class="text-xs md:text-sm font-semibold mb-1" style="color:var(--blue-main)"><b>U</b>nderstanding (이해)</div><p class="text-xs md:text-sm text-gray-700 font-medium leading-snug">BUVI는 어르신의 건강 상태와 변화를 깊이 이해합니다.</p></div>
+                        <div class="rounded-xl p-3 md:p-4" style="background:#F7F5F0"><div class="text-2xl md:text-3xl mb-1 leading-none">💪</div><div class="font-gapyeong text-sm md:text-base font-black leading-tight text-charcoal">안내합니다</div><div class="text-xs md:text-sm font-semibold mb-1" style="color:var(--blue-main)"><b>V</b>itality (활력)</div><p class="text-xs md:text-sm text-gray-700 font-medium leading-snug">BUVI는 어르신의 활력 있는 일상을 안내합니다.</p></div>
+                        <div class="rounded-xl p-3 md:p-4" style="background:#F7F5F0"><div class="text-2xl md:text-3xl mb-1 leading-none">🦉</div><div class="font-gapyeong text-sm md:text-base font-black leading-tight text-charcoal">곁을 지킵니다</div><div class="text-xs md:text-sm font-semibold mb-1" style="color:var(--blue-main)"><b>I</b>ndependence (자립)</div><p class="text-xs md:text-sm text-gray-700 font-medium leading-snug">BUVI는 어르신의 곁을 지킵니다.</p></div>
                     </div>
                 </div>
 
@@ -2709,7 +2695,7 @@
                                     <span style="color:#111729;">어르신 곁의 </span><span style="color:#FE7F2B;">건강 동반자</span><span style="color:#111729;">,</span><br>
                                     <span style="display:inline-block;padding:2px 14px;background:#111729;color:#FEE500;border-radius:14px;">BUVI</span> <span style="color:#111729;">입니다</span>
                                 </h1>
-                                <p class="text-[17px] font-bold text-charcoal/80 leading-relaxed max-w-[520px]">노쇠 신호를 미리 살피고, 어르신의 하루하루<br>활력을 되찾도록 돕는 <b>건강 동반 플랫폼</b>이에요.<br>더 오래, 더 가까이 곁을 지킵니다.</p>
+                                <p class="text-[17px] font-bold text-charcoal/80 leading-relaxed max-w-[520px]">삶의 작은 신호를 깨어 바라보고, 깊이 이해하며,<br>활력을 찾아 자립을 돕는 <b>어르신 곁의 부엉이 친구</b>입니다.</p>
                                 <div class="mt-6 flex items-center gap-3">
                                     <span class="px-4 py-2 rounded-full bg-white font-black text-sm shadow-sm" style="color:#FE7F2B;">🦉 부비(BUVI)의 4가지 약속</span>
                                 </div>
@@ -2735,9 +2721,9 @@
                                 </div>
                                 <div class="flex flex-wrap items-baseline gap-x-4 mb-3">
                                     <h3 class="font-gapyeong font-black text-charcoal leading-tight" style="font-size:34px;"><span style="border-bottom:5px solid #FEE500;padding-bottom:2px;">바라봅니다</span></h3>
-                                    <p class="text-[15px] font-bold text-charcoal"><span style="color:#FE7F2B;">B</span>eholding &middot; BUVI는 어르신의 하루를 함께 응시합니다.</p>
+                                    <p class="text-[15px] font-bold text-charcoal"><span style="color:#FE7F2B;">B</span>eholding (바라봄) &middot; BUVI는 어르신의 건강 상태와 변화를 함께 바라봅니다.</p>
                                 </div>
-                                <p class="text-[14px] text-gray-700 font-medium leading-relaxed">숫자로 나타난 건강 데이터만이 아니라, 어르신 한 분의 표정·말투·이야기 속 의미까지 놓치지 않고 주목합니다.</p>
+                                <p class="text-[14px] text-gray-700 font-medium leading-relaxed">데이터만이 아니라 어르신의 이야기 속 의미까지 놓치지 않고 주목합니다.</p>
                             </div>
                             <div class="relative flex items-center justify-center px-2" style="background:#FEE500;">
                                 <div class="relative flex items-center justify-center gap-2">
@@ -2758,9 +2744,9 @@
                                 </div>
                                 <div class="flex flex-wrap items-baseline gap-x-4 mb-3">
                                     <h3 class="font-gapyeong font-black text-charcoal leading-tight" style="font-size:34px;"><span style="border-bottom:5px solid #FE7F2B;padding-bottom:2px;">이해합니다</span></h3>
-                                    <p class="text-[15px] font-bold text-charcoal"><span style="color:#FE7F2B;">U</span>nderstanding &middot; BUVI는 곁에서 조용히 듣습니다.</p>
+                                    <p class="text-[15px] font-bold text-charcoal"><span style="color:#FE7F2B;">U</span>nderstanding (이해) &middot; BUVI는 어르신의 건강 상태와 변화를 깊이 이해합니다.</p>
                                 </div>
-                                <p class="text-[14px] text-gray-700 font-medium leading-relaxed">말투·생활습관·건강데이터를 종합해 어르신을 더 깊이 이해하고, 필요한 순간에 알맞은 도움을 준비합니다.</p>
+                                <p class="text-[14px] text-gray-700 font-medium leading-relaxed">어르신의 건강 데이터와 생활 습관을 종합해 어르신을 깊이 이해합니다.</p>
                             </div>
                             <div class="relative flex items-center justify-center px-2" style="background:#FE7F2B;">
                                 <div class="relative flex items-center justify-center gap-2">
@@ -2781,9 +2767,9 @@
                                 </div>
                                 <div class="flex flex-wrap items-baseline gap-x-4 mb-3">
                                     <h3 class="font-gapyeong font-black text-charcoal leading-tight" style="font-size:34px;"><span style="border-bottom:5px solid #6FCF97;padding-bottom:2px;">안내합니다</span></h3>
-                                    <p class="text-[15px] font-bold text-charcoal"><span style="color:#2F9E68;">V</span>itality &middot; BUVI는 오늘의 한 걸음을 함께 시작합니다.</p>
+                                    <p class="text-[15px] font-bold text-charcoal"><span style="color:#2F9E68;">V</span>itality (활력) &middot; BUVI는 어르신의 활력 있는 일상을 안내합니다.</p>
                                 </div>
-                                <p class="text-[14px] text-gray-700 font-medium leading-relaxed">이해를 바탕으로 노쇠 신호를 미리 살피고, 어르신의 활력을 되찾을 수 있는 맞춤 실천법을 친절히 안내드립니다.</p>
+                                <p class="text-[14px] text-gray-700 font-medium leading-relaxed">이해를 바탕으로 노쇠 신호를 미리 살피고, 어르신의 활력을 안내합니다.</p>
                             </div>
                             <div class="relative flex items-center justify-center px-2" style="background:#6FCF97;">
                                 <div class="relative flex items-center justify-center gap-2">
@@ -2804,9 +2790,9 @@
                                 </div>
                                 <div class="flex flex-wrap items-baseline gap-x-4 mb-3">
                                     <h3 class="font-gapyeong font-black text-charcoal leading-tight" style="font-size:34px;"><span style="border-bottom:5px solid #5B8DEF;padding-bottom:2px;">곁을 지킵니다</span></h3>
-                                    <p class="text-[15px] font-bold text-charcoal"><span style="color:#2F5FBF;">I</span>ndependence &middot; BUVI는 어르신 곁에 오래 남습니다.</p>
+                                    <p class="text-[15px] font-bold text-charcoal"><span style="color:#2F5FBF;">I</span>ndependence (자립) &middot; BUVI는 어르신의 곁을 지킵니다.</p>
                                 </div>
-                                <p class="text-[14px] text-gray-700 font-medium leading-relaxed">한 번의 검사가 아닌 오랜 시간의 동행으로, 어르신이 스스로 건강을 지켜가는 자립의 힘을 응원합니다.</p>
+                                <p class="text-[14px] text-gray-700 font-medium leading-relaxed">스스로 건강을 관리하는 자립을 응원하며, 건강한 매일을 위해 어르신 곁을 지킵니다.</p>
                             </div>
                             <div class="relative flex items-center justify-center px-2" style="background:#5B8DEF;">
                                 <div class="relative flex items-center justify-center gap-2">
@@ -2864,13 +2850,13 @@
                         <p class="scaled-text-xs md:scaled-text-base text-gray-500 font-bold">예상 소요 시간</p>
                     </div>
                     <div class="bg-[#FFFBED]/40 p-2 md:p-5 rounded-2xl border-2 border-yellow-200 text-center space-y-0.5 md:space-y-2">
-                        <img src="./buvi-survey-screen.png" alt="한 화면 한 문장" class="w-24 h-24 object-contain mx-auto" loading="lazy" />
-                        <h3 class="font-gapyeong scaled-text-sm md:scaled-text-lg font-black text-charcoal leading-tight">한 화면<br class="md:hidden">한 문장</h3>
-                        <p class="scaled-text-xs md:scaled-text-base text-charcoal font-bold">총 24문항</p>
+                        <img src="./buvi-survey-screen.png" alt="6가지 영역 질문" class="w-24 h-24 object-contain mx-auto" loading="lazy" />
+                        <h3 class="font-gapyeong scaled-text-sm md:scaled-text-lg font-black text-charcoal leading-tight">6가지 영역<br class="md:hidden">질문</h3>
+                        <p class="scaled-text-xs md:scaled-text-base text-charcoal font-bold">건강 상태 확인</p>
                     </div>
                     <div class="bg-[#FFFBED]/40 p-2 md:p-5 rounded-2xl border-2 border-yellow-200 text-center space-y-0.5 md:space-y-2">
-                        <img src="./buvi-survey-safe.png" alt="안전 보호" class="w-24 h-24 object-contain mx-auto" loading="lazy" />
-                        <h3 class="font-gapyeong scaled-text-sm md:scaled-text-lg font-black text-charcoal">안전 보호</h3>
+                        <img src="./buvi-survey-safe.png" alt="안전한 데이터 보존" class="w-24 h-24 object-contain mx-auto" loading="lazy" />
+                        <h3 class="font-gapyeong scaled-text-sm md:scaled-text-lg font-black text-charcoal">안전한</h3>
                         <p class="scaled-text-xs md:scaled-text-base text-gray-500 font-bold">데이터 보존</p>
                     </div>
                 </div>
@@ -2886,15 +2872,19 @@
                             <span class="text-kakao font-black text-base md:text-xl leading-none">✓</span>
                             <span>중간에 멈춰도 다음에 이어서 하실 수 있어요.</span>
                         </li>
+                        <li class="scaled-text-sm md:scaled-text-base font-bold text-gray-700 flex items-start gap-2">
+                            <span class="text-kakao font-black text-base md:text-xl leading-none">✓</span>
+                            <span>노쇠 예측을 위해 성별, 연령, 체질량지수, 다약제 복용 여부, 신체활동, 기능적 이동 검사, 정신건강 영역을 질문합니다.</span>
+                        </li>
                     </ul>
                 </div>
 
 
-                <button onclick="showMockSurveyResult()" class="w-full bg-gray-100 hover:bg-gray-200 text-charcoal font-black rounded-2xl flex items-center justify-center gap-2 shadow-sm transition-all btn-height-primary border-2 mb-3" style="font-size:22px; border-color: var(--border-color);">
-                    설문 결과 확인하기  <i class="fa-solid fa-chart-simple"></i>
-                </button>
-                <button onclick="startSurveyProcedure()" class="w-full bg-kakao text-charcoal font-black rounded-2xl flex items-center justify-center gap-2 shadow-md hover:brightness-95 transition-all btn-height-primary" style="font-size:22px;">
+                <button onclick="startSurveyProcedure()" class="w-full bg-kakao text-charcoal font-black rounded-2xl flex items-center justify-center gap-2 shadow-md hover:brightness-95 transition-all btn-height-primary mb-3" style="font-size:22px;">
                     설문 시작하기  <i class="fa-solid fa-chevron-right"></i>
+                </button>
+                <button onclick="showPreviousSurveyResult()" class="w-full bg-gray-100 hover:bg-gray-200 text-charcoal font-black rounded-2xl flex items-center justify-center gap-2 shadow-sm transition-all btn-height-primary border-2" style="font-size:22px; border-color: var(--border-color);">
+                    설문 결과 확인하기  <i class="fa-solid fa-chart-simple"></i>
                 </button>
                 </div>
             </div>
@@ -3748,6 +3738,10 @@
         }
 
         function tryNavigateWithWarning(targetPageId) {
+            if (targetPageId === 'chat' && (!state.resultViewed || !state.result || state.result.p === null)) {
+                showAppModal('🔒', '설문 후 상담할 수 있어요', '먼저 노쇠 예측 설문을 완료해 주세요. 설문 결과를 바탕으로 더 알맞은 상담을 제공해 드립니다.');
+                return;
+            }
             if (state.cardReadingLocked && targetPageId !== 'records') {
                 requestLeaveRecordsPage(targetPageId);
             } else {
@@ -5413,6 +5407,14 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         };
 
         // 목업 데이터로 설문 결과 페이지 노출
+        function showPreviousSurveyResult() {
+            if (state.resultViewed && state.result && state.result.p !== null) {
+                navTo('result');
+                return;
+            }
+            showAppModal('📋', '아직 확인할 결과가 없어요', '노쇠 예측 설문을 완료하면 실제 응답을 분석한 결과를 이곳에서 확인할 수 있습니다.');
+        }
+
         function showMockSurveyResult() {
             state.answers.gender = 'F';
             state.answers.age = 78;
@@ -5937,6 +5939,14 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             if (!grids.length || !summaries.length) return;
 
             const hasResult = state.resultViewed && state.result && state.result.p !== null;
+            document.querySelectorAll('.home-result-only').forEach(section => {
+                section.classList.toggle('hidden', !hasResult);
+            });
+            document.querySelectorAll('[data-requires-result="true"]').forEach(button => {
+                button.setAttribute('aria-disabled', hasResult ? 'false' : 'true');
+                button.classList.toggle('opacity-50', !hasResult);
+                button.classList.toggle('cursor-not-allowed', !hasResult);
+            });
 
             const r = hasResult ? state.result : null;
             const sorted = hasResult && r.sortedContribs && r.sortedContribs.length ? r.sortedContribs : [];
@@ -6095,8 +6105,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
             const foundUser = mockUsers.find(u => u.id === id && (u.pw === pw || u.pin === pw));
 
-            // 데모: 아이디/비밀번호 입력 없이도 로그인 버튼 클릭 시 로그인 처리
-            if (true || foundUser || (id === "BUVI" && pw === "1234")) {
+            if (foundUser) {
                 state.loginFailedAttempts = 0;
                 alertBox.classList.add('hidden');
                 idInput.style.borderColor = "#D4D4D4";
