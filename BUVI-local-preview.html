@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BUVI 로컬 미리보기</title>
+    <style>
+      html,
+      body,
+      iframe {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        border: 0;
+      }
+
+      body {
+        overflow: hidden;
+        background: #f5f0e8;
+      }
+    </style>
+  </head>
+  <body>
+    <iframe id="buvi-preview" src="public/buvi.html" title="BUVI 어르신 건강 지킴이"></iframe>
+    <script>
+      // buvi.html is normally served from public/, so its images use root-relative
+      // URLs. When this launcher is opened through file://, point those URLs back
+      // to the project's public directory.
+      const frame = document.querySelector("#buvi-preview");
+
+      frame.addEventListener("load", () => {
+        if (location.protocol !== "file:") return;
+
+        try {
+          const frameDocument = frame.contentDocument;
+          frameDocument.querySelectorAll('[src^="/"]').forEach((element) => {
+            const source = element.getAttribute("src");
+            const localPath = source.startsWith("/__l5e/")
+              ? "public/buvi-wordmark.png"
+              : `public/${source.slice(1)}`;
+            element.src = new URL(localPath, location.href).href;
+          });
+        } catch (error) {
+          console.warn("로컬 이미지 경로를 변환하지 못했습니다.", error);
+        }
+      });
+    </script>
+  </body>
+</html>
