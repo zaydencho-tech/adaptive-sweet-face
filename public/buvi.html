@@ -2956,13 +2956,25 @@
         <section id="page-result" class="app-page hidden">
           <div class="space-y-3 lg:space-y-0 lg:flex lg:flex-col lg:gap-[20px] lg:min-h-[calc(100dvh-140px)]">
 
+            <div class="rounded-3xl bg-white border-2 p-5 lg:p-6" style="border-color:var(--border-color);">
+                <div class="flex items-center justify-between gap-4">
+                    <div>
+                        <h1 class="font-gapyeong scaled-text-2xl font-black text-charcoal">노쇠 예측 설문 결과</h1>
+                        <p class="scaled-text-base font-bold text-gray-600 mt-1">노쇠 예측 설문 결과를 기반으로 개별화된 건강 결과를 확인하고, 상담 받아 보세요.</p>
+                    </div>
+                    <button type="button" onclick="simulateTTSResult()" class="tts-listen-btn inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-kakao text-charcoal font-black shrink-0" aria-label="노쇠 예측 설문 결과 음성 듣기"><i class="fa-solid fa-volume-high"></i><span class="hidden md:inline">결과 듣기</span></button>
+                </div>
+            </div>
+
             <!-- ① 서브 히어로: 노쇠 결과 요약 (독립 카드) -->
             <div id="result-hero-card" class="rounded-3xl overflow-hidden lg:flex-1 lg:flex lg:flex-col lg:min-h-0">
+                <h2 class="font-gapyeong scaled-text-xl font-black text-charcoal mb-2">1. 설문에 따른 노쇠 위험 결과</h2>
                 <div id="risk-gauge-wrap" class="relative lg:flex-1 lg:flex lg:flex-col"></div>
             </div>
 
             <!-- ② 트렌드/항목별 영향 요인 (배경 없음, 카드만 배치) -->
             <div class="lg:flex-1 lg:flex lg:flex-col lg:min-h-0">
+                <h2 class="font-gapyeong scaled-text-xl font-black text-charcoal mb-2">2. 영역 요약 및 항목별 영향 요인</h2>
                 <p id="result-stat-message" class="scaled-text-base font-bold text-gray-500 leading-snug mb-2"></p>
                 <div id="trend-chart-wrap" class="relative lg:flex-1 lg:flex lg:flex-col lg:justify-center"></div>
             </div>
@@ -2980,7 +2992,7 @@
                         <!-- 상단 텍스트 -->
                         <div class="relative z-10 max-w-[70%]">
                             <h3 class="font-gapyeong text-xl lg:text-2xl font-black text-charcoal leading-tight">
-                                부비와 함께하는<br>1:1 맞춤 상담
+                                부비와 함께하는<br>1:1 상담
                             </h3>
                             <p class="mt-2 text-xs lg:text-sm text-gray-500 font-bold leading-relaxed">
                                 노쇠 예측 설문 결과를 기반으로<br class="hidden lg:block">개별화된 건강 조언을 받아보세요.
@@ -3007,7 +3019,7 @@
                                 <div class="bg-gray-50 rounded-2xl p-3 flex flex-col gap-2 h-full">
                                     <button onclick="event.stopPropagation(); toggleSaveShareMenu('save')" class="w-full flex items-center gap-2 text-left hover:bg-gray-100 transition-colors rounded-xl p-2">
                                         <span class="w-8 h-8 rounded-full bg-white flex items-center justify-center shrink-0 shadow-sm"><i class="fa-solid fa-download text-charcoal text-xs"></i></span>
-                                        <span class="flex-1 text-sm font-black text-charcoal">저장</span>
+                                        <span class="flex-1 text-sm font-black text-charcoal">노쇠 예측 설문 결과 저장</span>
                                         <i id="save-menu-caret" class="fa-solid fa-chevron-down text-gray-400 text-xs transition-transform"></i>
                                     </button>
                                     <div id="save-submenu" class="hidden flex-col gap-2">
@@ -3025,7 +3037,7 @@
                                 <div class="bg-gray-50 rounded-2xl p-3 flex flex-col gap-2 h-full">
                                     <button onclick="event.stopPropagation(); toggleSaveShareMenu('share')" class="w-full flex items-center gap-2 text-left hover:bg-gray-100 transition-colors rounded-xl p-2">
                                         <span class="w-8 h-8 rounded-full bg-white flex items-center justify-center shrink-0 shadow-sm"><i class="fa-solid fa-share-nodes text-charcoal text-xs"></i></span>
-                                        <span class="flex-1 text-sm font-black text-charcoal">공유</span>
+                                        <span class="flex-1 text-sm font-black text-charcoal">노쇠 예측 설문 결과 공유</span>
                                         <i id="share-menu-caret" class="fa-solid fa-chevron-down text-gray-400 text-xs transition-transform"></i>
                                     </button>
                                     <div id="share-submenu" class="hidden flex-col gap-2">
@@ -4022,11 +4034,20 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const percent = Math.round(((currentStepNum - 1) / totalCount) * 100);
             document.getElementById('survey-progress-bar').style.width = `${percent}%`;
             document.getElementById('survey-category-label').innerText = q.category;
+            const isFirstQuestion = q.id === surveyQuestions[0].id && state.surveyHistory.length === 0;
+            ['btn-survey-prev-top', 'btn-survey-prev-bottom'].forEach(id => {
+                const prevButton = document.getElementById(id);
+                if (!prevButton) return;
+                prevButton.disabled = isFirstQuestion;
+                prevButton.setAttribute('aria-disabled', isFirstQuestion ? 'true' : 'false');
+                prevButton.classList.toggle('opacity-40', isFirstQuestion);
+                prevButton.classList.toggle('cursor-not-allowed', isFirstQuestion);
+            });
 
             // SGDS 단일 문항은 question_ko를 동적 설정
             if (q.type === 'sgds_single') {
-                document.getElementById('survey-question-text').innerText =
-                    `지난 1주 동안 어르신의 기분을 잘 나타낸다고 생각되면 '예',\n그렇지 않으면 '아니오'를 선택해 주세요.`;
+                document.getElementById('survey-question-text').innerHTML =
+                    `<strong><u>지난 1주 동안</u></strong> 어르신의 기분을 잘 나타낸다고 생각되면 '예',<br>그렇지 않으면 '아니오'를 선택해 주세요.`;
                 document.getElementById('survey-hint-text').innerText = '';
             } else {
                 document.getElementById('survey-question-text').innerText = q.question_ko;
@@ -4052,7 +4073,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
             updateNextButtonState();
             const navBottom = document.getElementById('survey-nav-bottom');
-            if (navBottom) navBottom.classList.toggle('hidden', q.type === 'sgds_single' || q.id === 'gender' || (q.type === 'age' && window._ageStep !== 'day'));
+            if (navBottom) navBottom.classList.remove('hidden');
             if (q.type !== 'sgds_single') speak(q.question_ko);
         }
 
@@ -4132,7 +4153,8 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             return `
             <div class="stepper-row">
                 <button type="button" aria-label="감소"
-                    onclick="stepperAdjust('${id}',${-step},${min},${max},'${onChangeFn}')"
+                    onpointerdown="startStepperHold('${id}',${-step},${min},${max},'${onChangeFn}')" onpointerup="stopStepperHold()" onpointercancel="stopStepperHold()" onpointerleave="stopStepperHold()"
+                    onclick="if(!window._stepperHoldTriggered)stepperAdjust('${id}',${-step},${min},${max},'${onChangeFn}')"
                     class="stepper-btn">−</button>
                 <div class="stepper-field">
                     <input id="${id}" type="text" inputmode="numeric" pattern="[0-9]*"
@@ -4144,7 +4166,8 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     ${unitHtml}
                 </div>
                 <button type="button" aria-label="증가"
-                    onclick="stepperAdjust('${id}',${step},${min},${max},'${onChangeFn}')"
+                    onpointerdown="startStepperHold('${id}',${step},${min},${max},'${onChangeFn}')" onpointerup="stopStepperHold()" onpointercancel="stopStepperHold()" onpointerleave="stopStepperHold()"
+                    onclick="if(!window._stepperHoldTriggered)stepperAdjust('${id}',${step},${min},${max},'${onChangeFn}')"
                     class="stepper-btn">+</button>
             </div>`;
         }
@@ -4155,10 +4178,32 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             if (isNaN(cur)) cur = parseInt(inp.placeholder);
             if (isNaN(cur)) cur = min;
             let nv = cur + delta;
+            if (delta < 0 && cur === max && max % Math.abs(delta) !== 0) {
+                nv = max - (max % Math.abs(delta));
+            }
             if (nv < min) nv = min;
             if (nv > max) nv = max;
             inp.value = String(nv);
             if (typeof window[fn] === 'function') window[fn]();
+        }
+        window._stepperHoldTimer = null;
+        window._stepperHoldInterval = null;
+        window._stepperHoldTriggered = false;
+        function startStepperHold(id, delta, min, max, fn) {
+            stopStepperHold();
+            window._stepperHoldTriggered = false;
+            window._stepperHoldTimer = setTimeout(() => {
+                window._stepperHoldTriggered = true;
+                stepperAdjust(id, delta, min, max, fn);
+                window._stepperHoldInterval = setInterval(() => stepperAdjust(id, delta, min, max, fn), 120);
+            }, 450);
+        }
+        function stopStepperHold() {
+            clearTimeout(window._stepperHoldTimer);
+            clearInterval(window._stepperHoldInterval);
+            window._stepperHoldTimer = null;
+            window._stepperHoldInterval = null;
+            if (window._stepperHoldTriggered) setTimeout(() => { window._stepperHoldTriggered = false; }, 0);
         }
         function stepperOnInput(id, min, max, fn) {
             const inp = document.getElementById(id);
@@ -4197,7 +4242,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             container.innerHTML = `
                 <div class="grid grid-cols-2 gap-4 lg:gap-6 w-full max-w-md lg:max-w-lg mx-auto mt-2">
                     <button id="gender-btn-male"
-                        onclick="state.answers.gender='male'; renderGenderInput(document.getElementById('survey-options-container')); updateNextButtonState(); setTimeout(nextSurveyQuestion, 200);"
+                        onclick="state.answers.gender='male'; renderGenderInput(document.getElementById('survey-options-container')); updateNextButtonState();"
                         class="${baseCard} ${mSel}">
                         <div class="flex-1 w-full flex items-center justify-center">
                             <img src="./buvi-gender-male.png" alt="남성 어르신" loading="lazy" width="200" height="200" class="w-full h-full max-w-[70%] max-h-[70%] object-contain" />
@@ -4205,7 +4250,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                         <span class="scaled-text-lg lg:text-2xl font-black ${mSelText}">남성</span>
                     </button>
                     <button id="gender-btn-female"
-                        onclick="state.answers.gender='female'; renderGenderInput(document.getElementById('survey-options-container')); updateNextButtonState(); setTimeout(nextSurveyQuestion, 200);"
+                        onclick="state.answers.gender='female'; renderGenderInput(document.getElementById('survey-options-container')); updateNextButtonState();"
                         class="${baseCard} ${fSel}">
                         <div class="flex-1 w-full flex items-center justify-center">
                             <img src="./buvi-gender-female.png" alt="여성 어르신" loading="lazy" width="200" height="200" class="w-full h-full max-w-[70%] max-h-[70%] object-contain" />
@@ -4369,7 +4414,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 const initY = (Y && Y.length === 4) ? Y : '';
                 html += `
                 
-                ${makeStepper('age-year-inp','년',1900,curY,1,initY,'onAgeYearInput',1955)}
+                ${makeStepper('age-year-inp','년',1900,curY,1,initY,'onAgeYearInput','____')}
                 <button type="button" onclick="ageYearConfirm()"
                     class="mt-1 h-14 rounded-2xl bg-black text-white text-lg font-black hover:bg-gray-800 transition-all shadow-md">
                     다음
@@ -4409,7 +4454,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             root.innerHTML = html;
             validateBirthDate();
             const _navB = document.getElementById('survey-nav-bottom');
-            if (_navB) _navB.classList.toggle('hidden', window._ageStep !== 'day');
+            if (_navB) _navB.classList.remove('hidden');
         }
 
         function ageYearPress(digit) {
@@ -4472,7 +4517,10 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             if (!inp) return;
             let y = parseInt(inp.value);
             const now = new Date();
-            if (isNaN(y)) y = parseInt(inp.placeholder) || 1955;
+            if (isNaN(y)) {
+                showAppModal('📅', '생년을 입력해 주세요', '네 자리 생년을 직접 입력한 뒤 다음 버튼을 눌러 주세요. 예: 1961');
+                return;
+            }
             if (y < 1900) y = 1900;
             if (y > now.getFullYear()) y = now.getFullYear();
             window._bdY = String(y);
@@ -4540,8 +4588,8 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     <p class="font-normal text-gray-500 mt-3" style="font-size:16px">− / + 버튼으로 조절하거나, 숫자 칸을 눌러 직접 입력할 수 있습니다.</p>
                 </div>
                 <div class="flex flex-col gap-4">
-                    ${makeStepper('inp-height','cm',100,220,1,sh,'onBmiInput',165)}
-                    ${makeStepper('inp-weight','kg',20,200,1,sw,'onBmiInput',60)}
+                    ${makeStepper('inp-height','cm',100,220,1,sh,'onBmiInput','_')}
+                    ${makeStepper('inp-weight','kg',20,200,1,sw,'onBmiInput','_')}
                 </div>
                 <p id="bmi-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]">${(sh&&sw)?'✓ 입력 완료':''}</p>
             </div>`;
@@ -4640,11 +4688,11 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             <div class="flex flex-col gap-5 max-w-sm mx-auto">
                 <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-[30px] text-gray-700 leading-relaxed">
                     <p class="scaled-text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">다약제 복용 여부</p>
-                    <p class="scaled-text-lg font-black text-gray-900 leading-snug">어르신께서 현재 3개월 이상 복용하고 있는 약 중에서 <strong>의사가 처방한</strong> 약은 몇 개입니까?</p>
+                    <p class="scaled-text-lg font-black text-gray-900 leading-snug">어르신께서 현재 3개월 이상 복용하고 있는 약 중에서 <strong><u>의사가 처방한</u></strong> 약은 몇 개입니까?</p>
                     <p class="font-normal text-gray-500 mt-3" style="font-size:16px">(알약 / 정 / 캡슐 / 현탁액 / 가루약 / 흡입약 등)</p>
                     <p class="font-normal text-gray-500 mt-1" style="font-size:16px">예시: 혈압약 알약 2개, 고지혈증약 알약 3개 → 5개</p>
                 </div>
-                ${makeStepper('inp-polypharm','개',0,30,1,saved,'onPolypharmInput',5)}
+                ${makeStepper('inp-polypharm','개',0,30,1,saved,'onPolypharmInput','_')}
 
                 <p id="poly-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]">${saved!==null?'✓ '+saved+'개 입력 완료':''}</p>
             </div>`;
@@ -5296,8 +5344,6 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             }
             renderSgdsSingle(document.getElementById('survey-options-container'), idx);
             updateNextButtonState();
-            // 선택 즉시 다음 문항으로 자동 이동
-            setTimeout(() => { nextSurveyQuestion(); }, 180);
         }
 
         // ── 다음 버튼 활성화 ────────────────────────────────────────
@@ -5315,7 +5361,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             else if (q.id === 'ipaq_mod_dur') hasAnswer = state.answers.ipaq_mod_days === 0 || state.answers.ipaq_mod_hr !== null || state.answers.ipaq_mod_min !== null;
             else if (q.id === 'ipaq_walk')    hasAnswer = state.answers.ipaq_walk_days !== null;
             else if (q.id === 'ipaq_walk_dur') hasAnswer = state.answers.ipaq_walk_days === 0 || state.answers.ipaq_walk_hr !== null || state.answers.ipaq_walk_min !== null;
-            else if (q.id === 'ipaq_sit')     hasAnswer = true; // 선택적 입력
+            else if (q.id === 'ipaq_sit')     hasAnswer = state.answers.ipaq_sit_hr !== null && state.answers.ipaq_sit_min !== null;
             else if (q.id === 'tug')          hasAnswer = state.answers.tug !== null;
             else if (q.type === 'sgds_single') hasAnswer = state.answers.sgds_answers[q.sgdsIdx] !== null;
 
@@ -5335,6 +5381,11 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         function nextSurveyQuestion() {
             const q = surveyQuestions.find(x => x.id === state.currentQuestionId);
             if (!q) return;
+            const nextButton = document.getElementById('btn-survey-next');
+            if (nextButton && nextButton.disabled) {
+                showAppModal('✍️', '응답을 입력해 주세요', '빠진 데이터가 없도록 현재 문항에 응답하면 다음 문항 버튼이 활성화됩니다. 0인 경우에도 0을 직접 입력해 주세요.');
+                return;
+            }
 
             // 시간/분 키패드 문항: 분 미입력 시 팝업 안내
             const ipaqMinKeys = {
@@ -5380,6 +5431,16 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         }
 
         function prevSurveyQuestion() {
+            if (state.currentQuestionId === 'age') {
+                if (window._ageStep === 'day') {
+                    ageGoStep('month');
+                    return;
+                }
+                if (window._ageStep === 'month') {
+                    ageGoStep('year');
+                    return;
+                }
+            }
             if (state.surveyHistory.length > 0) {
                 state.currentQuestionId = state.surveyHistory.pop();
                 setupSurveyQuestion();
@@ -5674,7 +5735,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const pPct = (r && r.p != null) ? r.p * 100 : 0.2;
             const CUTOFF = 6.9;
             const isRisk = pPct >= CUTOFF;
-            const statusLabel = isRisk ? '비정상' : '정상';
+            const statusLabel = isRisk ? '노쇠 위험' : '정상';
             const statusColor = isRisk ? '#f97316' : '#10b981';
             const statusBg = isRisk ? '#ffedd5' : '#d1fae5';
 
@@ -5751,7 +5812,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                             <p class="result-summary-label text-[10px] md:text-xs font-bold text-charcoal/65 leading-tight">종합<br>노쇠 위험도</p>
                             <span class="result-status-badge inline-flex items-center gap-1 px-3 rounded-full text-[14px] md:text-[14px] font-black h-[42px]" style="background:${statusColor}; color:#fff;">
                                 <i class="fa-solid ${isRisk ? 'fa-triangle-exclamation' : 'fa-circle-check'} text-[9px]"></i>
-                                결과 ${statusLabel}
+                                ${statusLabel}
                             </span>
                             <!-- Mobile: 링 게이지 대신 아이콘 형태 음성 듣기 버튼 (4개 객체 수직 중앙 정렬을 위해 같은 줄에 배치) -->
                             <button type="button" onclick="event.stopPropagation(); simulateTTSResult()" aria-label="음성 듣기" class="md:hidden inline-flex items-center justify-center w-12 h-12 rounded-full bg-white hover:bg-gray-50 transition-colors shrink-0" style="border:1px solid rgba(0,0,0,0.08);">
@@ -5875,29 +5936,32 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     const pal = KEY_META[c.key] || DEFAULT_META;
                     const pct = Math.round(Math.abs(c.value) / maxAbs * 100);
                     const icon = pal.icon;
-                    // 원형 진행 게이지 (conic-gradient)
-                    const ringBg = `conic-gradient(${pal.accent} ${pct*3.6}deg, ${pal.track} 0)`;
-                    // 값 표시: 절대값을 소수 2자리로
-                    const displayVal = Math.abs(c.value).toFixed(2);
-                    const sign = (c.value >= 0 ? '+' : '−');
+                    const isEmotional = c.domain === 'emo' || c.key === 'sgdsk' || c.key === 'sgdsk_score';
+                    const isReference = c.status.text === '참고';
+                    const barColor = isReference ? '#9CA3AF' : (isEmotional ? '#DB2777' : '#2563EB');
+                    const barTrack = isReference ? '#E5E7EB' : (isEmotional ? '#FCE7F3' : '#DBEAFE');
+                    const meaning = c.status.text === '위험' ? '개선 필요' : (c.status.text === '보호' ? '보호 요인' : '참고 항목');
                     return `
-                    <div class="buvi-bar-item rounded-xl px-2 py-3 md:px-3 md:py-4 flex flex-col items-center justify-around text-center h-full gap-1.5" data-idx="${i}"
-                         style="background:#ffffff; border:1px solid ${pal.ring};">
-                        <span class="text-[13px] md:text-[15px] font-black text-white px-3 py-1.5 rounded-full leading-none shadow-sm" style="background:${c.status.bg};">${c.status.text}</span>
-                        <div class="text-[16px] md:text-[19px] font-black tabular-nums leading-none" style="color:#111827;">
-                            ${sign}${displayVal}
-                        </div>
-                        <div class="relative rounded-full flex items-center justify-center shrink-0"
-                             style="width:62px; height:62px; background:${ringBg};">
-                            <div class="rounded-full flex items-center justify-center text-center px-1" style="width:48px; height:48px; background:#ffffff;">
-                                <span class="text-[10px] md:text-[11px] font-black leading-tight" style="color:${pal.accent};">${c.label}</span>
+                    <div class="buvi-bar-item rounded-2xl px-4 py-4 flex flex-col gap-3 h-full" data-idx="${i}"
+                         style="background:#ffffff; border:1px solid ${barTrack};">
+                        <div class="flex items-center justify-between gap-2">
+                            <div class="flex items-center gap-2 min-w-0">
+                                <span class="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style="background:${barTrack};color:${barColor};"><i class="fa-solid ${icon}"></i></span>
+                                <span class="scaled-text-base font-black text-charcoal truncate">${c.label}</span>
                             </div>
+                            <span class="text-xs font-black whitespace-nowrap" style="color:${barColor};">${meaning}</span>
+                        </div>
+                        <div>
+                            <div class="h-5 rounded-full overflow-hidden" style="background:${barTrack};">
+                                <div class="h-full rounded-full transition-all" style="width:${Math.max(6, pct)}%;background:${barColor};"></div>
+                            </div>
+                            <div class="flex justify-between mt-1 text-xs font-bold text-gray-500"><span>영향도</span><span style="color:${barColor};">${pct}%</span></div>
                         </div>
                     </div>`;
                 }).join('');
 
                 wrap.innerHTML = `
-                <div class="grid gap-2 md:gap-3 w-full lg:flex-1" style="grid-template-columns:repeat(6,minmax(0,1fr));">
+                <div class="grid gap-3 w-full lg:flex-1" style="grid-template-columns:repeat(3,minmax(0,1fr));">
                     ${cards}
                 </div>`;
 
@@ -5906,9 +5970,9 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     const gridEl = wrap.firstElementChild;
                     if (!gridEl) return;
                     const w = window.innerWidth;
-                    if (w < 480) gridEl.style.gridTemplateColumns = 'repeat(2,minmax(0,1fr))';
-                    else if (w < 768) gridEl.style.gridTemplateColumns = 'repeat(3,minmax(0,1fr))';
-                    else gridEl.style.gridTemplateColumns = 'repeat(6,minmax(0,1fr))';
+                    if (w < 640) gridEl.style.gridTemplateColumns = 'repeat(1,minmax(0,1fr))';
+                    else if (w < 1024) gridEl.style.gridTemplateColumns = 'repeat(2,minmax(0,1fr))';
+                    else gridEl.style.gridTemplateColumns = 'repeat(3,minmax(0,1fr))';
                 };
                 applyCols();
                 if (!wrap._buviResizeBound) {
@@ -5985,7 +6049,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 ? (() => {
                     const pPct = r.p * 100;
                     const isAtRisk = r.isAtRisk;
-                    const statusText = isAtRisk ? '노쇠 위험' : '결과 정상';
+                    const statusText = isAtRisk ? '노쇠 위험' : '정상';
                     const statusColor = isAtRisk ? '#EF4444' : '#10B981';
                     const statusIcon = isAtRisk ? 'fa-triangle-exclamation' : 'fa-circle-check';
                     const markerColor = isAtRisk ? '#EF4444' : '#10B981';
@@ -6273,7 +6337,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 const atRisk  = r.isAtRisk;
                 const verdictBadge = atRisk
                     ? `<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-white text-xs font-black" style="background:#ef4444;"><i class="fa-solid fa-triangle-exclamation"></i> 위험 감지</span>`
-                    : `<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-white text-xs font-black" style="background:#10b981;"><i class="fa-solid fa-circle-check"></i> 결과 정상</span>`;
+                    : `<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-white text-xs font-black" style="background:#10b981;"><i class="fa-solid fa-circle-check"></i> 정상</span>`;
                 const accent = atRisk ? '#ef4444' : '#10b981';
 
                 // 위치 마커 (0~15% 범위로 스케일)
@@ -6816,14 +6880,15 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         function toggleTTS() { 
             const active = document.querySelector('.app-page:not(.hidden)');
             const pageId = active ? active.id.replace(/^page-/, '') : '';
-            if (pageId !== 'survey' && pageId !== 'survey-start') return;
+            if (!['survey', 'survey-start', 'result'].includes(pageId)) return;
             state.tts = !state.tts; 
             const btn = document.getElementById('tts-btn'); if (btn) btn.classList.toggle('tts-off', !state.tts); 
+            if (state.tts && pageId === 'result') simulateTTSResult();
         }
         function speak(t) { 
             const active = document.querySelector('.app-page:not(.hidden)');
             const pageId = active ? active.id.replace(/^page-/, '') : '';
-            if(!state.tts || (pageId !== 'survey' && pageId !== 'survey-start')) return; 
+            if(!state.tts || !['survey', 'survey-start', 'result'].includes(pageId)) return;
             window.speechSynthesis.cancel(); 
             const u = new SpeechSynthesisUtterance(t); 
             u.lang='ko-KR'; u.rate=0.9; 
@@ -6859,7 +6924,9 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const r = state.result;
             if (r.p !== null) {
                 const pPct = (r.p * 100).toFixed(1);
-                speak(`검사 결과 요약. 노쇠 위험 확률 ${pPct}퍼센트. ${r.isAtRisk ? '기준치를 초과하여 주의가 필요합니다.' : '기준치 이하로 양호한 상태입니다.'}`);
+                const strongest = Array.isArray(r.sortedContribs) && r.sortedContribs.length ? r.sortedContribs[0] : null;
+                const factorText = strongest ? `가장 큰 영향 요인은 ${strongest.label || MODEL.vars[strongest.key]?.label || '건강 요인'}입니다.` : '';
+                speak(`노쇠 예측 설문 결과입니다. 노쇠 위험 확률은 ${pPct}퍼센트입니다. ${r.isAtRisk ? '기준치보다 높아 노쇠 위험 관리가 필요합니다.' : '기준치 이하로 정상 범위입니다.'} ${factorText}`);
             } else {
                 speak('결과 데이터가 없습니다. 먼저 설문을 완료해 주세요.');
             }
