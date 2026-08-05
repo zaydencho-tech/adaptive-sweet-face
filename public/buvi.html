@@ -3026,8 +3026,8 @@
                 right: auto !important;
                 bottom: 130px !important;
                 z-index: 90 !important;
-                width: calc(100% - 80px) !important;
-                max-width: 60rem !important;
+                width: fit-content !important;
+                max-width: calc(100% - 80px) !important;
                 margin: 0 !important;
                 padding: 12px !important;
                 border: 1px solid rgba(88, 82, 70, .14) !important;
@@ -3037,6 +3037,14 @@
                 transform: translateX(-50%) !important;
                 backdrop-filter: blur(14px);
                 -webkit-backdrop-filter: blur(14px);
+            }
+            body.is-authenticated.subpage-mode #page-survey:not(.hidden) #survey-nav-bottom > button {
+                flex: 0 0 auto !important;
+                width: auto !important;
+                min-width: 210px !important;
+                padding-left: 32px !important;
+                padding-right: 32px !important;
+                white-space: nowrap;
             }
             body.high-contrast.is-authenticated.subpage-mode #page-survey:not(.hidden) #survey-nav-bottom {
                 border-color: #FEE500 !important;
