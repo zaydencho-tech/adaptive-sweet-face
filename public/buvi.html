@@ -215,7 +215,7 @@
             min-width: 48px;
             min-height: 72px;
             gap: 3px;
-            color: #49453D;
+            color: #8A8F98;
             background: transparent;
             border: 2px solid transparent;
             border-radius: 18px;
@@ -228,6 +228,19 @@
             height: 32px;
             margin-bottom: 1px;
             flex: 0 0 auto;
+            overflow: visible;
+        }
+        .nav-tab:not(.active) svg path {
+            fill: none !important;
+            stroke: currentColor;
+            stroke-width: 1.65;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            vector-effect: non-scaling-stroke;
+        }
+        .nav-tab.active svg path {
+            fill: currentColor !important;
+            stroke: none !important;
         }
         .nav-tab .nav-label {
             font-size: max(15px, calc(15px * var(--font-scale))) !important;
@@ -235,7 +248,7 @@
             letter-spacing: -0.01em;
             white-space: nowrap;
         }
-        .nav-tab:hover { color: #1A1A1A; background: #F4F0E9; }
+        .nav-tab:hover { color: #1A1A1A; background: #F3F4F6; }
         .nav-tab:focus-visible {
             outline: 4px solid #1A6BB5;
             outline-offset: 2px;
@@ -243,22 +256,14 @@
         }
         .nav-tab.active {
             color: #111111 !important;
-            background-color: #FEE500;
-            border-color: #1A1A1A;
-            box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .12);
+            background-color: transparent;
+            border-color: transparent;
+            box-shadow: none;
             font-weight: 900;
-            transform: translateY(-2px);
+            transform: none;
         }
         .nav-tab.active::before {
-            content: "";
-            position: absolute;
-            top: 5px;
-            left: 50%;
-            width: 20px;
-            height: 4px;
-            border-radius: 999px;
-            background: #1A1A1A;
-            transform: translateX(-50%);
+            display: none;
         }
         @media (prefers-reduced-motion: reduce) {
             .nav-tab { transition: none; }
@@ -455,7 +460,7 @@
         body:has(#page-home:not(.hidden)) main { max-width: 1240px; padding: 1rem; }
         @media (min-width: 1024px) {
             body:has(#page-login:not(.hidden)),
-            body:has(#page-home:not(.hidden)) { background: #F4F0E9 !important; }
+            body:has(#page-home:not(.hidden)) { background: #EAEDF0 !important; }
             body:has(#page-login:not(.hidden)) main,
             body:has(#page-home:not(.hidden)) main {
                 max-width: none !important; padding: 0 !important; margin: 0 !important;
@@ -541,10 +546,10 @@
                  margin: 0 20px !important; border-radius: 16px 16px 0 0 !important;
                  box-shadow: none !important; padding: 2rem 2rem 2.5rem !important;
              }
-            /* 우측 컬럼: 베이지 배경 풀블리드, 좌우 20px 고정 */
+            /* 우측 컬럼: 중립 그레이 배경 풀블리드, 좌우 20px 고정 */
             body:has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex,
             body:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex {
-                background: #F4F0E9;
+                background: #EAEDF0;
                 padding: 20px !important;
                 min-height: 100vh;
                 height: 100vh;
@@ -895,7 +900,7 @@
             }
             body:has(#page-login:not(.hidden)) #page-login > div > div > .bg-white .buvi-hero-input {
                 height: 53px !important; border-radius: 12px !important; padding: 0 20px !important;
-                font-size: 15px !important; font-weight: 500 !important; background: #F4F0E9 !important;
+                font-size: 15px !important; font-weight: 500 !important; background: #F3F4F6 !important;
             }
             body:has(#page-login:not(.hidden)) #page-login > div > div > .bg-white .buvi-hero-input::placeholder {
                 color: #ABA497 !important; font-weight: 500 !important;
@@ -942,12 +947,12 @@
         #desktop-hero-aside { display: none; }
         @media (min-width: 1024px) {
 
-            body.subpage-mode { background: #F4F0E9 !important; padding-bottom: 0 !important; position: relative; }
+            body.subpage-mode { background: #EAEDF0 !important; padding-bottom: 0 !important; position: relative; }
             body.subpage-mode nav.fixed.bottom-0 { display: none !important; }
             body.subpage-mode main {
                 max-width: none !important; margin: 0 !important;
                 padding: 20px 20px 20px calc(33.333vw + 20px) !important;
-                min-height: 100vh; background: #F4F0E9;
+                min-height: 100vh; background: #EAEDF0;
                 display: flex; flex-direction: column;
             }
             /* 설문/상담/건강정보/도움말: 세로 높이 유동형 - 남은 공간을 채우고 마지막 버튼을 하단에 배치 */
@@ -1106,7 +1111,7 @@
             }
             /* 데스크탑 서브페이지 우측 영역: 그림자/외곽선 제거, #F7F5F1과 #FFFFFF 대비로 영역 구분 */
 
-            body.subpage-mode main { background: #F7F5F1 !important; }
+            body.subpage-mode main { background: #F7F7F8 !important; }
             body.subpage-mode main *,
             body.subpage-mode main *::before,
             body.subpage-mode main *::after {
@@ -1292,9 +1297,9 @@
                 font-size: clamp(36px, 7vh, 80px) !important;
             }
 
-            /* 건강정보 카테고리 카드는 #F4F0E9 배경, 외곽선/그림자 제거 */
+            /* 건강정보 카테고리 카드는 중립 그레이 배경, 외곽선/그림자 제거 */
             body.subpage-mode main #page-records .card-item {
-                background-color: #F4F0E9 !important;
+                background-color: #F3F4F6 !important;
                 border: none !important;
                 box-shadow: none !important;
             }
@@ -1309,7 +1314,7 @@
             body.subpage-mode main .bg-stone-50,
             body.subpage-mode main .bg-stone-100,
             body.subpage-mode main .bg-zinc-50,
-            body.subpage-mode main .bg-zinc-100 { background-color: #F7F5F1 !important; }
+            body.subpage-mode main .bg-zinc-100 { background-color: #F7F7F8 !important; }
             /* 크림톤(#FFFDF5, #FFFDF4, #FFFDF0, #FFFEF8 등) 배경도 #F7F5F1로 통일 */
             body.subpage-mode main .bg-amber-50,
             body.subpage-mode main .bg-yellow-50,
@@ -1329,7 +1334,7 @@
             body.subpage-mode main [class*="bg-[#FFFBED]"],
             body.subpage-mode main [class*="bg-[#FFFBEB]"],
             body.subpage-mode main [class*="bg-[#FFFDF"],
-            body.subpage-mode main [class*="bg-[#FFFEF"] { background-color: #F7F5F1 !important; }
+            body.subpage-mode main [class*="bg-[#FFFEF"] { background-color: #F7F7F8 !important; }
         }
 
         /* ─────────────────────────────────────────────────────────────
@@ -1558,7 +1563,7 @@
             }
             body, body.subpage-mode, body.subpage-mode main,
             body:has(#page-home:not(.hidden)) { background: #ffffff !important; }
-            header.sticky, nav.fixed.bottom-0 { background-color: #F7F5F1 !important; }
+            header.sticky, nav.fixed.bottom-0 { background-color: #F7F7F8 !important; }
 
             /* ── 서브페이지(홈 제외) 세로 스크롤 최소화: 여백/간격 압축 ── */
             body.subpage-mode { padding-bottom: 88px !important; }
@@ -1626,14 +1631,14 @@
                 padding-top: 0 !important;
             }
         }
-        /* 설문 설명 박스: 연한 노랑 배경/외곽선 → 뉴트럴 베이지 */
+        /* 설문 설명 박스: 연한 노랑 배경/외곽선 → 뉴트럴 그레이 */
         .bg-yellow-50.border-yellow-200,
         .bg-yellow-50.border-yellow-300 {
-            background-color: #F4F0E9 !important;
+            background-color: #F3F4F6 !important;
             border-color: transparent !important;
             border-width: 0 !important;
         }
-        /* 설문 시작 페이지 카드: 모바일/태블릿은 배경 제거 + 실선 외곽선, 데스크탑은 뉴트럴 베이지 */
+        /* 설문 시작 페이지 카드: 모바일/태블릿은 배경 제거 + 실선 외곽선, 데스크탑은 뉴트럴 그레이 */
         #page-survey-start .bg-\[\#FFFBED\]\/40.border-yellow-200,
         #page-survey-start .bg-\[\#FFFDF4\].border-yellow-200 {
             background-color: transparent !important;
@@ -1644,7 +1649,7 @@
         @media (min-width: 1024px) {
             #page-survey-start .bg-\[\#FFFBED\]\/40.border-yellow-200,
             #page-survey-start .bg-\[\#FFFDF4\].border-yellow-200 {
-                background-color: #F4F0E9 !important;
+                background-color: #F3F4F6 !important;
                 border-color: transparent !important;
                 border-width: 0 !important;
             }
@@ -1661,7 +1666,7 @@
             }
         }
         #page-survey-start > div > div:first-child {
-            background-color: #F4F0E9 !important;
+            background-color: #F3F4F6 !important;
             border-color: transparent !important;
             border-width: 0 !important;
             border-radius: 16px !important;
@@ -1752,7 +1757,7 @@
             #page-records > div.records-wrapper > #records-cards-grid .card-item {
                 min-height: 220px;
                 padding: 16px !important;
-                background-color: #F4F0E9 !important;
+                background-color: #F3F4F6 !important;
                 border: none !important;
                 box-shadow: none !important;
                 width: 100%;
@@ -1909,7 +1914,7 @@
                 min-width: 200px;
                 padding: 14px 32px !important;
                 border-radius: 999px !important;
-                background: #F4F0E9 !important;
+                background: #F3F4F6 !important;
                 border: none !important;
                 box-shadow: none !important;
                 color: #1f2937 !important;
@@ -2135,7 +2140,7 @@
                 min-width: 0 !important;
                 padding: 14px 32px !important;
                 border-radius: 999px !important;
-                background: #F4F0E9 !important;
+                background: #F3F4F6 !important;
                 border: none !important;
                 box-shadow: none !important;
                 color: #1f2937 !important;
@@ -2444,7 +2449,7 @@
             body.is-authenticated,
             body.is-authenticated:has(#page-home:not(.hidden)),
             body.is-authenticated.subpage-mode {
-                background: #ECECE7 !important;
+                background: #EAEDF0 !important;
                 padding-bottom: 132px !important;
                 position: relative;
             }
@@ -2501,7 +2506,7 @@
                 margin: 16px auto 132px !important;
                 padding: 24px !important;
                 border-radius: 28px !important;
-                background: #F7F5F1 !important;
+                background: #F7F7F8 !important;
                 box-shadow: 0 24px 64px rgba(48, 45, 38, .14) !important;
                 box-sizing: border-box;
             }
@@ -2691,18 +2696,77 @@
             body nav.bottom-nav {
                 height: calc(104px + env(safe-area-inset-bottom)) !important;
                 padding: 8px 6px calc(8px + env(safe-area-inset-bottom)) !important;
-                background: #FFFDF8 !important;
-                border-color: #C8C0B0 !important;
-                box-shadow: 0 -8px 24px rgba(48, 45, 38, .12) !important;
+                background: #FFFFFF !important;
+                border-color: #D1D5DB !important;
+                box-shadow: 0 -8px 24px rgba(17, 24, 39, .10) !important;
             }
             body nav.bottom-nav .nav-tab {
                 margin: 0 2px !important;
                 border-radius: 16px !important;
             }
         }
+
+        /* ── Neutral gray surfaces ──
+           기존 웜 베이지 표면을 첨부 레퍼런스와 같은 중립 그레이 계열로 통일한다. */
+        body:not(.high-contrast) {
+            --surface-gray: #F3F4F6;
+            --surface-gray-soft: #F7F7F8;
+            --canvas-gray: #EAEDF0;
+            --border-gray: #D1D5DB;
+        }
+        body:not(.high-contrast) [style*="background:#F4F0E9"],
+        body:not(.high-contrast) [style*="background: #F4F0E9"],
+        body:not(.high-contrast) [style*="background:#F7F5F0"],
+        body:not(.high-contrast) [style*="background: #F7F5F0"],
+        body:not(.high-contrast) [style*="background:#F7F5F1"],
+        body:not(.high-contrast) [style*="background: #F7F5F1"] {
+            background-color: var(--surface-gray) !important;
+        }
+        body:not(.high-contrast) [class~="bg-[#F4F0E9]"],
+        body:not(.high-contrast) .gender-card,
+        body:not(.high-contrast) #page-records .card-item,
+        body:not(.high-contrast).subpage-mode main #page-records .card-item,
+        body:not(.high-contrast) .bg-yellow-50.border-yellow-200,
+        body:not(.high-contrast) .bg-yellow-50.border-yellow-300,
+        body:not(.high-contrast) #page-survey-start [class~="bg-[#FFFBED]/40"].border-yellow-200,
+        body:not(.high-contrast) #page-survey-start [class~="bg-[#FFFDF4]"].border-yellow-200,
+        body:not(.high-contrast) #page-survey-start > div > div:first-child {
+            background-color: var(--surface-gray) !important;
+            border-color: var(--border-gray) !important;
+        }
+        body:not(.high-contrast) [class~="bg-[#FFFDF5]"],
+        body:not(.high-contrast) [class~="bg-[#FFFDF4]"],
+        body:not(.high-contrast) [class~="bg-[#FFFDF0]"],
+        body:not(.high-contrast) [class~="bg-[#FFFEF8]"] {
+            background-color: var(--surface-gray-soft) !important;
+        }
+        body:not(.high-contrast).subpage-mode main #page-records .card-item {
+            background-color: #F3F4F6 !important;
+            border-color: #D1D5DB !important;
+        }
+        @media (min-width: 1024px) {
+            body:not(.high-contrast):has(#page-login:not(.hidden)),
+            body:not(.high-contrast):has(#page-home:not(.hidden)),
+            body:not(.high-contrast).subpage-mode,
+            body:not(.high-contrast).is-authenticated,
+            body:not(.high-contrast).is-authenticated:has(#page-home:not(.hidden)),
+            body:not(.high-contrast).is-authenticated.subpage-mode,
+            body:not(.high-contrast).subpage-mode main,
+            body:not(.high-contrast):has(#page-login:not(.hidden)) #page-login > div > div:last-child.hidden.lg\:flex,
+            body:not(.high-contrast):has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex {
+                background-color: var(--canvas-gray) !important;
+            }
+        }
         body.high-contrast nav.bottom-nav {
             background: #1A1A1A !important;
             border-color: #FEE500 !important;
+        }
+        body.high-contrast nav.bottom-nav .nav-tab.active,
+        body.high-contrast nav.bottom-nav .nav-tab.active * {
+            color: #FEE500 !important;
+        }
+        body.high-contrast nav.bottom-nav .nav-tab:not(.active) svg path {
+            stroke: #C9A800 !important;
         }
     </style>
 
@@ -2897,17 +2961,17 @@
 
                         <!-- 3 owl link cards -->
                         <div class="grid grid-cols-3 gap-3">
-                            <button onclick="tryNavigateWithWarning('survey-start')" class="rounded-2xl p-4 flex flex-col items-center text-center h-full" style="background:#F4F0E9;">
+                            <button onclick="tryNavigateWithWarning('survey-start')" class="rounded-2xl p-4 flex flex-col items-center text-center h-full" style="background:#F3F4F6;">
                                 <img src="./owl-search.svg" alt="" class="w-24 h-24 object-contain">
                                 <p class="font-black text-sm text-charcoal flex-1 flex items-center justify-center">노쇠 예측 설문</p>
                                 <span class="text-white font-black rounded-xl px-4 py-2 text-sm mt-auto" style="background:#FE7F2B">설문 시작하기</span>
                             </button>
-                            <button onclick="tryNavigateWithWarning('chat')" data-requires-result="true" class="rounded-2xl p-4 flex flex-col items-center text-center h-full" style="background:#F4F0E9;">
+                            <button onclick="tryNavigateWithWarning('chat')" data-requires-result="true" class="rounded-2xl p-4 flex flex-col items-center text-center h-full" style="background:#F3F4F6;">
                                 <img src="./owl-hero.svg" alt="" class="w-24 h-24 object-contain">
                                 <p class="font-black text-sm text-charcoal flex-1 flex items-center justify-center">부비와 함께하는 1:1 상담</p>
                                 <span class="text-white font-black rounded-xl px-4 py-2 text-sm mt-auto" style="background:#6FCF97">상담 시작하기</span>
                             </button>
-                            <button onclick="tryNavigateWithWarning('records')" class="rounded-2xl p-4 flex flex-col items-center text-center h-full" style="background:#F4F0E9;">
+                            <button onclick="tryNavigateWithWarning('records')" class="rounded-2xl p-4 flex flex-col items-center text-center h-full" style="background:#F3F4F6;">
                                 <img src="./owl-idea.svg" alt="" class="w-24 h-24 object-contain">
                                 <p class="font-black text-sm text-charcoal flex-1 flex items-center justify-center">건강정보 배움터</p>
                                 <span class="text-white font-black rounded-xl px-4 py-2 text-sm mt-auto" style="background:#5B8DEF">배움터 이동하기</span>
@@ -2916,8 +2980,8 @@
 
                         <!-- Quick links -->
                         <div class="grid grid-cols-2 gap-3">
-                            <button onclick="tryNavigateWithWarning('survey-start')" class="rounded-2xl py-4 px-4 font-black flex items-center gap-3" style="background:#F4F0E9;"><i class="fa-solid fa-file-pen"></i> 설문</button>
-                            <button onclick="tryNavigateWithWarning('help')" class="rounded-2xl py-4 px-4 font-black flex items-center gap-3" style="background:#F4F0E9;"><i class="fa-solid fa-circle-info"></i> 도움말</button>
+                            <button onclick="tryNavigateWithWarning('survey-start')" class="rounded-2xl py-4 px-4 font-black flex items-center gap-3" style="background:#F3F4F6;"><i class="fa-solid fa-file-pen"></i> 설문</button>
+                            <button onclick="tryNavigateWithWarning('help')" class="rounded-2xl py-4 px-4 font-black flex items-center gap-3" style="background:#F3F4F6;"><i class="fa-solid fa-circle-info"></i> 도움말</button>
                         </div>
                     </div>
                 </div>
@@ -4814,7 +4878,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
         function renderGenderInput(container) {
             const saved = state.answers.gender;
-            const baseCard = "gender-card group relative aspect-[4/5] w-full rounded-2xl bg-[#F4F0E9] shadow-md flex flex-col items-center justify-between p-4 lg:p-6 transition-all";
+            const baseCard = "gender-card group relative aspect-[4/5] w-full rounded-2xl bg-gray-100 shadow-md flex flex-col items-center justify-between p-4 lg:p-6 transition-all";
             const mSel = saved === 'male'   ? "ring-4 ring-blue-200" : "";
             const fSel = saved === 'female' ? "ring-4 ring-pink-200" : "";
             const mSelText = saved === 'male' ? "text-blue-500" : "text-charcoal";
@@ -5009,7 +5073,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     ${Array.from({length:12},(_,i)=>i+1).map(m => {
                         const active = M === m;
                         return `<button type="button" onclick="ageSelectMonth(${m})"
-                            style="width:56px;height:56px" class="text-xl font-bold rounded-2xl border-2 transition-all select-none flex items-center justify-center ${active ? 'bg-blue-600 text-white border-blue-600' : 'bg-[#F4F0E9] text-gray-700 border-transparent hover:bg-blue-50 hover:border-blue-400 active:bg-blue-100'}">
+                            style="width:56px;height:56px" class="text-xl font-bold rounded-2xl border-2 transition-all select-none flex items-center justify-center ${active ? 'bg-blue-600 text-white border-blue-600' : 'bg-gray-100 text-gray-700 border-transparent hover:bg-blue-50 hover:border-blue-400 active:bg-blue-100'}">
                             ${m}</button>`;
                     }).join('')}
                 </div>
@@ -5025,7 +5089,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     ${Array.from({length:daysInMonth},(_,i)=>i+1).map(d => {
                         const active = D === d;
                         return `<button type="button" onclick="ageSelectDay(${d})"
-                            style="width:56px;height:56px" class="text-lg font-bold rounded-2xl border-2 transition-all select-none flex items-center justify-center ${active ? 'bg-blue-600 text-white border-blue-600' : 'bg-[#F4F0E9] text-gray-700 border-transparent hover:bg-blue-50 hover:border-blue-400 active:bg-blue-100'}">${d}</button>`;
+                            style="width:56px;height:56px" class="text-lg font-bold rounded-2xl border-2 transition-all select-none flex items-center justify-center ${active ? 'bg-blue-600 text-white border-blue-600' : 'bg-gray-100 text-gray-700 border-transparent hover:bg-blue-50 hover:border-blue-400 active:bg-blue-100'}">${d}</button>`;
                     }).join('')}
                 </div>
 `;
@@ -7421,7 +7485,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     : `<span class="card-unread-badge scaled-text-xs md:scaled-text-sm font-extrabold text-charcoal bg-amber-200 px-3 py-1.5 rounded-full flex items-center gap-1 shrink-0 whitespace-nowrap"><i class="fa-solid fa-book-open-reader"></i> 읽기 전</span>`;
                 const button = document.createElement('button');
                 button.type = 'button';
-                button.className = 'card-item rounded-3xl p-5 bg-[#F4F0E9] flex flex-col items-stretch text-left hover:shadow-md transition-all min-h-[310px]';
+                button.className = 'card-item rounded-3xl p-5 bg-gray-100 flex flex-col items-stretch text-left hover:shadow-md transition-all min-h-[310px]';
                 button.onclick = () => {
                     if (state.cardReadingLocked && state.currentReadingCardId !== card.id) requestSwitchCard(card.id);
                     else openDetailedStudyCard(card.id);
