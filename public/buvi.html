@@ -3851,13 +3851,8 @@
                         <div class="rounded-3xl p-4 lg:p-5 shadow-md text-charcoal flex flex-col justify-start gap-4 bg-white border-2" style="border-color: var(--border-color);">
                             <div class="grid grid-cols-2 grid-rows-1 gap-3 lg:gap-4 h-full">
                                 <!-- 저장 영역 -->
-                                <div class="bg-gray-50 rounded-2xl p-3 flex flex-col gap-2 h-full">
-                                    <button onclick="event.stopPropagation(); toggleSaveShareMenu('save')" class="w-full flex items-center gap-2 text-left hover:bg-gray-100 transition-colors rounded-xl p-2">
-                                        <span class="w-8 h-8 rounded-full bg-white flex items-center justify-center shrink-0 shadow-sm"><i class="fa-solid fa-download text-charcoal text-xs"></i></span>
-                                        <span class="flex-1 text-sm font-black text-charcoal">노쇠 예측 설문 결과 저장</span>
-                                        <i id="save-menu-caret" class="fa-solid fa-chevron-down text-gray-400 text-xs transition-transform"></i>
-                                    </button>
-                                    <div id="save-submenu" class="hidden flex-col gap-2">
+                                <div class="bg-gray-50 rounded-2xl p-3 flex flex-col gap-2 h-full" role="group" aria-label="결과 저장 메뉴">
+                                    <div class="flex flex-col gap-2">
                                         <button onclick="event.stopPropagation(); simulatePDFDownload()" class="w-full flex items-center gap-2 text-left hover:bg-white transition-colors rounded-lg p-2">
                                             <i class="fa-solid fa-file-pdf text-charcoal text-xs"></i>
                                             <span class="flex-1 text-xs font-bold text-charcoal">PDF로 저장</span>
@@ -3873,13 +3868,8 @@
                                     </div>
                                 </div>
                                 <!-- 공유 영역 -->
-                                <div class="bg-gray-50 rounded-2xl p-3 flex flex-col gap-2 h-full">
-                                    <button onclick="event.stopPropagation(); toggleSaveShareMenu('share')" class="w-full flex items-center gap-2 text-left hover:bg-gray-100 transition-colors rounded-xl p-2">
-                                        <span class="w-8 h-8 rounded-full bg-white flex items-center justify-center shrink-0 shadow-sm"><i class="fa-solid fa-share-nodes text-charcoal text-xs"></i></span>
-                                        <span class="flex-1 text-sm font-black text-charcoal">노쇠 예측 설문 결과 공유</span>
-                                        <i id="share-menu-caret" class="fa-solid fa-chevron-down text-gray-400 text-xs transition-transform"></i>
-                                    </button>
-                                    <div id="share-submenu" class="hidden flex-col gap-2">
+                                <div class="bg-gray-50 rounded-2xl p-3 flex flex-col gap-2 h-full" role="group" aria-label="결과 공유 메뉴">
+                                    <div class="flex flex-col gap-2">
                                         <button onclick="event.stopPropagation(); showAppModal('📱','SNS 공유','SNS로 결과를 공유했습니다.')" class="w-full flex items-center gap-2 text-left hover:bg-white transition-colors rounded-lg p-2">
                                             <i class="fa-solid fa-share-from-square text-charcoal text-xs"></i>
                                             <span class="flex-1 text-xs font-bold text-charcoal">SNS</span>
@@ -8245,26 +8235,6 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
         function simulatePDFDownload() {
             showAppModal('📄', 'PDF 저장', '노쇠 위험도 결과 보고서를 PDF로 저장했습니다. (시뮬레이션)');
-        }
-
-        function toggleSaveShareMenu(which) {
-            const targetId = which + '-submenu';
-            const otherId = (which === 'save' ? 'share' : 'save') + '-submenu';
-            const targetCaret = document.getElementById(which + '-menu-caret');
-            const otherCaret = document.getElementById((which === 'save' ? 'share' : 'save') + '-menu-caret');
-            const target = document.getElementById(targetId);
-            const other = document.getElementById(otherId);
-            if (other && !other.classList.contains('hidden')) {
-                other.classList.add('hidden');
-                other.classList.remove('flex');
-                if (otherCaret) otherCaret.classList.remove('rotate-180');
-            }
-            if (target) {
-                const isHidden = target.classList.contains('hidden');
-                target.classList.toggle('hidden');
-                target.classList.toggle('flex', isHidden);
-                if (targetCaret) targetCaret.classList.toggle('rotate-180', isHidden);
-            }
         }
 
         function simulateTTSResult() {
