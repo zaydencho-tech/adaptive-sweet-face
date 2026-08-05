@@ -2587,7 +2587,8 @@
                 object-fit: contain;
             }
 
-            /* 전체 메인 콘텐츠는 Tailwind max-w-5xl(64rem)에 맞춘 중앙 카드 */
+            /* 전체 메인 콘텐츠는 Tailwind max-w-5xl(64rem)에 맞춘 중앙 카드.
+               태블릿과 동일하게 양옆의 퍼지는 그림자는 사용하지 않는다. */
             body.is-authenticated main,
             body.is-authenticated.subpage-mode main,
             body.is-authenticated:has(#page-home:not(.hidden)) main {
@@ -2598,7 +2599,7 @@
                 padding: 24px !important;
                 border-radius: 28px !important;
                 background: #F7F7F8 !important;
-                box-shadow: 0 24px 64px rgba(48, 45, 38, .14) !important;
+                box-shadow: none !important;
                 box-sizing: border-box;
             }
 
