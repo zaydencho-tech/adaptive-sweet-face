@@ -2989,6 +2989,60 @@
             .survey-input-card { padding: 12px; }
             .survey-keypad button { min-height: 50px; }
         }
+        /* 데스크톱 로그인 후 설문: 문서 스크롤 하나만 사용하고
+           설문 이동 버튼은 앱 네비 바로 위의 플로팅 바텀시트로 고정 */
+        @media (min-width: 1024px) {
+            body.is-authenticated.subpage-mode:has(#page-survey:not(.hidden)) main {
+                height: auto !important;
+                min-height: calc(100dvh - 124px) !important;
+                max-height: none !important;
+                padding-bottom: 144px !important;
+                overflow: visible !important;
+            }
+            body.is-authenticated.subpage-mode main > #page-survey:not(.hidden),
+            body.is-authenticated.subpage-mode main > #page-survey:not(.hidden) > div.bg-white {
+                display: block !important;
+                flex: none !important;
+                width: 100% !important;
+                height: auto !important;
+                min-height: 0 !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            body.is-authenticated.subpage-mode #page-survey:not(.hidden) #survey-options-container {
+                display: block !important;
+                flex: none !important;
+                height: auto !important;
+                min-height: 0 !important;
+                max-height: none !important;
+                overflow: visible !important;
+                overscroll-behavior: auto !important;
+                scrollbar-gutter: auto !important;
+                padding-bottom: 20px !important;
+            }
+            body.is-authenticated.subpage-mode #page-survey:not(.hidden) #survey-nav-bottom {
+                position: fixed !important;
+                left: 50% !important;
+                right: auto !important;
+                bottom: 130px !important;
+                z-index: 90 !important;
+                width: calc(100% - 80px) !important;
+                max-width: 60rem !important;
+                margin: 0 !important;
+                padding: 12px !important;
+                border: 1px solid rgba(88, 82, 70, .14) !important;
+                border-radius: 22px !important;
+                background: rgba(255, 255, 255, .97) !important;
+                box-shadow: 0 12px 34px rgba(48, 45, 38, .16) !important;
+                transform: translateX(-50%) !important;
+                backdrop-filter: blur(14px);
+                -webkit-backdrop-filter: blur(14px);
+            }
+            body.high-contrast.is-authenticated.subpage-mode #page-survey:not(.hidden) #survey-nav-bottom {
+                border-color: #FEE500 !important;
+                background: rgba(26, 26, 26, .98) !important;
+            }
+        }
         body.high-contrast nav.bottom-nav {
             background: #1A1A1A !important;
             border-color: #FEE500 !important;
