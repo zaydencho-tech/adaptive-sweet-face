@@ -3172,9 +3172,10 @@
         @media (min-width: 1024px) {
             body.is-authenticated.subpage-mode:has(#page-survey:not(.hidden))
             #page-survey:not(.hidden) > div.bg-white {
-                /* 짧은 문항도 이동 버튼이 네비 위의 일정한 위치에 오도록 메인 영역을 채운다. */
-                min-height: calc(100vh - 172px) !important;
-                min-height: calc(100dvh - 172px) !important;
+                /* 짧은 문항은 이동 버튼이 하단 네비 위에 바로 보이도록 뷰포트에 맞춘다.
+                   콘텐츠가 길면 min-height를 넘어 자연스럽게 늘어나며 버튼은 맨 끝에 위치한다. */
+                min-height: calc(100vh - 254px) !important;
+                min-height: calc(100dvh - 254px) !important;
             }
         }
         /* BUVI 4가지 약속: 본문 두 행의 리듬을 좁히고 좌측 캐릭터를 강조 */
