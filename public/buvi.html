@@ -1817,6 +1817,10 @@
             padding: 0 !important;
             margin-bottom: 24px !important;
         }
+        #page-survey-start > div,
+        #page-survey-start #survey-start-body {
+            box-shadow: none !important;
+        }
         #page-survey-start .survey-start-feature-card {
             min-height: 310px;
         }
@@ -1855,7 +1859,7 @@
             /* 하단 본문 영역: 별도의 흰 카드로 감싸고 내부 배치는 중앙 상단 카드/팁 + 하단 시작 버튼 */
             body.subpage-mode main > #page-survey-start:not(.hidden) > div > #survey-start-body {
                 background-color: #FFFFFF !important;
-                box-shadow: 0 4px 34px rgba(0,0,0,.08) !important;
+                box-shadow: none !important;
                 border-radius: 16px !important;
                 padding: 20px !important;
                 margin: 0 !important;
@@ -3682,7 +3686,7 @@
                     </div>
                     <div class="space-y-1">
                         <div class="flex items-center gap-2">
-                            <h1 class="scaled-text-2xl font-black text-charcoal">노쇠 예측 설문</h1>
+                            <h1 class="font-gapyeong scaled-text-2xl font-black text-charcoal">노쇠 예측 설문</h1>
                             <button onclick="toggleTTS()" class="tts-listen-btn tts-icon-mobile lg:hidden inline-flex items-center justify-center align-middle" style="width:32px;height:32px;border-radius:10px;background:#F8E647;color:#111729;" aria-label="소리듣기"><i class="fa-solid fa-volume-high"></i></button>
                         </div>
                         <p class="scaled-text-base font-bold text-gray-600 mt-1">노쇠 예측 설문을 진행해 보세요.</p>
