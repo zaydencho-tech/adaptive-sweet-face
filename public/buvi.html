@@ -34,16 +34,8 @@
         @font-face { font-family: 'Pretendard'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Black.woff2') format('woff2'); font-weight: 900; font-display: swap; }
         @font-face { font-family: 'NexonMaplestory'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFLight.woff') format('woff'); font-weight: 300; font-display: swap; }
         @font-face { font-family: 'NexonMaplestory'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff') format('woff'); font-weight: 700; font-display: swap; }
-        @font-face { font-family: 'Escoredream'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-1Thin.woff') format('woff'); font-weight: 100; font-display: swap; }
-        @font-face { font-family: 'Escoredream'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-2ExtraLight.woff') format('woff'); font-weight: 200; font-display: swap; }
-        @font-face { font-family: 'Escoredream'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff'); font-weight: 300; font-display: swap; }
-        @font-face { font-family: 'Escoredream'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-4Regular.woff') format('woff'); font-weight: 400; font-display: swap; }
-        @font-face { font-family: 'Escoredream'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff') format('woff'); font-weight: 500; font-display: swap; }
-        @font-face { font-family: 'Escoredream'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-6Bold.woff') format('woff'); font-weight: 600; font-display: swap; }
-        @font-face { font-family: 'Escoredream'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-7ExtraBold.woff') format('woff'); font-weight: 700; font-display: swap; }
-        @font-face { font-family: 'Escoredream'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-8Heavy.woff') format('woff'); font-weight: 800; font-display: swap; }
-        @font-face { font-family: 'Escoredream'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-9Black.woff') format('woff'); font-weight: 900; font-display: swap; }
-        .font-gapyeong { font-family: 'Escoredream', 'Pretendard', sans-serif !important; }
+        @font-face { font-family: 'Yes'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/YES24.woff') format('woff'); font-weight: normal; font-display: swap; }
+        .font-gapyeong { font-family: 'Yes', 'Pretendard', sans-serif !important; }
 
         /* ── CSS 변수 ── */
         :root { 
@@ -3457,17 +3449,16 @@
                         <!-- 1. Beholding -->
                         <div class="grid grid-cols-[3fr_1fr] rounded-2xl overflow-hidden bg-white border border-stone-200 shadow-sm">
                             <div class="px-8 py-7 flex flex-col justify-center">
-                                <div class="flex items-center gap-3 mb-3">
-                                    <img src="./owl-search.svg" alt="" class="w-16 h-16 object-contain" loading="lazy">
-                                    <div>
-                                        <p class="text-[15px] font-bold text-charcoal/70">데이터 너머, 이야기를 봅니다</p>
+                                <div class="flex items-center gap-5">
+                                    <img src="./owl-search.svg" alt="" class="w-16 h-16 object-contain shrink-0" loading="lazy">
+                                    <div class="min-w-0">
+                                        <div class="flex flex-wrap items-baseline gap-x-4 gap-y-2 mb-3">
+                                            <h3 class="font-gapyeong font-black text-charcoal leading-tight" style="font-size:34px;"><span style="border-bottom:5px solid #FEE500;padding-bottom:2px;">바라봅니다</span></h3>
+                                            <p class="text-[15px] font-bold text-charcoal"><span style="color:#FE7F2B;">B</span>eholding (바라봄) &middot; BUVI는 어르신의 건강 상태와 변화를 함께 바라봅니다.</p>
+                                        </div>
+                                        <p class="text-[14px] text-gray-700 font-medium leading-relaxed">데이터만이 아니라 어르신의 이야기 속 의미까지 놓치지 않고 주목합니다.</p>
                                     </div>
                                 </div>
-                                <div class="flex flex-wrap items-baseline gap-x-4 mb-3">
-                                    <h3 class="font-gapyeong font-black text-charcoal leading-tight" style="font-size:34px;"><span style="border-bottom:5px solid #FEE500;padding-bottom:2px;">바라봅니다</span></h3>
-                                    <p class="text-[15px] font-bold text-charcoal"><span style="color:#FE7F2B;">B</span>eholding (바라봄) &middot; BUVI는 어르신의 건강 상태와 변화를 함께 바라봅니다.</p>
-                                </div>
-                                <p class="text-[14px] text-gray-700 font-medium leading-relaxed">데이터만이 아니라 어르신의 이야기 속 의미까지 놓치지 않고 주목합니다.</p>
                             </div>
                             <div class="relative flex items-center justify-center px-2" style="background:#FEE500;">
                                 <div class="relative flex items-center justify-center gap-2">
@@ -3480,17 +3471,16 @@
                         <!-- 2. Understanding -->
                         <div class="grid grid-cols-[3fr_1fr] rounded-2xl overflow-hidden bg-white border border-stone-200 shadow-sm">
                             <div class="px-8 py-7 flex flex-col justify-center">
-                                <div class="flex items-center gap-3 mb-3">
-                                    <img src="./owl-idea.svg" alt="" class="w-16 h-16 object-contain" loading="lazy">
-                                    <div>
-                                        <p class="text-[15px] font-bold text-charcoal/70">마음까지 들여다보는 이해</p>
+                                <div class="flex items-center gap-5">
+                                    <img src="./owl-idea.svg" alt="" class="w-16 h-16 object-contain shrink-0" loading="lazy">
+                                    <div class="min-w-0">
+                                        <div class="flex flex-wrap items-baseline gap-x-4 gap-y-2 mb-3">
+                                            <h3 class="font-gapyeong font-black text-charcoal leading-tight" style="font-size:34px;"><span style="border-bottom:5px solid #FE7F2B;padding-bottom:2px;">이해합니다</span></h3>
+                                            <p class="text-[15px] font-bold text-charcoal"><span style="color:#FE7F2B;">U</span>nderstanding (이해) &middot; BUVI는 어르신의 건강 상태와 변화를 깊이 이해합니다.</p>
+                                        </div>
+                                        <p class="text-[14px] text-gray-700 font-medium leading-relaxed">어르신의 건강 데이터와 생활 습관을 종합해 어르신을 깊이 이해합니다.</p>
                                     </div>
                                 </div>
-                                <div class="flex flex-wrap items-baseline gap-x-4 mb-3">
-                                    <h3 class="font-gapyeong font-black text-charcoal leading-tight" style="font-size:34px;"><span style="border-bottom:5px solid #FE7F2B;padding-bottom:2px;">이해합니다</span></h3>
-                                    <p class="text-[15px] font-bold text-charcoal"><span style="color:#FE7F2B;">U</span>nderstanding (이해) &middot; BUVI는 어르신의 건강 상태와 변화를 깊이 이해합니다.</p>
-                                </div>
-                                <p class="text-[14px] text-gray-700 font-medium leading-relaxed">어르신의 건강 데이터와 생활 습관을 종합해 어르신을 깊이 이해합니다.</p>
                             </div>
                             <div class="relative flex items-center justify-center px-2" style="background:#FE7F2B;">
                                 <div class="relative flex items-center justify-center gap-2">
@@ -3503,17 +3493,16 @@
                         <!-- 3. Vitality -->
                         <div class="grid grid-cols-[3fr_1fr] rounded-2xl overflow-hidden bg-white border border-stone-200 shadow-sm">
                             <div class="px-8 py-7 flex flex-col justify-center">
-                                <div class="flex items-center gap-3 mb-3">
-                                    <img src="./owl-cheer.svg" alt="" class="w-16 h-16 object-contain" loading="lazy">
-                                    <div>
-                                        <p class="text-[15px] font-bold text-charcoal/70">활력이 되는 안내를 드려요</p>
+                                <div class="flex items-center gap-5">
+                                    <img src="./owl-cheer.svg" alt="" class="w-16 h-16 object-contain shrink-0" loading="lazy">
+                                    <div class="min-w-0">
+                                        <div class="flex flex-wrap items-baseline gap-x-4 gap-y-2 mb-3">
+                                            <h3 class="font-gapyeong font-black text-charcoal leading-tight" style="font-size:34px;"><span style="border-bottom:5px solid #6FCF97;padding-bottom:2px;">안내합니다</span></h3>
+                                            <p class="text-[15px] font-bold text-charcoal"><span style="color:#2F9E68;">V</span>itality (활력) &middot; BUVI는 어르신의 활력 있는 일상을 안내합니다.</p>
+                                        </div>
+                                        <p class="text-[14px] text-gray-700 font-medium leading-relaxed">이해를 바탕으로 노쇠 신호를 미리 살피고, 어르신의 활력을 안내합니다.</p>
                                     </div>
                                 </div>
-                                <div class="flex flex-wrap items-baseline gap-x-4 mb-3">
-                                    <h3 class="font-gapyeong font-black text-charcoal leading-tight" style="font-size:34px;"><span style="border-bottom:5px solid #6FCF97;padding-bottom:2px;">안내합니다</span></h3>
-                                    <p class="text-[15px] font-bold text-charcoal"><span style="color:#2F9E68;">V</span>itality (활력) &middot; BUVI는 어르신의 활력 있는 일상을 안내합니다.</p>
-                                </div>
-                                <p class="text-[14px] text-gray-700 font-medium leading-relaxed">이해를 바탕으로 노쇠 신호를 미리 살피고, 어르신의 활력을 안내합니다.</p>
                             </div>
                             <div class="relative flex items-center justify-center px-2" style="background:#6FCF97;">
                                 <div class="relative flex items-center justify-center gap-2">
@@ -3526,17 +3515,16 @@
                         <!-- 4. Independence -->
                         <div class="grid grid-cols-[3fr_1fr] rounded-2xl overflow-hidden bg-white border border-stone-200 shadow-sm">
                             <div class="px-8 py-7 flex flex-col justify-center">
-                                <div class="flex items-center gap-3 mb-3">
-                                    <img src="./owl-elder.svg" alt="" class="w-16 h-16 object-contain" loading="lazy">
-                                    <div>
-                                        <p class="text-[15px] font-bold text-charcoal/70">오래도록, 스스로 지키는 힘</p>
+                                <div class="flex items-center gap-5">
+                                    <img src="./owl-elder.svg" alt="" class="w-16 h-16 object-contain shrink-0" loading="lazy">
+                                    <div class="min-w-0">
+                                        <div class="flex flex-wrap items-baseline gap-x-4 gap-y-2 mb-3">
+                                            <h3 class="font-gapyeong font-black text-charcoal leading-tight" style="font-size:34px;"><span style="border-bottom:5px solid #5B8DEF;padding-bottom:2px;">곁을 지킵니다</span></h3>
+                                            <p class="text-[15px] font-bold text-charcoal"><span style="color:#2F5FBF;">I</span>ndependence (자립) &middot; BUVI는 어르신의 곁을 지킵니다.</p>
+                                        </div>
+                                        <p class="text-[14px] text-gray-700 font-medium leading-relaxed">스스로 건강을 관리하는 자립을 응원하며, 건강한 매일을 위해 어르신 곁을 지킵니다.</p>
                                     </div>
                                 </div>
-                                <div class="flex flex-wrap items-baseline gap-x-4 mb-3">
-                                    <h3 class="font-gapyeong font-black text-charcoal leading-tight" style="font-size:34px;"><span style="border-bottom:5px solid #5B8DEF;padding-bottom:2px;">곁을 지킵니다</span></h3>
-                                    <p class="text-[15px] font-bold text-charcoal"><span style="color:#2F5FBF;">I</span>ndependence (자립) &middot; BUVI는 어르신의 곁을 지킵니다.</p>
-                                </div>
-                                <p class="text-[14px] text-gray-700 font-medium leading-relaxed">스스로 건강을 관리하는 자립을 응원하며, 건강한 매일을 위해 어르신 곁을 지킵니다.</p>
                             </div>
                             <div class="relative flex items-center justify-center px-2" style="background:#5B8DEF;">
                                 <div class="relative flex items-center justify-center gap-2">
