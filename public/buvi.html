@@ -6432,6 +6432,19 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             persistSurveyProgress();
         }
 
+        function resetSurveyScrollPosition() {
+            const reset = () => {
+                const scroller = document.scrollingElement || document.documentElement;
+                if (scroller) scroller.scrollTop = 0;
+                document.body.scrollTop = 0;
+                document.querySelector('main')?.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+                document.getElementById('survey-options-container')?.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+                window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+            };
+            reset();
+            requestAnimationFrame(reset);
+        }
+
         function nextSurveyQuestion() {
             const q = surveyQuestions.find(x => x.id === state.currentQuestionId);
             if (!q) return;
@@ -6478,10 +6491,15 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 state.surveyInProgress = false;
                 clearSurveyProgress();
                 navTo('analyzing');
-                setTimeout(() => { navTo('result'); }, 2200);
+                resetSurveyScrollPosition();
+                setTimeout(() => {
+                    navTo('result');
+                    resetSurveyScrollPosition();
+                }, 2200);
             } else {
                 state.currentQuestionId = nextQId;
                 setupSurveyQuestion();
+                resetSurveyScrollPosition();
             }
         }
 
