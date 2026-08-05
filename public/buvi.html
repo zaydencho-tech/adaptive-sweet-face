@@ -1875,7 +1875,7 @@
             }
         }
 
-        /* 데스크탑 건강정보: 최신 코멘트 기준 2열 × 3행 카드 배치 */
+        /* 데스크탑 건강정보: 태블릿과 동일한 2열 세로형 카드 배치 */
         @media (min-width: 1024px) {
             body.subpage-mode main > #page-records:not(.hidden) > div.records-wrapper {
                 display: flex !important;
@@ -1889,67 +1889,14 @@
             #page-records > div.records-wrapper > #records-cards-grid {
                 display: grid !important;
                 grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-                grid-template-rows: repeat(3, minmax(220px, auto));
-                gap: 14px;
+                grid-template-rows: none;
+                gap: 16px;
                 overflow: visible;
                 min-height: auto;
                 height: auto;
                 width: 100%;
                 margin-top: 0 !important;
                 margin-bottom: 0 !important;
-            }
-            #page-records > div.records-wrapper > #records-cards-grid .card-item {
-                min-height: 220px;
-                padding: 16px !important;
-                background-color: #F3F4F6 !important;
-                border: none !important;
-                box-shadow: none !important;
-                width: 100%;
-                display: grid !important;
-                grid-template-columns: minmax(96px, 28%) minmax(0, 1fr);
-                grid-template-rows: auto auto 1fr auto;
-                column-gap: 16px;
-                row-gap: 7px;
-                align-items: center;
-                overflow: hidden;
-            }
-            #page-records > div.records-wrapper > #records-cards-grid .card-item > div:first-child {
-                grid-column: 2;
-                grid-row: 1;
-                margin-bottom: 0 !important;
-            }
-            #page-records > div.records-wrapper > #records-cards-grid .card-item > div:nth-child(2) {
-                grid-column: 1;
-                grid-row: 1 / 5;
-                min-height: 0 !important;
-                height: 100%;
-            }
-            #page-records > div.records-wrapper > #records-cards-grid .card-item img {
-                width: min(100%, 128px) !important;
-                height: 128px !important;
-            }
-            #page-records > div.records-wrapper > #records-cards-grid .card-item h2 {
-                grid-column: 2;
-                grid-row: 2;
-                margin-top: 0 !important;
-                font-size: calc(1.15rem * var(--font-scale));
-                line-height: 1.25;
-            }
-            #page-records > div.records-wrapper > #records-cards-grid .card-item > p {
-                grid-column: 2;
-                grid-row: 3;
-                margin-top: 0 !important;
-                align-self: start;
-            }
-            #page-records > div.records-wrapper > #records-cards-grid .card-item > span:last-child {
-                grid-column: 2;
-                grid-row: 4;
-                margin-top: 0 !important;
-                height: 40px;
-            }
-            #page-records > div.records-wrapper > #records-cards-grid .card-item .scaled-text-xs,
-            #page-records > div.records-wrapper > #records-cards-grid .card-item .scaled-text-sm {
-                font-size: calc(0.9rem * var(--font-scale));
             }
             /* 상세 패널이 열리면 카테고리 목록 숨김, 상세는 전체 폭 */
             body.subpage-mode #page-records > div.records-wrapper:has(> #quiz-panel:not(.hidden)) > #records-cards-grid {
