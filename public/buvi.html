@@ -2757,6 +2757,175 @@
                 background-color: var(--canvas-gray) !important;
             }
         }
+
+        /* ── Senior survey UX foundation ───────────────────────────
+           한 화면 한 질문, 56px 고정 이동 버튼, 큰 원터치 선택 영역 */
+        #page-survey > div.bg-white {
+            display: flex;
+            flex-direction: column;
+            min-height: min(760px, calc(100dvh - 148px));
+        }
+        #survey-options-container {
+            width: 100%;
+            flex: 1 1 auto !important;
+            min-height: 0 !important;
+            margin: 0 auto !important;
+            overflow-y: auto !important;
+            overscroll-behavior: contain;
+            padding: 4px 3px 12px;
+            scrollbar-gutter: stable;
+        }
+        #survey-nav-bottom {
+            position: sticky !important;
+            bottom: 0 !important;
+            z-index: 45;
+            width: 100%;
+            flex: 0 0 auto;
+            margin: 12px auto 0 !important;
+            padding: 12px 0 0 !important;
+            background: #FFFFFF !important;
+        }
+        #survey-nav-bottom > button {
+            height: 56px;
+            min-height: 56px !important;
+            border-radius: 14px !important;
+        }
+        .survey-choice-card {
+            border: 3px solid #D1D5DB !important;
+            background: #F7F7F8 !important;
+            box-shadow: none !important;
+        }
+        .survey-choice-card:hover { border-color: #7BA7E8 !important; }
+        .survey-choice-card.is-selected {
+            border-color: #1D4ED8 !important;
+            background: #EFF6FF !important;
+            box-shadow: 0 0 0 3px rgba(29, 78, 216, .14) !important;
+        }
+        .survey-input-card {
+            border: 2px solid #D1D5DB;
+            border-radius: 16px;
+            background: #F7F7F8;
+            padding: 16px;
+        }
+        .survey-mode-tabs {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px;
+            padding: 4px;
+            border-radius: 14px;
+            background: #E5E7EB;
+        }
+        .survey-mode-tab {
+            min-height: 48px;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            color: #4B5563;
+            font-weight: 900;
+            background: transparent;
+        }
+        .survey-mode-tab.is-active {
+            color: #111827;
+            border-color: #111827;
+            background: #FFFFFF;
+        }
+        .survey-keypad {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px;
+        }
+        .survey-keypad button {
+            min-height: 54px;
+            border: 2px solid #D1D5DB;
+            border-radius: 14px;
+            background: #FFFFFF;
+            color: #111827;
+            font-size: 22px;
+            font-weight: 900;
+        }
+        .survey-keypad button:active { background: #DBEAFE; border-color: #2563EB; }
+        .survey-chip-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 8px;
+        }
+        .survey-chip {
+            min-height: 54px;
+            padding: 8px 6px;
+            border: 2px solid #D1D5DB;
+            border-radius: 14px;
+            background: #FFFFFF;
+            color: #374151;
+            font-weight: 900;
+        }
+        .survey-chip.is-selected {
+            color: #FFFFFF;
+            border-color: #1D4ED8;
+            background: #1D4ED8;
+            box-shadow: 0 0 0 3px rgba(29, 78, 216, .14);
+        }
+        .survey-slide-panel {
+            animation: surveySlideDown .22s ease-out both;
+            transform-origin: top;
+        }
+        @keyframes surveySlideDown {
+            from { opacity: 0; transform: translateY(-8px) scaleY(.96); }
+            to { opacity: 1; transform: translateY(0) scaleY(1); }
+        }
+        .ipaq-fixed-guide {
+            position: sticky;
+            top: 0;
+            z-index: 12;
+            border: 1px solid #D1D5DB;
+            border-radius: 16px;
+            background: rgba(255,255,255,.97);
+            padding: 12px 14px;
+            box-shadow: 0 6px 18px rgba(17,24,39,.08);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .visual-tag {
+            display: inline-flex;
+            align-items: center;
+            min-height: 36px;
+            padding: 7px 10px;
+            border-radius: 999px !important;
+            background: #F1F5F9;
+            color: #334155;
+            font-size: 14px;
+            font-weight: 800;
+        }
+        .survey-validation {
+            min-height: 26px;
+            padding: 6px 10px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 800;
+            text-align: center;
+        }
+        .survey-validation.is-error { color: #B91C1C; background: #FEF2F2; }
+        .survey-validation.is-valid { color: #047857; background: #ECFDF5; }
+        @media (max-width: 639px) {
+            body:has(#page-survey:not(.hidden)) main {
+                height: calc(100dvh - 104px) !important;
+                max-height: calc(100dvh - 104px) !important;
+                min-height: 0 !important;
+                box-sizing: border-box;
+                overflow: hidden;
+            }
+            #page-survey:not(.hidden),
+            #page-survey > div.bg-white {
+                height: 100% !important;
+                min-height: 0 !important;
+                max-height: 100% !important;
+                overflow: hidden;
+            }
+            #survey-options-container {
+                padding-bottom: 76px !important;
+            }
+            .survey-chip-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+            .survey-input-card { padding: 12px; }
+            .survey-keypad button { min-height: 50px; }
+        }
         body.high-contrast nav.bottom-nav {
             background: #1A1A1A !important;
             border-color: #FEE500 !important;
@@ -4790,7 +4959,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
         // ── 공통: 증감 조작계(스테퍼) — 전 뷰포트 공통 ──────────────
         // 직접 입력 가능한 큼직한 화이트 입력 필드 양옆에 56px 원형 −/+ 버튼
-        function makeStepper(id, unit, min, max, step, savedVal, onChangeFn, placeholder) {
+        function makeStepper(id, unit, min, max, step, savedVal, onChangeFn, placeholder, nextFocusId = '') {
             const v = (savedVal !== null && savedVal !== undefined && savedVal !== '') ? String(savedVal) : '';
             const ph = (placeholder !== undefined && placeholder !== null) ? String(placeholder) : '';
             const unitHtml = unit ? `<span class="stepper-unit">${unit}</span>` : '';
@@ -4806,6 +4975,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                         data-min="${min}" data-max="${max}" data-fn="${onChangeFn}"
                         oninput="stepperOnInput('${id}',${min},${max},'${onChangeFn}')"
                         onblur="stepperOnBlur('${id}',${min},${max},'${onChangeFn}')"
+                        onkeydown="if(event.key==='Enter'){event.preventDefault();stepperFocusNext('${nextFocusId}')}"
                         class="stepper-input"/>
                     ${unitHtml}
                 </div>
@@ -4867,6 +5037,10 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             else if (n > max) inp.value = String(max);
             if (typeof window[fn] === 'function') window[fn]();
         }
+        function stepperFocusNext(nextFocusId) {
+            if (!nextFocusId) return;
+            document.getElementById(nextFocusId)?.focus({ preventScroll: true });
+        }
 
 
         // ── 1) 생년월일 — 연/월/일 3단계 분리 키패드 ──────────────
@@ -4878,16 +5052,16 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
         function renderGenderInput(container) {
             const saved = state.answers.gender;
-            const baseCard = "gender-card group relative aspect-[4/5] w-full rounded-2xl bg-gray-100 shadow-md flex flex-col items-center justify-between p-4 lg:p-6 transition-all";
-            const mSel = saved === 'male'   ? "ring-4 ring-blue-200" : "";
-            const fSel = saved === 'female' ? "ring-4 ring-pink-200" : "";
+            const baseCard = "gender-card survey-choice-card group relative aspect-[4/5] w-full rounded-2xl flex flex-col items-center justify-between p-4 lg:p-6 transition-all";
+            const mSel = saved === 'male'   ? "is-selected" : "";
+            const fSel = saved === 'female' ? "is-selected" : "";
             const mSelText = saved === 'male' ? "text-blue-500" : "text-charcoal";
             const fSelText = saved === 'female' ? "text-pink-500" : "text-charcoal";
             container.innerHTML = `
                 <div class="grid grid-cols-2 gap-4 lg:gap-6 w-full max-w-md lg:max-w-lg mx-auto mt-2">
                     <button id="gender-btn-male"
                         onclick="state.answers.gender='male'; renderGenderInput(document.getElementById('survey-options-container')); updateNextButtonState();"
-                        class="${baseCard} ${mSel}">
+                        aria-pressed="${saved === 'male'}" class="${baseCard} ${mSel}">
                         <div class="flex-1 min-h-0 w-full flex items-center justify-center">
                             <img src="./buvi-gender-male.png?v=active-senior-shadow-20260805-v3" alt="스마트폰을 보며 걷는 남성 어르신" loading="lazy" width="200" height="200" class="w-full h-full max-w-full max-h-full object-contain" />
                         </div>
@@ -4895,7 +5069,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     </button>
                     <button id="gender-btn-female"
                         onclick="state.answers.gender='female'; renderGenderInput(document.getElementById('survey-options-container')); updateNextButtonState();"
-                        class="${baseCard} ${fSel}">
+                        aria-pressed="${saved === 'female'}" class="${baseCard} ${fSel}">
                         <div class="flex-1 min-h-0 w-full flex items-center justify-center">
                             <img src="./buvi-gender-female.png?v=active-senior-shadow-20260805-v3" alt="태블릿을 들고 인사하는 여성 어르신" loading="lazy" width="200" height="200" class="w-full h-full max-w-full max-h-full object-contain" />
                         </div>
@@ -4909,13 +5083,14 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const saved = state.answers.birth_date || '';
             // 항상 초기화 후 저장값 복원
             window._bdY = ''; window._bdM = 0; window._bdD = 0; window._ageStep = 'year';
+            window._ageInputMode = window._ageInputMode || 'keypad';
             if (saved.length === 8) {
                 window._bdY = saved.slice(0,4);
                 window._bdM = parseInt(saved.slice(4,6));
                 window._bdD = parseInt(saved.slice(6,8));
                 window._ageStep = 'day';
             }
-            container.innerHTML = `<div id="age-root" class="flex flex-col gap-4 max-w-sm mx-auto w-full"></div>`;
+            container.innerHTML = `<div id="age-root" class="flex flex-col gap-4 max-w-lg mx-auto w-full"></div>`;
             renderAgeSteps();
 
         }
@@ -5035,124 +5210,159 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         }
 
         function renderAgeSteps() {
-
             const root = document.getElementById('age-root');
             if (!root) return;
             const Y = window._bdY, M = window._bdM, D = window._bdD;
             const step = window._ageStep;
+            const mode = window._ageInputMode || 'keypad';
+            const summaryY = Y ? `${Y}년` : '____년';
+            const summaryM = M ? `${M}월` : '__월';
+            const summaryD = D ? `${D}일` : '__일';
+            const keypadButtons = [1,2,3,4,5,6,7,8,9].map(n =>
+                `<button type="button" onclick="ageYearPress(${n})" aria-label="${n} 입력">${n}</button>`
+            ).join('');
 
-            // ① 상단 진행 표시 + 입력된 값 요약
-            const summaryY = Y ? `<span class="font-black text-charcoal">${Y}년</span>` : `<span class="text-blue-600 font-black blink-fast">____년</span>`;
-            const summaryM = M ? `<span class="font-black text-charcoal">${M}월</span>` : `<span class="text-gray-400 font-black">__월</span>`;
-            const summaryD = D ? `<span class="font-black text-charcoal">${D}일</span>` : `<span class="text-gray-400 font-black">__일</span>`;
-
-            let html = `
-            <!-- 진행 요약 바 -->
-            <div class="flex items-center justify-center gap-2 text-2xl py-2 bg-gray-50 rounded-2xl border-2 border-gray-100">
-                ${summaryY} <span class="text-gray-300">·</span> ${summaryM} <span class="text-gray-300">·</span> ${summaryD}
-            </div>`;
-
-            if (step === 'year') {
-                // 연도: 증감 조작계(스테퍼)로 직접 조절 또는 타이핑
-                const curY = new Date().getFullYear();
-                const initY = (Y && Y.length === 4) ? Y : '';
-                html += `
-                
-                ${makeStepper('age-year-inp','년',1900,curY,1,initY,'onAgeYearInput','____')}
-                <button type="button" onclick="ageYearConfirm()"
-                    class="mt-1 h-14 rounded-2xl bg-black text-white text-lg font-black hover:bg-gray-800 transition-all shadow-md">
-                    다음
-                </button>`;
-
-
+            let content = '';
+            if (mode === 'direct') {
+                content = `
+                <div class="survey-input-card space-y-3">
+                    <p class="font-black text-gray-800">생년월일을 직접 입력해 주세요.</p>
+                    <div class="grid grid-cols-[1.4fr_1fr_1fr] gap-2">
+                        <label class="font-bold text-gray-600 text-sm">연도
+                            <input id="age-direct-year" type="text" inputmode="numeric" maxlength="4" value="${Y}" placeholder="1960"
+                                oninput="onAgeDirectInput('year')" onkeydown="onAgeDirectKeydown(event,'year')" class="mt-1 w-full h-14 rounded-xl border-2 border-gray-300 bg-white px-3 text-center text-xl font-black focus:border-blue-600 outline-none">
+                        </label>
+                        <label class="font-bold text-gray-600 text-sm">월
+                            <input id="age-direct-month" type="text" inputmode="numeric" maxlength="2" value="${M || ''}" placeholder="01"
+                                oninput="onAgeDirectInput('month')" onkeydown="onAgeDirectKeydown(event,'month')" class="mt-1 w-full h-14 rounded-xl border-2 border-gray-300 bg-white px-2 text-center text-xl font-black focus:border-blue-600 outline-none">
+                        </label>
+                        <label class="font-bold text-gray-600 text-sm">일
+                            <input id="age-direct-day" type="text" inputmode="numeric" maxlength="2" value="${D || ''}" placeholder="01"
+                                oninput="onAgeDirectInput('day')" onkeydown="onAgeDirectKeydown(event,'day')" class="mt-1 w-full h-14 rounded-xl border-2 border-gray-300 bg-white px-2 text-center text-xl font-black focus:border-blue-600 outline-none">
+                        </label>
+                    </div>
+                    <p class="text-sm font-bold text-gray-500">입력 예: 1960년 5월 12일</p>
+                </div>`;
+            } else if (step === 'year') {
+                content = `
+                <div class="survey-input-card space-y-3">
+                    <label for="age-year-inp" class="block font-black text-gray-800">태어난 연도를 입력해 주세요.</label>
+                    <div class="flex items-center rounded-xl border-2 border-blue-500 bg-white px-4">
+                        <input id="age-year-inp" type="text" inputmode="numeric" maxlength="4" value="${Y}" placeholder="____"
+                            oninput="onAgeYearInput()" class="h-14 min-w-0 flex-1 bg-transparent text-center text-2xl font-black outline-none" aria-label="태어난 연도 직접 입력">
+                        <span class="font-black text-gray-600">년</span>
+                    </div>
+                    <div class="survey-keypad" aria-label="연도 화면 숫자 키패드">
+                        ${keypadButtons}
+                        <button type="button" onclick="ageYearClear()" class="!text-sm !text-red-600 !bg-red-50">전체삭제</button>
+                        <button type="button" onclick="ageYearPress(0)">0</button>
+                        <button type="button" onclick="ageYearBack()" aria-label="한 자리 지우기">⌫</button>
+                    </div>
+                    <button type="button" onclick="ageYearConfirm()" class="w-full h-14 rounded-xl bg-black text-white text-lg font-black">월 선택으로</button>
+                </div>`;
             } else if (step === 'month') {
-                // 월: 1~12 큰 선택 버튼 (스크롤 없음)
-                html += `
-                
-                <div class="flex flex-wrap justify-center gap-2 lg:grid lg:grid-cols-4">
-                    ${Array.from({length:12},(_,i)=>i+1).map(m => {
-                        const active = M === m;
-                        return `<button type="button" onclick="ageSelectMonth(${m})"
-                            style="width:56px;height:56px" class="text-xl font-bold rounded-2xl border-2 transition-all select-none flex items-center justify-center ${active ? 'bg-blue-600 text-white border-blue-600' : 'bg-gray-100 text-gray-700 border-transparent hover:bg-blue-50 hover:border-blue-400 active:bg-blue-100'}">
-                            ${m}</button>`;
-                    }).join('')}
-                </div>
-                <button type="button" onclick="ageGoStep('year')"
-                    class="text-sm font-bold text-gray-400 underline text-center">← 연도 다시 입력</button>`;
-
+                content = `
+                <div class="survey-input-card space-y-3">
+                    <p class="font-black text-gray-800">태어난 달을 선택해 주세요.</p>
+                    <div class="survey-chip-grid">
+                        ${Array.from({length:12},(_,i)=>i+1).map(m => `<button type="button" onclick="ageSelectMonth(${m})" class="survey-chip ${M === m ? 'is-selected' : ''}" aria-pressed="${M === m}">${m}월</button>`).join('')}
+                    </div>
+                    <button type="button" onclick="ageGoStep('year')" class="w-full min-h-[48px] font-black text-blue-700 underline">← 연도 입력으로</button>
+                </div>`;
             } else {
-                // 일: 해당 월 일수만큼 큰 선택 버튼
                 const daysInMonth = new Date(parseInt(Y), M, 0).getDate();
-                html += `
-                
-                <div class="flex flex-wrap justify-center gap-1.5 lg:grid lg:grid-cols-5">
-                    ${Array.from({length:daysInMonth},(_,i)=>i+1).map(d => {
-                        const active = D === d;
-                        return `<button type="button" onclick="ageSelectDay(${d})"
-                            style="width:56px;height:56px" class="text-lg font-bold rounded-2xl border-2 transition-all select-none flex items-center justify-center ${active ? 'bg-blue-600 text-white border-blue-600' : 'bg-gray-100 text-gray-700 border-transparent hover:bg-blue-50 hover:border-blue-400 active:bg-blue-100'}">${d}</button>`;
-                    }).join('')}
-                </div>
-`;
+                content = `
+                <div class="survey-input-card space-y-3">
+                    <p class="font-black text-gray-800">태어난 날짜를 선택해 주세요.</p>
+                    <div class="survey-chip-grid">
+                        ${Array.from({length:daysInMonth},(_,i)=>i+1).map(d => `<button type="button" onclick="ageSelectDay(${d})" class="survey-chip ${D === d ? 'is-selected' : ''}" aria-pressed="${D === d}">${d}일</button>`).join('')}
+                    </div>
+                    <button type="button" onclick="ageGoStep('month')" class="w-full min-h-[48px] font-black text-blue-700 underline">← 월 선택으로</button>
+                </div>`;
             }
 
-            root.innerHTML = html;
+            root.innerHTML = `
+                <div class="survey-mode-tabs" aria-label="생년월일 입력 방식">
+                    <button type="button" onclick="setAgeInputMode('keypad')" class="survey-mode-tab ${mode === 'keypad' ? 'is-active' : ''}" aria-pressed="${mode === 'keypad'}">화면 키패드</button>
+                    <button type="button" onclick="setAgeInputMode('direct')" class="survey-mode-tab ${mode === 'direct' ? 'is-active' : ''}" aria-pressed="${mode === 'direct'}">직접 타이핑</button>
+                </div>
+                <div class="flex items-center justify-center gap-2 rounded-2xl border-2 border-gray-200 bg-gray-50 py-3 text-lg font-black">
+                    <button type="button" onclick="ageGoStep('year')" class="${step === 'year' ? 'text-blue-700 underline' : ''}">${summaryY}</button><span class="text-gray-300">·</span>
+                    <button type="button" onclick="${Y ? "ageGoStep('month')" : ''}" class="${step === 'month' ? 'text-blue-700 underline' : ''}">${summaryM}</button><span class="text-gray-300">·</span>
+                    <button type="button" onclick="${Y && M ? "ageGoStep('day')" : ''}" class="${step === 'day' ? 'text-blue-700 underline' : ''}">${summaryD}</button>
+                </div>
+                ${content}
+                <div id="age-validation-message" class="survey-validation" role="status" aria-live="polite"></div>`;
             validateBirthDate();
-            const _navB = document.getElementById('survey-nav-bottom');
-            if (_navB) _navB.classList.remove('hidden');
+        }
+
+        function setAgeInputMode(mode) {
+            window._ageInputMode = mode === 'direct' ? 'direct' : 'keypad';
+            renderAgeSteps();
+        }
+
+        function onAgeDirectInput(part = '') {
+            const clean = (id, maxLength) => {
+                const input = document.getElementById(id);
+                if (!input) return '';
+                input.value = input.value.replace(/\D/g, '').slice(0, maxLength);
+                return input.value;
+            };
+            window._bdY = clean('age-direct-year', 4);
+            window._bdM = parseInt(clean('age-direct-month', 2)) || 0;
+            window._bdD = parseInt(clean('age-direct-day', 2)) || 0;
+            validateBirthDate();
+            const yearInput = document.getElementById('age-direct-year');
+            const monthInput = document.getElementById('age-direct-month');
+            const dayInput = document.getElementById('age-direct-day');
+            if (part === 'year' && yearInput?.value.length === 4) monthInput?.focus();
+            if (part === 'month' && (monthInput?.value.length === 2 || parseInt(monthInput?.value) > 1)) dayInput?.focus();
+        }
+
+        function onAgeDirectKeydown(event, part) {
+            if (event.key !== 'Backspace' || event.currentTarget.value !== '') return;
+            const previousId = part === 'day' ? 'age-direct-month' : part === 'month' ? 'age-direct-year' : '';
+            if (!previousId) return;
+            event.preventDefault();
+            const previous = document.getElementById(previousId);
+            previous?.focus();
+            if (previous) previous.setSelectionRange(previous.value.length, previous.value.length);
         }
 
         function ageYearPress(digit) {
-            // 4자리 이상이면 무시
             if (window._bdY.length >= 4) return;
             const newY = window._bdY + String(digit);
-            // 첫 자리: 1 또는 2만 허용 (1900~2xxx)
             if (newY.length === 1 && digit !== 1 && digit !== 2) return;
-            // 두 번째 자리: '19' 또는 '20'만 허용
             if (newY.length === 2) {
                 const prefix = parseInt(newY);
                 if (prefix !== 19 && prefix !== 20) return;
             }
             window._bdY = newY;
-            const disp = document.getElementById('age-year-disp');
-            if (disp) disp.textContent = window._bdY;
-            // 정확히 4자리 완성됐을 때만 유효성 확인 후 월 단계로 이동
-            if (window._bdY.length === 4) {
-                const y = parseInt(window._bdY);
-                const now = new Date();
-                if (y >= 1900 && y <= now.getFullYear()) {
-                    window._bdM = 0; window._bdD = 0;
-                    window._ageStep = 'month';
-                    renderAgeSteps();
-                } else {
-                    if (disp) disp.textContent = window._bdY + ' ✗';
-                    window._bdY = '';
-                    setTimeout(() => {
-                        const d2 = document.getElementById('age-year-disp');
-                        if (d2) d2.textContent = '——';
-                    }, 700);
-                }
-            }
+            const input = document.getElementById('age-year-inp');
+            if (input) input.value = window._bdY;
             validateBirthDate();
         }
 
         function ageYearBack() {
             window._bdY = window._bdY.slice(0, -1);
-            const disp = document.getElementById('age-year-disp');
-            if (disp) disp.textContent = window._bdY || '——';
+            const input = document.getElementById('age-year-inp');
+            if (input) input.value = window._bdY;
             validateBirthDate();
         }
 
         function ageYearClear() {
             window._bdY = '';
-            const disp = document.getElementById('age-year-disp');
-            if (disp) disp.textContent = '——';
+            window._bdM = 0; window._bdD = 0;
+            const input = document.getElementById('age-year-inp');
+            if (input) input.value = '';
             validateBirthDate();
         }
 
         function onAgeYearInput() {
             const inp = document.getElementById('age-year-inp');
             if (!inp) return;
-            window._bdY = inp.value || '';
+            inp.value = inp.value.replace(/\D/g, '').slice(0, 4);
+            window._bdY = inp.value;
             validateBirthDate();
         }
 
@@ -5165,8 +5375,10 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 showAppModal('📅', '생년을 입력해 주세요', '네 자리 생년을 직접 입력한 뒤 다음 버튼을 눌러 주세요. 예: 1961');
                 return;
             }
-            if (y < 1900) y = 1900;
-            if (y > now.getFullYear()) y = now.getFullYear();
+            if (y < 1900 || y > now.getFullYear()) {
+                showAppModal('📅', '생년을 확인해 주세요', `1900년부터 ${now.getFullYear()}년 사이의 네 자리 연도를 입력해 주세요.`);
+                return;
+            }
             window._bdY = String(y);
             window._bdM = 0; window._bdD = 0;
             window._ageStep = 'month';
@@ -5195,10 +5407,23 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         }
 
         function validateBirthDate() {
-            const ok = document.getElementById('age-ok');
+            const ok = document.getElementById('age-validation-message');
             const Y = parseInt(window._bdY), M = window._bdM, D = window._bdD;
             if (!Y || !M || !D) {
-                if (ok) ok.textContent = '';
+                if (ok) {
+                    ok.textContent = '연 → 월 → 일 순서로 입력해 주세요. 설문 참여 기준은 만 65세 이상입니다.';
+                    ok.className = 'survey-validation text-gray-600 bg-gray-100';
+                }
+                state.answers.birth_date = null; state.answers.age = null;
+                updateNextButtonState(); return;
+            }
+            const entered = new Date(Y, M - 1, D);
+            const isRealDate = entered.getFullYear() === Y && entered.getMonth() === M - 1 && entered.getDate() === D;
+            if (!isRealDate || Y < 1900) {
+                if (ok) {
+                    ok.textContent = '달력에 있는 올바른 날짜를 입력해 주세요.';
+                    ok.className = 'survey-validation is-error';
+                }
                 state.answers.birth_date = null; state.answers.age = null;
                 updateNextButtonState(); return;
             }
@@ -5210,14 +5435,29 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             let age = now.getFullYear() - Y;
             if (now.getMonth()+1 < M || (now.getMonth()+1 === M && now.getDate() < D)) age--;
             if (age < 0 || age > 130) {
-                if (ok) ok.textContent = '날짜가 올바르지 않습니다.';
+                if (ok) {
+                    ok.textContent = '생년월일을 다시 확인해 주세요.';
+                    ok.className = 'survey-validation is-error';
+                }
                 state.answers.birth_date = null; state.answers.age = null;
+                updateNextButtonState(); return;
+            }
+            if (age < 65) {
+                if (ok) {
+                    ok.textContent = `현재 만 ${age}세입니다. 이 설문은 만 65세 이상만 참여할 수 있습니다.`;
+                    ok.className = 'survey-validation is-error';
+                }
+                state.answers.birth_date = null; state.answers.age = null;
+                delete state.answers_metadata['age'];
                 updateNextButtonState(); return;
             }
             state.answers.birth_date = v;
             state.answers.age = age;
             state.answers_metadata['age'] = { raw_val: age, missing: false, timestamp: Date.now() };
-            if (ok) ok.textContent = `✓ ${Y}년 ${M}월 ${D}일 입력 완료`;
+            if (ok) {
+                ok.textContent = `✓ ${Y}년 ${M}월 ${D}일 · 만 ${age}세 확인 완료`;
+                ok.className = 'survey-validation is-valid';
+            }
             updateNextButtonState();
         }
 
@@ -5225,19 +5465,36 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         function renderBmiInput(container) {
             const sh = state.answers.height_cm || '';
             const sw = state.answers.weight_kg || '';
+            window._bmiTab = window._bmiTab || (sh ? 'w' : 'h');
+            const activeLabel = window._bmiTab === 'h' ? '키(cm)' : '체중(kg)';
+            const keypad = [1,2,3,4,5,6,7,8,9].map(n => `<button type="button" onclick="bmiKpPress(${n})">${n}</button>`).join('');
             container.innerHTML = `
-            <div class="flex flex-col gap-5 max-w-sm mx-auto w-full">
-                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-[30px] text-gray-700 leading-relaxed">
-                    <p class="scaled-text-lg font-black text-gray-900 leading-snug">어르신의 현재 키(cm)와 체중(kg)을 아래에서 조절해 주세요.</p>
-                    <p class="font-normal text-gray-500 mt-3" style="font-size:16px">− / + 버튼으로 조절하거나, 숫자 칸을 눌러 직접 입력할 수 있습니다.</p>
+            <div class="flex flex-col gap-4 max-w-lg mx-auto w-full">
+                <div class="survey-input-card">
+                    <p class="font-black text-gray-900">숫자 칸에 직접 입력하거나, − / + 버튼을 길게 눌러 빠르게 조절할 수 있습니다.</p>
                 </div>
-                <div class="flex flex-col gap-4">
-                    ${makeStepper('inp-height','cm',100,220,1,sh,'onBmiInput','_')}
+                <div class="flex flex-col gap-3">
+                    <label class="font-black text-gray-700">키</label>
+                    ${makeStepper('inp-height','cm',100,220,1,sh,'onBmiInput','_','inp-weight')}
+                    <label class="font-black text-gray-700">체중</label>
                     ${makeStepper('inp-weight','kg',20,200,1,sw,'onBmiInput','_')}
                 </div>
-                <p id="bmi-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]">${(sh&&sw)?'✓ 입력 완료':''}</p>
+                <div class="survey-input-card space-y-3">
+                    <div class="survey-mode-tabs" aria-label="숫자 키패드 입력 대상">
+                        <button id="bmi-tab-h" type="button" onclick="setBmiTab('h')" class="survey-mode-tab ${window._bmiTab === 'h' ? 'is-active' : ''}">키 cm</button>
+                        <button id="bmi-tab-w" type="button" onclick="setBmiTab('w')" class="survey-mode-tab ${window._bmiTab === 'w' ? 'is-active' : ''}">체중 kg</button>
+                    </div>
+                    <p class="text-center font-black text-gray-700">화면 키패드 입력: <span id="bmi-keypad-label" class="text-blue-700">${activeLabel}</span></p>
+                    <div class="survey-keypad">
+                        ${keypad}
+                        <button type="button" onclick="bmiKpClear()" class="!text-sm !text-red-600 !bg-red-50">전체삭제</button>
+                        <button type="button" onclick="bmiKpPress(0)">0</button>
+                        <button type="button" onclick="bmiKpBack()" aria-label="한 자리 지우기">⌫</button>
+                    </div>
+                </div>
+                <p id="bmi-live-result" class="survey-validation ${sh && sw ? 'is-valid' : ''}" role="status" aria-live="polite">${sh && sw ? 'BMI를 계산하고 있습니다.' : '키와 체중을 모두 입력하면 BMI가 자동 계산됩니다.'}</p>
             </div>`;
-            if (sh && sw) onBmiInput();
+            onBmiInput();
         }
 
 
@@ -5248,80 +5505,72 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             window._bmiTab = tab;
             const tabH = document.getElementById('bmi-tab-h');
             const tabW = document.getElementById('bmi-tab-w');
-            const cardH = document.getElementById('bmi-card-h');
-            const cardW = document.getElementById('bmi-card-w');
             if (!tabH) return;
-            if (tab === 'h') {
-                tabH.className = 'flex-1 py-3 rounded-2xl font-black text-base border-2 transition-all bg-blue-600 text-white border-blue-600';
-                tabW.className = 'flex-1 py-3 rounded-2xl font-black text-base border-2 transition-all bg-gray-100 text-gray-600 border-gray-300';
-                cardH.className = 'flex-1 flex flex-col items-center gap-1 p-3 rounded-2xl border-2 border-blue-400 bg-blue-50';
-                cardW.className = 'flex-1 flex flex-col items-center gap-1 p-3 rounded-2xl border-2 border-transparent';
-            } else {
-                tabW.className = 'flex-1 py-3 rounded-2xl font-black text-base border-2 transition-all bg-blue-600 text-white border-blue-600';
-                tabH.className = 'flex-1 py-3 rounded-2xl font-black text-base border-2 transition-all bg-gray-100 text-gray-600 border-gray-300';
-                cardW.className = 'flex-1 flex flex-col items-center gap-1 p-3 rounded-2xl border-2 border-blue-400 bg-blue-50';
-                cardH.className = 'flex-1 flex flex-col items-center gap-1 p-3 rounded-2xl border-2 border-transparent';
-            }
+            tabH.className = `survey-mode-tab ${tab === 'h' ? 'is-active' : ''}`;
+            tabW.className = `survey-mode-tab ${tab === 'w' ? 'is-active' : ''}`;
+            tabH.setAttribute('aria-pressed', tab === 'h' ? 'true' : 'false');
+            tabW.setAttribute('aria-pressed', tab === 'w' ? 'true' : 'false');
+            const label = document.getElementById('bmi-keypad-label');
+            if (label) label.textContent = tab === 'h' ? '키(cm)' : '체중(kg)';
+            document.getElementById(tab === 'h' ? 'inp-height' : 'inp-weight')?.focus({ preventScroll: true });
         }
 
         function bmiKpPress(digit) {
             const tab = window._bmiTab;
             const id = tab === 'h' ? 'inp-height' : 'inp-weight';
-            const dispId = tab === 'h' ? 'disp-height' : 'disp-weight';
             const max = tab === 'h' ? 220 : 200;
             const inp = document.getElementById(id);
-            const disp = document.getElementById(dispId);
-            if (!inp || !disp) return;
+            if (!inp) return;
             const newStr = inp.value + String(digit);
             if (parseInt(newStr) > max) return;
             inp.value = newStr;
-            disp.textContent = newStr || '—';
             onBmiInput();
         }
 
         function bmiKpBack() {
             const tab = window._bmiTab;
             const id = tab === 'h' ? 'inp-height' : 'inp-weight';
-            const dispId = tab === 'h' ? 'disp-height' : 'disp-weight';
             const inp = document.getElementById(id);
-            const disp = document.getElementById(dispId);
-            if (!inp || !disp) return;
+            if (!inp) return;
             inp.value = inp.value.slice(0, -1);
-            disp.textContent = inp.value || '—';
             onBmiInput();
         }
 
         function bmiKpClear() {
             const tab = window._bmiTab;
             const id = tab === 'h' ? 'inp-height' : 'inp-weight';
-            const dispId = tab === 'h' ? 'disp-height' : 'disp-weight';
             const inp = document.getElementById(id);
-            const disp = document.getElementById(dispId);
-            if (!inp || !disp) return;
+            if (!inp) return;
             inp.value = '';
-            disp.textContent = '—';
             onBmiInput();
         }
 
         function onBmiInput() {
             const h = parseFloat(document.getElementById('inp-height')?.value);
             const w = parseFloat(document.getElementById('inp-weight')?.value);
-            const ok = document.getElementById('bmi-ok');
+            const ok = document.getElementById('bmi-live-result');
+            state.answers.height_cm = Number.isFinite(h) && h >= 100 && h <= 220 ? h : null;
+            state.answers.weight_kg = Number.isFinite(w) && w >= 20 && w <= 200 ? w : null;
             // 키 입력 완료(100~220) 시 자동으로 체중 탭으로 전환
             if (h >= 100 && h <= 220 && window._bmiTab === 'h') {
                 const wInp = document.getElementById('inp-weight');
                 if (!wInp || !wInp.value) setBmiTab('w');
             }
             if (!h || !w || h < 100 || h > 220 || w < 20 || w > 200) {
-                if (ok) ok.textContent = '';
+                if (ok) {
+                    ok.textContent = '키(100~220cm)와 체중(20~200kg)을 모두 입력해 주세요.';
+                    ok.className = 'survey-validation text-gray-600 bg-gray-100';
+                }
                 state.answers.bmi = null; delete state.answers_metadata['bmi'];
                 updateNextButtonState(); return;
             }
             const bmi = w / ((h/100)**2);
-            state.answers.height_cm = h; state.answers.weight_kg = w;
             state.answers.bmi = parseFloat(bmi.toFixed(2));
             state.answers_metadata['bmi'] = { raw_val: state.answers.bmi, missing: false, timestamp: Date.now() };
-            if (ok) ok.textContent = '✓ 키 ' + h + 'cm · 체중 ' + w + 'kg → BMI ' + bmi.toFixed(1);
+            if (ok) {
+                ok.textContent = '✓ 키 ' + h + 'cm · 체중 ' + w + 'kg · BMI ' + bmi.toFixed(1) + ' 자동 계산 완료';
+                ok.className = 'survey-validation is-valid';
+            }
             updateNextButtonState();
         }
 
@@ -5365,15 +5614,19 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         }
 
         // ── IPAQ 공통 안내문 + 팝업 버튼 ───────────────────────────
-        function ipaqHeader() {
+        function ipaqHeader(progress) {
             return `
-            <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-[30px] text-gray-700 leading-relaxed mb-2">
-                <p class="scaled-text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">🦉 지난 <strong>7일간</strong>의 신체활동 조사</p>
-                <p class="scaled-text-lg font-black text-gray-900 leading-snug">"평소에 운동을 안 하신다고 생각되시더라도, 일상생활에서 움직이신 모든 시간을 편하게 기억해 주세요."</p>
-                <p class="font-normal text-gray-500 mt-3" style="font-size:16px"><strong>포함되는 활동:</strong> 집안일, 일터에서의 노동, 출퇴근 및 이동, 여가 시간, 스포츠 및 모든 운동</p>
+            <div class="ipaq-fixed-guide">
+                <div class="flex items-center justify-between gap-3">
+                    <p class="font-black text-gray-900">🦉 지난 <strong><u>7일간</u></strong>의 모든 움직임을 떠올려 주세요.</p>
+                    <span class="shrink-0 rounded-full bg-slate-100 px-3 py-1 text-sm font-black text-slate-700">${progress}/4</span>
+                </div>
+                <div class="mt-2 flex flex-wrap gap-2" aria-label="포함되는 신체활동 예시">
+                    <span class="visual-tag">🧹 집안일</span><span class="visual-tag">🧰 일터 노동</span><span class="visual-tag">🚶 이동</span><span class="visual-tag">🏃 운동·스포츠</span>
+                </div>
             </div>
-            <button onclick="showIpaqPopup()" class="w-full mb-3 py-2.5 border-2 border-amber-400 bg-amber-50 text-amber-800 font-black rounded-xl text-sm hover:bg-amber-100 transition-all">
-                📋 신체활동 강도별 운동 종류 참고표 보기
+            <button type="button" onclick="showIpaqPopup()" class="w-full min-h-[46px] border border-slate-300 bg-slate-50 text-slate-700 font-black rounded-xl text-sm hover:bg-slate-100 transition-all">
+                📋 세부 예시 안내 보기 →
             </button>`;
         }
 
@@ -5385,27 +5638,26 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const dVal = a[dKey]; // null or 0-7
             const hVal = a[hKey] !== null ? a[hKey] : '';
             const mVal = a[mKey] !== null ? a[mKey] : '';
-            const isNone = dVal === 0;
             const isHidden = dVal === null || dVal === 0;
-
-            const dInit = (dVal !== null && dVal !== undefined) ? dVal : '';
 
             return `
             <div class="flex flex-col gap-4">
-                <p class="font-black text-gray-700 text-center">일주일에 며칠? <span class="text-gray-400 font-normal text-sm">(− / + 로 조절하거나 직접 입력)</span></p>
-                ${makeStepper(`inp-${dKey}`,'일',0,7,1,dInit,'onIpaqDaysChange',0)}
-                <button id="btn-none-${dKey}" type="button" onclick="setIpaqNone('${dKey}','${hKey}','${mKey}')"
-                    class="w-full min-h-[54px] px-4 rounded-2xl border-2 font-black transition-all ${isNone ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-700 border-gray-300 hover:border-blue-400'}">
-                    해당 ${noneLabel}이 없었음 (0일)
-                </button>
+                <fieldset class="survey-input-card space-y-3">
+                    <legend class="px-2 font-black text-gray-800">일주일에 며칠 하셨습니까?</legend>
+                    <div class="survey-chip-grid">
+                        ${[0,1,2,3,4,5,6,7].map(days => `<button type="button" onclick="setIpaqDays('${dKey}','${hKey}','${mKey}',${days})" class="survey-chip ${dVal === days ? 'is-selected' : ''}" aria-pressed="${dVal === days}">${days === 0 ? '0일<br><span class=\"text-xs\">안 함</span>' : days + '일'}</button>`).join('')}
+                    </div>
+                    <input id="inp-${dKey}" type="hidden" value="${dVal ?? ''}">
+                </fieldset>
 
                 <!-- 시간·분 스테퍼 (일수 선택 후 표시) -->
-                <div id="ipaq-time-row-${dKey}" class="${isHidden ? 'hidden' : 'flex flex-col gap-3'}">
-                    <p class="font-bold text-gray-800">그런 날 하루에 보통 얼마나 하셨습니까?</p>
+                <div id="ipaq-time-row-${dKey}" class="${isHidden ? 'hidden' : 'survey-slide-panel survey-input-card flex flex-col gap-3'}">
+                    <p class="font-black text-gray-800">그런 날 하루에 보통 얼마나 하셨습니까?</p>
                     <div class="flex flex-col gap-3">
-                        ${makeStepper(`inp-${hKey}`,'시간',0,24,1,hVal,'onIpaqChange',0)}
+                        ${makeStepper(`inp-${hKey}`,'시간',0,24,1,hVal,'onIpaqChange',0,`inp-${mKey}`)}
                         ${makeStepper(`inp-${mKey}`,'분',0,59,5,mVal,'onIpaqChange',0)}
                     </div>
+                    <p class="text-sm font-bold text-gray-500">시간 입력 후 분 입력으로 이동해 주세요. 0분도 반드시 입력합니다.</p>
                 </div>
 
             </div>`;
@@ -5546,37 +5798,44 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         }
 
         function setIpaqDays(dKey, hKey, mKey, days) {
-
-            // 일수 버튼 선택 → hidden input 업데이트 → 시간·분 행 표시
-            const inp = document.getElementById(`inp-${dKey}`);
-            if (inp) inp.value = days;
+            const previousDays = state.answers[dKey];
             state.answers[dKey] = days;
-            // 시간 탭 초기화
-            window._ipaqTab[dKey] = 'h';
-            const timeRow = document.getElementById(`ipaq-time-row-${dKey}`);
-            if (timeRow) {
-                timeRow.classList.remove('hidden');
-                timeRow.className = 'flex flex-col gap-3';
+            if (days === 0) {
+                state.answers[hKey] = 0;
+                state.answers[mKey] = 0;
+            } else if (previousDays === 0 || state.answers[hKey] === 0 && state.answers[mKey] === 0) {
+                state.answers[hKey] = null;
+                state.answers[mKey] = null;
             }
-            setIpaqTab(dKey, 'h');
-            // 일수 버튼 UI 갱신 (빠른 방법: 페이지 re-render 없이 클래스만 교체)
-            // 전체 버튼 재색 처리 위해 부모 컨테이너의 버튼들 순회
-            [0,1,2,3,4,5,6,7].forEach(d => {
-                const noneBtn = document.getElementById(`btn-none-${dKey}`);
-                if (d === 0 && noneBtn) {
-                    noneBtn.className = 'h-14 col-span-1 text-base font-black rounded-2xl border-2 transition-all select-none bg-gray-50 text-gray-500 border-gray-300 hover:border-blue-400';
-                }
-            });
-            onIpaqChange();
+            rerenderCurrentIpaq();
+            computeIpaqMet();
+            updateNextButtonState();
+            if (days === 0) {
+                const questionId = state.currentQuestionId;
+                setTimeout(() => {
+                    if (state.currentQuestionId === questionId && state.answers[dKey] === 0) nextSurveyQuestion();
+                }, 320);
+            } else {
+                setTimeout(() => document.getElementById(`inp-${hKey}`)?.focus({ preventScroll: true }), 80);
+            }
+        }
+
+        function rerenderCurrentIpaq() {
+            const container = document.getElementById('survey-options-container');
+            if (!container) return;
+            if (state.currentQuestionId === 'ipaq_vig') renderIpaqVig(container);
+            if (state.currentQuestionId === 'ipaq_mod') renderIpaqMod(container);
+            if (state.currentQuestionId === 'ipaq_walk') renderIpaqWalk(container);
         }
 
         // ── IPAQ ① 격렬한 신체활동 (일수 + 하루 평균 시간) ─────────
         function renderIpaqVig(container) {
             container.innerHTML = `
             <div class="flex flex-col gap-4">
-                ${ipaqHeader()}
-                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-[30px] text-gray-700 leading-relaxed">
-                    <p class="scaled-text-lg font-black text-gray-900 leading-snug"><strong><u>지난 7일간</u></strong>, 무거운 것을 들어 올리거나 나르는 일(약 20kg 이상), 땅파기, 건설 현장에서의 노동, 계단으로 물건 나르기 등과 같은 <strong>격렬한 신체활동</strong>을 며칠간 하셨습니까? (격렬한 운동 또는 스포츠 포함)</p>
+                ${ipaqHeader(1)}
+                <div class="survey-input-card text-gray-700 leading-relaxed">
+                    <p class="text-lg font-bold text-gray-900 leading-snug"><strong><u>지난 7일간</u></strong>, 무거운 것을 들어 올리거나 나르는 일(약 20kg 이상), 땅파기, 건설 현장에서의 노동, 계단으로 물건 나르기 등과 같은 <strong><u>격렬한 신체활동</u></strong>을 며칠간 하셨습니까? (격렬한 운동 또는 스포츠 포함)</p>
+                    <div class="mt-3 flex flex-wrap gap-2"><span class="visual-tag">🏋️ 약 20kg 이상 나르기</span><span class="visual-tag">⛏️ 땅파기</span><span class="visual-tag">🧱 건설 노동</span></div>
                 </div>
                 ${ipaqGroup('ipaq_vig_days','ipaq_vig_hr','ipaq_vig_min','격렬한 신체활동')}
                 <p id="ipaq-vig-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]"></p>
@@ -5588,9 +5847,10 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         function renderIpaqMod(container) {
             container.innerHTML = `
             <div class="flex flex-col gap-4">
-                ${ipaqHeader()}
-                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-[30px] text-gray-700 leading-relaxed">
-                    <p class="scaled-text-lg font-black text-gray-900 leading-snug"><strong><u>지난 7일간</u></strong>, <strong>집 안 또는 야외 활동을 모두 포함하여</strong>, 빠르게 걷기(일하는 중에), 가벼운 물건 나르기, 청소(야외), 유리창을 닦거나 마루를 닦거나 집안을 닦는 것, 쓰는 것, 육아(목욕시키기, 아이 안아주기 등) 등과 같은 <strong>중간정도 신체활동</strong>을 며칠간 하셨습니까? 걷기는 포함시키지 마십시오. (중간정도 운동 또는 스포츠 포함.)</p>
+                ${ipaqHeader(2)}
+                <div class="survey-input-card text-gray-700 leading-relaxed">
+                    <p class="text-lg font-bold text-gray-900 leading-snug"><strong><u>지난 7일간</u></strong>, <strong>집 안 또는 야외 활동을 모두 포함하여</strong>, 빠르게 걷기(일하는 중에), 가벼운 물건 나르기, 청소(야외), 유리창을 닦거나 마루를 닦거나 집안을 닦는 것, 쓰는 것, 육아(목욕시키기, 아이 안아주기 등) 등과 같은 <strong><u>중간정도 신체활동</u></strong>을 며칠간 하셨습니까? <strong><u>걷기는 포함시키지 마십시오.</u></strong> (중간정도 운동 또는 스포츠 포함.)</p>
+                    <div class="mt-3 flex flex-wrap gap-2"><span class="visual-tag">🧹 청소</span><span class="visual-tag">📦 가벼운 물건 나르기</span><span class="visual-tag">🧒 육아</span></div>
                 </div>
                 ${ipaqGroup('ipaq_mod_days','ipaq_mod_hr','ipaq_mod_min','중간정도 신체활동')}
                 <p id="ipaq-mod-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]"></p>
@@ -5602,10 +5862,13 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         function renderIpaqWalk(container) {
             container.innerHTML = `
             <div class="flex flex-col gap-4">
-                ${ipaqHeader()}
-                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-[30px] text-gray-700 leading-relaxed">
-                    <p class="scaled-text-lg font-black text-gray-900 leading-snug"><strong><u>지난 7일간</u></strong>, 한 번에 적어도 10분 이상 걸은 날이 며칠입니까?</p>
-                    <p class="font-bold text-red-600 mt-2" style="font-size:16px">(‘걷기’가 격렬한 신체활동 또는 중간정도 신체활동에 포함된 경우, 제외시키기)</p>
+                ${ipaqHeader(3)}
+                <div class="survey-input-card text-gray-700 leading-relaxed">
+                    <p class="text-lg font-bold text-gray-900 leading-snug"><strong><u>지난 7일간</u></strong>, 한 번에 적어도 <strong><u>10분 이상</u></strong> 걸은 날이 며칠입니까?</p>
+                    <details class="mt-3 rounded-xl bg-slate-100 px-3 py-3 text-sm text-slate-700">
+                        <summary class="cursor-pointer font-black">📋 걷기 중복 제외 안내 보기 →</summary>
+                        <p class="mt-2 font-bold">(‘걷기’가 격렬한 신체활동 또는 중간정도 신체활동에 포함된 경우, 제외시키기)</p>
+                    </details>
                 </div>
                 ${ipaqGroup('ipaq_walk_days','ipaq_walk_hr','ipaq_walk_min','걷기')}
                 <p id="ipaq-walk-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]"></p>
@@ -5620,14 +5883,15 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const sm = a.ipaq_sit_min !== null ? a.ipaq_sit_min : '';
             container.innerHTML = `
             <div class="flex flex-col gap-4">
-                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-[30px] text-gray-700 leading-relaxed">
-                    <p class="scaled-text-lg font-black text-gray-900 leading-snug">주중 하루에 앉아서 보내신 시간은 평균 얼마나 됩니까?</p>
-                    <p class="font-normal text-gray-500 mt-2" style="font-size:16px">집·직장에서 앉아 계신 시간과 TV 시청, 독서, 대화 등 앉거나 누워서 보낸 시간을 모두 포함합니다.</p>
-                    <p class="font-normal text-gray-500 mt-1" style="font-size:16px">※ 이 문항은 참고용으로 수식 계산에는 포함되지 않습니다.</p>
+                ${ipaqHeader(4)}
+                <div class="survey-input-card text-gray-700 leading-relaxed">
+                    <p class="text-lg font-bold text-gray-900 leading-snug"><strong><u>주중 하루</u></strong>에 앉아서 보내신 시간은 평균 얼마나 됩니까?</p>
+                    <div class="mt-3 flex flex-wrap gap-2"><span class="visual-tag">📺 TV 시청</span><span class="visual-tag">📖 독서</span><span class="visual-tag">💬 앉아서 대화</span></div>
+                    <p class="mt-3 text-sm font-bold text-gray-500">집·직장에서 앉거나 누워서 보낸 시간을 모두 포함합니다. 이 문항은 참고용입니다.</p>
                 </div>
                 <!-- 앉아서 보낸 시간: 시간·분 스테퍼 -->
-                <div class="flex flex-col gap-3">
-                    ${makeStepper('inp-sit-hr','시간',0,24,1,sh,'onIpaqSitChange',0)}
+                <div class="survey-input-card flex flex-col gap-3">
+                    ${makeStepper('inp-sit-hr','시간',0,24,1,sh,'onIpaqSitChange',0,'inp-sit-min')}
                     ${makeStepper('inp-sit-min','분',0,59,5,sm,'onIpaqSitChange',0)}
                 </div>
                 <p id="ipaq-sit-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]"></p>
@@ -5932,20 +6196,20 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         function renderSgdsSingle(container, idx) {
             const item = SGDS_ITEMS[idx];
             const ans = state.answers.sgds_answers[idx]; // null, true(예), false(아니오)
-            const yActive = ans === true  ? 'bg-blue-600 text-white border-blue-600 scale-105' : 'bg-white text-gray-800 border-gray-300 hover:border-blue-400 hover:bg-blue-50';
-            const nActive = ans === false ? 'bg-blue-600 text-white border-blue-600 scale-105' : 'bg-white text-gray-800 border-gray-300 hover:border-gray-400 hover:bg-gray-50';
+            const yActive = ans === true  ? 'is-selected' : '';
+            const nActive = ans === false ? 'is-selected' : '';
             container.innerHTML = `
             <div class="flex flex-col gap-4 max-w-sm mx-auto">
                 <div class="bg-yellow-50 border-2 border-yellow-300 rounded-3xl p-6 text-center">
                     <p class="text-xl font-black text-charcoal leading-snug">${item.q}</p>
                 </div>
                 <div class="flex flex-row gap-4">
-                    <button onclick="onSgdsSingle(${idx}, true)"
-                        class="flex-1 py-6 border-4 rounded-3xl font-black text-2xl transition-all ${yActive}">
+                    <button onclick="onSgdsSingle(${idx}, true)" aria-pressed="${ans === true}"
+                        class="survey-choice-card flex-1 min-h-[88px] rounded-3xl font-black text-2xl transition-all ${yActive}">
                         예
                     </button>
-                    <button onclick="onSgdsSingle(${idx}, false)"
-                        class="flex-1 py-6 border-4 rounded-3xl font-black text-2xl transition-all ${nActive}">
+                    <button onclick="onSgdsSingle(${idx}, false)" aria-pressed="${ans === false}"
+                        class="survey-choice-card flex-1 min-h-[88px] rounded-3xl font-black text-2xl transition-all ${nActive}">
                         아니오
                     </button>
                 </div>
