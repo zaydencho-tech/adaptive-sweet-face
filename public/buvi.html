@@ -2361,6 +2361,134 @@
                 border: 1px solid #E8E5DE !important;
             }
         }
+
+        /* ── Desktop authenticated shell ─────────────────────────────
+           로그인 전 화면은 기존 1:2 히어로 구성을 유지한다.
+           로그인 후 화면만 태블릿처럼 단일 중앙 콘텐츠 + 하단 네비로 전환한다. */
+        @media (min-width: 1024px) {
+            body.is-authenticated,
+            body.is-authenticated:has(#page-home:not(.hidden)),
+            body.is-authenticated.subpage-mode {
+                background: #ECECE7 !important;
+                padding-bottom: 132px !important;
+                position: relative;
+            }
+
+            /* 로그인 이후에는 데스크톱 고정 좌측 히어로를 사용하지 않는다. */
+            body.is-authenticated #desktop-hero-aside {
+                display: none !important;
+            }
+
+            /* 헤더도 중앙 콘텐츠 폭 안에 배치 */
+            body.is-authenticated > header {
+                position: sticky !important;
+                inset: auto !important;
+                top: 16px !important;
+                width: calc(100% - 32px) !important;
+                max-width: 64rem !important;
+                height: 68px !important;
+                margin: 16px auto 0 !important;
+                padding: 8px 16px !important;
+                border: 0 !important;
+                border-radius: 20px !important;
+                background: #FFFFFF !important;
+                box-shadow: 0 14px 36px rgba(48, 45, 38, .10) !important;
+                z-index: 80 !important;
+            }
+            body.is-authenticated > header > div:first-child {
+                display: none !important;
+            }
+            body.is-authenticated > header > div:last-child {
+                display: flex !important;
+                align-items: center !important;
+                width: 100% !important;
+                padding: 0 !important;
+                background: transparent !important;
+            }
+            body.is-authenticated > header > div:last-child > div {
+                margin-left: auto !important;
+                background: transparent !important;
+            }
+            body.is-authenticated > header .header-wordmark {
+                display: block !important;
+                width: auto !important;
+                height: 52px !important;
+                object-fit: contain;
+            }
+
+            /* 전체 메인 콘텐츠는 Tailwind max-w-5xl(64rem)에 맞춘 중앙 카드 */
+            body.is-authenticated main,
+            body.is-authenticated.subpage-mode main,
+            body.is-authenticated:has(#page-home:not(.hidden)) main {
+                width: calc(100% - 32px) !important;
+                max-width: 64rem !important;
+                min-height: calc(100vh - 124px) !important;
+                margin: 16px auto 132px !important;
+                padding: 24px !important;
+                border-radius: 28px !important;
+                background: #F7F5F1 !important;
+                box-shadow: 0 24px 64px rgba(48, 45, 38, .14) !important;
+                box-sizing: border-box;
+            }
+
+            /* 홈은 데스크톱 전용 1:2 분할 대신 태블릿용 단일 컬럼을 사용 */
+            body.is-authenticated:has(#page-home:not(.hidden)) #page-home > div {
+                display: block !important;
+                min-height: 0 !important;
+            }
+            body.is-authenticated:has(#page-home:not(.hidden)) #page-home > div > div:first-child {
+                display: block !important;
+                min-height: 0 !important;
+                padding: 0 !important;
+                background: transparent !important;
+            }
+            body.is-authenticated:has(#page-home:not(.hidden)) #page-home > div > div:first-child > .rounded-3xl:first-child {
+                min-height: 0 !important;
+                padding: 32px 36px 44px !important;
+                border-radius: 24px !important;
+                flex: none !important;
+            }
+            body.is-authenticated:has(#page-home:not(.hidden)) #page-home > div > div:first-child > .rounded-3xl:first-child > .flex > .space-y-4:first-child {
+                margin-top: 0 !important;
+            }
+            body.is-authenticated:has(#page-home:not(.hidden)) #page-home > div > div:first-child > .lg\:hidden {
+                display: block !important;
+                margin-top: -16px !important;
+                border-radius: 20px !important;
+                padding: 20px !important;
+                box-shadow: 0 10px 30px rgba(48, 45, 38, .08) !important;
+            }
+            body.is-authenticated:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex {
+                display: none !important;
+            }
+
+            /* 데스크톱 플로팅 하단 네비: 중앙 콘텐츠 폭과 정확히 일치 */
+            body.is-authenticated nav.fixed.bottom-0,
+            body.is-authenticated:has(#page-home:not(.hidden)) nav.fixed.bottom-0,
+            body.is-authenticated.subpage-mode nav.fixed.bottom-0 {
+                display: flex !important;
+                left: 50% !important;
+                right: auto !important;
+                bottom: 18px !important;
+                width: calc(100% - 32px) !important;
+                max-width: 64rem !important;
+                height: 88px !important;
+                padding: 8px !important;
+                border: 1px solid rgba(88, 82, 70, .12) !important;
+                border-radius: 24px !important;
+                background: rgba(255, 255, 255, .96) !important;
+                box-shadow: 0 18px 46px rgba(48, 45, 38, .20) !important;
+                transform: translateX(-50%) !important;
+                backdrop-filter: blur(14px);
+                -webkit-backdrop-filter: blur(14px);
+                overflow: hidden;
+                z-index: 100 !important;
+            }
+            body.is-authenticated nav.fixed.bottom-0 .nav-tab {
+                margin: 0 3px !important;
+                border-radius: 18px !important;
+            }
+        }
     </style>
 
 
@@ -4081,6 +4209,9 @@
         }
 
         function navTo(pageId) {
+            if (pageId === 'login' || pageId === 'signup' || pageId === 'find') {
+                document.body.classList.remove('is-authenticated');
+            }
             document.querySelectorAll('.app-page').forEach(p => p.classList.add('hidden'));
             const target = document.getElementById('page-' + pageId);
             if(target) {
@@ -6507,7 +6638,8 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 alertBox.classList.add('hidden');
                 idInput.style.borderColor = "#D4D4D4";
                 pwInput.style.borderColor = "#D4D4D4";
-                
+
+                document.body.classList.add('is-authenticated');
                 navTo('home');
             } else {
                 state.loginFailedAttempts++;
