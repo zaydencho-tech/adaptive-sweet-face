@@ -2832,6 +2832,7 @@
         body:not(.high-contrast) [style*="background:#F7F5F1"],
         body:not(.high-contrast) [style*="background: #F7F5F1"] {
             background-color: var(--surface-gray) !important;
+            border-color: transparent !important;
         }
         body:not(.high-contrast) [class~="bg-[#F4F0E9]"],
         body:not(.high-contrast) .gender-card,
@@ -2842,7 +2843,15 @@
         body:not(.high-contrast) #page-survey-start [class~="bg-[#FFFBED]/40"].border-yellow-200,
         body:not(.high-contrast) #page-survey-start [class~="bg-[#FFFDF4]"].border-yellow-200 {
             background-color: var(--surface-gray) !important;
-            border-color: var(--border-gray) !important;
+            border-color: transparent !important;
+        }
+        /* #F3F4F6 중립 표면은 해상도와 관계없이 외곽 실선을 사용하지 않는다. */
+        body:not(.high-contrast) .bg-gray-100,
+        body:not(.high-contrast) [class~="bg-[#F3F4F6]"],
+        body:not(.high-contrast) [style*="background:#F3F4F6"],
+        body:not(.high-contrast) [style*="background: #F3F4F6"],
+        body:not(.high-contrast) .home-action-card {
+            border-color: transparent !important;
         }
         body:not(.high-contrast) [class~="bg-[#FFFDF5]"],
         body:not(.high-contrast) [class~="bg-[#FFFDF4]"],
@@ -2852,7 +2861,7 @@
         }
         body:not(.high-contrast).subpage-mode main #page-records .card-item {
             background-color: #F3F4F6 !important;
-            border-color: #D1D5DB !important;
+            border-color: transparent !important;
         }
         @media (min-width: 1024px) {
             body:not(.high-contrast):has(#page-login:not(.hidden)),
