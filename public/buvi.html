@@ -4818,14 +4818,9 @@
             if (state.cardReadingLocked && targetPageId !== 'records') {
                 requestLeaveRecordsPage(targetPageId);
             } else {
-                // 설문 완료 후 설문탭 누르면 결과페이지로
-                if (targetPageId === 'survey-start' && state.result && state.result.p !== null) {
-                    navTo('result');
-                } else if (targetPageId === 'survey-start' && state.surveyInProgress) {
-                    navTo('survey');
-                } else {
-                    navTo(targetPageId);
-                }
+                // 하단 네비의 설문 탭은 진행/완료 상태와 무관하게 항상 시작 안내 화면으로 진입한다.
+                // 설문 시작과 이전 결과 확인은 안내 화면 안의 명시적인 버튼으로 선택한다.
+                navTo(targetPageId);
             }
         }
 
