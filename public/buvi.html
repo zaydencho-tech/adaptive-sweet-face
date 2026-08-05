@@ -2543,6 +2543,17 @@
                 font-size: 64px !important;
             }
 
+            /* 설문 이전/다음 버튼은 플로팅 네비 상단의 안전 영역에 유지 */
+            body.is-authenticated.subpage-mode #page-survey:not(.hidden) #survey-nav-bottom {
+                position: sticky !important;
+                bottom: 118px !important;
+                z-index: 40 !important;
+                padding: 12px !important;
+                border: 0 !important;
+                border-radius: 16px !important;
+                background: #FFFFFF !important;
+            }
+
             /* 데스크톱 플로팅 하단 네비: 중앙 콘텐츠 폭과 정확히 일치 */
             body.is-authenticated nav.fixed.bottom-0,
             body.is-authenticated:has(#page-home:not(.hidden)) nav.fixed.bottom-0,
