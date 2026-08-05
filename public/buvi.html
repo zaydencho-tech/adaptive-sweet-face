@@ -3164,6 +3164,61 @@
                 white-space: nowrap;
             }
         }
+
+        /* ── Survey vertical rhythm ──────────────────────────────────
+           진행도와 질문은 상단에, 짧은 답변은 남은 영역의 중앙에,
+           문항 이동 버튼은 카드 하단에 둔다. 긴 문항은 내부 스크롤 없이
+           카드와 문서가 함께 늘어나도록 flex item의 축소를 막는다. */
+        body:has(#page-survey:not(.hidden)) #page-survey:not(.hidden) {
+            display: flex !important;
+            flex-direction: column !important;
+            width: 100% !important;
+            height: auto !important;
+            min-height: 0 !important;
+            max-height: none !important;
+            overflow: visible !important;
+        }
+        body:has(#page-survey:not(.hidden)) #page-survey:not(.hidden) > div.bg-white {
+            display: flex !important;
+            flex-direction: column !important;
+            width: 100% !important;
+            height: auto !important;
+            min-height: calc(100vh - 124px) !important;
+            min-height: calc(100dvh - 124px) !important;
+            max-height: none !important;
+            overflow: visible !important;
+            box-sizing: border-box;
+        }
+        body:has(#page-survey:not(.hidden)) #page-survey:not(.hidden) #survey-options-container {
+            display: flex !important;
+            flex: 1 0 auto !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            width: 100% !important;
+            height: auto !important;
+            min-height: auto !important;
+            max-height: none !important;
+            margin: 0 auto !important;
+            padding: clamp(24px, 5dvh, 72px) 3px !important;
+            overflow: visible !important;
+            overscroll-behavior: auto !important;
+            scrollbar-gutter: auto !important;
+            box-sizing: border-box;
+        }
+        body:has(#page-survey:not(.hidden)) #page-survey:not(.hidden) #survey-nav-bottom {
+            position: static !important;
+            flex: 0 0 auto !important;
+            bottom: auto !important;
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+        }
+        @media (min-width: 1024px) {
+            body.is-authenticated.subpage-mode:has(#page-survey:not(.hidden))
+            #page-survey:not(.hidden) > div.bg-white {
+                min-height: calc(100vh - 242px) !important;
+                min-height: calc(100dvh - 242px) !important;
+            }
+        }
         body.high-contrast nav.bottom-nav {
             background: #1A1A1A !important;
             border-color: #FEE500 !important;
