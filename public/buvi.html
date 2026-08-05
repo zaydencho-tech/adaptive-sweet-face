@@ -2629,7 +2629,7 @@
                 margin-top: -16px !important;
                 border-radius: 20px !important;
                 padding: 20px !important;
-                box-shadow: 0 10px 30px rgba(48, 45, 38, .08) !important;
+                box-shadow: none !important;
             }
             body.is-authenticated:has(#page-home:not(.hidden)) #page-home > div > div:last-child.hidden.lg\:flex {
                 display: none !important;
@@ -2850,12 +2850,7 @@
                 background-color: var(--canvas-gray) !important;
             }
 
-            /* 로그인 후 데스크톱은 태블릿처럼 헤더와 하단 네비 사이를 평면형 흰색 캔버스로 사용한다. */
-            body:not(.high-contrast).is-authenticated,
-            body:not(.high-contrast).is-authenticated.subpage-mode,
-            body:not(.high-contrast).is-authenticated:has(#page-home:not(.hidden)) {
-                background-color: #FFFFFF !important;
-            }
+            /* 데스크톱의 좌우 여백은 회색 캔버스로 남기고, 중앙 콘텐츠만 평면형 흰색으로 통일한다. */
             body:not(.high-contrast).is-authenticated main,
             body:not(.high-contrast).is-authenticated.subpage-mode main,
             body:not(.high-contrast).is-authenticated:has(#page-home:not(.hidden)) main {
