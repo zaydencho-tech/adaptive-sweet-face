@@ -2822,7 +2822,7 @@
         }
 
         /* ── Senior survey UX foundation ───────────────────────────
-           한 화면 한 질문, 56px 고정 이동 버튼, 큰 원터치 선택 영역 */
+           한 화면 한 질문, 56px 이동 버튼, 큰 원터치 선택 영역 */
         #page-survey > div.bg-white {
             display: flex;
             flex-direction: column;
@@ -2833,20 +2833,20 @@
             flex: 1 1 auto !important;
             min-height: 0 !important;
             margin: 0 auto !important;
-            overflow-y: auto !important;
-            overscroll-behavior: contain;
+            overflow: visible !important;
+            overscroll-behavior: auto;
             padding: 4px 3px 12px;
-            scrollbar-gutter: stable;
+            scrollbar-gutter: auto;
         }
         #survey-nav-bottom {
-            position: sticky !important;
-            bottom: 0 !important;
-            z-index: 45;
+            position: static !important;
+            bottom: auto !important;
+            z-index: auto;
             width: 100%;
             flex: 0 0 auto;
             margin: 12px auto 0 !important;
             padding: 12px 0 0 !important;
-            background: #FFFFFF !important;
+            background: transparent !important;
         }
         #survey-nav-bottom > button {
             height: 56px;
@@ -2969,34 +2969,34 @@
         .survey-validation.is-valid { color: #047857; background: #ECFDF5; }
         @media (max-width: 639px) {
             body:has(#page-survey:not(.hidden)) main {
-                height: calc(100dvh - 104px) !important;
-                max-height: calc(100dvh - 104px) !important;
+                height: auto !important;
+                max-height: none !important;
                 min-height: 0 !important;
                 box-sizing: border-box;
-                overflow: hidden;
+                overflow: visible !important;
             }
             #page-survey:not(.hidden),
             #page-survey > div.bg-white {
-                height: 100% !important;
+                height: auto !important;
                 min-height: 0 !important;
-                max-height: 100% !important;
-                overflow: hidden;
+                max-height: none !important;
+                overflow: visible !important;
             }
             #survey-options-container {
-                padding-bottom: 76px !important;
+                padding-bottom: 16px !important;
             }
             .survey-chip-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
             .survey-input-card { padding: 12px; }
             .survey-keypad button { min-height: 50px; }
         }
-        /* 데스크톱 로그인 후 설문: 문서 스크롤 하나만 사용하고
-           설문 이동 버튼은 앱 네비 바로 위의 플로팅 바텀시트로 고정 */
+        /* 데스크톱 로그인 후 설문: 문서 스크롤 하나를 사용하고
+           설문 이동 버튼은 각 문항 콘텐츠가 끝나는 위치에 배치 */
         @media (min-width: 1024px) {
             body.is-authenticated.subpage-mode:has(#page-survey:not(.hidden)) main {
                 height: auto !important;
                 min-height: calc(100dvh - 124px) !important;
                 max-height: none !important;
-                padding-bottom: 144px !important;
+                padding-bottom: 24px !important;
                 overflow: visible !important;
             }
             body.is-authenticated.subpage-mode main > #page-survey:not(.hidden),
@@ -3021,22 +3021,22 @@
                 padding-bottom: 20px !important;
             }
             body.is-authenticated.subpage-mode #page-survey:not(.hidden) #survey-nav-bottom {
-                position: fixed !important;
-                left: 50% !important;
+                position: static !important;
+                left: auto !important;
                 right: auto !important;
-                bottom: 130px !important;
-                z-index: 90 !important;
+                bottom: auto !important;
+                z-index: auto !important;
                 width: fit-content !important;
                 max-width: calc(100% - 80px) !important;
-                margin: 0 !important;
-                padding: 12px !important;
-                border: 1px solid rgba(88, 82, 70, .14) !important;
-                border-radius: 22px !important;
-                background: rgba(255, 255, 255, .97) !important;
-                box-shadow: 0 12px 34px rgba(48, 45, 38, .16) !important;
-                transform: translateX(-50%) !important;
-                backdrop-filter: blur(14px);
-                -webkit-backdrop-filter: blur(14px);
+                margin: 20px auto 0 !important;
+                padding: 0 !important;
+                border: 0 !important;
+                border-radius: 0 !important;
+                background: transparent !important;
+                box-shadow: none !important;
+                transform: none !important;
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
             }
             body.is-authenticated.subpage-mode #page-survey:not(.hidden) #survey-nav-bottom > button {
                 flex: 0 0 auto !important;
@@ -3045,10 +3045,6 @@
                 padding-left: 32px !important;
                 padding-right: 32px !important;
                 white-space: nowrap;
-            }
-            body.high-contrast.is-authenticated.subpage-mode #page-survey:not(.hidden) #survey-nav-bottom {
-                border-color: #FEE500 !important;
-                background: rgba(26, 26, 26, .98) !important;
             }
         }
         body.high-contrast nav.bottom-nav {
