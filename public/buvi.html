@@ -299,6 +299,76 @@
         #deviation-bars .text-\[11px\] { font-size: max(13px, calc(11px * var(--font-scale))); }
         .bar-label-text { font-size: max(14px, calc(13px * var(--font-scale))); font-weight: 700; }
 
+        /* ── 결과 리포트 섹션: 제목과 콘텐츠를 하나의 정보 그룹으로 묶음 ── */
+        #page-result .result-section-panel {
+            padding: 20px;
+            border: 1px solid #DDE1E6;
+            border-radius: 24px;
+            background: #FFFFFF;
+            box-shadow: 0 8px 24px rgba(17, 24, 39, 0.05);
+        }
+        #page-result .result-section-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        #page-result .result-section-index {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            flex: 0 0 34px;
+            border-radius: 11px;
+            color: #111827;
+            background: #F8E647;
+            font-size: calc(15px * var(--font-scale));
+            font-weight: 900;
+            line-height: 1;
+        }
+        #page-result .result-section-title {
+            color: #1F2937;
+            font-size: clamp(20px, calc(22px * var(--font-scale)), 28px);
+            font-weight: 900;
+            line-height: 1.25;
+            letter-spacing: -0.025em;
+        }
+        #page-result .result-section-description {
+            margin-top: 4px;
+            color: #6B7280;
+            font-size: calc(14px * var(--font-scale));
+            font-weight: 700;
+            line-height: 1.45;
+        }
+        #page-result .result-section-panel #risk-gauge-wrap > div {
+            border-color: #E5E7EB !important;
+            background: #F7F7F8 !important;
+            box-shadow: none !important;
+        }
+        #page-result .result-section-panel #trend-chart-wrap .buvi-bar-item {
+            background: #F7F7F8 !important;
+        }
+        @media (max-width: 639px) {
+            #page-result .result-section-panel {
+                padding: 16px;
+                border-radius: 20px;
+            }
+            #page-result .result-section-header {
+                gap: 10px;
+                margin-bottom: 14px;
+            }
+            #page-result .result-section-index {
+                width: 30px;
+                height: 30px;
+                flex-basis: 30px;
+                border-radius: 10px;
+            }
+            #page-result .result-section-title {
+                font-size: clamp(18px, calc(19px * var(--font-scale)), 24px);
+            }
+        }
+
         /* ── 결과 화면 데스크탑 폰트 위계: 최소 13px 보장 + 글자크기 버튼(--font-scale) 반영 (h3 제목은 유지) ── */
         @media (min-width: 1024px) {
             #page-result :not(h3).text-xs,
@@ -3548,18 +3618,30 @@
                 </div>
             </div>
 
-            <!-- ① 서브 히어로: 노쇠 결과 요약 (독립 카드) -->
-            <div id="result-hero-card" class="rounded-3xl overflow-hidden">
-                <h2 class="font-gapyeong scaled-text-xl font-black text-charcoal mb-2">1. 설문에 따른 노쇠 위험 결과</h2>
+            <!-- ① 노쇠 결과 요약: 섹션 제목과 결과 카드를 하나의 그룹으로 구성 -->
+            <section id="result-hero-card" class="result-section-panel" aria-labelledby="result-risk-title">
+                <header class="result-section-header">
+                    <span class="result-section-index" aria-hidden="true">1</span>
+                    <div class="min-w-0">
+                        <h2 id="result-risk-title" class="result-section-title">설문에 따른 노쇠 위험 결과</h2>
+                        <p class="result-section-description">현재 노쇠 위험 수준과 신체·정서 영역의 비중을 확인하세요.</p>
+                    </div>
+                </header>
                 <div id="risk-gauge-wrap" class="relative"></div>
-            </div>
+            </section>
 
-            <!-- ② 트렌드/항목별 영향 요인 (배경 없음, 카드만 배치) -->
-            <div>
-                <h2 class="font-gapyeong scaled-text-xl font-black text-charcoal mb-2">2. 영역 요약 및 항목별 영향 요인</h2>
-                <p id="result-stat-message" class="scaled-text-base font-bold text-gray-500 leading-snug mb-2"></p>
+            <!-- ② 영역/항목별 영향 요인: 섹션 제목과 지표 카드를 하나의 그룹으로 구성 -->
+            <section class="result-section-panel" aria-labelledby="result-factor-title">
+                <header class="result-section-header">
+                    <span class="result-section-index" aria-hidden="true">2</span>
+                    <div class="min-w-0">
+                        <h2 id="result-factor-title" class="result-section-title">영역 요약 및 항목별 영향 요인</h2>
+                        <p class="result-section-description">건강 영역별 보호 요인과 개선이 필요한 항목을 확인하세요.</p>
+                    </div>
+                </header>
+                <p id="result-stat-message" class="scaled-text-base font-bold text-gray-500 leading-snug mb-3"></p>
                 <div id="trend-chart-wrap" class="relative"></div>
-            </div>
+            </section>
 
 
 
