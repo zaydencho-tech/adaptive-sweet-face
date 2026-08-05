@@ -4742,7 +4742,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
         function renderGenderInput(container) {
             const saved = state.answers.gender;
-            const baseCard = "gender-card group relative aspect-square w-full rounded-2xl bg-[#F4F0E9] shadow-md flex flex-col items-center justify-between p-4 lg:p-6 transition-all";
+            const baseCard = "gender-card group relative aspect-[4/5] w-full rounded-2xl bg-[#F4F0E9] shadow-md flex flex-col items-center justify-between p-4 lg:p-6 transition-all";
             const mSel = saved === 'male'   ? "ring-4 ring-blue-200" : "";
             const fSel = saved === 'female' ? "ring-4 ring-pink-200" : "";
             const mSelText = saved === 'male' ? "text-blue-500" : "text-charcoal";
@@ -4752,16 +4752,16 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     <button id="gender-btn-male"
                         onclick="state.answers.gender='male'; renderGenderInput(document.getElementById('survey-options-container')); updateNextButtonState();"
                         class="${baseCard} ${mSel}">
-                        <div class="flex-1 min-h-0 w-full flex items-center justify-center overflow-hidden">
-                            <img src="./buvi-gender-male.png?v=active-senior-20260805" alt="남성 어르신" loading="lazy" width="200" height="200" class="w-full h-full max-w-full max-h-full object-contain scale-125" />
+                        <div class="flex-1 min-h-0 w-full flex items-center justify-center">
+                            <img src="./buvi-gender-male.png?v=active-senior-20260805" alt="남성 어르신" loading="lazy" width="200" height="200" class="w-full h-full max-w-full max-h-full object-contain" />
                         </div>
                         <span class="scaled-text-lg lg:text-2xl font-black ${mSelText}">남성</span>
                     </button>
                     <button id="gender-btn-female"
                         onclick="state.answers.gender='female'; renderGenderInput(document.getElementById('survey-options-container')); updateNextButtonState();"
                         class="${baseCard} ${fSel}">
-                        <div class="flex-1 min-h-0 w-full flex items-center justify-center overflow-hidden">
-                            <img src="./buvi-gender-female.png?v=active-senior-20260805" alt="여성 어르신" loading="lazy" width="200" height="200" class="w-full h-full max-w-full max-h-full object-contain scale-125" />
+                        <div class="flex-1 min-h-0 w-full flex items-center justify-center">
+                            <img src="./buvi-gender-female.png?v=active-senior-20260805" alt="여성 어르신" loading="lazy" width="200" height="200" class="w-full h-full max-w-full max-h-full object-contain" />
                         </div>
                         <span class="scaled-text-lg lg:text-2xl font-black ${fSelText}">여성</span>
                     </button>
