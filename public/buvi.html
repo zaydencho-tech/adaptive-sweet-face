@@ -2870,6 +2870,31 @@
             background: #F7F7F8;
             padding: 16px;
         }
+        #page-survey .ipaq-question-card {
+            border-width: 0 !important;
+            border-color: transparent !important;
+            background: #F7F7F8 !important;
+        }
+        #page-survey .ipaq-response-card {
+            border-width: 0 !important;
+            border-color: transparent !important;
+            background: #FFFFFF !important;
+        }
+        .ipaq-response-card .survey-chip {
+            border-width: 0 !important;
+            border-color: transparent !important;
+            background: #F3F4F6;
+        }
+        .ipaq-response-card .survey-chip.is-selected {
+            border-color: #1D4ED8 !important;
+            background: #1D4ED8;
+        }
+        #page-survey .ipaq-help-button {
+            border-width: 0 !important;
+            border-color: transparent !important;
+            background: #FFFFFF !important;
+            box-shadow: none !important;
+        }
         .survey-mode-tabs {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2938,11 +2963,11 @@
             position: sticky;
             top: 0;
             z-index: 12;
-            border: 1px solid #D1D5DB;
+            border: 0;
             border-radius: 16px;
-            background: rgba(255,255,255,.97);
-            padding: 12px 14px;
-            box-shadow: 0 6px 18px rgba(17,24,39,.08);
+            background: rgba(255,255,255,.98);
+            padding: 10px 12px;
+            box-shadow: none;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
         }
@@ -2988,6 +3013,17 @@
             .survey-chip-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
             .survey-input-card { padding: 12px; }
             .survey-keypad button { min-height: 50px; }
+        }
+        @media (max-width: 1023px) {
+            #page-survey .survey-input-card,
+            #page-survey .ipaq-fixed-guide,
+            #page-survey .ipaq-help-button {
+                border-color: transparent !important;
+                box-shadow: none !important;
+            }
+            #page-survey .survey-chip:not(.is-selected) {
+                border-color: transparent !important;
+            }
         }
         /* 데스크톱 로그인 후 설문: 문서 스크롤 하나를 사용하고
            설문 이동 버튼은 각 문항 콘텐츠가 끝나는 위치에 배치 */
@@ -5755,7 +5791,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     <span class="visual-tag">🧹 집안일</span><span class="visual-tag">🧰 일터 노동</span><span class="visual-tag">🚶 이동</span><span class="visual-tag">🏃 운동·스포츠</span>
                 </div>
             </div>
-            <button type="button" onclick="showIpaqPopup()" class="w-full min-h-[46px] border border-slate-300 bg-slate-50 text-slate-700 font-black rounded-xl text-sm hover:bg-slate-100 transition-all">
+            <button type="button" onclick="showIpaqPopup()" class="ipaq-help-button w-full min-h-[46px] border border-slate-300 bg-slate-50 text-slate-700 font-black rounded-xl text-sm hover:bg-slate-100 transition-all">
                 📋 세부 예시 안내 보기 →
             </button>`;
         }
@@ -5772,7 +5808,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
             return `
             <div class="flex flex-col gap-4">
-                <fieldset class="survey-input-card space-y-3">
+                <fieldset class="survey-input-card ipaq-response-card space-y-3">
                     <legend class="px-2 font-black text-gray-800">일주일에 며칠 하셨습니까?</legend>
                     <div class="survey-chip-grid">
                         ${[0,1,2,3,4,5,6,7].map(days => `<button type="button" onclick="setIpaqDays('${dKey}','${hKey}','${mKey}',${days})" class="survey-chip ${dVal === days ? 'is-selected' : ''}" aria-pressed="${dVal === days}">${days === 0 ? '0일<br><span class=\"text-xs\">안 함</span>' : days + '일'}</button>`).join('')}
@@ -5781,7 +5817,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 </fieldset>
 
                 <!-- 시간·분 스테퍼 (일수 선택 후 표시) -->
-                <div id="ipaq-time-row-${dKey}" class="${isHidden ? 'hidden' : 'survey-slide-panel survey-input-card flex flex-col gap-3'}">
+                <div id="ipaq-time-row-${dKey}" class="survey-input-card ipaq-response-card ${isHidden ? 'hidden' : 'survey-slide-panel flex flex-col gap-3'}">
                     <p class="font-black text-gray-800">그런 날 하루에 보통 얼마나 하셨습니까?</p>
                     <div class="flex flex-col gap-3">
                         ${makeStepper(`inp-${hKey}`,'시간',0,24,1,hVal,'onIpaqChange',0,`inp-${mKey}`)}
@@ -5963,7 +5999,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             container.innerHTML = `
             <div class="flex flex-col gap-4">
                 ${ipaqHeader(1)}
-                <div class="survey-input-card text-gray-700 leading-relaxed">
+                <div class="survey-input-card ipaq-question-card text-gray-700 leading-relaxed">
                     <p class="text-lg font-bold text-gray-900 leading-snug"><strong><u>지난 7일간</u></strong>, 무거운 것을 들어 올리거나 나르는 일(약 20kg 이상), 땅파기, 건설 현장에서의 노동, 계단으로 물건 나르기 등과 같은 <strong><u>격렬한 신체활동</u></strong>을 며칠간 하셨습니까? (격렬한 운동 또는 스포츠 포함)</p>
                     <div class="mt-3 flex flex-wrap gap-2"><span class="visual-tag">🏋️ 약 20kg 이상 나르기</span><span class="visual-tag">⛏️ 땅파기</span><span class="visual-tag">🧱 건설 노동</span></div>
                 </div>
@@ -5978,7 +6014,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             container.innerHTML = `
             <div class="flex flex-col gap-4">
                 ${ipaqHeader(2)}
-                <div class="survey-input-card text-gray-700 leading-relaxed">
+                <div class="survey-input-card ipaq-question-card text-gray-700 leading-relaxed">
                     <p class="text-lg font-bold text-gray-900 leading-snug"><strong><u>지난 7일간</u></strong>, <strong>집 안 또는 야외 활동을 모두 포함하여</strong>, 빠르게 걷기(일하는 중에), 가벼운 물건 나르기, 청소(야외), 유리창을 닦거나 마루를 닦거나 집안을 닦는 것, 쓰는 것, 육아(목욕시키기, 아이 안아주기 등) 등과 같은 <strong><u>중간정도 신체활동</u></strong>을 며칠간 하셨습니까? <strong><u>걷기는 포함시키지 마십시오.</u></strong> (중간정도 운동 또는 스포츠 포함.)</p>
                     <div class="mt-3 flex flex-wrap gap-2"><span class="visual-tag">🧹 청소</span><span class="visual-tag">📦 가벼운 물건 나르기</span><span class="visual-tag">🧒 육아</span></div>
                 </div>
@@ -5993,7 +6029,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             container.innerHTML = `
             <div class="flex flex-col gap-4">
                 ${ipaqHeader(3)}
-                <div class="survey-input-card text-gray-700 leading-relaxed">
+                <div class="survey-input-card ipaq-question-card text-gray-700 leading-relaxed">
                     <p class="text-lg font-bold text-gray-900 leading-snug"><strong><u>지난 7일간</u></strong>, 한 번에 적어도 <strong><u>10분 이상</u></strong> 걸은 날이 며칠입니까?</p>
                     <details class="mt-3 rounded-xl bg-slate-100 px-3 py-3 text-sm text-slate-700">
                         <summary class="cursor-pointer font-black">📋 걷기 중복 제외 안내 보기 →</summary>
@@ -6014,13 +6050,13 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             container.innerHTML = `
             <div class="flex flex-col gap-4">
                 ${ipaqHeader(4)}
-                <div class="survey-input-card text-gray-700 leading-relaxed">
+                <div class="survey-input-card ipaq-question-card text-gray-700 leading-relaxed">
                     <p class="text-lg font-bold text-gray-900 leading-snug"><strong><u>주중 하루</u></strong>에 앉아서 보내신 시간은 평균 얼마나 됩니까?</p>
                     <div class="mt-3 flex flex-wrap gap-2"><span class="visual-tag">📺 TV 시청</span><span class="visual-tag">📖 독서</span><span class="visual-tag">💬 앉아서 대화</span></div>
                     <p class="mt-3 text-sm font-bold text-gray-500">집·직장에서 앉거나 누워서 보낸 시간을 모두 포함합니다. 이 문항은 참고용입니다.</p>
                 </div>
                 <!-- 앉아서 보낸 시간: 시간·분 스테퍼 -->
-                <div class="survey-input-card flex flex-col gap-3">
+                <div class="survey-input-card ipaq-response-card flex flex-col gap-3">
                     ${makeStepper('inp-sit-hr','시간',0,24,1,sh,'onIpaqSitChange',0,'inp-sit-min')}
                     ${makeStepper('inp-sit-min','분',0,59,5,sm,'onIpaqSitChange',0)}
                 </div>
