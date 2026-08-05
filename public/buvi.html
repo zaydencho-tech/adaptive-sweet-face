@@ -2533,6 +2533,14 @@
             }
         }
 
+        /* Desktop help: 태블릿과 동일한 섹션 외곽 실선 유지 */
+        @media (min-width: 1024px) {
+            body.is-authenticated.subpage-mode main #page-help .help-info-card,
+            body.is-authenticated.subpage-mode main #page-help .help-contact-card {
+                border: 1px solid #E8E5DE !important;
+            }
+        }
+
         /* ── Desktop authenticated shell ─────────────────────────────
            로그인 전 화면은 기존 1:2 히어로 구성을 유지한다.
            로그인 후 화면만 태블릿처럼 단일 중앙 콘텐츠 + 하단 네비로 전환한다. */
