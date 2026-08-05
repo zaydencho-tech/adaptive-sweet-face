@@ -6650,27 +6650,36 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             cutoff: 0.069
         };
 
-        // 목업 데이터로 설문 결과 페이지 노출
+        // 설문 안내 화면에서 완성된 샘플 결과를 바로 확인한다.
         function showPreviousSurveyResult() {
-            if (state.resultViewed && state.result && state.result.p !== null) {
-                navTo('result');
-                return;
-            }
-            showAppModal('📋', '아직 확인할 결과가 없어요', '노쇠 예측 설문을 완료하면 실제 응답을 분석한 결과를 이곳에서 확인할 수 있습니다.');
+            showMockSurveyResult();
         }
 
         function showMockSurveyResult() {
-            state.answers.gender = 'F';
-            state.answers.age = 78;
-            state.answers.height_cm = 158;
-            state.answers.weight_kg = 67;
-            state.answers.bmi = +(67 / (1.58 * 1.58)).toFixed(1);
-            state.answers.polypharm = 5;
-            state.answers.met_score = 5300;
-            state.answers.tug = 13.5;
-            state.answers.sgds_answers = [1,1,0,1,0,1,0,1,1,0,0,1,0,1,1];
-            state.answers.sgdsk_score = 6;
-            calculateLogisticRegression();
+            state.answers = {
+                gender: 'female',
+                birth_date: '19480516',
+                age: 78,
+                height_cm: 158,
+                weight_kg: 67,
+                bmi: +(67 / (1.58 * 1.58)).toFixed(1),
+                polypharm: 5,
+                ipaq_vig_days: 3, ipaq_vig_hr: 1, ipaq_vig_min: 0,
+                ipaq_mod_days: 5, ipaq_mod_hr: 1, ipaq_mod_min: 0,
+                ipaq_walk_days: 7, ipaq_walk_hr: 1, ipaq_walk_min: 30,
+                ipaq_sit_hr: 6, ipaq_sit_min: 30,
+                met_score: 5065.2,
+                tug: 13.5,
+                sgds_answers: [true,true,false,true,true,false,true,true,true,false,true,false,true,true,true],
+                sgdsk_score: 6
+            };
+            state.answers_metadata = {};
+            state.surveyHistory = [];
+            state.surveyInProgress = false;
+            state.resultViewed = false;
+            state.currentSurveyRecordSaved = false;
+            clearSurveyProgress();
+            Object.assign(state.result, { logit:null, p:null, isAtRisk:null, contributions:{}, domainPhys:null, domainEmo:null, physPct:null, emoPct:null, sortedContribs:[] });
             navTo('result');
         }
 
