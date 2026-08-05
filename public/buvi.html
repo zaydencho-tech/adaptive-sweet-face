@@ -2462,6 +2462,87 @@
                 display: none !important;
             }
 
+            /* BUVI 알아보기는 기존 좌측 히어로용 33vw 패딩/고정 높이를 완전히 해제 */
+            body.is-authenticated.subpage-mode:has(#page-about:not(.hidden)) main {
+                height: auto !important;
+                max-height: none !important;
+                padding: 24px !important;
+                overflow: visible !important;
+            }
+            body.is-authenticated.subpage-mode main > #page-about:not(.hidden) {
+                display: block !important;
+                flex: none !important;
+                min-height: auto !important;
+                width: 100% !important;
+            }
+            body.is-authenticated.subpage-mode main > #page-about:not(.hidden) > * {
+                display: block !important;
+                flex: none !important;
+                min-height: auto !important;
+                width: 100% !important;
+            }
+            body.is-authenticated.subpage-mode main #page-about .hidden.lg\:block {
+                display: flex !important;
+                flex: none !important;
+                flex-direction: column !important;
+                min-height: auto !important;
+                gap: 16px !important;
+            }
+            body.is-authenticated.subpage-mode main #page-about .hidden.lg\:block > div:first-child {
+                flex: none !important;
+            }
+            body.is-authenticated.subpage-mode main #page-about .hidden.lg\:block > div:first-child > div.relative.grid {
+                padding: 28px 36px !important;
+            }
+            body.is-authenticated.subpage-mode main #page-about .hidden.lg\:block > div:first-child h1 {
+                font-size: 36px !important;
+                margin-bottom: 10px !important;
+            }
+            body.is-authenticated.subpage-mode main #page-about .hidden.lg\:block > div:first-child p {
+                font-size: 15px !important;
+            }
+            body.is-authenticated.subpage-mode main #page-about .hidden.lg\:block > div:first-child img[alt="BUVI 캐릭터"] {
+                width: 220px !important;
+                height: 220px !important;
+            }
+            body.is-authenticated.subpage-mode main #page-about .hidden.lg\:block > div:first-child .absolute.w-\[380px\] {
+                width: 210px !important;
+                height: 210px !important;
+            }
+            body.is-authenticated.subpage-mode main #page-about .hidden.lg\:block > div:nth-child(2) {
+                display: flex !important;
+                flex: none !important;
+                flex-direction: column !important;
+                min-height: auto !important;
+                gap: 16px !important;
+            }
+            body.is-authenticated.subpage-mode main #page-about .hidden.lg\:block > div:nth-child(2) > div {
+                flex: none !important;
+                min-height: 160px !important;
+            }
+            body.is-authenticated.subpage-mode main #page-about .hidden.lg\:block > div:nth-child(2) > div > div.px-8 {
+                min-height: auto !important;
+                padding: 18px 24px !important;
+                overflow: visible !important;
+            }
+            body.is-authenticated.subpage-mode main #page-about .hidden.lg\:block > div:nth-child(2) h3 {
+                font-size: 28px !important;
+            }
+            body.is-authenticated.subpage-mode main #page-about .hidden.lg\:block > div:nth-child(2) img[loading="lazy"]:not(.w-16) {
+                width: 128px !important;
+                height: 128px !important;
+            }
+            body.is-authenticated.subpage-mode main #page-about .hidden.lg\:block > div:nth-child(2) img.w-16 {
+                width: 48px !important;
+                height: 48px !important;
+            }
+            body.is-authenticated.subpage-mode main #page-about .hidden.lg\:block > div:nth-child(2) p {
+                font-size: 15px !important;
+            }
+            body.is-authenticated.subpage-mode main #page-about .hidden.lg\:block > div:nth-child(2) .promise-letter {
+                font-size: 64px !important;
+            }
+
             /* 데스크톱 플로팅 하단 네비: 중앙 콘텐츠 폭과 정확히 일치 */
             body.is-authenticated nav.fixed.bottom-0,
             body.is-authenticated:has(#page-home:not(.hidden)) nav.fixed.bottom-0,
