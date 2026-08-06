@@ -3363,15 +3363,8 @@
             transform-origin: center;
         }
         /* 홈: 완료된 설문 결과를 결과 화면의 정보 구조로 간결하게 요약 */
-        .home-result-section-title {
-            margin: 0 0 10px;
-            color: #111729;
-            font-size: 16px;
-            font-weight: 900;
-            line-height: 1.3;
-        }
         .home-risk-overview {
-            padding: 16px;
+            padding: 16px 18px;
             border-radius: 18px;
             background: #F3F4F6;
         }
@@ -3379,123 +3372,57 @@
             display: grid;
             grid-template-columns: auto minmax(0, 1fr);
             align-items: center;
-            gap: 12px;
+            gap: 14px;
         }
         .home-risk-owl {
-            width: 84px;
-            height: 84px;
+            width: 72px;
+            height: 72px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 16px;
+            border-radius: 14px;
             background: #FFFFFF;
         }
-        .home-risk-owl img { width: 68px; height: 68px; object-fit: contain; }
+        .home-risk-owl img { width: 58px; height: 58px; object-fit: contain; }
+        .home-risk-kicker {
+            color: #6B7280;
+            font-size: 12px;
+            font-weight: 800;
+            line-height: 1.35;
+        }
         .home-risk-score-row {
             display: flex;
-            align-items: flex-end;
+            align-items: center;
             flex-wrap: wrap;
-            gap: 7px;
+            gap: 9px;
+            margin-top: 4px;
         }
         .home-risk-score {
             color: #1A1A1A;
-            font-size: clamp(32px, 4vw, 46px);
+            font-size: clamp(30px, 3.4vw, 40px);
             font-weight: 900;
             line-height: .95;
             letter-spacing: -.04em;
         }
         .home-risk-status {
-            min-height: 38px;
-            padding: 0 12px;
+            min-height: 32px;
+            padding: 0 10px;
             display: inline-flex;
             align-items: center;
             gap: 5px;
             border-radius: 999px;
             color: #FFFFFF;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 900;
             white-space: nowrap;
         }
         .home-risk-message {
-            margin-top: 12px;
-            color: #4B5563;
+            margin-top: 6px;
             font-size: 13px;
-            font-weight: 700;
-            line-height: 1.5;
+            font-weight: 800;
+            line-height: 1.4;
             word-break: keep-all;
         }
-        .home-risk-message strong { display: block; font-weight: 900; }
-        .home-risk-gauge { margin-top: 12px; }
-        .home-risk-gauge-track {
-            position: relative;
-            height: 11px;
-            border-radius: 999px;
-            background: linear-gradient(90deg, #6EE7A1 0%, #34D399 23%, #FBBF24 55%, #FB923C 75%, #EF4444 100%);
-        }
-        .home-risk-gauge-rest {
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 0 999px 999px 0;
-            background: #E9E7E2;
-        }
-        .home-risk-gauge-marker {
-            position: absolute;
-            top: 50%;
-            width: 20px;
-            height: 20px;
-            transform: translate(-50%, -50%);
-            border: 3px solid currentColor;
-            border-radius: 999px;
-            background: #FFFFFF;
-            box-shadow: 0 2px 7px rgba(17, 23, 41, .16);
-        }
-        .home-risk-domain {
-            margin-top: 12px;
-            padding: 10px 12px;
-            border-radius: 14px;
-            background: #FFFFFF;
-        }
-        .home-factor-card {
-            min-width: 0;
-            padding: 12px;
-            border-radius: 14px;
-            background: #FFFFFF;
-        }
-        .home-factor-card-head {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 8px;
-        }
-        .home-factor-label {
-            min-width: 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #1A1A1A;
-            font-size: 14px;
-            font-weight: 900;
-            white-space: nowrap;
-        }
-        .home-factor-icon {
-            width: 34px;
-            height: 34px;
-            flex: 0 0 auto;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 999px;
-        }
-        .home-factor-state { font-size: 11px; font-weight: 900; white-space: nowrap; }
-        .home-factor-progress {
-            height: 8px;
-            margin-top: 10px;
-            overflow: hidden;
-            border-radius: 999px;
-        }
-        .home-factor-progress > span { display: block; height: 100%; border-radius: inherit; }
         @media (min-width: 640px) {
             .home-risk-identity { grid-template-columns: auto minmax(0, 1fr); }
             .home-risk-overview { padding: 18px; }
@@ -3513,7 +3440,6 @@
             body:has(#page-home:not(.hidden)) .promise-section-home {
                 flex: 0 0 auto !important;
             }
-            .home-result-section-title { font-size: 18px; }
             .home-risk-overview { padding: 16px; }
             .home-risk-identity {
                 grid-template-columns: auto minmax(0, 1fr);
@@ -3713,22 +3639,13 @@
                     <div class="lg:hidden -mt-4 relative z-10 rounded-t-2xl px-4 pt-4 pb-4 space-y-3" style="background:#FFFFFF;">
                         <!-- Mobile/Tablet: 완료된 설문 결과 요약 -->
                         <div class="home-result-only bg-white rounded-2xl hidden">
-                            <div class="flex items-center justify-between gap-3 mb-4">
+                            <div class="flex items-center justify-between gap-3 mb-3">
                                 <div class="min-w-0">
-                                    <p class="text-[11px] font-bold text-gray-500 mb-1">최근 완료한 설문</p>
-                                    <h3 class="font-gapyeong font-black text-lg text-charcoal">노쇠 예측 설문 결과 요약</h3>
+                                    <h3 class="font-gapyeong font-black text-lg text-charcoal">최근 설문 결과</h3>
                                 </div>
                                 <button onclick="navTo('result')" class="shrink-0 inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-xs font-black" style="background:#FEE500;color:#1A1A1A">전체 결과 <i class="fa-solid fa-chevron-right text-[10px]"></i></button>
                             </div>
-                            <h4 class="home-result-section-title font-gapyeong">설문에 따른 노쇠 위험 결과</h4>
                             <div id="home-risk-summary-mobile" class="home-risk-summary"></div>
-                            <div class="mt-4 rounded-2xl p-4" style="background:#F3F4F6">
-                                <div class="flex items-center justify-between gap-3 mb-3">
-                                    <h4 class="font-gapyeong font-black text-base text-charcoal">영역 요약 및 항목별 영향 요인</h4>
-                                    <span class="text-[11px] font-black px-2.5 py-1.5 rounded-full whitespace-nowrap" style="background:#FFFFFF;color:#2563EB">상위 3개</span>
-                                </div>
-                                <div id="home-contributions-grid-mobile" class="home-contributions-grid grid grid-cols-1 md:grid-cols-3 gap-3"></div>
-                            </div>
                         </div>
 
                         <!-- 3 owl link cards -->
@@ -3763,22 +3680,13 @@
 
                     <!-- 완료된 설문 결과 요약 (설문결과 동기화) -->
                     <div class="home-result-only bg-white rounded-2xl px-5 py-4 hidden">
-                        <div class="flex items-center justify-between gap-4 mb-4">
+                        <div class="flex items-center justify-between gap-4 mb-3">
                             <div class="min-w-0">
-                                <p class="text-xs font-bold text-gray-500 mb-1">최근 완료한 설문</p>
-                                <h3 class="font-gapyeong font-black text-xl">노쇠 예측 설문 결과 요약</h3>
+                                <h3 class="font-gapyeong font-black text-xl">최근 설문 결과</h3>
                             </div>
-                            <button onclick="navTo('result')" class="shrink-0 inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-black" style="background:#FEE500;color:#1A1A1A">전체 결과 보기 <i class="fa-solid fa-chevron-right text-xs"></i></button>
+                            <button onclick="navTo('result')" class="shrink-0 inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-black" style="background:#FEE500;color:#1A1A1A">전체 결과 <i class="fa-solid fa-chevron-right text-xs"></i></button>
                             </div>
-                        <h4 class="home-result-section-title font-gapyeong">설문에 따른 노쇠 위험 결과</h4>
                         <div id="home-risk-summary" class="home-risk-summary"></div>
-                        <div class="mt-4 rounded-2xl p-4" style="background:#F3F4F6">
-                            <div class="flex items-center justify-between gap-3 mb-3">
-                                <h4 class="font-gapyeong font-black text-lg text-charcoal">영역 요약 및 항목별 영향 요인</h4>
-                                <span class="text-xs font-black px-3 py-1.5 rounded-full whitespace-nowrap" style="background:#FFFFFF;color:#2563EB">상위 3개</span>
-                            </div>
-                            <div id="home-contributions-grid" class="home-contributions-grid grid grid-cols-3 gap-3"></div>
-                        </div>
                     </div>
 
                     <!-- 3 owl action cards (matches login) -->
@@ -7705,7 +7613,6 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
         function renderHomeDashboard() {
             const summaries = document.querySelectorAll('.home-risk-summary');
-            const grids = document.querySelectorAll('.home-contributions-grid');
             const hasResult = Boolean(state.resultViewed && state.result && state.result.p !== null);
 
             document.querySelectorAll('.home-result-only').forEach(section => {
@@ -7717,10 +7624,9 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 button.classList.toggle('cursor-not-allowed', !hasResult);
             });
 
-            if (!summaries.length || !grids.length) return;
+            if (!summaries.length) return;
             if (!hasResult) {
                 summaries.forEach(summary => { summary.innerHTML = ''; });
-                grids.forEach(grid => { grid.innerHTML = ''; });
                 return;
             }
 
@@ -7731,94 +7637,26 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const statusColor = isAtRisk ? '#EF4444' : '#10B981';
             const statusText = isAtRisk ? '노쇠 위험' : '정상';
             const statusIcon = isAtRisk ? 'fa-triangle-exclamation' : 'fa-circle-check';
-            const markerLeft = Math.min(Math.max((pPct / 15) * 100, 0), 100);
             const guidance = isAtRisk
-                ? '현재 노쇠 위험 신호가 있습니다. 결과를 확인하고 맞춤 건강 관리를 시작해 보세요.'
-                : '현재 노쇠 신호가 없습니다. 건강 관리 잘 하고 계세요!';
-
-            let physPct = Math.max(0, Number(r.physPct || 0));
-            let emoPct = Math.max(0, Number(r.emoPct || 0));
-            const domainTotal = physPct + emoPct;
-            if (domainTotal > 0) {
-                physPct = Math.round(physPct / domainTotal * 100);
-                emoPct = 100 - physPct;
-            } else {
-                physPct = 50;
-                emoPct = 50;
-            }
+                ? '노쇠 위험 신호가 확인되었습니다.'
+                : '현재 노쇠 신호가 없습니다.';
 
             const riskHtml = `
                 <div class="home-risk-overview">
                     <div class="home-risk-identity">
                         <div class="home-risk-owl"><img src="./owl-hero.svg" alt="결과를 안내하는 부비"></div>
                         <div class="min-w-0">
-                            <p class="text-xs font-bold text-gray-500">기준선 ${baseline.toFixed(1)}%</p>
-                            <div class="home-risk-score-row mt-1">
+                            <p class="home-risk-kicker">종합 노쇠 위험도 · 기준 ${baseline.toFixed(1)}%</p>
+                            <div class="home-risk-score-row">
                                 <p class="home-risk-score">${pPct.toFixed(1)}<span style="font-size:.48em">%</span></p>
-                                <p class="text-xs font-bold text-gray-600 leading-tight">종합<br>노쇠 위험도</p>
                                 <span class="home-risk-status" style="background:${statusColor}"><i class="fa-solid ${statusIcon} text-[10px]"></i>${statusText}</span>
                             </div>
+                            <p class="home-risk-message" style="color:${statusColor}">${guidance}</p>
                         </div>
-                    </div>
-                    <p class="home-risk-message">검사 결과 노쇠의 위험 수준은 기준치(${baseline.toFixed(1)}%) ${isAtRisk ? '이상' : '이하'}로 나타났습니다.<strong style="color:${statusColor}">${guidance}</strong></p>
-                    <div class="home-risk-gauge" aria-label="현재 종합 노쇠 위험도 ${pPct.toFixed(1)}퍼센트">
-                        <div class="home-risk-gauge-track">
-                            <span class="home-risk-gauge-rest" style="width:${100 - markerLeft}%"></span>
-                            <span class="home-risk-gauge-marker" style="left:${markerLeft}%;color:${statusColor}"></span>
-                        </div>
-                        <div class="flex justify-between text-[11px] font-bold text-gray-500 mt-1"><span>정상</span><span>현재 ${pPct.toFixed(1)}%</span><span>노쇠 위험</span></div>
-                    </div>
-                    <div class="home-risk-domain">
-                        <div class="flex h-7 overflow-hidden rounded-full">
-                            <div class="flex items-center justify-center text-[11px] font-black text-white" style="width:${physPct}%;background:#3B82F6">신체 ${physPct}%</div>
-                            <div class="flex items-center justify-center text-[11px] font-black text-white" style="width:${emoPct}%;background:#EC65AE">정서 ${emoPct}%</div>
-                        </div>
-                        <div class="flex justify-between gap-3 text-[11px] font-black mt-1.5"><span style="color:#3B82F6">● 신체영역 ${physPct}%</span><span style="color:#EC65AE">● 정서영역 ${emoPct}%</span></div>
                     </div>
                 </div>`;
 
-            const labelMap = {
-                tug: '보행기능',
-                met_score: '활동량',
-                sgdsk_score: '우울감',
-                age: '나이(참고)',
-                bmi: '체중',
-                polypharm: '복용약물'
-            };
-            const iconMap = {
-                tug: 'fa-person-walking',
-                met_score: 'fa-bolt',
-                sgdsk_score: 'fa-face-frown',
-                age: 'fa-hourglass-half',
-                bmi: 'fa-weight-scale',
-                polypharm: 'fa-pills'
-            };
-            const contributions = Array.isArray(r.sortedContribs) ? [...r.sortedContribs] : [];
-            contributions.sort((a, b) => Math.abs(b.value) - Math.abs(a.value));
-            const topFactors = contributions.slice(0, 3);
-            const maxAbs = Math.max(...contributions.map(item => Math.abs(Number(item.value) || 0)), 0) || 1;
-            const factorsHtml = topFactors.map(item => {
-                const key = item.key;
-                const value = Number(item.value) || 0;
-                const isReference = key === 'age';
-                const isProtective = !isReference && value < 0;
-                const color = isReference ? '#6B7280' : (isProtective ? '#10B981' : '#EF4444');
-                const pale = isReference ? '#E5E7EB' : (isProtective ? '#D1FAE5' : '#FEE2E2');
-                const stateText = isReference ? '참고 항목' : (isProtective ? '보호 요인' : '개선 필요');
-                const influence = Math.round(Math.abs(value) / maxAbs * 100);
-                return `
-                    <div class="home-factor-card">
-                        <div class="home-factor-card-head">
-                            <div class="home-factor-label"><span class="home-factor-icon" style="background:${pale};color:${color}"><i class="fa-solid ${iconMap[key] || 'fa-circle-info'}"></i></span><span>${labelMap[key] || item.label || key}</span></div>
-                            <span class="home-factor-state" style="color:${color}">${stateText}</span>
-                        </div>
-                        <div class="home-factor-progress" style="background:${pale}"><span style="width:${influence}%;background:${color}"></span></div>
-                        <div class="flex items-center justify-between text-[11px] font-bold mt-1 text-gray-500"><span>영향도</span><strong style="color:${color}">${influence}%</strong></div>
-                    </div>`;
-            }).join('');
-
             summaries.forEach(summary => { summary.innerHTML = riskHtml; });
-            grids.forEach(grid => { grid.innerHTML = factorsHtml; });
         }
 
         function renderDetailCharts(r, pPct, trendPoints, trendLabels) {
