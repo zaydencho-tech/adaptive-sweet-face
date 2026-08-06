@@ -603,14 +603,20 @@
             #page-login .login-hero-visual {
                 min-width: 0;
             }
+            #page-login .login-hero-layout {
+                display: block;
+            }
             #page-login .login-hero-copy {
                 flex: 1 1 auto;
                 position: relative;
                 z-index: 2;
+                width: 100%;
             }
             #page-login .login-hero-visual {
-                position: relative;
+                position: absolute;
                 z-index: 1;
+                top: 114px;
+                right: 2.5rem;
             }
             #page-login .login-hero-character-wrap {
                 width: 18rem !important;
@@ -645,19 +651,29 @@
                 max-width: 100%;
                 filter: none !important;
             }
+            #page-login .login-hero-title {
+                font-size: clamp(2rem, 2vw, 2.5rem) !important;
+                line-height: 1.05 !important;
+                letter-spacing: -0.035em;
+                word-break: keep-all;
+                overflow-wrap: normal;
+            }
             #page-login .login-hero-description {
                 max-width: 30rem;
+                font-size: clamp(1rem, 1vw, 1.125rem) !important;
+                line-height: 1.45 !important;
                 word-break: keep-all;
                 overflow-wrap: normal;
                 text-wrap: balance;
             }
         }
-        @media (min-width: 1024px) and (max-width: 1279px) {
+        @media (min-width: 1024px) and (max-width: 1799px) {
             body:has(#page-login:not(.hidden)) #page-login > div > div:first-child > .rounded-3xl:first-child {
                 padding: 114px 1.5rem 2rem !important;
                 flex: 0 0 auto !important;
             }
             #page-login .login-hero-layout {
+                display: flex;
                 flex-direction: column;
                 align-items: stretch;
                 gap: 1rem;
@@ -666,6 +682,9 @@
                 width: 100%;
             }
             #page-login .login-hero-visual {
+                position: relative;
+                top: auto;
+                right: auto;
                 width: 100%;
                 align-items: flex-end;
                 margin-top: 0.5rem;
@@ -3324,7 +3343,7 @@
                     <div class="rounded-3xl px-6 pt-8 pb-12 lg:pb-16 relative overflow-hidden" style="background:#FEE500;">
                         <div class="login-hero-layout flex items-start justify-between gap-3">
                             <div class="login-hero-copy space-y-4">
-                                <h1 class="font-gapyeong text-4xl md:text-5xl font-black leading-tight text-charcoal">어르신 건강 지킴이,<br><strong>BUVI</strong>입니다</h1>
+                                <h1 class="login-hero-title font-gapyeong text-4xl md:text-5xl font-black leading-tight text-charcoal">어르신 건강 지킴이,<br><strong>BUVI</strong>입니다</h1>
                                 <p class="login-hero-description text-base md:text-lg font-bold leading-relaxed text-charcoal">건강한 매일을 함께하며 건강을 돌보는 <strong>어르신의 건강 지킴이입니다.</strong></p>
                             </div>
                             <div class="login-hero-visual flex flex-col items-end gap-1 flex-shrink-0">
