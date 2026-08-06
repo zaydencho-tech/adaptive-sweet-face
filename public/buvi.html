@@ -6166,6 +6166,9 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         // ── 3) 다약제 ───────────────────────────────────────────────
         function renderPolypharmInput(container) {
             const saved = state.answers.polypharm;
+            const keypadButtons = [1,2,3,4,5,6,7,8,9].map(n => `
+                <button type="button" onclick="polypharmKeypadPress(${n})" aria-label="${n} 입력">${n}</button>
+            `).join('');
             container.innerHTML = `
             <div class="flex flex-col gap-5 max-w-sm mx-auto">
                 <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-[30px] text-gray-700 leading-relaxed">
@@ -6176,8 +6179,43 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 </div>
                 ${makeStepper('inp-polypharm','개',0,30,1,saved,'onPolypharmInput','_')}
 
+                <div class="survey-input-card space-y-3">
+                    <p class="font-black text-gray-700">화면 숫자 키패드로 약 개수를 입력해 주세요.</p>
+                    <div class="survey-keypad" aria-label="약 개수 화면 숫자 키패드">
+                        ${keypadButtons}
+                        <button type="button" onclick="polypharmKeypadClear()" class="!text-sm !text-red-600 !bg-red-50" aria-label="약 개수 전체 삭제">전체삭제</button>
+                        <button type="button" onclick="polypharmKeypadPress(0)" aria-label="0 입력">0</button>
+                        <button type="button" onclick="polypharmKeypadBack()" aria-label="약 개수 한 자리 지우기">⌫</button>
+                    </div>
+                </div>
+
                 <p id="poly-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]">${saved!==null?'✓ '+saved+'개 입력 완료':''}</p>
             </div>`;
+        }
+
+        function polypharmKeypadPress(digit) {
+            const input = document.getElementById('inp-polypharm');
+            if (!input) return;
+            const current = input.value === '' ? '' : String(parseInt(input.value, 10) || 0);
+            const nextString = current === '0' ? String(digit) : current + String(digit);
+            const nextValue = parseInt(nextString, 10);
+            if (!Number.isFinite(nextValue) || nextValue > 30) return;
+            input.value = String(nextValue);
+            onPolypharmInput();
+        }
+
+        function polypharmKeypadBack() {
+            const input = document.getElementById('inp-polypharm');
+            if (!input) return;
+            input.value = input.value.slice(0, -1);
+            onPolypharmInput();
+        }
+
+        function polypharmKeypadClear() {
+            const input = document.getElementById('inp-polypharm');
+            if (!input) return;
+            input.value = '';
+            onPolypharmInput();
         }
 
         function onPolypharmInput() {
