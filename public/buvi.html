@@ -1104,6 +1104,78 @@
                 background-color: #F8E747 !important;
                 border-radius: 0 !important; padding-top: 7.75rem !important; padding-bottom: 5rem !important; padding-left: 32px !important; padding-right: 32px !important;
             }
+            /* Login hero: 태블릿/모바일도 데스크톱과 같은 288px 캐릭터 비율을 유지 */
+            #page-login .login-hero-layout,
+            #page-login .login-hero-copy,
+            #page-login .login-hero-visual {
+                min-width: 0;
+            }
+            #page-login .login-hero-layout {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) 18rem;
+                align-items: center;
+                gap: clamp(12px, 2.5vw, 28px);
+            }
+            #page-login .login-hero-copy {
+                position: relative;
+                z-index: 2;
+                width: 100%;
+            }
+            #page-login .login-hero-title {
+                font-size: clamp(2.125rem, 4.5vw, 2.5rem) !important;
+                line-height: 1.05 !important;
+                letter-spacing: -0.035em;
+                word-break: keep-all;
+                overflow-wrap: normal;
+            }
+            #page-login .login-hero-description {
+                max-width: 34rem;
+                font-size: clamp(1rem, 2.2vw, 1.125rem) !important;
+                line-height: 1.5 !important;
+                word-break: keep-all;
+                overflow-wrap: normal;
+                text-wrap: balance;
+            }
+            #page-login .login-hero-visual {
+                position: relative;
+                z-index: 1;
+                width: 18rem;
+                align-items: flex-end;
+                gap: 0;
+            }
+            #page-login .login-hero-character-wrap {
+                position: relative;
+                flex: 0 0 auto;
+                width: 18rem !important;
+                height: 18rem !important;
+                max-width: 100%;
+            }
+            #page-login .login-hero-character-wrap::after {
+                content: "";
+                position: absolute;
+                z-index: 0;
+                left: 50%;
+                bottom: 15.5%;
+                width: 36%;
+                height: 5.5%;
+                transform: translateX(-50%);
+                border-radius: 50%;
+                background: radial-gradient(ellipse at center,
+                    rgba(53, 48, 38, 0.24) 0%,
+                    rgba(53, 48, 38, 0.14) 45%,
+                    rgba(53, 48, 38, 0) 78%);
+                filter: blur(2px);
+                pointer-events: none;
+            }
+            #page-login .login-hero-character {
+                position: relative;
+                z-index: 1;
+                display: block;
+                width: 100% !important;
+                height: 100% !important;
+                max-width: 100%;
+                filter: none !important;
+            }
             /* 흰색 로그인 카드: 좌우 여백 없음, 위쪽 16px 라운드 */
             body:has(#page-login:not(.hidden)) #page-login > div > div > .bg-white {
                  margin: -1.25rem 0 0 !important;
@@ -1142,6 +1214,39 @@
                 height: 53px !important; border-radius: 12px !important;
                 font-size: 17px !important; font-weight: 700 !important;
                 margin-top: 23px !important;
+            }
+        }
+
+        @media (max-width: 639px) {
+            body:has(#page-login:not(.hidden)) #page-login > div > div > .rounded-3xl:first-child {
+                padding-left: 24px !important;
+                padding-right: 24px !important;
+                padding-bottom: 3.5rem !important;
+            }
+            #page-login .login-hero-layout {
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 14px;
+            }
+            #page-login .login-hero-title {
+                font-size: clamp(2rem, 8vw, 2.25rem) !important;
+                white-space: nowrap;
+            }
+            #page-login .login-hero-description {
+                max-width: 100%;
+                font-size: 1rem !important;
+                line-height: 1.5 !important;
+            }
+            #page-login .login-hero-visual {
+                width: 100%;
+                align-items: flex-end;
+                margin-top: -4px;
+            }
+            #page-login .login-hero-character-wrap {
+                width: min(18rem, calc(100vw - 48px)) !important;
+                height: auto !important;
+                aspect-ratio: 1 / 1;
             }
         }
 
