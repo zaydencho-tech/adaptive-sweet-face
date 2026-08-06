@@ -3456,6 +3456,109 @@
         body.high-contrast nav.bottom-nav .nav-tab:not(.active) svg path {
             stroke: #C9A800 !important;
         }
+
+        /* 헤더 글자 크기 조절: 실제 가용 폭이 부족할 때만 셀렉트로 축약 */
+        body > header {
+            container-name: buvi-header;
+            container-type: inline-size;
+        }
+        .header-controls {
+            min-width: 0;
+        }
+        .font-scale-select-wrap {
+            display: none;
+            position: relative;
+            flex: 0 0 auto;
+        }
+        .font-scale-select-wrap::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 9px;
+            width: 8px;
+            height: 8px;
+            border-right: 2px solid currentColor;
+            border-bottom: 2px solid currentColor;
+            color: #FFFFFF;
+            pointer-events: none;
+            transform: translateY(-68%) rotate(45deg);
+        }
+        .font-scale-select {
+            width: auto;
+            min-width: 72px;
+            height: 44px;
+            padding: 0 24px 0 10px;
+            appearance: none;
+            -webkit-appearance: none;
+            border: 0;
+            border-radius: 12px;
+            outline: 0;
+            background: #111729;
+            color: #FFFFFF;
+            font-family: 'Escoredream', sans-serif;
+            font-size: 13px;
+            font-weight: 800;
+            line-height: 1;
+            cursor: pointer;
+        }
+        .font-scale-select:focus-visible {
+            outline: 3px solid #2B63E5;
+            outline-offset: 2px;
+        }
+        .header-controls.is-compact .font-scale-btn {
+            display: none !important;
+        }
+        .header-controls.is-compact .font-scale-select-wrap {
+            display: block;
+        }
+        .header-controls.is-compact {
+            width: auto !important;
+            flex: 0 0 auto;
+            margin-left: auto;
+        }
+        @container buvi-header (max-width: 400px) {
+            .header-controls {
+                width: auto !important;
+                flex: 0 0 auto;
+                margin-left: auto;
+            }
+            .header-controls .font-scale-btn {
+                display: none !important;
+            }
+            .header-controls .font-scale-select-wrap {
+                display: block;
+            }
+        }
+        @media (max-width: 440px) {
+            body:has(#page-login:not(.hidden)) > header,
+            body:has(#page-home:not(.hidden)) > header {
+                left: 20px !important;
+                right: auto !important;
+                width: calc(100vw - 40px) !important;
+                min-width: 0 !important;
+                max-width: calc(100vw - 40px) !important;
+                box-sizing: border-box;
+                overflow: hidden;
+            }
+            body:has(#page-login:not(.hidden)) > header > div:last-child,
+            body:has(#page-home:not(.hidden)) > header > div:last-child {
+                min-width: 0 !important;
+                justify-content: space-between;
+            }
+            body:has(#page-login:not(.hidden)) > header .header-wordmark,
+            body:has(#page-home:not(.hidden)) > header .header-wordmark {
+                min-width: 0 !important;
+                flex: 1 1 auto;
+            }
+        }
+        body.high-contrast .font-scale-select {
+            background: #FEE500;
+            color: #111729;
+            border: 2px solid #FEE500;
+        }
+        body.high-contrast .font-scale-select-wrap::after {
+            color: #111729;
+        }
     </style>
 
 
@@ -3481,6 +3584,15 @@
                 <button onclick="setFontScale(1.0)" data-scale="1.0" class="font-scale-btn is-active px-3 py-2 bg-white rounded-xl shadow-sm text-sm font-bold min-h-[44px]" aria-label="글자 크기 보통">가</button>
                 <button onclick="setFontScale(1.15)" data-scale="1.15" class="font-scale-btn px-3 py-2 text-base font-bold min-h-[44px]" aria-label="글자 크기 크게">가+</button>
                 <button onclick="setFontScale(1.3)" data-scale="1.3" class="font-scale-btn px-3 py-2 text-lg font-bold min-h-[44px]" aria-label="글자 크기 가장 크게">가++</button>
+                <label class="font-scale-select-wrap">
+                    <span class="sr-only">글자 크기 선택</span>
+                    <select class="font-scale-select" aria-label="글자 크기 선택" onchange="setFontScale(parseFloat(this.value))">
+                        <option value="0.95">가−</option>
+                        <option value="1">가</option>
+                        <option value="1.15">가+</option>
+                        <option value="1.3">가++</option>
+                    </select>
+                </label>
                 <button id="tts-btn" onclick="toggleTTS()" class="tts-listen-btn px-3 py-2 text-base font-bold min-h-[44px]">소리듣기</button>
             </div>
         </div>
@@ -8684,6 +8796,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             document.documentElement.style.setProperty('--font-scale', scale);
             try { localStorage.setItem('buvi.fontScale', String(scale)); } catch(e){}
             updateFontScaleUI(scale);
+            scheduleHeaderFontControlLayout();
             speak("글자 크기를 조정해 드렸습니다.");
         }
         function updateFontScaleUI(scale) {
@@ -8694,6 +8807,9 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 btn.classList.toggle('rounded-xl', isActive);
                 btn.classList.toggle('shadow-sm', isActive);
                 btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+            });
+            document.querySelectorAll('.font-scale-select').forEach(select => {
+                select.value = String(parseFloat(scale));
             });
         }
         (function initFontScaleFromStorage(){
@@ -8706,6 +8822,59 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     if (document.readyState !== 'loading') updateFontScaleUI(saved);
                 }
             } catch(e){}
+        })();
+
+        let headerFontControlLayoutFrame = 0;
+        function scheduleHeaderFontControlLayout() {
+            if (headerFontControlLayoutFrame) cancelAnimationFrame(headerFontControlLayoutFrame);
+            headerFontControlLayoutFrame = requestAnimationFrame(() => {
+                headerFontControlLayoutFrame = 0;
+                updateHeaderFontControlLayout();
+            });
+        }
+        function updateHeaderFontControlLayout() {
+            document.querySelectorAll('header .header-controls').forEach(controls => {
+                const row = controls.parentElement;
+                const wordmark = row?.querySelector('.header-wordmark');
+                if (!row || !wordmark || row.clientWidth === 0) return;
+
+                // 먼저 기존 4개 버튼의 자연 너비를 측정한 뒤 실제 충돌 여부로 전환합니다.
+                controls.classList.remove('is-compact');
+                const rowStyle = getComputedStyle(row);
+                const gap = parseFloat(rowStyle.columnGap || rowStyle.gap) || 0;
+                const requiredWidth = wordmark.scrollWidth + controls.scrollWidth + gap;
+                const header = controls.closest('header');
+                const headerStyle = header ? getComputedStyle(header) : null;
+                const headerRect = header?.getBoundingClientRect();
+                const rowRect = row.getBoundingClientRect();
+                const controlsRect = controls.getBoundingClientRect();
+                const headerContentRight = headerRect
+                    ? headerRect.right - (parseFloat(headerStyle?.paddingRight) || 0)
+                    : window.innerWidth;
+                const overflows = requiredWidth > row.clientWidth + 0.5
+                    || controlsRect.right > rowRect.right + 0.5
+                    || controlsRect.right > headerContentRight + 0.5
+                    || controlsRect.right > window.innerWidth + 0.5;
+
+                controls.classList.toggle('is-compact', overflows);
+            });
+        }
+        (function initHeaderFontControlLayout(){
+            const mount = () => {
+                updateFontScaleUI(state.fontScale);
+                scheduleHeaderFontControlLayout();
+                window.addEventListener('resize', scheduleHeaderFontControlLayout, { passive: true });
+
+                // 화면 전환으로 헤더 폭·소리듣기 버튼 노출이 달라지는 경우도 다시 계산합니다.
+                const observer = new MutationObserver(scheduleHeaderFontControlLayout);
+                document.querySelectorAll('.app-page').forEach(page => {
+                    observer.observe(page, { attributes: true, attributeFilter: ['class'] });
+                });
+                observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+                document.fonts?.ready?.then(scheduleHeaderFontControlLayout).catch(() => {});
+            };
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount);
+            else mount();
         })();
         function updateContrastUI() {
             const btn = document.getElementById('contrast-btn');
