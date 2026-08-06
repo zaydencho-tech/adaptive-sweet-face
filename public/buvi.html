@@ -300,11 +300,16 @@
         .bar-label-text { font-size: max(14px, calc(13px * var(--font-scale))); font-weight: 700; }
 
         /* ── 결과 리포트 섹션: 제목과 콘텐츠를 하나의 정보 그룹으로 묶음 ── */
-        #page-result .result-section-panel {
-            padding: 20px;
+        #page-result .result-page-heading {
             border: 0;
-            border-radius: 24px;
             background: #F3F4F6;
+            box-shadow: none;
+        }
+        #page-result .result-section-panel {
+            padding: 0;
+            border: 0;
+            border-radius: 0;
+            background: transparent;
             box-shadow: none;
         }
         #page-result .result-section-header {
@@ -344,8 +349,8 @@
         }
         @media (max-width: 639px) {
             #page-result .result-section-panel {
-                padding: 16px;
-                border-radius: 20px;
+                padding: 0;
+                border-radius: 0;
             }
             #page-result .result-section-header {
                 gap: 10px;
@@ -3817,7 +3822,7 @@
         <section id="page-result" class="app-page hidden">
           <div class="space-y-3 lg:space-y-0">
 
-            <div class="rounded-3xl bg-white border-2 p-5 lg:p-6" style="border-color:var(--border-color);">
+            <div class="result-page-heading rounded-3xl p-5 lg:p-6">
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div class="min-w-0">
                         <h1 class="font-gapyeong scaled-text-xl lg:scaled-text-2xl font-black text-charcoal break-keep">노쇠 예측 설문 결과</h1>
