@@ -1814,7 +1814,7 @@
             min-width: 0;
             white-space: nowrap;
             font-family: 'Escoredream', sans-serif;
-            font-size: clamp(13px, 1.05vw, 17px);
+            font-size: clamp(14px, 1.15vw, 19px);
             font-weight: 800;
             line-height: 1.2;
             letter-spacing: -0.045em;
@@ -1841,7 +1841,7 @@
                 align-items: flex-start;
                 gap: 0;
                 white-space: normal;
-                font-size: 10.5px;
+                font-size: 12.5px;
                 line-height: 1.15;
             }
         }
@@ -3469,41 +3469,103 @@
             display: none;
             position: relative;
             flex: 0 0 auto;
+            z-index: 70;
         }
-        .font-scale-select-wrap::after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            right: 9px;
-            width: 8px;
-            height: 8px;
-            border-right: 2px solid currentColor;
-            border-bottom: 2px solid currentColor;
-            color: #FFFFFF;
-            pointer-events: none;
-            transform: translateY(-68%) rotate(45deg);
-        }
-        .font-scale-select {
-            width: auto;
+        .font-scale-select-trigger {
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
             min-width: 72px;
             height: 44px;
-            padding: 0 24px 0 10px;
-            appearance: none;
-            -webkit-appearance: none;
-            border: 0;
+            padding: 0 12px 0 14px;
+            border: 1px solid #D1D5DB;
             border-radius: 12px;
             outline: 0;
-            background: #111729;
-            color: #FFFFFF;
+            background: #E5E7EB;
+            color: #111729;
             font-family: 'Escoredream', sans-serif;
-            font-size: 13px;
+            font-size: 15px;
             font-weight: 800;
             line-height: 1;
             cursor: pointer;
+            transition: background-color .18s ease, border-color .18s ease, box-shadow .18s ease;
         }
-        .font-scale-select:focus-visible {
+        .font-scale-select-trigger:hover {
+            background: #DDE1E7;
+            border-color: #BCC3CD;
+        }
+        .font-scale-select-trigger:focus-visible {
             outline: 3px solid #2B63E5;
             outline-offset: 2px;
+        }
+        .font-scale-select-chevron {
+            width: 10px;
+            height: 10px;
+            border-right: 2px solid currentColor;
+            border-bottom: 2px solid currentColor;
+            transform: translateY(-2px) rotate(45deg);
+            transition: transform .18s ease;
+        }
+        .font-scale-select-wrap.is-open .font-scale-select-chevron {
+            transform: translateY(2px) rotate(225deg);
+        }
+        .font-scale-select-menu {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            width: 164px;
+            padding: 7px;
+            border: 1px solid #E2E5EA;
+            border-radius: 16px;
+            background: #FFFFFF;
+            box-shadow: 0 16px 38px rgba(17, 23, 41, .18), 0 4px 10px rgba(17, 23, 41, .08);
+        }
+        .font-scale-select-wrap.is-open .font-scale-select-menu {
+            display: grid;
+            gap: 3px;
+        }
+        .font-scale-select-option {
+            display: grid;
+            grid-template-columns: 36px minmax(0, 1fr) 18px;
+            align-items: center;
+            gap: 7px;
+            width: 100%;
+            min-height: 43px;
+            padding: 6px 9px;
+            border: 0;
+            border-radius: 11px;
+            background: transparent;
+            color: #374151;
+            text-align: left;
+            font-family: 'Escoredream', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .font-scale-select-option:hover,
+        .font-scale-select-option:focus-visible {
+            background: #F3F4F6;
+            outline: 0;
+        }
+        .font-scale-select-option.is-selected {
+            background: #111729;
+            color: #FFFFFF;
+        }
+        .font-scale-select-option-size {
+            font-size: 14px;
+            font-weight: 900;
+            white-space: nowrap;
+        }
+        .font-scale-select-option-check {
+            opacity: 0;
+            font-size: 14px;
+            font-weight: 900;
+            text-align: center;
+        }
+        .font-scale-select-option.is-selected .font-scale-select-option-check {
+            opacity: 1;
         }
         .header-controls.is-compact .font-scale-btn {
             display: none !important;
@@ -3529,6 +3591,27 @@
                 display: block;
             }
         }
+        @media (max-width: 600px) {
+            .header-controls {
+                width: auto !important;
+                flex: 0 0 auto;
+                margin-left: auto;
+            }
+            body:has(#page-login:not(.hidden)) > header .header-controls,
+            body:has(#page-home:not(.hidden)) > header .header-controls,
+            body.is-authenticated > header .header-controls {
+                width: auto !important;
+                min-width: 72px !important;
+                flex: 0 0 auto !important;
+                margin-left: auto !important;
+            }
+            .header-controls .font-scale-btn {
+                display: none !important;
+            }
+            .header-controls .font-scale-select-wrap {
+                display: block;
+            }
+        }
         @media (max-width: 440px) {
             body:has(#page-login:not(.hidden)) > header,
             body:has(#page-home:not(.hidden)) > header {
@@ -3538,7 +3621,7 @@
                 min-width: 0 !important;
                 max-width: calc(100vw - 40px) !important;
                 box-sizing: border-box;
-                overflow: hidden;
+                overflow: visible;
             }
             body:has(#page-login:not(.hidden)) > header > div:last-child,
             body:has(#page-home:not(.hidden)) > header > div:last-child {
@@ -3551,12 +3634,24 @@
                 flex: 1 1 auto;
             }
         }
-        body.high-contrast .font-scale-select {
+        body.high-contrast .font-scale-select-trigger {
             background: #FEE500;
             color: #111729;
             border: 2px solid #FEE500;
         }
-        body.high-contrast .font-scale-select-wrap::after {
+        body.high-contrast .font-scale-select-menu {
+            border-color: #FEE500;
+            background: #111729;
+        }
+        body.high-contrast .font-scale-select-option {
+            color: #FFFFFF;
+        }
+        body.high-contrast .font-scale-select-option:hover,
+        body.high-contrast .font-scale-select-option:focus-visible {
+            background: #303030;
+        }
+        body.high-contrast .font-scale-select-option.is-selected {
+            background: #FEE500;
             color: #111729;
         }
     </style>
@@ -3584,15 +3679,26 @@
                 <button onclick="setFontScale(1.0)" data-scale="1.0" class="font-scale-btn is-active px-3 py-2 bg-white rounded-xl shadow-sm text-sm font-bold min-h-[44px]" aria-label="글자 크기 보통">가</button>
                 <button onclick="setFontScale(1.15)" data-scale="1.15" class="font-scale-btn px-3 py-2 text-base font-bold min-h-[44px]" aria-label="글자 크기 크게">가+</button>
                 <button onclick="setFontScale(1.3)" data-scale="1.3" class="font-scale-btn px-3 py-2 text-lg font-bold min-h-[44px]" aria-label="글자 크기 가장 크게">가++</button>
-                <label class="font-scale-select-wrap">
-                    <span class="sr-only">글자 크기 선택</span>
-                    <select class="font-scale-select" aria-label="글자 크기 선택" onchange="setFontScale(parseFloat(this.value))">
-                        <option value="0.95">가−</option>
-                        <option value="1">가</option>
-                        <option value="1.15">가+</option>
-                        <option value="1.3">가++</option>
-                    </select>
-                </label>
+                <div class="font-scale-select-wrap">
+                    <button type="button" class="font-scale-select-trigger" aria-label="글자 크기 선택" aria-haspopup="listbox" aria-expanded="false" aria-controls="font-scale-select-menu" onclick="toggleFontScaleMenu(event)" onkeydown="handleFontScaleTriggerKeydown(event)">
+                        <span class="font-scale-select-trigger-value">가</span>
+                        <span class="font-scale-select-chevron" aria-hidden="true"></span>
+                    </button>
+                    <div id="font-scale-select-menu" class="font-scale-select-menu" role="listbox" aria-label="글자 크기">
+                        <button type="button" class="font-scale-select-option" role="option" data-scale="0.95" aria-selected="false" onclick="selectFontScaleOption(0.95, event)" onkeydown="handleFontScaleOptionKeydown(event)">
+                            <span class="font-scale-select-option-size">가−</span><span>작게</span><span class="font-scale-select-option-check" aria-hidden="true">✓</span>
+                        </button>
+                        <button type="button" class="font-scale-select-option is-selected" role="option" data-scale="1" aria-selected="true" onclick="selectFontScaleOption(1, event)" onkeydown="handleFontScaleOptionKeydown(event)">
+                            <span class="font-scale-select-option-size">가</span><span>보통</span><span class="font-scale-select-option-check" aria-hidden="true">✓</span>
+                        </button>
+                        <button type="button" class="font-scale-select-option" role="option" data-scale="1.15" aria-selected="false" onclick="selectFontScaleOption(1.15, event)" onkeydown="handleFontScaleOptionKeydown(event)">
+                            <span class="font-scale-select-option-size">가+</span><span>크게</span><span class="font-scale-select-option-check" aria-hidden="true">✓</span>
+                        </button>
+                        <button type="button" class="font-scale-select-option" role="option" data-scale="1.3" aria-selected="false" onclick="selectFontScaleOption(1.3, event)" onkeydown="handleFontScaleOptionKeydown(event)">
+                            <span class="font-scale-select-option-size">가++</span><span>가장 크게</span><span class="font-scale-select-option-check" aria-hidden="true">✓</span>
+                        </button>
+                    </div>
+                </div>
                 <button id="tts-btn" onclick="toggleTTS()" class="tts-listen-btn px-3 py-2 text-base font-bold min-h-[44px]">소리듣기</button>
             </div>
         </div>
@@ -8808,9 +8914,79 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 btn.classList.toggle('shadow-sm', isActive);
                 btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
             });
-            document.querySelectorAll('.font-scale-select').forEach(select => {
-                select.value = String(parseFloat(scale));
+            const labels = new Map([
+                [0.95, '가−'],
+                [1, '가'],
+                [1.15, '가+'],
+                [1.3, '가++']
+            ]);
+            document.querySelectorAll('.font-scale-select-trigger-value').forEach(label => {
+                label.textContent = labels.get(parseFloat(scale)) || '가';
             });
+            document.querySelectorAll('.font-scale-select-option').forEach(option => {
+                const isSelected = parseFloat(option.dataset.scale) === parseFloat(scale);
+                option.classList.toggle('is-selected', isSelected);
+                option.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+            });
+        }
+        function setFontScaleMenuOpen(wrap, shouldOpen) {
+            if (!wrap) return;
+            wrap.classList.toggle('is-open', shouldOpen);
+            const trigger = wrap.querySelector('.font-scale-select-trigger');
+            trigger?.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+        }
+        function closeFontScaleMenus(except = null) {
+            document.querySelectorAll('.font-scale-select-wrap.is-open').forEach(wrap => {
+                if (wrap !== except) setFontScaleMenuOpen(wrap, false);
+            });
+        }
+        function focusFontScaleOption(wrap, direction = 1) {
+            const options = [...(wrap?.querySelectorAll('.font-scale-select-option') || [])];
+            if (!options.length) return;
+            const selected = options.find(option => option.classList.contains('is-selected'));
+            (selected || options[direction < 0 ? options.length - 1 : 0]).focus();
+        }
+        function toggleFontScaleMenu(event) {
+            event?.stopPropagation();
+            const wrap = event?.currentTarget?.closest('.font-scale-select-wrap');
+            if (!wrap) return;
+            const shouldOpen = !wrap.classList.contains('is-open');
+            closeFontScaleMenus(wrap);
+            setFontScaleMenuOpen(wrap, shouldOpen);
+        }
+        function selectFontScaleOption(scale, event) {
+            event?.stopPropagation();
+            const wrap = event?.currentTarget?.closest('.font-scale-select-wrap');
+            setFontScale(scale);
+            setFontScaleMenuOpen(wrap, false);
+            wrap?.querySelector('.font-scale-select-trigger')?.focus();
+        }
+        function handleFontScaleTriggerKeydown(event) {
+            if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return;
+            event.preventDefault();
+            const wrap = event.currentTarget.closest('.font-scale-select-wrap');
+            closeFontScaleMenus(wrap);
+            setFontScaleMenuOpen(wrap, true);
+            requestAnimationFrame(() => focusFontScaleOption(wrap, event.key === 'ArrowUp' || event.key === 'End' ? -1 : 1));
+        }
+        function handleFontScaleOptionKeydown(event) {
+            const wrap = event.currentTarget.closest('.font-scale-select-wrap');
+            const options = [...(wrap?.querySelectorAll('.font-scale-select-option') || [])];
+            const currentIndex = options.indexOf(event.currentTarget);
+            if (event.key === 'Escape') {
+                event.preventDefault();
+                setFontScaleMenuOpen(wrap, false);
+                wrap?.querySelector('.font-scale-select-trigger')?.focus();
+                return;
+            }
+            if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return;
+            event.preventDefault();
+            let nextIndex = currentIndex;
+            if (event.key === 'Home') nextIndex = 0;
+            else if (event.key === 'End') nextIndex = options.length - 1;
+            else if (event.key === 'ArrowDown') nextIndex = (currentIndex + 1) % options.length;
+            else nextIndex = (currentIndex - 1 + options.length) % options.length;
+            options[nextIndex]?.focus();
         }
         (function initFontScaleFromStorage(){
             try {
@@ -8864,6 +9040,15 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 updateFontScaleUI(state.fontScale);
                 scheduleHeaderFontControlLayout();
                 window.addEventListener('resize', scheduleHeaderFontControlLayout, { passive: true });
+                document.addEventListener('click', event => {
+                    if (!event.target.closest('.font-scale-select-wrap')) closeFontScaleMenus();
+                });
+                document.addEventListener('focusin', event => {
+                    if (!event.target.closest('.font-scale-select-wrap')) closeFontScaleMenus();
+                });
+                document.addEventListener('keydown', event => {
+                    if (event.key === 'Escape') closeFontScaleMenus();
+                });
 
                 // 화면 전환으로 헤더 폭·소리듣기 버튼 노출이 달라지는 경우도 다시 계산합니다.
                 const observer = new MutationObserver(scheduleHeaderFontControlLayout);
