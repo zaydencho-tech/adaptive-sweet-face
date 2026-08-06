@@ -313,28 +313,12 @@
             box-shadow: none;
         }
         #page-result .result-section-header {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
+            display: block;
             margin-bottom: 16px;
-        }
-        #page-result .result-section-index {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 34px;
-            height: 34px;
-            flex: 0 0 34px;
-            border-radius: 11px;
-            color: #111827;
-            background: #F8E647;
-            font-size: calc(15px * var(--font-scale));
-            font-weight: 900;
-            line-height: 1;
         }
         #page-result .result-section-title {
             color: #1F2937;
-            font-size: clamp(20px, calc(22px * var(--font-scale)), 28px);
+            font-size: clamp(18px, calc(19px * var(--font-scale)), 24px);
             font-weight: 900;
             line-height: 1.25;
             letter-spacing: -0.025em;
@@ -353,17 +337,10 @@
                 border-radius: 0;
             }
             #page-result .result-section-header {
-                gap: 10px;
                 margin-bottom: 14px;
             }
-            #page-result .result-section-index {
-                width: 30px;
-                height: 30px;
-                flex-basis: 30px;
-                border-radius: 10px;
-            }
             #page-result .result-section-title {
-                font-size: clamp(18px, calc(19px * var(--font-scale)), 24px);
+                font-size: clamp(17px, calc(18px * var(--font-scale)), 22px);
             }
         }
 
@@ -3837,7 +3814,6 @@
             <!-- ① 노쇠 결과 요약: 섹션 제목과 결과 카드를 하나의 그룹으로 구성 -->
             <section id="result-hero-card" class="result-section-panel" aria-labelledby="result-risk-title">
                 <header class="result-section-header">
-                    <span class="result-section-index" aria-hidden="true">1</span>
                     <div class="min-w-0">
                         <h2 id="result-risk-title" class="result-section-title">설문에 따른 노쇠 위험 결과</h2>
                     </div>
@@ -3848,7 +3824,6 @@
             <!-- ② 영역/항목별 영향 요인: 섹션 제목과 지표 카드를 하나의 그룹으로 구성 -->
             <section class="result-section-panel" aria-labelledby="result-factor-title">
                 <header class="result-section-header">
-                    <span class="result-section-index" aria-hidden="true">2</span>
                     <div class="min-w-0">
                         <h2 id="result-factor-title" class="result-section-title">영역 요약 및 항목별 영향 요인</h2>
                     </div>
