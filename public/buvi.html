@@ -6737,6 +6737,9 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
         function renderTugInput(container) {
             const saved = state.answers.tug !== null ? state.answers.tug : '';
+            const tugKeypadButtons = [1,2,3,4,5,6,7,8,9].map(n =>
+                `<button type="button" onclick="tugKpPress(${n})" aria-label="${n} 입력">${n}</button>`
+            ).join('');
             container.innerHTML = `
             <div class="flex flex-col gap-4 max-w-sm mx-auto">
                 <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-[30px] text-gray-700 leading-relaxed">
@@ -6758,46 +6761,50 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     </div>
                     <button onclick="tugReset()" class="text-sm text-gray-400 font-bold underline">↺ 초기화</button>
                 </div>
-                <label for="inp-tug" class="font-black text-gray-800 scaled-text-base">측정값을 직접 입력할 수도 있습니다.</label>
-                <div class="stepper-field border-2 border-blue-300 rounded-2xl bg-white px-4">
-                    <input id="inp-tug" type="text" inputmode="decimal" value="${saved}" placeholder="_"
-                        oninput="this.value=this.value.replace(/[^0-9.]/g,'').replace(/(\\..*)\\./g,'$1'); onTugInput(this.value)"
-                        class="stepper-input" aria-label="TUG 측정 시간 직접 입력">
-                    <span class="stepper-unit">초</span>
+                <!-- 직접 입력 키패드 -->
+                <div class="survey-input-card space-y-3">
+                    <label for="inp-tug" class="block text-center font-black text-gray-700 scaled-text-base">또는 직접 입력 (단위: 초)</label>
+                    <div class="stepper-field border-2 border-blue-300 rounded-2xl bg-white px-4">
+                        <input id="inp-tug" type="text" inputmode="decimal" value="${saved}" placeholder="_"
+                            oninput="this.value=this.value.replace(/[^0-9.]/g,'').replace(/(\\..*)\\./g,'$1').replace(/^(\\d+\\.\\d{2}).*$/,'$1'); onTugInput(this.value)"
+                            class="stepper-input" aria-label="TUG 측정 시간 직접 입력">
+                        <span class="stepper-unit">초</span>
+                    </div>
+                    <div class="survey-keypad" aria-label="TUG 측정 시간 숫자 키패드">
+                        ${tugKeypadButtons}
+                        <button type="button" onclick="tugKpDot()" aria-label="소수점 입력">.</button>
+                        <button type="button" onclick="tugKpPress(0)" aria-label="0 입력">0</button>
+                        <button type="button" onclick="tugKpBack()" aria-label="한 자리 삭제" class="bg-gray-100">⌫</button>
+                    </div>
+                    <p id="tug-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]" style="display:block !important" aria-live="polite">${saved?'✓ '+Number(saved).toFixed(2)+'초 입력 완료':''}</p>
                 </div>
-                <p id="tug-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]">${saved?'✓ '+saved+'초 입력 완료':''}</p>
             </div>`;
         }
 
         // TUG 소수점 키패드
         function tugKpPress(digit) {
             const inp = document.getElementById('inp-tug');
-            const disp = document.getElementById('tug-kp-disp');
-            if (!inp || !disp) return;
+            if (!inp) return;
             const cur = inp.value;
             // 소수점 이후 2자리 제한
             if (cur.includes('.') && cur.split('.')[1].length >= 2) return;
             const newStr = cur + String(digit);
             if (parseFloat(newStr) > 300) return;
             inp.value = newStr;
-            disp.textContent = newStr || '—';
             onTugInput(newStr);
         }
 
         function tugKpDot() {
             const inp = document.getElementById('inp-tug');
-            const disp = document.getElementById('tug-kp-disp');
-            if (!inp || !disp || inp.value.includes('.')) return;
+            if (!inp || inp.value.includes('.')) return;
             inp.value = (inp.value || '0') + '.';
-            disp.textContent = inp.value;
+            inp.focus({ preventScroll: true });
         }
 
         function tugKpBack() {
             const inp = document.getElementById('inp-tug');
-            const disp = document.getElementById('tug-kp-disp');
-            if (!inp || !disp) return;
+            if (!inp) return;
             inp.value = inp.value.slice(0, -1);
-            disp.textContent = inp.value || '—';
             onTugInput(inp.value);
         }
 
