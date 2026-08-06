@@ -6260,6 +6260,41 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         // ── IPAQ 입력 그룹: 일수 선택(큰버튼) + 시간·분 키패드 ────
         // 근거: 일수(0~7)는 단일 선택 버튼이 가장 빠름 (NCBIpmid 37801397)
         //       시간·분은 키패드로 최대 2자리 직접 입력
+        function ipaqTimeKeypad(dKey, hKey, mKey, hVal, mVal) {
+            const activeTab = window._ipaqTab?.[dKey] || 'h';
+            const hourActive = activeTab === 'h';
+            const numberButtons = [1,2,3,4,5,6,7,8,9].map(n => `
+                <button type="button" onclick="ipaqKpPress('${dKey}','${hKey}','${mKey}',${n})" aria-label="${n} 입력">${n}</button>
+            `).join('');
+            const activeTabClass = 'flex-1 py-2.5 rounded-2xl font-black text-sm border-2 transition-all bg-blue-600 text-white border-blue-600';
+            const inactiveTabClass = 'flex-1 py-2.5 rounded-2xl font-black text-sm border-2 transition-all bg-gray-100 text-gray-600 border-gray-300';
+            const activeCardClass = 'flex-1 flex flex-col items-center p-3 rounded-2xl border-2 border-blue-400 bg-blue-50 gap-0.5';
+            const inactiveCardClass = 'flex-1 flex flex-col items-center p-3 rounded-2xl border-2 border-transparent gap-0.5';
+            return `
+                <div class="space-y-3 pt-2">
+                    <div class="flex gap-2" role="tablist" aria-label="입력할 시간 단위 선택">
+                        <button id="ipaq-tab-h-${dKey}" type="button" role="tab" aria-selected="${hourActive}" onclick="setIpaqTab('${dKey}','h')" class="${hourActive ? activeTabClass : inactiveTabClass}">시간</button>
+                        <button id="ipaq-tab-m-${dKey}" type="button" role="tab" aria-selected="${!hourActive}" onclick="setIpaqTab('${dKey}','m')" class="${hourActive ? inactiveTabClass : activeTabClass}">분</button>
+                    </div>
+                    <div class="flex gap-2">
+                        <button id="ipaq-card-h-${dKey}" type="button" onclick="setIpaqTab('${dKey}','h')" class="${hourActive ? activeCardClass : inactiveCardClass}" aria-label="시간 입력 선택">
+                            <span class="text-xs font-black text-gray-400">시간</span>
+                            <strong id="disp-${hKey}" class="text-3xl font-black text-gray-900">${hVal === '' ? '—' : hVal}</strong>
+                        </button>
+                        <button id="ipaq-card-m-${dKey}" type="button" onclick="setIpaqTab('${dKey}','m')" class="${hourActive ? inactiveCardClass : activeCardClass}" aria-label="분 입력 선택">
+                            <span class="text-xs font-black text-gray-400">분</span>
+                            <strong id="disp-${mKey}" class="text-3xl font-black text-gray-900">${mVal === '' ? '—' : mVal}</strong>
+                        </button>
+                    </div>
+                    <div class="survey-keypad" aria-label="중간정도 신체활동 시간 숫자 키패드">
+                        ${numberButtons}
+                        <button type="button" onclick="ipaqKpClear('${dKey}','${hKey}','${mKey}')" class="!text-sm !text-red-600 !bg-red-50" aria-label="선택한 시간 단위 전체 삭제">전체삭제</button>
+                        <button type="button" onclick="ipaqKpPress('${dKey}','${hKey}','${mKey}',0)" aria-label="0 입력">0</button>
+                        <button type="button" onclick="ipaqKpBack('${dKey}','${hKey}','${mKey}')" aria-label="선택한 시간 단위 한 자리 지우기">⌫</button>
+                    </div>
+                </div>`;
+        }
+
         function ipaqGroup(dKey, hKey, mKey, noneLabel) {
             const a = state.answers;
             const dVal = a[dKey]; // null or 0-7
@@ -6285,6 +6320,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                         ${makeStepper(`inp-${mKey}`,'분',0,59,5,mVal,'onIpaqChange',0)}
                     </div>
                     <p class="text-sm font-bold text-gray-500">시간 입력 후 분 입력으로 이동해 주세요. 0분도 반드시 입력합니다.</p>
+                    ${dKey === 'ipaq_mod_days' ? ipaqTimeKeypad(dKey, hKey, mKey, hVal, mVal) : ''}
                 </div>
 
             </div>`;
@@ -6328,6 +6364,8 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const cardH = document.getElementById(`ipaq-card-h-${dKey}`);
             const cardM = document.getElementById(`ipaq-card-m-${dKey}`);
             if (!tabH) return;
+            tabH.setAttribute('aria-selected', String(tab === 'h'));
+            tabM.setAttribute('aria-selected', String(tab === 'm'));
             if (tab === 'h') {
                 tabH.className = 'flex-1 py-2.5 rounded-2xl font-black text-sm border-2 transition-all bg-blue-600 text-white border-blue-600';
                 tabM.className = 'flex-1 py-2.5 rounded-2xl font-black text-sm border-2 transition-all bg-gray-100 text-gray-600 border-gray-300';
@@ -6650,6 +6688,10 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     state.answers[`ipaq_${t}_min`] = 0;
                     if (mEl) mEl.value = '0';
                 }
+                const hourDisplay = document.getElementById(`disp-ipaq_${t}_hr`);
+                const minuteDisplay = document.getElementById(`disp-ipaq_${t}_min`);
+                if (hourDisplay && hEl) hourDisplay.textContent = hEl.value || '—';
+                if (minuteDisplay && mEl) minuteDisplay.textContent = mEl.value || '—';
             });
             // 현재 페이지 OK 라벨 갱신
             const cur = state.currentQuestionId;
