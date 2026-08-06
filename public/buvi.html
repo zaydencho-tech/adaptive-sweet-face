@@ -6194,7 +6194,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                             <strong id="disp-${mKey}" class="text-3xl font-black text-gray-900">${mVal === '' ? '—' : mVal}</strong>
                         </button>
                     </div>
-                    <div class="survey-keypad" aria-label="중간정도 신체활동 시간 숫자 키패드">
+                    <div class="survey-keypad" aria-label="시간과 분 화면 숫자 키패드">
                         ${numberButtons}
                         <button type="button" onclick="ipaqKpClear('${dKey}','${hKey}','${mKey}')" class="!text-sm !text-red-600 !bg-red-50" aria-label="선택한 시간 단위 전체 삭제">전체삭제</button>
                         <button type="button" onclick="ipaqKpPress('${dKey}','${hKey}','${mKey}',0)" aria-label="0 입력">0</button>
@@ -6228,7 +6228,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                         ${makeStepper(`inp-${mKey}`,'분',0,59,5,mVal,'onIpaqChange',0)}
                     </div>
                     <p class="text-sm font-bold text-gray-500">시간 입력 후 분 입력으로 이동해 주세요. 0분도 반드시 입력합니다.</p>
-                    ${dKey === 'ipaq_mod_days' ? ipaqTimeKeypad(dKey, hKey, mKey, hVal, mVal) : ''}
+                    ${ipaqTimeKeypad(dKey, hKey, mKey, hVal, mVal)}
                 </div>
 
             </div>`;
@@ -6257,6 +6257,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     ${makeStepper(`inp-${hKey}`,'시간',0,23,1,hVal,'onIpaqChange',0)}
                     ${makeStepper(`inp-${mKey}`,'분',0,59,5,mVal,'onIpaqChange',0)}
                 </div>
+                ${ipaqTimeKeypad(dKey, hKey, mKey, hVal, mVal)}
             </div>`;
         }
 
@@ -6296,7 +6297,8 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const inp = document.getElementById(id);
             const disp = document.getElementById(dispId);
             if (!inp || !disp) return;
-            const newStr = inp.value + String(digit);
+            const current = inp.value === '' ? '' : String(parseInt(inp.value, 10) || 0);
+            const newStr = current === '0' ? String(digit) : current + String(digit);
             if (parseInt(newStr) > max) return;
             inp.value = newStr;
             disp.textContent = newStr || '—';
@@ -6454,6 +6456,14 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const a = state.answers;
             const sh = a.ipaq_sit_hr !== null ? a.ipaq_sit_hr : '';
             const sm = a.ipaq_sit_min !== null ? a.ipaq_sit_min : '';
+            const sitKeypad = [1,2,3,4,5,6,7,8,9].map(n => `
+                <button type="button" onclick="sitKpPress(${n})" aria-label="${n} 입력">${n}</button>
+            `).join('');
+            const sitHourActive = window._sitTab !== 'm';
+            const activeTabClass = 'flex-1 py-2.5 rounded-2xl font-black text-sm border-2 transition-all bg-blue-600 text-white border-blue-600';
+            const inactiveTabClass = 'flex-1 py-2.5 rounded-2xl font-black text-sm border-2 transition-all bg-gray-100 text-gray-600 border-gray-300';
+            const activeCardClass = 'flex-1 flex flex-col items-center p-3 rounded-2xl border-2 border-blue-400 bg-blue-50 gap-0.5';
+            const inactiveCardClass = 'flex-1 flex flex-col items-center p-3 rounded-2xl border-2 border-transparent gap-0.5';
             container.innerHTML = `
             <div class="flex flex-col gap-4">
                 ${ipaqHeader(4)}
@@ -6466,6 +6476,29 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 <div class="survey-input-card ipaq-response-card flex flex-col gap-3">
                     ${makeStepper('inp-sit-hr','시간',0,24,1,sh,'onIpaqSitChange',0,'inp-sit-min')}
                     ${makeStepper('inp-sit-min','분',0,59,5,sm,'onIpaqSitChange',0)}
+                    <p class="text-sm font-bold text-gray-500">시간 또는 분을 선택한 뒤 화면 키패드로 직접 입력할 수 있습니다.</p>
+                    <div class="space-y-3 pt-2">
+                        <div class="flex gap-2" role="tablist" aria-label="입력할 시간 단위 선택">
+                            <button id="sit-tab-h" type="button" role="tab" aria-selected="${sitHourActive}" onclick="setSitTab('h')" class="${sitHourActive ? activeTabClass : inactiveTabClass}">시간</button>
+                            <button id="sit-tab-m" type="button" role="tab" aria-selected="${!sitHourActive}" onclick="setSitTab('m')" class="${sitHourActive ? inactiveTabClass : activeTabClass}">분</button>
+                        </div>
+                        <div class="flex gap-2">
+                            <button id="sit-card-h" type="button" onclick="setSitTab('h')" class="${sitHourActive ? activeCardClass : inactiveCardClass}" aria-label="시간 입력 선택">
+                                <span class="text-xs font-black text-gray-400">시간</span>
+                                <strong id="disp-sit-hr" class="text-3xl font-black text-gray-900">${sh === '' ? '—' : sh}</strong>
+                            </button>
+                            <button id="sit-card-m" type="button" onclick="setSitTab('m')" class="${sitHourActive ? inactiveCardClass : activeCardClass}" aria-label="분 입력 선택">
+                                <span class="text-xs font-black text-gray-400">분</span>
+                                <strong id="disp-sit-min" class="text-3xl font-black text-gray-900">${sm === '' ? '—' : sm}</strong>
+                            </button>
+                        </div>
+                        <div class="survey-keypad" aria-label="앉아서 보낸 시간 화면 숫자 키패드">
+                            ${sitKeypad}
+                            <button type="button" onclick="sitKpClear()" class="!text-sm !text-red-600 !bg-red-50" aria-label="선택한 시간 단위 전체 삭제">전체삭제</button>
+                            <button type="button" onclick="sitKpPress(0)" aria-label="0 입력">0</button>
+                            <button type="button" onclick="sitKpBack()" aria-label="선택한 시간 단위 한 자리 지우기">⌫</button>
+                        </div>
+                    </div>
                 </div>
                 <p id="ipaq-sit-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]"></p>
             </div>`;
@@ -6481,6 +6514,8 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const cardH = document.getElementById('sit-card-h');
             const cardM = document.getElementById('sit-card-m');
             if (!tabH) return;
+            tabH.setAttribute('aria-selected', String(tab === 'h'));
+            tabM.setAttribute('aria-selected', String(tab === 'm'));
             if (tab === 'h') {
                 tabH.className = 'flex-1 py-2.5 rounded-2xl font-black text-sm border-2 transition-all bg-blue-600 text-white border-blue-600';
                 tabM.className = 'flex-1 py-2.5 rounded-2xl font-black text-sm border-2 transition-all bg-gray-100 text-gray-600 border-gray-300';
@@ -6502,7 +6537,8 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const inp = document.getElementById(id);
             const disp = document.getElementById(dispId);
             if (!inp || !disp) return;
-            const newStr = inp.value + String(digit);
+            const current = inp.value === '' ? '' : String(parseInt(inp.value, 10) || 0);
+            const newStr = current === '0' ? String(digit) : current + String(digit);
             if (parseInt(newStr) > max) return;
             inp.value = newStr;
             disp.textContent = newStr || '—';
@@ -6543,6 +6579,10 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 m = 0;
                 if (minuteInput) minuteInput.value = '0';
             }
+            const hourDisplay = document.getElementById('disp-sit-hr');
+            const minuteDisplay = document.getElementById('disp-sit-min');
+            if (hourDisplay && hourInput) hourDisplay.textContent = hourInput.value || '—';
+            if (minuteDisplay && minuteInput) minuteDisplay.textContent = minuteInput.value || '—';
             state.answers.ipaq_sit_hr = h;
             state.answers.ipaq_sit_min = m;
             const ok = document.getElementById('ipaq-sit-ok');
