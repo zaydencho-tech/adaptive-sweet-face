@@ -331,9 +331,17 @@
             line-height: 1.25;
             letter-spacing: -0.025em;
         }
-        #page-result .result-section-panel #risk-gauge-wrap > div {
+        #page-result .result-section-panel #risk-gauge-wrap > .result-legacy-card {
             border-color: transparent !important;
             background: #FFFFFF !important;
+            box-shadow: none !important;
+        }
+        /* 결과 리포트의 정보 그룹은 흰 배경과 1px 외곽선을 항상 유지한다.
+           전역 중립 표면 규칙이 border-color를 투명하게 덮어쓰지 않도록 전용 클래스를 사용한다. */
+        #page-result .result-outlined-card {
+            background-color: #FFFFFF !important;
+            /* 도움말 정보 섹션과 동일한 1px 실선 톤 */
+            border: 1px solid #E8E5DE !important;
             box-shadow: none !important;
         }
         #page-result .result-section-panel #trend-chart-wrap .buvi-bar-item {
@@ -4746,25 +4754,29 @@
                 </div>
             </div>
 
-            <!-- ① 노쇠 결과 요약: 섹션 제목과 결과 카드를 하나의 그룹으로 구성 -->
-            <section id="result-hero-card" class="result-section-panel" aria-labelledby="result-risk-title">
-                <header class="result-section-header">
-                    <div class="min-w-0">
-                        <h2 id="result-risk-title" class="result-section-title">설문에 따른 노쇠 위험 결과</h2>
-                    </div>
-                </header>
+            <!-- 노쇠 결과 요약 -->
+            <section id="result-hero-card" class="result-section-panel" aria-label="노쇠 위험 결과">
                 <div id="risk-gauge-wrap" class="relative"></div>
             </section>
 
-            <!-- ② 영역/항목별 영향 요인: 섹션 제목과 지표 카드를 하나의 그룹으로 구성 -->
-            <section class="result-section-panel" aria-labelledby="result-factor-title">
+            <!-- ① 영역 요약 -->
+            <section class="result-section-panel" aria-labelledby="result-domain-title">
                 <header class="result-section-header">
                     <div class="min-w-0">
-                        <h2 id="result-factor-title" class="result-section-title">영역 요약 및 항목별 영향 요인</h2>
+                        <h2 id="result-domain-title" class="result-section-title">① 영역 요약</h2>
                     </div>
                 </header>
-                <p id="result-stat-message" class="scaled-text-base font-bold text-gray-500 leading-snug mb-3"></p>
                 <div id="trend-chart-wrap" class="relative"></div>
+            </section>
+
+            <!-- ② 항목별 영향 요인 -->
+            <section class="result-section-panel" aria-labelledby="result-impact-title">
+                <header class="result-section-header">
+                    <div class="min-w-0">
+                        <h2 id="result-impact-title" class="result-section-title">② 항목별 영향 요인</h2>
+                    </div>
+                </header>
+                <div id="result-impact-wrap" class="relative"></div>
             </section>
 
 
@@ -4773,7 +4785,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
 
                     <!-- Left: 1:1 상담 카드 -->
-                    <section class="result-consult-card h-full rounded-3xl p-4 lg:p-5 text-charcoal grid grid-cols-1 sm:grid-cols-[auto_minmax(0,1fr)] sm:grid-rows-[auto_auto] content-center items-center gap-x-4 gap-y-1 overflow-hidden" style="background:#F7F7F8;">
+                    <section class="result-outlined-card result-consult-card h-full rounded-3xl p-4 lg:p-5 text-charcoal grid grid-cols-1 sm:grid-cols-[auto_minmax(0,1fr)] sm:grid-rows-[auto_auto] content-center items-center gap-x-4 gap-y-1 overflow-hidden" style="background:#FFFFFF; border:1px solid #D1D5DB;">
                         <img src="./owl-welcome.svg" alt="부비와 상담" loading="lazy" width="520" height="520" class="pointer-events-none select-none w-16 h-16 lg:w-20 lg:h-20 object-contain shrink-0 drop-shadow-sm sm:row-span-2 justify-self-center" />
                         <div class="min-w-0 flex-1 text-center sm:text-left">
                             <h3 class="font-gapyeong text-lg lg:text-xl font-black text-charcoal leading-tight break-keep lg:whitespace-nowrap">부비와 함께하는 1:1 상담</h3>
@@ -4792,7 +4804,7 @@
                         <div class="h-full rounded-3xl text-charcoal flex flex-col justify-start bg-transparent">
                             <div class="grid grid-cols-2 grid-rows-1 gap-3 lg:gap-4 h-full">
                                 <!-- 저장 영역 -->
-                                <div class="bg-gray-50 rounded-2xl p-3 flex flex-col gap-2 h-full" role="group" aria-label="결과 저장 메뉴">
+                                <div class="result-outlined-card bg-white border border-gray-300 rounded-2xl p-3 flex flex-col gap-2 h-full" role="group" aria-label="결과 저장 메뉴">
                                     <div class="flex flex-col gap-2">
                                         <button onclick="event.stopPropagation(); simulatePDFDownload()" class="w-full flex items-center gap-2 text-left hover:bg-white transition-colors rounded-lg p-2">
                                             <i class="fa-solid fa-file-pdf text-charcoal text-xs"></i>
@@ -4809,7 +4821,7 @@
                                     </div>
                                 </div>
                                 <!-- 공유 영역 -->
-                                <div class="bg-gray-50 rounded-2xl p-3 flex flex-col gap-2 h-full" role="group" aria-label="결과 공유 메뉴">
+                                <div class="result-outlined-card bg-white border border-gray-300 rounded-2xl p-3 flex flex-col gap-2 h-full" role="group" aria-label="결과 공유 메뉴">
                                     <div class="flex flex-col gap-2">
                                         <button onclick="event.stopPropagation(); showAppModal('📱','SNS 공유','SNS로 결과를 공유했습니다.')" class="w-full flex items-center gap-2 text-left hover:bg-white transition-colors rounded-lg p-2">
                                             <i class="fa-solid fa-share-from-square text-charcoal text-xs"></i>
@@ -5442,10 +5454,10 @@
             { id: "age",        type: "age",        category: "2단계 · 연령",          question_ko: "어르신의 연령은?" },
             { id: "bmi",        type: "bmi",        category: "3단계 · 체질량지수",     question_ko: "어르신의 현재 키와 체중은?" },
             { id: "polypharm",  type: "polypharm",  category: "4단계 · 복용 약물",      question_ko: "다약제 복용 여부" },
-            { id: "ipaq_vig",     type: "ipaq_vig",     category: "5단계 · 신체활동 1/4",    question_ko: "격렬한 신체활동" },
-            { id: "ipaq_mod",     type: "ipaq_mod",     category: "5단계 · 신체활동 2/4",    question_ko: "중간정도 신체활동" },
-            { id: "ipaq_walk",    type: "ipaq_walk",    category: "5단계 · 신체활동 3/4",    question_ko: "걷기" },
-            { id: "ipaq_sit",     type: "ipaq_sit",     category: "5단계 · 신체활동 4/4",    question_ko: "앉아서 보낸 시간" },
+            { id: "ipaq_vig",     type: "ipaq_vig",     category: "5단계 · 신체활동 ①",      question_ko: "격렬한 신체활동" },
+            { id: "ipaq_mod",     type: "ipaq_mod",     category: "5단계 · 신체활동 ②",      question_ko: "중간정도 신체활동" },
+            { id: "ipaq_walk",    type: "ipaq_walk",    category: "5단계 · 신체활동 ③",      question_ko: "걷기" },
+            { id: "ipaq_sit",     type: "ipaq_sit",     category: "5단계 · 신체활동 ④",      question_ko: "앉아서 보낸 시간" },
             { id: "tug",          type: "tug",          category: "6단계 · 기능적 이동성",  question_ko: "기능적 이동성 검사 (TUG)" },
             // SGDS 15문항 — 각 1페이지씩
             ...Array.from({length:15}, (_, i) => ({
@@ -6832,19 +6844,13 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         }
 
         // ── IPAQ 공통 안내문 + 팝업 버튼 ───────────────────────────
-        function ipaqHeader(progress) {
+        function ipaqHeader() {
             return `
-            <div class="ipaq-fixed-guide">
-                <div class="flex items-center justify-between gap-3">
-                    <p class="font-black text-gray-900">🦉 지난 <strong><u>7일간</u></strong>의 모든 움직임을 떠올려 주세요.</p>
-                    <span class="shrink-0 rounded-full bg-slate-100 px-3 py-1 text-sm font-black text-slate-700">${progress}/4</span>
-                </div>
-                <div class="mt-2 flex flex-wrap gap-2" aria-label="포함되는 신체활동 예시">
-                    <span class="visual-tag">🧹 집안일</span><span class="visual-tag">🧰 일터 노동</span><span class="visual-tag">🚶 이동</span><span class="visual-tag">🏃 운동·스포츠</span>
-                </div>
+            <div class="ipaq-fixed-guide text-gray-700 leading-relaxed">
+                <p class="font-bold text-gray-900">이 설문은 사람들이 평소에 하는 <strong><u>신체활동</u></strong>에 대해 알아보고자 만들어졌습니다. 설문은 지난 <strong><u>7일간</u></strong> 어르신께서 신체활동에 소모한 시간에 대해 물을 것입니다. 어르신께서 스스로 활동적이지 않다고 생각되시더라도 각 질문에 응답해 주시기 바랍니다. 직장에서 집에서 하는 활동, 교통수단을 이용할 때 하는 활동, 여가 시간에 시행하는 활동, 운동 또는 스포츠 모두를 포함하여 생각해 주시기 바랍니다.</p>
             </div>
             <button type="button" onclick="showIpaqPopup()" class="ipaq-help-button w-full min-h-[46px] border border-slate-300 bg-slate-50 text-slate-700 font-black rounded-xl text-sm hover:bg-slate-100 transition-all">
-                📋 세부 예시 안내 보기 →
+                📋 신체활동 강도별 운동 종류 참고표 보기
             </button>`;
         }
 
@@ -6898,19 +6904,16 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 <fieldset class="survey-input-card ipaq-response-card space-y-3">
                     <legend class="px-2 font-black text-gray-800">일주일에 며칠 하셨습니까?</legend>
                     <div class="survey-chip-grid">
-                        ${[0,1,2,3,4,5,6,7].map(days => `<button type="button" onclick="setIpaqDays('${dKey}','${hKey}','${mKey}',${days})" class="survey-chip ${dVal === days ? 'is-selected' : ''}" aria-pressed="${dVal === days}">${days === 0 ? '0일<br><span class=\"text-xs\">안 함</span>' : days + '일'}</button>`).join('')}
+                        ${[0,1,2,3,4,5,6,7].map(days => `<button type="button" onclick="setIpaqDays('${dKey}','${hKey}','${mKey}',${days})" class="survey-chip ${dVal === days ? 'is-selected' : ''}" aria-pressed="${dVal === days}">${days === 0 ? '0일<br><span class=\"text-xs\">없었음</span>' : days + '일'}</button>`).join('')}
                     </div>
                     <input id="inp-${dKey}" type="hidden" value="${dVal ?? ''}">
                 </fieldset>
 
-                <!-- 시간·분 스테퍼 (일수 선택 후 표시) -->
+                <!-- 시간·분 직접 입력 (일수 선택 후 표시) -->
                 <div id="ipaq-time-row-${dKey}" class="survey-input-card ipaq-response-card ${isHidden ? 'hidden' : 'survey-slide-panel flex flex-col gap-3'}">
                     <p class="font-black text-gray-800">그런 날 하루에 보통 얼마나 하셨습니까?</p>
-                    <div class="flex flex-col gap-3">
-                        ${makeStepper(`inp-${hKey}`,'시간',0,24,1,hVal,'onIpaqChange',0,`inp-${mKey}`)}
-                        ${makeStepper(`inp-${mKey}`,'분',0,59,5,mVal,'onIpaqChange',0)}
-                    </div>
-                    <p class="text-sm font-bold text-gray-500">시간 입력 후 분 입력으로 이동해 주세요. 0분도 반드시 입력합니다.</p>
+                    <input id="inp-${hKey}" type="hidden" value="${hVal}">
+                    <input id="inp-${mKey}" type="hidden" value="${mVal}">
                     ${ipaqTimeKeypad(dKey, hKey, mKey, hVal, mVal)}
                 </div>
 
@@ -7090,11 +7093,10 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         function renderIpaqVig(container) {
             container.innerHTML = `
             <div class="flex flex-col gap-4">
-                ${ipaqHeader(1)}
+                ${ipaqHeader()}
                 <div class="survey-input-card ipaq-question-card text-gray-700 leading-relaxed">
                     <p class="text-lg font-bold text-gray-900 leading-snug"><strong><u>1) 지난 7일간</u></strong> 무거운 것을 들어 올리거나 나르는 일(약 20kg 이상), 땅파기, 건설 현장에서의 노동, 계단으로 물건 나르기 등과 같은 <strong><u>격렬한 신체활동</u></strong>을 며칠간 하셨습니까? (격렬한 운동 또는 스포츠 포함)</p>
                     <p class="mt-3 text-lg font-bold text-gray-900 leading-snug"><strong><u>2) 그런날 중 하루에</u></strong> 격렬한 신체활동을 하면서 보낸 시간이 보통 얼마나 됩니까?</p>
-                    <div class="mt-3 flex flex-wrap gap-2"><span class="visual-tag">🏋️ 약 20kg 이상 나르기</span><span class="visual-tag">⛏️ 땅파기</span><span class="visual-tag">🧱 건설 노동</span></div>
                 </div>
                 ${ipaqGroup('ipaq_vig_days','ipaq_vig_hr','ipaq_vig_min','격렬한 신체활동')}
                 <p id="ipaq-vig-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]"></p>
@@ -7106,14 +7108,13 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         function renderIpaqMod(container) {
             container.innerHTML = `
             <div class="flex flex-col gap-4">
-                ${ipaqHeader(2)}
+                ${ipaqHeader()}
                 <div class="survey-input-card ipaq-question-card text-gray-700 leading-relaxed">
                     <p class="text-lg font-bold text-gray-900 leading-snug">어르신께서 지난 7일간 하신 모든 <strong><u>중간정도 신체활동</u></strong>을 생각해 보십시오. 중간정도 신체활동이란 중간정도 힘들게 움직이는 활동으로서 평소보다 숨이 조금 더 차게 만드는 활동입니다. 한 번에 적어도 10분 이상 지속한 활동만을 생각하여 응답해주시기 바랍니다.</p>
                 </div>
                 <div class="survey-input-card ipaq-question-card text-gray-700 leading-relaxed">
                     <p class="text-lg font-bold text-gray-900 leading-snug"><strong><u>3) 지난 7일간, 집 안 또는 야외 활동을 모두 포함하여,</u></strong> 빠르게 걷기(일하는 중에), 가벼운 물건 나르기, 청소(야외), 유리창을 닦거나 마루를 닦거나 집안을 닦는 것, 쓰는 것, 육아(목욕시키기, 아이 안아주기 등) 등과 같은 <strong><u>중간정도 신체활동</u></strong>을 며칠간 하셨습니까? <strong><u>걷기는 포함시키지 마십시오.</u></strong> (중간정도 운동 또는 스포츠 포함.)</p>
                     <p class="mt-3 text-lg font-bold text-gray-900 leading-snug"><strong><u>4) 그런날 중 하루에</u></strong> 중간정도의 신체활동을 하면서 보낸 시간이 보통 얼마나 됩니까?</p>
-                    <div class="mt-3 flex flex-wrap gap-2"><span class="visual-tag">🧹 청소</span><span class="visual-tag">📦 가벼운 물건 나르기</span><span class="visual-tag">🧒 육아</span></div>
                 </div>
                 ${ipaqGroup('ipaq_mod_days','ipaq_mod_hr','ipaq_mod_min','중간정도 신체활동')}
                 <p id="ipaq-mod-ok" class="text-center scaled-text-base font-bold text-emerald-600 min-h-[1.5rem]"></p>
@@ -7125,7 +7126,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
         function renderIpaqWalk(container) {
             container.innerHTML = `
             <div class="flex flex-col gap-4">
-                ${ipaqHeader(3)}
+                ${ipaqHeader()}
                 <div class="survey-input-card ipaq-question-card text-gray-700 leading-relaxed">
                     <p class="text-lg font-bold text-gray-900 leading-snug">지난 7일간 걸은 시간을 생각해 보십시오. 직장이나 집에서, 교통 수단을 이용할 때 걸은 것 뿐만 아니라 오락 활동, 스포츠, 운동, 여가 시간에 걸은 것도 포함됩니다.</p>
                     <p class="mt-3 text-lg font-bold text-gray-900 leading-snug"><strong><u>5) 지난 7일간,</u></strong> 한 번에 적어도 <strong><u>10분 이상</u></strong> 걸은 날이 며칠입니까?</p>
@@ -7156,18 +7157,16 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const inactiveCardClass = 'flex-1 flex flex-col items-center p-3 rounded-2xl border-2 border-transparent gap-0.5';
             container.innerHTML = `
             <div class="flex flex-col gap-4">
-                ${ipaqHeader(4)}
+                ${ipaqHeader()}
                 <div class="survey-input-card ipaq-question-card text-gray-700 leading-relaxed">
                     <p class="text-lg font-bold text-gray-900 leading-snug">마지막 질문은 지난 7일간 주중에 앉아서 보낸 시간에 관한 것입니다. 여기에는 직장과 집에서 학업이나 여가시간에 앉아서 보낸 시간이 포함됩니다. 또한 책상에 앉아 있거나, 친구를 만나거나, 독서할 때 앉거나, 텔레비전을 앉아서 또는 누워서 시청한 시간이 포함됩니다.</p>
                     <p class="mt-3 text-lg font-bold text-gray-900 leading-snug"><strong><u>7) 어르신께서 지난 7일간,</u></strong> 주중에 앉아서 보낸 시간이 하루에 보통 얼마나 됩니까?</p>
-                    <div class="mt-3 flex flex-wrap gap-2"><span class="visual-tag">📺 TV 시청</span><span class="visual-tag">📖 독서</span><span class="visual-tag">💬 앉아서 대화</span></div>
                     <p class="mt-3 text-sm font-bold text-gray-500">※ 이 문항은 참고용으로 수식 계산에는 포함되지 않습니다.</p>
                 </div>
-                <!-- 앉아서 보낸 시간: 시간·분 스테퍼 -->
+                <!-- 앉아서 보낸 시간: 시간·분 직접 입력 -->
                 <div class="survey-input-card ipaq-response-card flex flex-col gap-3">
-                    ${makeStepper('inp-sit-hr','시간',0,24,1,sh,'onIpaqSitChange',0,'inp-sit-min')}
-                    ${makeStepper('inp-sit-min','분',0,59,5,sm,'onIpaqSitChange',0)}
-                    <p class="text-sm font-bold text-gray-500">시간 또는 분을 선택한 뒤 화면 키패드로 직접 입력할 수 있습니다.</p>
+                    <input id="inp-sit-hr" type="hidden" value="${sh}">
+                    <input id="inp-sit-min" type="hidden" value="${sm}">
                     <div class="space-y-3 pt-2">
                         <div class="flex gap-2" role="tablist" aria-label="입력할 시간 단위 선택">
                             <button id="sit-tab-h" type="button" role="tab" aria-selected="${sitHourActive}" onclick="setSitTab('h')" class="${sitHourActive ? activeTabClass : inactiveTabClass}">시간</button>
@@ -7382,7 +7381,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             container.innerHTML = `
             <div class="flex flex-col gap-4 max-w-sm mx-auto">
                 <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-[30px] text-gray-700 leading-relaxed">
-                    <p class="scaled-text-lg font-black text-gray-900 leading-snug">기능적 이동성 검사 (Timed Up and Go, TUG)</p>
+                    <p class="scaled-text-lg font-black text-gray-900 leading-snug">기능적 이동성 검사 (TUG)</p>
                     <p class="font-normal text-gray-500 mt-3" style="font-size:16px">의자에서 일어나 3m 걸어갔다 돌아와 다시 앉을 때까지의 시간을 측정합니다.</p>
                 </div>
                 <!-- 타이머 -->
@@ -8058,8 +8057,24 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 chartEl.innerHTML = headerRow + rows;
             }
 
-            // ── ④ 트렌드 라인차트 + KPI (요약 시각화) ─────────────────
-            renderTrendSummary(r);
+            // 첨부 결과 시안 기준의 요약 데이터입니다.
+            const report = {
+                p: 0.001,
+                baseline: 6.9,
+                physical: 26,
+                emotional: 74,
+                impacts: [
+                    { label: '보행기능', direction: 'protect', width: 46, color: '#3B82F6', status: '보호', statusColor: '#10B981' },
+                    { label: '우울감', direction: 'risk', width: 11, color: '#EC6AB2', status: '위험', statusColor: '#F97316' },
+                    { label: '나이(참고)', direction: 'protect', width: 8, color: '#9CA3AF', status: '참고', statusColor: '#9CA3AF' },
+                    { label: '복용약물', direction: 'risk', width: 3, color: '#3B82F6', status: '위험', statusColor: '#F97316' },
+                    { label: '체중', direction: 'risk', width: 1, color: '#3B82F6', status: '위험', statusColor: '#F97316' },
+                    { label: '활동량', direction: 'risk', width: 1, color: '#3B82F6', status: '위험', statusColor: '#F97316' }
+                ]
+            };
+            renderRiskGauge(report);
+            renderResultDomainSummary(report);
+            renderResultImpactFactors(report);
 
             // ── ⑤ 상단 안내 섹션 (건강정보 메뉴 첫화면 안내섹션과 동일) ──
             const guideSection = document.getElementById('result-guide-section');
@@ -8077,9 +8092,87 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
 
         }
 
+        function renderResultDomainSummary(report) {
+            const wrap = document.getElementById('trend-chart-wrap');
+            if (!wrap) return;
+
+            wrap.innerHTML = `
+                <div class="result-outlined-card rounded-3xl p-4 md:p-6" style="background:#FFFFFF; border:1px solid #D1D5DB;">
+                    <p class="text-xs md:text-sm font-bold text-gray-500 leading-relaxed">위험에 기여하는 요인의 영역별 비중 (신체 5개 항목 · 정서 1개 항목)</p>
+                    <p class="mt-4 text-center text-xs md:text-sm font-black text-gray-400">위험 기여 영역 비중</p>
+                    <div class="mt-3 flex gap-1.5 h-12 md:h-16" aria-label="신체영역 26%, 정서영역 74%">
+                        <div class="min-w-0 flex items-center justify-center rounded-full text-white font-black text-sm md:text-lg" style="flex:${report.physical}; background:#3B82F6;">신체 ${report.physical}%</div>
+                        <div class="min-w-0 flex items-center justify-center rounded-full text-white font-black text-sm md:text-lg" style="flex:${report.emotional}; background:#EC6AB2;">정서 ${report.emotional}%</div>
+                    </div>
+                    <div class="mt-3 flex items-center justify-between gap-3 text-xs md:text-sm font-black">
+                        <span style="color:#3B82F6;">● 신체영역 ${report.physical}%</span>
+                        <span style="color:#EC6AB2;">● 정서영역 ${report.emotional}%</span>
+                    </div>
+                </div>`;
+        }
+
+        function renderResultImpactFactors(report) {
+            const wrap = document.getElementById('result-impact-wrap');
+            if (!wrap) return;
+
+            const rows = report.impacts.map((item) => {
+                const isProtect = item.direction === 'protect';
+                const fillStyle = isProtect
+                    ? `right:50%; width:${item.width}%; background:${item.color};`
+                    : `left:50%; width:${item.width}%; background:${item.color};`;
+                return `
+                    <div class="grid grid-cols-[76px_minmax(0,1fr)_34px] md:grid-cols-[104px_minmax(0,1fr)_44px] gap-2 md:gap-3 items-center">
+                        <span class="text-right text-xs md:text-base font-black text-charcoal break-keep">${item.label}</span>
+                        <div class="relative h-8 md:h-10 rounded-lg overflow-hidden" style="background:linear-gradient(90deg,#ECFDF5 0%,#ECFDF5 50%,#FFF7ED 50%,#FFF7ED 100%);">
+                            <span class="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-gray-300 z-10"></span>
+                            <span class="absolute inset-y-1 rounded-sm" style="${fillStyle}"></span>
+                        </div>
+                        <span class="text-xs md:text-sm font-black whitespace-nowrap" style="color:${item.statusColor};">${item.status}</span>
+                    </div>`;
+            }).join('');
+
+            wrap.innerHTML = `
+                <div class="result-outlined-card rounded-3xl p-4 md:p-6" style="background:#FFFFFF; border:1px solid #D1D5DB;">
+                    <div class="flex items-center justify-between px-1 text-xs md:text-sm font-black">
+                        <span style="color:#10B981;">← 도움이 됨</span>
+                        <span style="color:#F97316;">위험을 키움 →</span>
+                    </div>
+                    <div class="mt-4 space-y-2.5 md:space-y-3">${rows}</div>
+                    <p class="mt-4 text-[11px] md:text-xs font-bold text-gray-400">나이(회색)는 비가역적 변수로 참고용입니다.</p>
+                </div>`;
+        }
+
         function renderRiskGauge(r) {
             const wrap = document.getElementById('risk-gauge-wrap');
             if (!wrap) return;
+            {
+                const baselineRatio = 34.5;
+                const score = 0.1;
+                wrap.innerHTML = `
+                    <div class="result-overall-card result-outlined-card rounded-3xl p-5 md:p-7" style="background:#FFFFFF; border:1px solid #D1D5DB;">
+                        <div class="flex flex-col items-center text-center">
+                            <p class="text-xs md:text-sm font-black text-gray-400">어르신의 결과는</p>
+                            <div class="mt-2 inline-flex items-center justify-center gap-3 rounded-2xl px-6 py-3 md:px-8 md:py-4" style="background:#ECFDF5; border:2px solid #6EE7B7;">
+                                <img src="./owl-cheer.svg" alt="기뻐하는 부비" class="w-12 h-12 md:w-14 md:h-14 object-contain" />
+                                <strong class="font-gapyeong text-3xl md:text-5xl font-black leading-none" style="color:#16A34A;">정상</strong>
+                            </div>
+                            <p class="mt-3 text-sm md:text-lg font-black text-gray-500">현재 노쇠 신호가 없습니다. 건강 관리 잘 하고 계세요!</p>
+                        </div>
+                        <div class="mt-7 md:mt-8">
+                            <div class="relative h-5 text-xs md:text-sm font-black text-gray-500">
+                                <span class="absolute -translate-x-1/2 whitespace-nowrap" style="left:${baselineRatio}%;">기준선 (6.9%)</span>
+                            </div>
+                            <div class="relative flex h-12 md:h-16 overflow-hidden rounded-2xl">
+                                <div class="flex items-center px-4 text-sm md:text-lg font-black" style="width:${baselineRatio}%; background:#86E9A7; color:#047857;">정상</div>
+                                <div class="flex items-center px-4 text-sm md:text-lg font-black" style="width:${100 - baselineRatio}%; background:#FDBA74; color:#EA580C;">노쇠 위험</div>
+                                <span class="absolute inset-y-0 w-0.5 bg-gray-500" style="left:${baselineRatio}%;"></span>
+                            </div>
+                            <p class="mt-2 text-sm md:text-lg font-black" style="color:#16A34A;">${score.toFixed(1)}%</p>
+                        </div>
+                        <p class="mt-5 text-center text-[11px] md:text-xs font-bold text-gray-400">본 결과는 노쇠 위험 선별 참고용이며 의학적 진단이 아닙니다.</p>
+                    </div>`;
+                return;
+            }
             const pPct = (r && r.p != null) ? r.p * 100 : 0.2;
             const CUTOFF = 6.9;
             const isRisk = pPct >= CUTOFF;
