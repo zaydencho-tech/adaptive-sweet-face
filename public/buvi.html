@@ -6761,7 +6761,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             state.answers.bmi = parseFloat(bmi.toFixed(2));
             state.answers_metadata['bmi'] = { raw_val: state.answers.bmi, missing: false, timestamp: Date.now() };
             if (ok) {
-                ok.textContent = '✓ 키 ' + h + 'cm · 체중 ' + w + 'kg · BMI ' + bmi.toFixed(1) + ' 자동 계산 완료';
+                ok.textContent = '✓ 키 ' + h + 'cm · 체중 ' + w + 'kg · 체질량지수(BMI) ' + bmi.toFixed(1) + ' 자동 계산 완료';
                 ok.className = 'survey-validation is-valid';
             }
             updateNextButtonState();
