@@ -6612,7 +6612,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
             const Y = parseInt(window._bdY), M = window._bdM, D = window._bdD;
             if (!Y || !M || !D) {
                 if (ok) {
-                    ok.textContent = '연 → 월 → 일 순서로 입력해 주세요. 설문 참여 기준은 만 65세 이상입니다.';
+                    ok.textContent = '연 → 월 → 일 순서로 입력해 주세요.';
                     ok.className = 'survey-validation text-gray-600 bg-gray-100';
                 }
                 state.answers.birth_date = null; state.answers.age = null;
@@ -6641,15 +6641,6 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     ok.className = 'survey-validation is-error';
                 }
                 state.answers.birth_date = null; state.answers.age = null;
-                updateNextButtonState(); return;
-            }
-            if (age < 65) {
-                if (ok) {
-                    ok.textContent = `현재 만 ${age}세입니다. 이 설문은 만 65세 이상만 참여할 수 있습니다.`;
-                    ok.className = 'survey-validation is-error';
-                }
-                state.answers.birth_date = null; state.answers.age = null;
-                delete state.answers_metadata['age'];
                 updateNextButtonState(); return;
             }
             state.answers.birth_date = v;
