@@ -494,25 +494,30 @@
         .stepper-btn:disabled { background: #FFF6B3; color: #9CA3AF; cursor: not-allowed; box-shadow: none; }
 
         .stepper-field {
-            display: inline-flex; align-items: baseline; justify-content: center; gap: 8px;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
             background: #ffffff; border: 2px solid #93C5FD; border-radius: 16px;
-            padding: 10px 18px; width: 200px; box-sizing: border-box;
+            min-height: 72px; padding: 10px 18px; width: 200px; box-sizing: border-box;
             box-shadow: 0 2px 8px rgba(0,0,0,.04);
         }
         .stepper-input {
             width: 110px; flex: 0 0 110px;
-            text-align: center; font-size: 2rem; font-weight: 900;
+            text-align: center; font-size: 2rem; line-height: 1.15; font-weight: 900;
             color: #111729; background: transparent; border: 0; outline: none;
             -moz-appearance: textfield; padding: 0;
         }
         .stepper-input::-webkit-outer-spin-button,
         .stepper-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
         .stepper-input::placeholder { color: #CBD5E1; font-weight: 700; }
-        .stepper-unit { font-size: 1rem; font-weight: 800; color: #6B7280; flex-shrink: 0; }
+        .stepper-unit { font-size: 1.125rem; font-weight: 800; color: #6B7280; flex-shrink: 0; }
         #page-survey .tug-direct-field {
             display: flex;
             margin-left: auto;
             margin-right: auto;
+        }
+        /* 피그마 코멘트 반영: 직접 입력 값이 더 또렷하게 보이도록 넓은 화면에서 입력 칸을 확장 */
+        @media (min-width: 640px) {
+            #page-survey .stepper-field { width: 250px; }
+            #page-survey .stepper-input { width: 145px; flex-basis: 145px; }
         }
         @media (min-width: 640px) and (max-width: 1024px) {
             #page-result .result-consult-card {
@@ -1336,6 +1341,12 @@
         /* 음성안내 기능은 설문 서브페이지에서만 노출 */
         body:not(:has(#page-survey:not(.hidden))):not(:has(#page-survey-start:not(.hidden))) > header .tts-listen-btn,
         body:not(:has(#page-survey:not(.hidden))):not(:has(#page-survey-start:not(.hidden))) .tts-icon-mobile {
+            display: none !important;
+        }
+        /* 전문 녹음 음성 안내가 준비되기 전에는 화면 공통 TTS 단추를 노출하지 않습니다. */
+        body > header .tts-listen-btn,
+        #page-survey-start .tts-icon-mobile,
+        #page-survey .tts-icon-mobile {
             display: none !important;
         }
 
@@ -4638,7 +4649,7 @@
                     <div class="survey-start-feature-card bg-[#FFFBED]/40 p-2 md:p-5 rounded-2xl border-2 border-yellow-200 text-center space-y-0.5 md:space-y-2 flex flex-col items-center justify-center">
                         <img src="./buvi-survey-screen.png?v=active-senior-shadow-20260805-v2" alt="태블릿으로 설문에 응답하는 여성 어르신" class="survey-start-feature-image object-contain mx-auto" loading="lazy" />
                         <h3 class="scaled-text-lg font-black text-charcoal">6가지 영역 <br class="md:hidden">질문</h3>
-                        <p class="scaled-text-xs md:scaled-text-base text-charcoal font-bold">건강 상태 확인</p>
+                        <p class="scaled-text-xs md:scaled-text-base text-charcoal font-bold">노쇠 예측 설문</p>
                     </div>
                     <div class="survey-start-feature-card bg-[#FFFBED]/40 p-2 md:p-5 rounded-2xl border-2 border-yellow-200 text-center space-y-0.5 md:space-y-2 flex flex-col items-center justify-center">
                         <img src="./buvi-survey-safe.png?v=active-senior-shadow-20260805-v2" alt="보안 표시를 함께 확인하는 어르신 부부" class="survey-start-feature-image object-contain mx-auto" loading="lazy" />
@@ -4748,32 +4759,37 @@
                         <h1 class="font-gapyeong scaled-text-xl lg:scaled-text-2xl font-black text-charcoal break-keep">노쇠 예측 설문 결과</h1>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:flex gap-2 shrink-0 w-full md:w-auto">
-                        <button type="button" onclick="restartSurvey()" class="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-2xl border-2 border-gray-300 bg-white text-charcoal font-black break-keep" aria-label="설문 다시 진행하기"><i class="fa-solid fa-rotate-right"></i><span>설문 다시 진행하기</span></button>
+                        <button type="button" onclick="restartSurvey()" class="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-2xl border-2 border-gray-300 bg-white text-charcoal font-black break-keep" aria-label="재설문 진행"><i class="fa-solid fa-rotate-right"></i><span>재설문 진행</span></button>
                         <button type="button" onclick="simulateTTSResult()" class="tts-listen-btn inline-flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-kakao text-charcoal font-black break-keep" aria-label="노쇠 예측 설문 결과 음성 듣기"><i class="fa-solid fa-volume-high"></i><span>결과 듣기</span></button>
                     </div>
                 </div>
             </div>
 
             <!-- 노쇠 결과 요약 -->
-            <section id="result-hero-card" class="result-section-panel" aria-label="노쇠 위험 결과">
+            <section id="result-hero-card" class="result-section-panel" aria-labelledby="result-risk-title">
+                <header class="result-section-header result-risk-header">
+                    <div class="min-w-0">
+                        <h2 id="result-risk-title" class="result-section-title">종합 노쇠 위험도</h2>
+                    </div>
+                </header>
                 <div id="risk-gauge-wrap" class="relative"></div>
             </section>
 
-            <!-- ① 영역 요약 -->
+            <!-- 영역 요약 -->
             <section class="result-section-panel" aria-labelledby="result-domain-title">
                 <header class="result-section-header">
                     <div class="min-w-0">
-                        <h2 id="result-domain-title" class="result-section-title">① 영역 요약</h2>
+                        <h2 id="result-domain-title" class="result-section-title">영역 요약</h2>
                     </div>
                 </header>
                 <div id="trend-chart-wrap" class="relative"></div>
             </section>
 
-            <!-- ② 항목별 영향 요인 -->
+            <!-- 항목별 영향 요인 -->
             <section class="result-section-panel" aria-labelledby="result-impact-title">
                 <header class="result-section-header">
                     <div class="min-w-0">
-                        <h2 id="result-impact-title" class="result-section-title">② 항목별 영향 요인</h2>
+                        <h2 id="result-impact-title" class="result-section-title">항목별 영향 요인</h2>
                     </div>
                 </header>
                 <div id="result-impact-wrap" class="relative"></div>
@@ -4814,22 +4830,18 @@
                                             <i class="fa-solid fa-image text-charcoal text-xs"></i>
                                             <span class="flex-1 text-xs font-bold text-charcoal">이미지로 저장</span>
                                         </button>
-                                        <button onclick="event.stopPropagation(); downloadSurveyRecords()" class="w-full flex items-center gap-2 text-left hover:bg-white transition-colors rounded-lg p-2">
-                                            <i class="fa-solid fa-file-csv text-charcoal text-xs"></i>
-                                            <span class="flex-1 text-xs font-bold text-charcoal">설문 원자료 CSV</span>
-                                        </button>
                                     </div>
                                 </div>
                                 <!-- 공유 영역 -->
                                 <div class="result-outlined-card bg-white border border-gray-300 rounded-2xl p-3 flex flex-col gap-2 h-full" role="group" aria-label="결과 공유 메뉴">
                                     <div class="flex flex-col gap-2">
-                                        <button onclick="event.stopPropagation(); showAppModal('📱','SNS 공유','SNS로 결과를 공유했습니다.')" class="w-full flex items-center gap-2 text-left hover:bg-white transition-colors rounded-lg p-2">
+                                        <button onclick="event.stopPropagation(); showAppModal('📱','공유하기','결과를 공유했습니다.')" class="w-full flex items-center gap-2 text-left hover:bg-white transition-colors rounded-lg p-2">
                                             <i class="fa-solid fa-share-from-square text-charcoal text-xs"></i>
-                                            <span class="flex-1 text-xs font-bold text-charcoal">SNS</span>
+                                            <span class="flex-1 text-xs font-bold text-charcoal">공유하기</span>
                                         </button>
-                                        <button onclick="event.stopPropagation(); showAppModal('🔗','링크 저장','결과 링크를 복사했습니다.')" class="w-full flex items-center gap-2 text-left hover:bg-white transition-colors rounded-lg p-2">
+                                        <button onclick="event.stopPropagation(); showAppModal('🔗','결과 링크 복사','결과 링크를 복사했습니다.')" class="w-full flex items-center gap-2 text-left hover:bg-white transition-colors rounded-lg p-2">
                                             <i class="fa-solid fa-link text-charcoal text-xs"></i>
-                                            <span class="flex-1 text-xs font-bold text-charcoal">링크저장</span>
+                                            <span class="flex-1 text-xs font-bold text-charcoal">결과 링크 복사</span>
                                         </button>
                                     </div>
                                 </div>
@@ -4852,7 +4864,6 @@
                         <p class="scaled-text-sm font-bold text-gray-500">노쇠 예측 설문 결과를 바탕으로 궁금한 점을 물어보세요.</p>
                     </div>
                     <div class="flex flex-col sm:flex-row gap-2 shrink-0">
-                        <button type="button" onclick="downloadChatRecords()" class="px-4 py-3 rounded-2xl border-2 border-gray-300 bg-white text-charcoal font-black hover:bg-gray-50"><i class="fa-solid fa-file-csv mr-1"></i>상담 원자료</button>
                         <button type="button" onclick="endChatConversation()" class="px-4 py-3 rounded-2xl border-2 border-gray-300 bg-white text-charcoal font-black hover:bg-gray-50">대화 종료하기</button>
                     </div>
                 </div>
@@ -5049,7 +5060,6 @@
                         <h1 class="font-gapyeong scaled-text-2xl font-black text-charcoal">건강정보 배움터</h1>
                         <p class="scaled-text-base font-bold text-gray-600 mt-1">연세대학교 원주간호대학 김남희 교수 VITAL 연구실에서 준비한 건강 정보입니다.</p>
                     </div>
-                    <button type="button" onclick="downloadLearningRecords()" class="shrink-0 px-4 py-3 rounded-2xl border-2 border-gray-300 bg-white text-charcoal font-black hover:bg-gray-50"><i class="fa-solid fa-file-csv mr-2"></i>학습 기록 내려받기</button>
                 </div>
                 <div id="records-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <!-- JS에서 건강정보 카드 바인딩 -->
