@@ -6492,9 +6492,16 @@
 
             body.is-authenticated:has(#page-home.home-has-result:not(.hidden))
             #page-home .home-hero-copy button {
+                /* 완료 상태의 flex 카피 열에서도 설문 전과 같은 내용 너비와
+                   버튼 밀도를 유지합니다. */
+                align-self: flex-start !important;
+                width: fit-content !important;
+                max-width: 100% !important;
+                display: inline-flex !important;
                 min-height: 0 !important;
-                padding: 5px 10px !important;
-                font-size: clamp(11px, 1.1dvh, 15px) !important;
+                padding: 10px 20px !important;
+                font-size: 18px !important;
+                line-height: 27px !important;
             }
 
             body.is-authenticated:has(#page-home.home-has-result:not(.hidden))
@@ -6549,7 +6556,7 @@
             body.is-authenticated:has(#page-home.home-has-result:not(.hidden))
             #page-home .home-result-only > div:first-child {
                 min-height: 36px !important;
-                margin: 0 0 5px !important;
+                margin: 0 0 16px !important;
             }
 
             body.is-authenticated:has(#page-home.home-has-result:not(.hidden))
@@ -7989,7 +7996,913 @@
             }
         }
 
-	</style>
+        /* 모바일·태블릿 홈에서는 세로 flex 카피 영역이 버튼을 전체 폭으로
+           늘리지 않도록, BUVI 알아보기 버튼을 내용 너비로 유지합니다. */
+        @media (max-width: 1024px) {
+            body.is-authenticated:has(#page-home:not(.hidden))
+            #page-home .home-hero-copy > button[onclick="navTo('about')"] {
+                align-self: flex-start !important;
+                width: fit-content !important;
+                max-width: 100% !important;
+            }
+        }
+
+        /* 로그인 후 홈의 카드 영역은 노란 히어로 위에 이어지는 흰 섹션으로
+           보이도록 상단만 24px 곡률을 사용합니다. 완료 설문 상태도 같은
+           래퍼를 사용하므로 별도 고특이도 선택자로 함께 통일합니다. */
+        body.is-authenticated:has(#page-home:not(.hidden))
+        #page-home > div > div:first-child {
+            background: #FEE500 !important;
+        }
+
+        body.is-authenticated:has(#page-home:not(.hidden))
+        #page-home > div > div:first-child > [class~="lg:hidden"],
+        body.is-authenticated:has(#page-home.home-has-result:not(.hidden))
+        #page-home.home-has-result > div > div:first-child > [class~="lg:hidden"] {
+            background: #FFFFFF !important;
+            border-radius: 24px 24px 0 0 !important;
+        }
+
+        /* 모바일·태블릿 히어로의 기존 노랑 톤과 곡률 바깥 배경을 맞춥니다. */
+        @media (max-width: 1024px) {
+            body.is-authenticated:has(#page-home:not(.hidden))
+            #page-home > div > div:first-child {
+                background: #F8E747 !important;
+            }
+        }
+
+        /* 로그인 후 홈의 흰 카드 영역은 상단 내부 여백도 좌우 여백과
+           동일하게 두어, 둥근 상단 모서리와 카드 사이의 여유를 맞춥니다. */
+        @media (max-width: 639px) {
+            body.is-authenticated:has(#page-home:not(.hidden):not(.home-has-result))
+            #page-home > div > div:first-child > div:nth-child(2),
+            body.is-authenticated:has(#page-home.home-has-result:not(.hidden))
+            #page-home.home-has-result > div > div:first-child > div:nth-child(2) {
+                padding-top: 16px !important;
+            }
+        }
+
+        @media (min-width: 640px) and (max-width: 1024px) {
+            body.is-authenticated:has(#page-home:not(.hidden):not(.home-has-result))
+            #page-home > div > div:first-child > div:nth-child(2),
+            body.is-authenticated:has(#page-home.home-has-result:not(.hidden))
+            #page-home.home-has-result > div > div:first-child > div:nth-child(2) {
+                padding-top: 24px !important;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            body.is-authenticated:has(#page-home:not(.hidden):not(.home-has-result))
+            #page-home > div > div:first-child > div:nth-child(2),
+            body.is-authenticated:has(#page-home.home-has-result:not(.hidden))
+            #page-home.home-has-result > div > div:first-child > div:nth-child(2) {
+                /* 기존 반응형 margin까지 더해지지 않도록, 실제 히어로와
+                   하단 콘텐츠 시작점 사이 간격을 40px로 고정합니다. */
+                margin-top: 0 !important;
+                padding-top: 40px !important;
+            }
+        }
+
+        /* 가로형 태블릿의 설문 완료 홈은 새 상단 여백만큼 카드 내부를
+           먼저 압축해 결과 확인 버튼과 세 카드를 한 화면에 유지합니다. */
+        @media (min-width: 640px) and (max-width: 1024px) and (max-height: 800px) {
+            body.is-authenticated:has(#page-home.home-has-result:not(.hidden))
+            #page-home .home-action-card {
+                padding: 6px !important;
+                gap: 4px !important;
+            }
+
+            body.is-authenticated:has(#page-home.home-has-result:not(.hidden))
+            #page-home .home-action-cta {
+                min-height: 28px !important;
+            }
+        }
+
+        /* 모바일 로그인 후 홈: 세 서비스 카드를 한 줄의 3열로 배치합니다.
+           좁은 카드 폭에서도 제목·CTA가 모두 남도록 카드 내부만 조밀하게
+           구성하며, 설문 완료 상태의 결과 확인 영역도 그대로 유지합니다. */
+        @media (max-width: 639px) and (min-height: 700px) {
+            body.is-authenticated:has(#page-home:not(.hidden))
+            #page-home .home-action-grid,
+            body.is-authenticated:has(#page-home.home-has-result:not(.hidden))
+            #page-home.home-has-result .home-action-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+                grid-template-rows: minmax(0, 1fr) !important;
+                gap: 6px !important;
+            }
+
+            body.is-authenticated:has(#page-home:not(.hidden))
+            #page-home .home-action-card,
+            body.is-authenticated:has(#page-home.home-has-result:not(.hidden))
+            #page-home.home-has-result .home-action-card {
+                flex-direction: column !important;
+                align-items: center !important;
+                justify-content: center !important;
+                gap: 5px !important;
+                padding: 6px 4px !important;
+                overflow: hidden !important;
+                text-align: center !important;
+            }
+
+            body.is-authenticated:has(#page-home:not(.hidden))
+            #page-home .home-action-image,
+            body.is-authenticated:has(#page-home.home-has-result:not(.hidden))
+            #page-home.home-has-result .home-action-image {
+                width: clamp(40px, 12vw, 52px) !important;
+                height: clamp(40px, 12vw, 52px) !important;
+            }
+
+            body.is-authenticated:has(#page-home:not(.hidden))
+            #page-home .home-action-content,
+            body.is-authenticated:has(#page-home.home-has-result:not(.hidden))
+            #page-home.home-has-result .home-action-content {
+                width: 100% !important;
+                flex: 0 0 auto !important;
+                align-items: center !important;
+                gap: 3px !important;
+            }
+
+            body.is-authenticated:has(#page-home:not(.hidden))
+            #page-home .home-action-title,
+            body.is-authenticated:has(#page-home.home-has-result:not(.hidden))
+            #page-home.home-has-result .home-action-title {
+                font-size: clamp(10px, 3.15vw, 12px) !important;
+                line-height: 1.18 !important;
+                text-align: center !important;
+            }
+
+            body.is-authenticated:has(#page-home:not(.hidden))
+            #page-home .home-action-cta,
+            body.is-authenticated:has(#page-home.home-has-result:not(.hidden))
+            #page-home.home-has-result .home-action-cta {
+                width: 100% !important;
+                max-width: 100% !important;
+                min-height: 28px !important;
+                padding: 3px 2px !important;
+                border-radius: 9px !important;
+                font-size: clamp(8px, 2.4vw, 10px) !important;
+                line-height: 1.2 !important;
+                letter-spacing: -.04em !important;
+                white-space: normal !important;
+            }
+        }
+
+        /* 320px급 좁은 모바일에서는 가장 긴 상담 제목도 카드 안에 남도록
+           이미지·타이틀·CTA만 한 단계 더 압축합니다. */
+        @media (max-width: 340px) and (min-height: 700px) {
+            body.is-authenticated:has(#page-home:not(.hidden))
+            #page-home .home-action-card,
+            body.is-authenticated:has(#page-home.home-has-result:not(.hidden))
+            #page-home.home-has-result .home-action-card {
+                gap: 3px !important;
+                padding: 4px 3px !important;
+            }
+
+            body.is-authenticated:has(#page-home:not(.hidden))
+            #page-home .home-action-image,
+            body.is-authenticated:has(#page-home.home-has-result:not(.hidden))
+            #page-home.home-has-result .home-action-image {
+                width: 38px !important;
+                height: 38px !important;
+            }
+
+            body.is-authenticated:has(#page-home:not(.hidden))
+            #page-home .home-action-title,
+            body.is-authenticated:has(#page-home.home-has-result:not(.hidden))
+            #page-home.home-has-result .home-action-title {
+                font-size: 9px !important;
+                line-height: 1.1 !important;
+            }
+
+            body.is-authenticated:has(#page-home:not(.hidden))
+            #page-home .home-action-cta,
+            body.is-authenticated:has(#page-home.home-has-result:not(.hidden))
+            #page-home.home-has-result .home-action-cta {
+                min-height: 24px !important;
+                padding: 2px 1px !important;
+                font-size: 8px !important;
+                line-height: 1.1 !important;
+            }
+        }
+
+        /* 로그인 후 데스크톱 홈: 노란 히어로는 흰 콘텐츠 영역과 분리된
+           독립 카드로 보이도록 부모 바탕을 흰색으로 되돌립니다. 설문 전·완료
+           상태 모두 같은 히어로를 사용하므로 곡률도 여기서 명시합니다. */
+        @media (min-width: 1025px) {
+            body.is-authenticated:has(#page-home:not(.hidden))
+            #page-home > div > div:first-child {
+                background: #FFFFFF !important;
+            }
+
+            body.is-authenticated:has(#page-home:not(.hidden))
+            #page-home > div > div:first-child > .rounded-3xl:first-child {
+                border-radius: 24px !important;
+                overflow: hidden !important;
+            }
+        }
+
+        /* 모바일·태블릿에서도 홈과 같은 상단 헤더를 모든 화면에 유지합니다.
+           로그인/홈은 기존 노란 히어로 안의 헤더를 그대로 사용하고, 나머지
+           화면에는 같은 플로팅 헤더와 그만큼의 콘텐츠 시작 여백을 적용합니다. */
+        @media (max-width: 1024px) {
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))) > header {
+                position: absolute !important;
+                top: 23px !important;
+                left: 20px !important;
+                right: 20px !important;
+                width: auto !important;
+                height: 61px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                gap: 4px !important;
+                padding: 12px 16px !important;
+                background: #FFFFFF !important;
+                border: 0 !important;
+                border-radius: 16px !important;
+                box-shadow: 0 4px 34px rgba(0, 0, 0, .08) !important;
+                z-index: 60 !important;
+            }
+
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))) > header > div:first-child {
+                display: none !important;
+            }
+
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))) > header > div:last-child {
+                display: flex !important;
+                width: 100% !important;
+                align-items: center !important;
+                gap: 4px !important;
+                padding: 0 !important;
+                background: transparent !important;
+            }
+
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))) > header > div:last-child > div {
+                display: flex !important;
+                width: 100% !important;
+                align-items: center !important;
+                justify-content: flex-end !important;
+                gap: 4px !important;
+                padding: 0 !important;
+                background: transparent !important;
+            }
+
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))) > header .header-wordmark {
+                display: block !important;
+                width: auto !important;
+                height: 44px !important;
+                object-fit: contain !important;
+            }
+
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))) > header .font-scale-btn {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                min-width: 38px !important;
+                min-height: 37px !important;
+                height: 37px !important;
+                padding: 0 !important;
+                border-radius: 12px !important;
+                background: #F2F5F9 !important;
+                color: #1A1A1A !important;
+                box-shadow: none !important;
+                font-size: 15px !important;
+                font-weight: 700 !important;
+            }
+
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))) > header .font-scale-btn.is-active {
+                min-width: 43px !important;
+                background: #111729 !important;
+                color: #FFFFFF !important;
+            }
+
+            /* 각 서브 화면의 기존 상단 여백 선언보다 같은 수준의 특이도로
+               뒤에서 적용해, 콘텐츠가 플로팅 헤더 아래에서 시작하게 합니다. */
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-signup:not(.hidden)) > main,
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-find:not(.hidden)) > main,
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-about:not(.hidden)) > main,
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-survey-start:not(.hidden)) > main,
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-survey:not(.hidden)) > main,
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-analyzing:not(.hidden)) > main,
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-result:not(.hidden)) > main,
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-chat:not(.hidden)) > main,
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-help:not(.hidden)) > main,
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-records:not(.hidden)) > main,
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-admin:not(.hidden)) > main,
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-more:not(.hidden)) > main {
+                padding-top: 85px !important;
+            }
+        }
+
+        /* 모바일·태블릿 공통 헤더: 플로팅 카드 대신 하단 네비처럼 화면 상단에
+           고정되는 전체 폭 바를 사용합니다. 문서 스크롤과 관계없이 계속 보입니다. */
+        @media (max-width: 1024px) {
+            body.login-as-about:has(#page-login:not(.hidden)) > header,
+            body.is-authenticated:has(#page-home:not(.hidden)) > header,
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))) > header {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                width: 100% !important;
+                max-width: none !important;
+                height: 61px !important;
+                margin: 0 !important;
+                padding: 12px 16px !important;
+                border: 0 !important;
+                border-radius: 0 !important;
+                background: #FFFFFF !important;
+                /* 하단 네비와 같은 표면으로 맞추되, 그림자는 콘텐츠 쪽(아래)으로 둡니다. */
+                box-shadow: 0 8px 24px rgba(17, 24, 39, .10) !important;
+                z-index: 80 !important;
+            }
+
+            /* 헤더·하단 네비 사이의 실선 경계는 제거하고 그림자만 남깁니다. */
+            body nav.bottom-nav {
+                border-top: 0 !important;
+            }
+
+            body.high-contrast > header {
+                background: #1A1A1A !important;
+                border: 0 !important;
+                box-shadow: 0 8px 24px rgba(17, 24, 39, .10) !important;
+            }
+
+            /* 글자 크기 조절은 기본적으로 네 단추를 모두 보여 주고, 실제 가용 폭이
+               부족하다고 JS가 판정한 경우(.is-compact)에만 하나의 셀렉트로 전환합니다. */
+            body > header .header-controls:not(.is-compact) .font-scale-btn {
+                display: flex !important;
+            }
+            body > header .header-controls:not(.is-compact) .font-scale-select-wrap {
+                display: none !important;
+            }
+            body > header .header-controls.is-compact .font-scale-btn {
+                display: none !important;
+            }
+            body > header .header-controls.is-compact .font-scale-select-wrap {
+                display: block !important;
+            }
+
+            /* 설문 시작·문항 화면에서는 소리 듣기 제어를 항상 공통 헤더 안에 둡니다. */
+            body:has(#page-survey-start:not(.hidden)) > header .tts-listen-btn,
+            body:has(#page-survey:not(.hidden)) > header .tts-listen-btn {
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                min-height: 37px !important;
+                height: 37px !important;
+                min-width: 86px !important;
+                padding: 0 12px !important;
+                margin-left: 0 !important;
+                border-radius: 12px !important;
+                background: #F8E647 !important;
+                color: #111729 !important;
+                box-shadow: none !important;
+                font-size: 15px !important;
+                font-weight: 700 !important;
+            }
+
+            /* 고정 헤더 아래 콘텐츠 시작점: 태블릿은 24px 여백을 둡니다. */
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-signup:not(.hidden)) > main,
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-find:not(.hidden)) > main,
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-about:not(.hidden)) > main,
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-survey-start:not(.hidden)) > main,
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-survey:not(.hidden)) > main,
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-analyzing:not(.hidden)) > main,
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-result:not(.hidden)) > main,
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-chat:not(.hidden)) > main,
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-help:not(.hidden)) > main,
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-records:not(.hidden)) > main,
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-admin:not(.hidden)) > main,
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-more:not(.hidden)) > main {
+                padding-top: 85px !important;
+            }
+
+            /* 고정 헤더는 문서 흐름을 차지하지 않으므로, 기존 한 화면 레이아웃의
+               메인 높이를 유지합니다. 노란 히어로 제목은 헤더 하단에서 40px을 둡니다. */
+            body.login-as-about:has(#page-login:not(.hidden)) > main {
+                height: 100dvh !important;
+                min-height: 100dvh !important;
+                max-height: 100dvh !important;
+            }
+
+            body.is-authenticated:has(#page-home:not(.hidden)) > main {
+                height: calc(100dvh - 104px) !important;
+                min-height: calc(100dvh - 104px) !important;
+                max-height: calc(100dvh - 104px) !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login > div > div:first-child > .rounded-3xl:first-child,
+            body.is-authenticated:has(#page-home:not(.hidden))
+            #page-home > div > div:first-child > .rounded-3xl:first-child {
+                padding-top: 101px !important;
+            }
+        }
+
+        /* 홈 서비스 카드: 제목과 바로 아래 CTA가 붙어 보이지 않도록 여백을
+           해상도별 카드 밀도에 맞춰 확보합니다. */
+        body.is-authenticated:has(#page-home:not(.hidden):not(.home-has-result))
+        #page-home:not(.home-has-result) .home-action-content,
+        body.is-authenticated:has(#page-home.home-has-result:not(.hidden))
+        #page-home.home-has-result .home-action-content {
+            gap: clamp(8px, 1dvh, 12px) !important;
+        }
+        @media (max-width: 1024px) {
+            body.is-authenticated:has(#page-home:not(.hidden):not(.home-has-result))
+            #page-home:not(.home-has-result) .home-action-content,
+            body.is-authenticated:has(#page-home.home-has-result:not(.hidden))
+            #page-home.home-has-result .home-action-content {
+                gap: 6px !important;
+            }
+        }
+        @media (max-width: 639px) and (min-height: 700px) {
+            body.is-authenticated:has(#page-home:not(.hidden):not(.home-has-result))
+            #page-home:not(.home-has-result) .home-action-content,
+            body.is-authenticated:has(#page-home.home-has-result:not(.hidden))
+            #page-home.home-has-result .home-action-content {
+                gap: 5px !important;
+            }
+        }
+        @media (max-width: 340px) and (min-height: 700px) {
+            body.is-authenticated:has(#page-home:not(.hidden):not(.home-has-result))
+            #page-home:not(.home-has-result) .home-action-content,
+            body.is-authenticated:has(#page-home.home-has-result:not(.hidden))
+            #page-home.home-has-result .home-action-content {
+                gap: 4px !important;
+            }
+        }
+
+        /* 고정 상단 헤더 아래의 실제 콘텐츠 시작 여백: 모바일 20px, 태블릿 24px.
+           로그인·홈의 노란 히어로는 별도 요구사항인 제목 40px 간격을 유지합니다. */
+        @media (max-width: 639px) {
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(
+                #page-signup:not(.hidden), #page-find:not(.hidden), #page-about:not(.hidden),
+                #page-survey-start:not(.hidden), #page-survey:not(.hidden), #page-analyzing:not(.hidden),
+                #page-result:not(.hidden), #page-chat:not(.hidden), #page-help:not(.hidden),
+                #page-records:not(.hidden), #page-admin:not(.hidden), #page-more:not(.hidden)
+            ) > main {
+                padding-top: 81px !important;
+            }
+        }
+
+        /* 모바일·태블릿 공통 브랜드 행: 설문에서 소리 듣기와 글자 크기 제어가
+           함께 있어도 캐릭터 오른쪽의 브랜드 문구가 사라지지 않게 합니다. */
+        @media (max-width: 1024px) {
+            body > header > div:last-child {
+                display: flex !important;
+                width: 100% !important;
+                min-width: 0 !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                gap: 4px !important;
+            }
+            body > header .header-wordmark {
+                display: flex !important;
+                flex: 0 1 auto !important;
+                width: auto !important;
+                min-width: 0 !important;
+                max-width: none !important;
+                height: 40px !important;
+            }
+            body > header .header-wordmark-inner {
+                gap: 4px !important;
+            }
+            body > header .header-wordmark-character {
+                flex: 0 0 32px !important;
+                width: 32px !important;
+                height: 40px !important;
+            }
+            body > header .header-wordmark-copy {
+                display: flex !important;
+                flex: 0 1 auto !important;
+                min-width: 0 !important;
+                overflow: visible !important;
+                text-overflow: clip !important;
+                white-space: nowrap !important;
+                font-size: clamp(12px, 2vw, 16px) !important;
+                line-height: 1.2 !important;
+                letter-spacing: -0.045em !important;
+            }
+            body > header .header-controls {
+                width: auto !important;
+                min-width: 0 !important;
+                flex: 0 0 auto !important;
+                margin-left: auto !important;
+            }
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden)))
+            > header > div:last-child > .header-controls {
+                width: auto !important;
+                min-width: 0 !important;
+                flex: 0 0 auto !important;
+                margin-left: auto !important;
+            }
+        }
+        @media (max-width: 639px) {
+            body > header .header-wordmark-character {
+                flex-basis: 30px !important;
+                width: 30px !important;
+                height: 40px !important;
+            }
+            body > header .header-wordmark-copy {
+                font-size: 12px !important;
+            }
+        }
+        @media (max-width: 340px) {
+            body > header .header-wordmark-inner {
+                gap: 3px !important;
+            }
+            body > header .header-wordmark-character {
+                flex-basis: 28px !important;
+                width: 28px !important;
+                height: 37px !important;
+            }
+            body > header .header-wordmark-copy {
+                font-size: 10px !important;
+            }
+            body:has(#page-survey-start:not(.hidden)) > header .tts-listen-btn,
+            body:has(#page-survey:not(.hidden)) > header .tts-listen-btn {
+                min-width: 80px !important;
+                padding: 0 8px !important;
+                font-size: 13px !important;
+            }
+        }
+
+        /* 모바일 설문 헤더는 음성·글자 크기 제어를 조밀하게 유지해
+           브랜드 캐릭터와 문구를 더 크게 읽을 수 있게 합니다. */
+        @media (max-width: 639px) {
+            body:has(#page-survey-start:not(.hidden)) > header .header-wordmark-character,
+            body:has(#page-survey:not(.hidden)) > header .header-wordmark-character {
+                flex-basis: 34px !important;
+                width: 34px !important;
+                height: 42px !important;
+            }
+            body:has(#page-survey-start:not(.hidden)) > header .header-wordmark-copy,
+            body:has(#page-survey:not(.hidden)) > header .header-wordmark-copy {
+                font-size: 13.5px !important;
+            }
+            body:has(#page-survey-start:not(.hidden)) > header .header-controls,
+            body:has(#page-survey:not(.hidden)) > header .header-controls {
+                gap: 3px !important;
+                padding: 2px !important;
+            }
+            body:has(#page-survey-start:not(.hidden)) > header .font-scale-select-trigger,
+            body:has(#page-survey:not(.hidden)) > header .font-scale-select-trigger {
+                gap: 6px !important;
+                min-width: 60px !important;
+                height: 36px !important;
+                padding: 0 8px !important;
+                border-radius: 10px !important;
+                font-size: 13px !important;
+            }
+            body:has(#page-survey-start:not(.hidden)) > header .font-scale-select-chevron,
+            body:has(#page-survey:not(.hidden)) > header .font-scale-select-chevron {
+                width: 8px !important;
+                height: 8px !important;
+            }
+            body:has(#page-survey-start:not(.hidden)) > header .tts-listen-btn,
+            body:has(#page-survey:not(.hidden)) > header .tts-listen-btn {
+                min-width: 78px !important;
+                min-height: 36px !important;
+                height: 36px !important;
+                padding: 0 8px !important;
+                border-radius: 10px !important;
+                font-size: 13px !important;
+            }
+        }
+        @media (max-width: 340px) {
+            body:has(#page-survey-start:not(.hidden)) > header .header-wordmark-character,
+            body:has(#page-survey:not(.hidden)) > header .header-wordmark-character {
+                flex-basis: 30px !important;
+                width: 30px !important;
+                height: 38px !important;
+            }
+            body:has(#page-survey-start:not(.hidden)) > header .header-wordmark-copy,
+            body:has(#page-survey:not(.hidden)) > header .header-wordmark-copy {
+                font-size: 11px !important;
+            }
+            body:has(#page-survey-start:not(.hidden)) > header .font-scale-select-trigger,
+            body:has(#page-survey:not(.hidden)) > header .font-scale-select-trigger {
+                min-width: 58px !important;
+                padding: 0 7px !important;
+                font-size: 12px !important;
+            }
+            body:has(#page-survey-start:not(.hidden)) > header .tts-listen-btn,
+            body:has(#page-survey:not(.hidden)) > header .tts-listen-btn {
+                min-width: 74px !important;
+                padding: 0 7px !important;
+                font-size: 12px !important;
+            }
+        }
+
+        /* 설문 외 모바일 화면도 네 개의 글자 크기 단추를 무리 없이 모두
+           보여 줄 수 있도록 조밀하게 조정하고, 남는 폭은 브랜드에 돌려줍니다. */
+        @media (max-width: 639px) {
+            body:not(:has(#page-survey-start:not(.hidden))):not(:has(#page-survey:not(.hidden)))
+            > header .header-wordmark-character {
+                flex-basis: 34px !important;
+                width: 34px !important;
+                height: 42px !important;
+            }
+            body:not(:has(#page-survey-start:not(.hidden))):not(:has(#page-survey:not(.hidden)))
+            > header .header-wordmark-copy {
+                font-size: 13.5px !important;
+            }
+            body:not(:has(#page-survey-start:not(.hidden))):not(:has(#page-survey:not(.hidden)))
+            > header .header-controls {
+                gap: 2px !important;
+                padding: 2px !important;
+            }
+            body:not(:has(#page-survey-start:not(.hidden))):not(:has(#page-survey:not(.hidden)))
+            > header .font-scale-btn {
+                min-width: 34px !important;
+                min-height: 36px !important;
+                height: 36px !important;
+                padding: 0 5px !important;
+                border-radius: 10px !important;
+                line-height: 1 !important;
+            }
+            body:not(:has(#page-survey-start:not(.hidden))):not(:has(#page-survey:not(.hidden)))
+            > header .font-scale-btn[data-scale="0.95"] { font-size: 11px !important; }
+            body:not(:has(#page-survey-start:not(.hidden))):not(:has(#page-survey:not(.hidden)))
+            > header .font-scale-btn[data-scale="1.0"] { font-size: 12px !important; }
+            body:not(:has(#page-survey-start:not(.hidden))):not(:has(#page-survey:not(.hidden)))
+            > header .font-scale-btn[data-scale="1.15"] { font-size: 13px !important; }
+            body:not(:has(#page-survey-start:not(.hidden))):not(:has(#page-survey:not(.hidden)))
+            > header .font-scale-btn[data-scale="1.3"] { font-size: 14px !important; }
+            body:not(:has(#page-survey-start:not(.hidden))):not(:has(#page-survey:not(.hidden)))
+            > header .font-scale-select-trigger {
+                gap: 6px !important;
+                min-width: 60px !important;
+                height: 36px !important;
+                padding: 0 8px !important;
+                border-radius: 10px !important;
+                font-size: 13px !important;
+            }
+        }
+        @media (max-width: 340px) {
+            body:not(:has(#page-survey-start:not(.hidden))):not(:has(#page-survey:not(.hidden)))
+            > header .header-wordmark-character {
+                flex-basis: 30px !important;
+                width: 30px !important;
+                height: 38px !important;
+            }
+            body:not(:has(#page-survey-start:not(.hidden))):not(:has(#page-survey:not(.hidden)))
+            > header .header-wordmark-copy { font-size: 11px !important; }
+            body:not(:has(#page-survey-start:not(.hidden))):not(:has(#page-survey:not(.hidden)))
+            > header .font-scale-btn {
+                min-width: 32px !important;
+                padding: 0 4px !important;
+            }
+            body:not(:has(#page-survey-start:not(.hidden))):not(:has(#page-survey:not(.hidden)))
+            > header .font-scale-select-trigger {
+                min-width: 58px !important;
+                padding: 0 7px !important;
+                font-size: 12px !important;
+            }
+        }
+
+        /* 425px 이하 설문 시작 카드: 가운데 제목이 여러 줄이어도 세 제목의
+           시작선과 아이콘 기준선을 맞추고, 보조 문구는 각 제목의 마지막 줄 뒤에 둡니다. */
+        @media (max-width: 425px) {
+            #page-survey-start .survey-start-feature-card {
+                justify-content: flex-start !important;
+                padding-top: clamp(48px, 15vw, 64px) !important;
+            }
+        }
+
+        /* 로그인 전 폼의 핵심 입력·동작 요소는 해상도와 관계없이 같은 곡률로 통일합니다. */
+        body:has(#page-login:not(.hidden))
+        #page-login > div > div:first-child > .bg-white #login-id,
+        body:has(#page-login:not(.hidden))
+        #page-login > div > div:first-child > .bg-white #login-pw,
+        body:has(#page-login:not(.hidden))
+        #page-login > div > div:first-child > .bg-white button[onclick="handleLogin()"],
+        body:has(#page-login:not(.hidden))
+        #page-login > div > div:first-child > .bg-white button[onclick="navTo('find')"] {
+            border-radius: 16px !important;
+        }
+
+        /* FHD급 로그인 전 화면은 QHD용 큰 말풍선·캐릭터를 세로로 그대로
+           쌓지 않습니다. 인사말은 헤더 아래 40px 기준선을 유지하고,
+           오른쪽 비주얼만 화면 폭에 맞춰 한 단계 작게 올려 균형을 맞춥니다. */
+        @media (min-width: 1600px) and (max-width: 2240px) and (min-height: 860px) and (max-height: 1280px) {
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login > div > div:first-child > .rounded-3xl:first-child {
+                padding: 96px 28px 12px !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login .login-hero-layout {
+                --fhd-login-owl-size: clamp(172px, 10.84vw, 208px);
+                --fhd-login-bubble-size: clamp(108px, 6.25vw, 120px);
+                display: grid !important;
+                grid-template-columns: minmax(0, 1fr) var(--fhd-login-owl-size) !important;
+                align-items: start !important;
+                gap: 12px !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login .login-hero-title {
+                font-size: clamp(26px, 2.4vw, 34px) !important;
+                line-height: 1.1 !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login .login-hero-description {
+                margin-top: 8px !important;
+                font-size: clamp(14px, 1vw, 16px) !important;
+                line-height: 1.35 !important;
+            }
+
+            /* grid의 남는 세로 공간이 인사말 블록을 가운데로 밀지 않도록
+               헤더 아래 40px 기준선에서 항상 시작합니다. */
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login .login-hero-copy {
+                align-self: start !important;
+                justify-self: start !important;
+                margin: 30px 0 0 !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login .login-hero-visual {
+                width: var(--fhd-login-owl-size) !important;
+                height: calc(var(--fhd-login-bubble-size) + var(--fhd-login-owl-size)) !important;
+                min-height: 0 !important;
+                align-self: start !important;
+                justify-content: flex-start !important;
+                /* QHD처럼 인사말 블록의 하단과 비주얼이 균형을 이루도록
+                   남는 히어로 높이만큼 아래로 내립니다. 낮은 창에서는
+                   로그인 폼과 겹치지 않도록 이동량을 0~156px로 제한합니다. */
+                margin: clamp(0px, calc(100dvh - 860px), 156px) 0 0 auto !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login .buvi-speech-svg {
+                width: var(--fhd-login-bubble-size) !important;
+                height: calc(var(--fhd-login-bubble-size) + 2px) !important;
+                flex: 0 0 calc(var(--fhd-login-bubble-size) + 2px) !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login .login-hero-character-wrap {
+                width: var(--fhd-login-owl-size) !important;
+                height: var(--fhd-login-owl-size) !important;
+                max-height: none !important;
+                flex: 0 0 var(--fhd-login-owl-size) !important;
+            }
+        }
+
+        /* 1024~1600px 데스크톱도 저높이 압축 규칙이 인사말과 비주얼을
+           중앙으로 밀지 않도록 FHD와 같은 기준선으로 정렬합니다. 폭이
+           좁은 만큼 비주얼만 한 단계 작게 유지해 로그인 폼과 겹치지 않습니다. */
+        @media (min-width: 1025px) and (max-width: 1599px) and (min-height: 768px) and (max-height: 999px) {
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login > div > div:first-child > .rounded-3xl:first-child {
+                padding: 96px clamp(24px, 2.4vw, 28px) 12px !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login .login-hero-layout {
+                --compact-login-owl-size: clamp(116px, 11.12vw, 160px);
+                /* 130% 글자 크기에서도 두 줄 문구가 말풍선 안에 남도록
+                   너비를 120px 이상으로 확보합니다. */
+                --compact-login-bubble-size: 120px;
+                --compact-login-visual-size: max(var(--compact-login-owl-size), var(--compact-login-bubble-size));
+                display: grid !important;
+                grid-template-columns: minmax(0, 1fr) var(--compact-login-visual-size) !important;
+                align-items: start !important;
+                gap: 12px !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login .login-hero-copy {
+                align-self: start !important;
+                justify-self: start !important;
+                margin: 30px 0 0 !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login .login-hero-title {
+                font-size: clamp(22px, 2.4vw, 34px) !important;
+                line-height: 1.1 !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login .login-hero-description {
+                margin-top: 8px !important;
+                font-size: clamp(14px, 1vw, 16px) !important;
+                line-height: 1.35 !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login .login-hero-visual {
+                width: var(--compact-login-visual-size) !important;
+                height: calc(var(--compact-login-bubble-size) + var(--compact-login-owl-size)) !important;
+                min-height: 0 !important;
+                align-self: start !important;
+                justify-content: flex-start !important;
+                margin: clamp(0px, calc(100dvh - 860px), 140px) 0 0 auto !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login .buvi-speech-svg {
+                width: var(--compact-login-bubble-size) !important;
+                height: calc(var(--compact-login-bubble-size) + 2px) !important;
+                flex: 0 0 calc(var(--compact-login-bubble-size) + 2px) !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login .login-hero-character-wrap {
+                width: var(--compact-login-owl-size) !important;
+                height: var(--compact-login-owl-size) !important;
+                max-height: none !important;
+                flex: 0 0 var(--compact-login-owl-size) !important;
+            }
+        }
+
+        /* 아주 낮은 데스크톱 창에서는 말풍선 문구의 가독성을 유지하고,
+           부엉이만 작게 조절해 히어로와 로그인 폼이 겹치지 않게 합니다. */
+        @media (min-width: 1025px) and (min-height: 768px) and (max-height: 859px) {
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login > div > div:first-child > .rounded-3xl:first-child {
+                padding: 96px clamp(24px, 2.4vw, 28px) 12px !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login .login-hero-layout {
+                --short-login-owl-size: clamp(112px, 10vw, 128px);
+                --short-login-bubble-size: 120px;
+                --short-login-visual-size: max(var(--short-login-owl-size), var(--short-login-bubble-size));
+                display: grid !important;
+                grid-template-columns: minmax(0, 1fr) var(--short-login-visual-size) !important;
+                align-items: start !important;
+                gap: 12px !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login .login-hero-copy {
+                align-self: start !important;
+                justify-self: start !important;
+                margin: 30px 0 0 !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login .login-hero-title {
+                font-size: clamp(18px, 1.8vw, 26px) !important;
+                line-height: 1.1 !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login .login-hero-description {
+                margin-top: 8px !important;
+                font-size: clamp(11px, 0.85vw, 13px) !important;
+                line-height: 1.35 !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login .login-hero-visual {
+                width: var(--short-login-visual-size) !important;
+                height: calc(var(--short-login-bubble-size) + var(--short-login-owl-size)) !important;
+                min-height: 0 !important;
+                align-self: start !important;
+                justify-content: flex-start !important;
+                margin: 0 0 0 auto !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login .buvi-speech-svg {
+                width: var(--short-login-bubble-size) !important;
+                height: 122px !important;
+                flex: 0 0 122px !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login .login-hero-character-wrap {
+                width: var(--short-login-owl-size) !important;
+                height: var(--short-login-owl-size) !important;
+                max-height: none !important;
+                flex: 0 0 var(--short-login-owl-size) !important;
+            }
+        }
+
+        /* QHD 폭에서 창 높이만 999px 이하인 경우에는 카피의 낮은 배치를
+           유지하되, 작은 저높이 말풍선만 QHD 글자 크기에 맞춰 복원합니다. */
+        @media (min-width: 2241px) and (min-height: 860px) and (max-height: 999px) {
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login .login-hero-visual {
+                transform: translateY(20px) !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login .buvi-speech-svg {
+                width: 120px !important;
+                height: 122px !important;
+                flex: 0 0 122px !important;
+            }
+        }
+
+		</style>
 
 
 </head>
@@ -13817,7 +14730,17 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                 if (!row || !wordmark || row.clientWidth === 0) return;
 
                 // 먼저 기존 4개 버튼의 자연 너비를 측정한 뒤 실제 충돌 여부로 전환합니다.
-                controls.classList.remove('is-compact');
+                // 기존 반응형 !important 규칙과 무관하게 두 UI가 동시에 노출되지 않게
+                // 인라인 우선순위로 상태를 확정합니다.
+                const applyCompactState = compact => {
+                    controls.classList.toggle('is-compact', compact);
+                    controls.querySelectorAll('.font-scale-btn').forEach(button => {
+                        button.style.setProperty('display', compact ? 'none' : 'flex', 'important');
+                    });
+                    const selectWrap = controls.querySelector('.font-scale-select-wrap');
+                    selectWrap?.style.setProperty('display', compact ? 'block' : 'none', 'important');
+                };
+                applyCompactState(false);
                 const rowStyle = getComputedStyle(row);
                 const gap = parseFloat(rowStyle.columnGap || rowStyle.gap) || 0;
                 const requiredWidth = wordmark.scrollWidth + controls.scrollWidth + gap;
@@ -13834,7 +14757,7 @@ const BUVI_IMG_15 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZ8AAAHfCAYAA
                     || controlsRect.right > headerContentRight + 0.5
                     || controlsRect.right > window.innerWidth + 0.5;
 
-                controls.classList.toggle('is-compact', overflows);
+                applyCompactState(overflows);
             });
         }
         (function initHeaderFontControlLayout(){
