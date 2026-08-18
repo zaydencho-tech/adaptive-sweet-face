@@ -162,7 +162,7 @@ class LocalAssetRegistry {
     for (const [topic, pageCount] of Object.entries(CARD_NEWS_TOPICS)) {
       manifest[topic] = await Promise.all(
         Array.from({ length: pageCount }, async (_, index) => {
-          const fileName = `page-${String(index + 1).padStart(2, "0")}.jpg`;
+          const fileName = `page-${String(index + 1).padStart(2, "0")}.avif`;
           const reference = `./assets/card-news/0728/${topic}/${fileName}`;
           const dataUri = await this.resolve(reference);
           if (!dataUri) {
