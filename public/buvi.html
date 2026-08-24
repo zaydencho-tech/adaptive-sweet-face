@@ -8837,6 +8837,19 @@
             }
         }
 
+        /* 로그인 후에는 어느 화면으로 이동하더라도 상단 브랜드 행의 실제
+           가용 폭이 같으므로, 4개 버튼을 한 줄에 강제하지 않고 셀렉트 하나로
+           통일한다. 전환 직후 JS 측정이 끝나기 전에 네 버튼이 잠깐 넘치는
+           iPhone Safari의 가로 스크롤도 함께 방지한다. */
+        @media (max-width: 639px) {
+            body.is-authenticated > header .header-controls .font-scale-btn {
+                display: none !important;
+            }
+            body.is-authenticated > header .header-controls .font-scale-select-wrap {
+                display: block !important;
+            }
+        }
+
         /* 425px 이하 설문 시작 카드: 가운데 제목이 여러 줄이어도 세 제목의
            시작선과 아이콘 기준선을 맞추고, 보조 문구는 각 제목의 마지막 줄 뒤에 둡니다. */
         @media (max-width: 425px) {
