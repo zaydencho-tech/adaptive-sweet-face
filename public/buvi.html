@@ -9649,10 +9649,14 @@
 
 		</style>
 
-
 </head>
 
 <body class="min-h-screen pb-32">
+    <noscript>
+        <div style="position:relative;z-index:99999;padding:16px;background:#fff3cd;color:#1a1a1a;font:600 16px/1.5 -apple-system,BlinkMacSystemFont,sans-serif;text-align:center;">
+            이 파일은 JavaScript가 필요합니다. iPhone의 파일 앱 미리보기 대신 Safari에서 HTTP(S) 주소로 열어 주세요.
+        </div>
+    </noscript>
 
     <!-- [상단 헤더 영역] -->
     <header class="sticky top-0 z-50 flex items-center justify-between border-b-2 bg-white px-4 py-3 shadow-sm" style="background-color: var(--card-bg); border-color: var(--border-color);">
@@ -9724,7 +9728,7 @@
                         </div>
                     </div>
                     <!-- Login form (overlaps upward on mobile) -->
-                    <form class="bg-white rounded-3xl -mt-8 mx-2 lg:mx-0 lg:mt-6 px-6 pt-0 pb-8 lg:py-8 relative z-10 shadow-lg space-y-5" onsubmit="event.preventDefault(); handleLogin()">
+                    <form id="login-form" class="bg-white rounded-3xl -mt-8 mx-2 lg:mx-0 lg:mt-6 px-6 pt-0 pb-8 lg:py-8 relative z-10 shadow-lg space-y-5">
                         <div id="login-alert-box" class="hidden p-3 rounded-xl border-2 text-center">
                             <p id="login-alert-msg" class="scaled-text-base font-bold text-errRed"></p>
                             <div id="login-hint-block" class="hidden mt-3 pt-3 border-t border-red-200 text-left">
@@ -9748,7 +9752,7 @@
                             <input type="checkbox" id="auto-login" class="w-6 h-6 accent-black" checked>
                             <span class="font-black text-charcoal">자동으로 로그인하기</span>
                         </label>
-                        <button type="submit" class="w-full h-14 bg-black text-white font-black rounded-2xl text-lg hover:bg-neutral-800 transition">로그인</button>
+                        <button id="login-submit" type="submit" class="w-full h-14 bg-black text-white font-black rounded-2xl text-lg hover:bg-neutral-800 transition">로그인</button>
                         <button type="button" onclick="navTo('find')" class="w-full h-14 border-2 border-gray-300 bg-white text-charcoal font-black rounded-2xl text-lg hover:bg-gray-50 transition">아이디·비밀번호 찾기</button>
                     </form>
                 </div>
@@ -14178,12 +14182,10 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             const alertMsg = document.getElementById('login-alert-msg');
             const hintBlock = document.getElementById('login-hint-block');
 
-            // 기능 테스트에서는 입력 없이 로그인 버튼만 눌러도 기본 테스트 계정으로 진입합니다.
-            // 값이 하나라도 입력된 경우에는 기존 계정 검증을 그대로 적용합니다.
-            const isEmptyTestLogin = !id && !pw;
-            const foundUser = isEmptyTestLogin
-                ? mockUsers[0]
-                : mockUsers.find(u => u.id === id && (u.pw === pw || u.pin === pw));
+            // 이 프로토타입에는 실제 인증 서버가 없으므로, 테스트 흐름에서는
+            // 빈 값·임의의 입력값 모두 기본 테스트 계정으로 진입시킵니다.
+            // 실제 인증 연동 시에는 이 줄을 서버 검증 결과로 교체하면 됩니다.
+            const foundUser = mockUsers.find(u => u.id === id && (u.pw === pw || u.pin === pw)) || mockUsers[0];
 
             if (foundUser) {
                 state.loginFailedAttempts = 0;
@@ -14194,8 +14196,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                 // 로그인 직후에는 이전 설문 결과를 자동으로 보여주지 않고,
                 // 설문 전 기본 홈 화면부터 시작합니다.
                 state.resultViewed = false;
-                document.body.classList.add('is-authenticated');
-                navTo('home');
+                showAuthenticatedHome();
             } else {
                 state.loginFailedAttempts++;
                 idInput.style.borderColor = "#9E2A1F";
@@ -14212,6 +14213,52 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                     speak("로그인 실패가 반복되어 연락처 및 비밀번호 찾기 도움말을 표시했습니다.");
                 }
             }
+        }
+
+        function showAuthenticatedHome() {
+            // 먼저 가장 작은 DOM 전환을 적용합니다. iOS Safari가 이후의
+            // 화면 효과 중 하나를 지원하지 않아도 로그인 화면에 남지 않게 합니다.
+            document.body.classList.add('is-authenticated');
+            const loginPage = document.getElementById('page-login');
+            const homePage = document.getElementById('page-home');
+            if (loginPage) loginPage.classList.add('hidden');
+            if (homePage) {
+                homePage.classList.remove('hidden');
+                homePage.style.opacity = '1';
+            }
+
+            try {
+                navTo('home');
+            } catch (error) {
+                // The already-applied DOM transition is a functional fallback
+                // for restrictive local-file Safari viewers.
+                console.error('Home transition fallback was used.', error);
+            }
+        }
+
+        // iOS Safari's local-file viewer does not reliably evaluate inline
+        // `onsubmit` attributes. Bind the form using the DOM API so Safari
+        // proper and desktop browsers take the same login path.
+        function bindLoginFormSubmission() {
+            const loginForm = document.getElementById('login-form');
+            const loginSubmit = document.getElementById('login-submit');
+            if (!loginForm || loginForm.dataset.buviLoginBound === 'true') return;
+            loginForm.dataset.buviLoginBound = 'true';
+            const submitLogin = (event) => {
+                event.preventDefault();
+                handleLogin();
+            };
+            loginForm.addEventListener('submit', submitLogin);
+            // iOS Safari can dispatch a tap to a submit button without the
+            // expected form-submit path when the software keyboard is open.
+            // Handling the button's click as well makes both paths identical.
+            if (loginSubmit) loginSubmit.addEventListener('click', submitLogin);
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', bindLoginFormSubmission, { once: true });
+        } else {
+            bindLoginFormSubmission();
         }
 
         function handleSignUp() {
