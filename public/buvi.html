@@ -10273,38 +10273,41 @@
                 display: flex !important;
                 flex-direction: column !important;
                 align-items: center !important;
-                padding: 5px 3px !important;
+                padding: 6px 4px !important;
                 gap: 6px !important;
                 justify-content: center !important;
                 text-align: center !important;
             }
 
             body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile .home-action-image {
-                width: clamp(38px, 11vw, 48px) !important;
-                height: clamp(38px, 11vw, 48px) !important;
+                width: 52px !important;
+                height: 52px !important;
             }
 
             body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile .home-action-content {
                 width: 100% !important;
                 flex: 0 0 auto !important;
-                gap: 3px !important;
+                gap: 5px !important;
                 align-items: center !important;
             }
 
             body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile .home-action-title {
                 min-height: 0 !important;
-                font-size: clamp(10px, 3vw, 11px) !important;
-                line-height: 1.12 !important;
+                font-size: calc(14px * var(--font-scale)) !important;
+                line-height: 1.15 !important;
                 text-align: center !important;
             }
 
             body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile .home-action-cta {
                 width: 100% !important;
-                min-height: 26px !important;
-                padding: 2px !important;
-                border-radius: 8px !important;
-                font-size: clamp(8px, 2.25vw, 9px) !important;
-                line-height: 1.1 !important;
+                min-height: 42px !important;
+                padding: 3px 2px !important;
+                border-radius: 9px !important;
+                /* 건강정보 카드의 '건강 정보 확인하기'와 같은 기본 16px */
+                font-size: calc(16px * var(--font-scale)) !important;
+                line-height: 1.15 !important;
+                letter-spacing: -.05em !important;
+                white-space: normal !important;
             }
         }
 
