@@ -9951,6 +9951,62 @@
             }
         }
 
+        /* 로그인 전 화면의 기존 압축 규칙은 :has(#page-login) 선택자까지
+           포함해 우선순위가 높습니다. 실제 iPhone Safari에서도 아래 값이
+           확실히 적용되도록 같은 조건에 로그인 폼 ID를 더해 최종 확정합니다. */
+        @media (max-width: 639px) {
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login > div > div:first-child > .rounded-3xl:first-child {
+                flex-basis: clamp(300px, 44svh, 340px) !important;
+                height: clamp(300px, 44svh, 340px) !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden)) #login-form {
+                flex: 1 1 0 !important;
+                min-height: 0 !important;
+                padding: 0 16px 4px !important;
+                gap: 0 !important;
+                overflow: hidden !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden)) #login-form > * {
+                margin-top: 0 !important;
+                margin-bottom: 0 !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden)) #login-form > .space-y-2 {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 0 !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden)) #login-form > .space-y-2 + .space-y-2 {
+                margin-top: 6px !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden)) #login-form label[for="login-id"],
+            body.login-as-about:has(#page-login:not(.hidden)) #login-form label[for="login-pw"] {
+                display: block !important;
+                line-height: 1.15 !important;
+                margin: 0 !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden)) #login-form .buvi-hero-input,
+            body.login-as-about:has(#page-login:not(.hidden)) #login-form #login-submit,
+            body.login-as-about:has(#page-login:not(.hidden)) #login-form button[onclick="navTo('find')"] {
+                height: 40px !important;
+                min-height: 40px !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden)) #login-form label[for="auto-login"] {
+                margin: 6px 0 4px !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden)) #login-form > button {
+                margin-top: 4px !important;
+            }
+        }
+
 		</style>
 
 </head>
