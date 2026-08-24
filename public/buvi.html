@@ -8797,6 +8797,34 @@
             }
         }
 
+        /* iPhone Safari: 홈/로그인 헤더의 제어 묶음이 이전 규칙의 width:100%를
+           물려받으면 워드마크와 합쳐져 화면 오른쪽으로 밀릴 수 있다. 제어 묶음은
+           실제 버튼 폭만 차지하게 하고, 남은 폭은 브랜드 문구가 양보한다. */
+        @media (max-width: 639px) {
+            body:has(#page-login:not(.hidden)) > header > div:last-child > .header-controls,
+            body:has(#page-home:not(.hidden)) > header > div:last-child > .header-controls,
+            body.is-authenticated > header > div:last-child > .header-controls {
+                width: auto !important;
+                max-width: 72px !important;
+                min-width: 72px !important;
+                flex: 0 0 72px !important;
+                margin-left: auto !important;
+            }
+            body:has(#page-login:not(.hidden)) > header .header-wordmark,
+            body:has(#page-home:not(.hidden)) > header .header-wordmark,
+            body.is-authenticated > header .header-wordmark {
+                flex: 1 1 auto !important;
+                min-width: 0 !important;
+                max-width: calc(100% - 72px) !important;
+            }
+            body:has(#page-login:not(.hidden)) > header .header-wordmark-copy,
+            body:has(#page-home:not(.hidden)) > header .header-wordmark-copy,
+            body.is-authenticated > header .header-wordmark-copy {
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
+            }
+        }
+
         /* 425px 이하 설문 시작 카드: 가운데 제목이 여러 줄이어도 세 제목의
            시작선과 아이콘 기준선을 맞추고, 보조 문구는 각 제목의 마지막 줄 뒤에 둡니다. */
         @media (max-width: 425px) {
