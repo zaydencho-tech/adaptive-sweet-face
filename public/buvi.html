@@ -2372,11 +2372,22 @@
         }
         .scene-icon--help .scene-icon__fallback { font-size: 58px; }
         .scene-icon--gender {
-            width: min(100%, clamp(112px, 20vw, 140px));
-            height: min(100%, clamp(112px, 20vw, 140px));
-            margin-bottom: 6px;
+            /* 새 성별 픽토그램은 세로 비율이므로 카드 라벨 영역을 침범하지
+               않도록 아이콘 영역 안에서만 크기를 제한한다. */
+            width: min(100%, clamp(96px, 17vw, 124px));
+            height: min(100%, clamp(96px, 17vw, 124px));
+            margin-bottom: 0;
         }
         .scene-icon--gender .scene-icon__fallback { font-size: 92px; }
+        #survey-options-container .gender-card > div:first-child {
+            min-height: 0;
+            padding-bottom: 8px;
+        }
+        #survey-options-container .gender-card > span:last-child {
+            flex: 0 0 auto;
+            margin-top: 8px;
+            line-height: 1.2;
+        }
         .scene-icon--account {
             width: 88px;
             height: 88px;
