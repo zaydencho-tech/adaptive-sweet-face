@@ -15662,6 +15662,32 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             } catch(e){}
         })();
 
+        /* 화면별 CSS의 과거 보정값이 섞여도 모바일 헤더의 글자 크기 제어는
+           같은 실제 치수를 유지한다. 인라인 !important로 확정해 홈·설문 등
+           화면 전환 뒤에도 선택자 우선순위에 흔들리지 않게 한다. */
+        function applyMobileHeaderFontControlMetrics() {
+            if (window.innerWidth > 639) return;
+            const sizes = { '0.95': '11px', '1': '12px', '1.15': '13px', '1.3': '14px' };
+            document.querySelectorAll('header .font-scale-btn').forEach(button => {
+                button.style.setProperty('width', '34px', 'important');
+                button.style.setProperty('min-width', '34px', 'important');
+                button.style.setProperty('height', '36px', 'important');
+                button.style.setProperty('min-height', '36px', 'important');
+                button.style.setProperty('padding', '0 4px', 'important');
+                button.style.setProperty('border-radius', '10px', 'important');
+                button.style.setProperty('line-height', '1', 'important');
+                button.style.setProperty('font-size', sizes[String(Number(button.dataset.scale))] || '12px', 'important');
+            });
+            document.querySelectorAll('header .font-scale-select-trigger').forEach(trigger => {
+                trigger.style.setProperty('min-width', '60px', 'important');
+                trigger.style.setProperty('height', '36px', 'important');
+                trigger.style.setProperty('padding', '0 8px', 'important');
+                trigger.style.setProperty('border-radius', '10px', 'important');
+                trigger.style.setProperty('font-size', '13px', 'important');
+                trigger.style.setProperty('line-height', '1', 'important');
+            });
+        }
+
         let headerFontControlLayoutFrame = 0;
         function scheduleHeaderFontControlLayout() {
             if (headerFontControlLayoutFrame) cancelAnimationFrame(headerFontControlLayoutFrame);
@@ -15671,6 +15697,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             });
         }
         function updateHeaderFontControlLayout() {
+            applyMobileHeaderFontControlMetrics();
             document.querySelectorAll('header .header-controls').forEach(controls => {
                 const row = controls.parentElement;
                 const wordmark = row?.querySelector('.header-wordmark');
