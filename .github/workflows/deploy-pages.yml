@@ -25,10 +25,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        # This repository does not track a package-lock.json, so `npm ci`
+        # and setup-node's npm cache cannot be used in the deployment runner.
+        run: npm install --no-audit --no-fund
 
       - name: Build self-contained HTML
         run: npm run build:singlefile
