@@ -9495,9 +9495,39 @@
                 flex: 1 1 0 !important;
                 min-height: 0 !important;
                 margin: 0 !important;
-                padding: 14px 16px 16px !important;
+                padding: 8px 16px !important;
+                gap: 5px !important;
                 overflow-y: auto !important;
                 overscroll-behavior: contain !important;
+            }
+
+            /* Safari에서는 기존 space-y 유틸리티의 여백이 폼 압축 규칙보다
+               크게 계산될 수 있어, 로그인 카드 안에서는 필요한 간격만 직접
+               지정합니다. 입력과 버튼의 터치 높이는 그대로 유지합니다. */
+            body.login-as-about #login-form > * {
+                margin-top: 0 !important;
+                margin-bottom: 0 !important;
+            }
+
+            body.login-as-about #login-form .space-y-2 {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 5px !important;
+            }
+
+            body.login-as-about #login-form .space-y-2 > * {
+                margin-top: 0 !important;
+                margin-bottom: 0 !important;
+            }
+
+            body.login-as-about #login-form label[for="login-id"],
+            body.login-as-about #login-form label[for="login-pw"] {
+                margin-bottom: 0 !important;
+            }
+
+            body.login-as-about #login-form label[for="auto-login"] {
+                margin-top: 2px !important;
+                margin-bottom: 2px !important;
             }
         }
 
