@@ -1,5 +1,6 @@
 import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
+import { transform } from "esbuild";
 import resourceInliner from "web-resource-inliner";
 
 const ASSET_EXTENSION = /\.(?:avif|bmp|gif|ico|jpe?g|png|svg|webp|woff2?|ttf|otf)$/i;
@@ -212,7 +213,11 @@ function preserveInlinedAssetSemantics(html) {
 async function injectCardNewsManifest(html, registry) {
   const manifest = await registry.cardNewsManifest();
   const serializedManifest = escapeForScript(JSON.stringify(manifest));
-  const manifestTag = `<script data-buvi-standalone-card-news>window.__BUVI_STANDALONE_CARD_NEWS__=Object.freeze(${serializedManifest});</script>`;
+  // Keep the sizable card-news payload as data, rather than executable JavaScript.
+  // iOS Safari can fail while compiling a multi-megabyte JavaScript object literal
+  // from a locally opened HTML file. JSON script blocks are not compiled by the JS
+  // engine and are parsed only once when the card-news catalogue is initialized.
+  const manifestTag = `<script id="buvi-standalone-card-news" type="application/json">${serializedManifest}</script>`;
 
   if (!html.includes("</head>")) {
     throw new Error("Standalone build could not find </head> for the card-news manifest.");
@@ -220,8 +225,23 @@ async function injectCardNewsManifest(html, registry) {
   const withManifest = html.replace("</head>", `${manifestTag}</head>`);
 
   const factoryPattern = /const createPdfCardNewsPages =[\s\S]*?;(?=\s*const PDF_CARD_NEWS)/;
-  const replacement = `const createPdfCardNewsPages = (topic, pageCount) => {
-            const pages = window.__BUVI_STANDALONE_CARD_NEWS__[topic];
+  const replacement = `let buviStandaloneCardNewsManifest;
+        const getStandaloneCardNewsManifest = () => {
+            if (buviStandaloneCardNewsManifest) return buviStandaloneCardNewsManifest;
+            const manifestElement = document.getElementById('buvi-standalone-card-news');
+            try {
+                buviStandaloneCardNewsManifest = JSON.parse((manifestElement && manifestElement.textContent) || '{}');
+            } catch (error) {
+                console.error('Standalone card-news data could not be read.', error);
+                buviStandaloneCardNewsManifest = {};
+            }
+            // The parsed object remains in use, so the source text is no longer
+            // needed. Removing it gives mobile Safari a chance to reclaim memory.
+            if (manifestElement) manifestElement.remove();
+            return buviStandaloneCardNewsManifest;
+        };
+        const createPdfCardNewsPages = (topic, pageCount) => {
+            const pages = getStandaloneCardNewsManifest()[topic];
             if (!pages || pages.length < pageCount) {
                 throw new Error(\`Standalone card-news asset is missing for \${topic}.\`);
             }
@@ -232,6 +252,40 @@ async function injectCardNewsManifest(html, registry) {
     throw new Error("Standalone build could not replace createPdfCardNewsPages().");
   }
   return withManifest.replace(factoryPattern, replacement);
+}
+
+async function transpileInlineScriptsForSafari(html) {
+  const scriptPattern = /<script\b(?![^>]*\bsrc\s*=)([^>]*)>([\s\S]*?)<\/script>/gi;
+  const matches = Array.from(html.matchAll(scriptPattern));
+  if (!matches.length) return html;
+
+  let output = "";
+  let lastIndex = 0;
+  for (const match of matches) {
+    const [wholeTag, attributes, contents] = match;
+    const startIndex = match.index ?? 0;
+    output += html.slice(lastIndex, startIndex);
+
+    // Data blocks deliberately remain untouched. They are consumed at runtime
+    // and must not be interpreted as JavaScript by the build step.
+    if (/\btype\s*=\s*["']application\/json["']/i.test(attributes) || !contents.trim()) {
+      output += wholeTag;
+    } else {
+      const transformed = await transform(contents, {
+        loader: "js",
+        target: "safari13",
+        minify: false,
+        legalComments: "inline",
+      });
+      // A literal closing script sequence inside an emitted template string
+      // would terminate the HTML script element before Safari can evaluate it.
+      const safeCode = transformed.code.replace(/<\/script/gi, "<\\/script");
+      output += `<script${attributes}>${safeCode}</script>`;
+    }
+    lastIndex = startIndex + wholeTag.length;
+  }
+  output += html.slice(lastIndex);
+  return output;
 }
 
 function validateStandaloneDocument(html) {
@@ -251,7 +305,7 @@ function validateStandaloneDocument(html) {
     );
   }
 
-  if (!html.includes("window.__BUVI_STANDALONE_CARD_NEWS__")) {
+  if (!html.includes('id="buvi-standalone-card-news"')) {
     throw new Error("Standalone build is missing the embedded card-news manifest.");
   }
 
@@ -309,7 +363,8 @@ export function buviStandalonePlugin({ publicDirectory }) {
       const localAssetsInlined = preserveInlinedAssetSemantics(
         await inlineLocalAssetReferences(stylesInlined, registry),
       );
-      const standaloneHtml = await injectCardNewsManifest(localAssetsInlined, registry);
+      const safariCompatibleHtml = await transpileInlineScriptsForSafari(localAssetsInlined);
+      const standaloneHtml = await injectCardNewsManifest(safariCompatibleHtml, registry);
 
       validateStandaloneDocument(standaloneHtml);
       htmlEntry.source = standaloneHtml;
