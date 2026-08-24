@@ -9236,14 +9236,9 @@
 
         body.login-as-about:has(#page-login:not(.hidden))
         #page-login > div > div:first-child > .bg-white #auto-login::after {
-            content: "";
-            width: 42%;
-            height: 24%;
-            border: solid #FFFFFF;
-            border-width: 0 0 2px 2px;
-            transform: rotate(-45deg) scale(0);
-            transform-origin: center;
-            transition: transform 120ms ease;
+            /* The checked state uses the SVG tick below.  Keeping this
+               pseudo-element too rendered a second overlapping checkmark. */
+            content: none !important;
         }
 
         body.login-as-about:has(#page-login:not(.hidden))
@@ -9259,7 +9254,8 @@
 
         body.login-as-about:has(#page-login:not(.hidden))
         #page-login > div > div:first-child > .bg-white #auto-login:checked::after {
-            transform: rotate(-45deg) scale(1);
+            content: none !important;
+            transform: none !important;
         }
 
         body.login-as-about:has(#page-login:not(.hidden))
