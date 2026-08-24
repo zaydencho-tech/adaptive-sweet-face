@@ -10109,6 +10109,167 @@
             }
         }
 
+        /* Safari의 :has() 갱신 시점과 무관하게 적용되는 모바일 첫 홈의
+           최종 규칙입니다. 같은 ID를 명시해 기존 홈 반응형 규칙보다 우선합니다. */
+        @media (max-width: 639px) and (min-height: 700px) {
+            body.is-authenticated.home-compact-mobile {
+                height: 100svh !important;
+                min-height: 100svh !important;
+                max-height: 100svh !important;
+                overflow: hidden !important;
+            }
+
+            body.is-authenticated.home-compact-mobile > #app-main#app-main {
+                height: calc(100svh - 104px) !important;
+                min-height: calc(100svh - 104px) !important;
+                max-height: calc(100svh - 104px) !important;
+                padding: 0 !important;
+                overflow: hidden !important;
+            }
+
+            body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile:not(.hidden),
+            body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile:not(.hidden) > div,
+            body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile:not(.hidden) > div > div:first-child {
+                height: 100% !important;
+                min-height: 0 !important;
+                overflow: hidden !important;
+            }
+
+            body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile > div > div:first-child {
+                display: flex !important;
+                flex-direction: column !important;
+            }
+
+            body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile > div > div:first-child > .rounded-3xl:first-child {
+                flex: 0 0 auto !important;
+                padding: clamp(24px, 4svh, 36px) 16px 8px !important;
+            }
+
+            body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile .home-hero-layout {
+                display: grid !important;
+                grid-template-columns: minmax(0, 1fr) 112px !important;
+                align-items: start !important;
+                gap: 6px !important;
+            }
+
+            body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile .home-hero-copy {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 6px !important;
+                min-width: 0 !important;
+            }
+
+            body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile .home-hero-copy > * + * {
+                margin-top: 0 !important;
+            }
+
+            body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile .home-hero-title {
+                font-size: clamp(24px, 7vw, 28px) !important;
+                line-height: 1.08 !important;
+            }
+
+            body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile .home-hero-description {
+                margin: 0 !important;
+                font-size: 11px !important;
+                line-height: 1.3 !important;
+            }
+
+            body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile .home-hero-copy button {
+                min-height: 28px !important;
+                padding: 4px 9px !important;
+                font-size: 10px !important;
+                line-height: 1.1 !important;
+            }
+
+            body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile .home-hero-visual {
+                position: relative !important;
+                display: block !important;
+                width: 112px !important;
+                height: 184px !important;
+                min-height: 0 !important;
+                margin: 0 !important;
+                align-self: end !important;
+            }
+
+            body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile .home-hero-visual .buvi-speech-svg {
+                position: absolute !important;
+                top: 0 !important;
+                right: 0 !important;
+                width: 78px !important;
+                height: 80px !important;
+                padding: 0 0 8px !important;
+                font-size: 11px !important;
+            }
+
+            body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile .home-hero-character-wrap {
+                position: absolute !important;
+                right: 0 !important;
+                bottom: 0 !important;
+                width: 108px !important;
+                height: 108px !important;
+                aspect-ratio: 1 / 1 !important;
+            }
+
+            body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile > div > div:first-child > [class~="lg:hidden"] {
+                display: flex !important;
+                flex: 1 1 0 !important;
+                flex-direction: column !important;
+                min-height: 0 !important;
+                gap: 4px !important;
+                margin-top: 4px !important;
+                padding: 0 12px 4px !important;
+                overflow: hidden !important;
+                background: #FFFFFF !important;
+                border-radius: 0 !important;
+            }
+
+            body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile .home-action-grid {
+                display: grid !important;
+                grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+                grid-template-rows: minmax(0, 1fr) !important;
+                flex: 1 1 0 !important;
+                min-height: 0 !important;
+                height: auto !important;
+                margin: 0 !important;
+                gap: 5px !important;
+            }
+
+            body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile .home-action-card {
+                height: 100% !important;
+                min-height: 0 !important;
+                padding: 5px 3px !important;
+                gap: 4px !important;
+                justify-content: center !important;
+            }
+
+            body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile .home-action-image {
+                width: clamp(38px, 11vw, 48px) !important;
+                height: clamp(38px, 11vw, 48px) !important;
+            }
+
+            body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile .home-action-content {
+                width: 100% !important;
+                gap: 3px !important;
+                align-items: center !important;
+            }
+
+            body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile .home-action-title {
+                min-height: 0 !important;
+                font-size: clamp(10px, 3vw, 11px) !important;
+                line-height: 1.12 !important;
+                text-align: center !important;
+            }
+
+            body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile .home-action-cta {
+                width: 100% !important;
+                min-height: 26px !important;
+                padding: 2px !important;
+                border-radius: 8px !important;
+                font-size: clamp(8px, 2.25vw, 9px) !important;
+                line-height: 1.1 !important;
+            }
+        }
+
 		</style>
 
 </head>
@@ -10164,7 +10325,7 @@
 
     </header>
 
-    <main class="max-w-5xl mx-auto px-5 py-6">
+    <main id="app-main" class="max-w-5xl mx-auto px-5 py-6">
 
 
         <!-- ========================================================
@@ -11700,6 +11861,11 @@
             if (pageId === 'login' || pageId === 'signup' || pageId === 'find') {
                 document.body.classList.remove('is-authenticated');
             }
+            // iOS Safari에서는 :has() 기반의 높이 규칙이 페이지 전환 직후
+            // 한 프레임 늦게 반영될 수 있어, 홈의 뷰포트 맞춤 상태는 전용
+            // 클래스로도 명시합니다. 결과 홈 여부는 renderHomeDashboard에서
+            // 최종 동기화합니다.
+            document.body.classList.toggle('home-compact-mobile', pageId === 'home' && !state.resultViewed);
             document.querySelectorAll('.app-page').forEach(p => p.classList.add('hidden'));
             const target = document.getElementById('page-' + pageId);
             if(target) {
@@ -14494,6 +14660,8 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             // 설문 전 기본 홈에서만 높이에 맞춘 3열 서비스 카드 레이아웃을 사용한다.
             // 설문 완료 후의 결과 요약 홈은 기존 밀도의 레이아웃을 유지한다.
             homePage?.classList.toggle('home-has-result', hasResult);
+            homePage?.classList.toggle('home-compact-mobile', !hasResult);
+            document.body.classList.toggle('home-compact-mobile', !hasResult);
 
             document.querySelectorAll('.home-result-only').forEach(section => {
                 section.classList.toggle('hidden', !hasResult);
