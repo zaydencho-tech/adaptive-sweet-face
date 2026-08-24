@@ -10293,7 +10293,11 @@
             }
 
             body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile .home-action-title {
-                min-height: 0 !important;
+                /* 2열 제목이 두 줄이 되어도 세 CTA의 기준선을 맞춘다. */
+                min-height: 2.3em !important;
+                display: flex !important;
+                align-items: flex-start !important;
+                justify-content: center !important;
                 font-size: calc(14px * var(--font-scale)) !important;
                 line-height: 1.15 !important;
                 text-align: center !important;
