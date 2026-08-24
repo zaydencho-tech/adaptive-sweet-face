@@ -4242,12 +4242,16 @@
         html {
             width: 100%;
             max-width: 100%;
-            overflow-x: clip;
+            /* iOS Safari에서는 root의 overflow-x:clip이 가로 스크롤 범위를
+               완전히 제거하지 않는 경우가 있어, 호환되는 hidden을 사용한다. */
+            overflow-x: hidden !important;
+            overscroll-behavior-x: none;
         }
         body {
             width: 100%;
             max-width: 100%;
-            overflow-x: hidden;
+            overflow-x: hidden !important;
+            overscroll-behavior-x: none;
         }
         *, *::before, *::after { box-sizing: border-box; }
         img, svg, video, canvas { max-width: 100%; }
@@ -4279,6 +4283,14 @@
             body > main,
             body > nav {
                 max-width: 100vw !important;
+            }
+
+            /* 화면 전환 후에도 페이지별 고정 폭·변환 요소가 문서 폭을 넓히지
+               않도록 본문 영역에서 가로 축을 차단한다. 세로 스크롤과 내부
+               대화/카드뉴스의 세로 스크롤 동작은 그대로 유지한다. */
+            body > main,
+            .app-page {
+                overflow-x: hidden !important;
             }
 
             /* 도움말 연락처의 장식/긴 한 줄 텍스트가 작은 화면을 밀지 않게 한다. */
