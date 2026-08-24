@@ -9423,9 +9423,9 @@
 
             body.login-as-about #page-login > div > div:first-child > .rounded-3xl:first-child {
                 box-sizing: border-box !important;
-                flex: 0 0 clamp(272px, 38svh, 304px) !important;
+                flex: 0 0 clamp(288px, 42svh, 326px) !important;
                 width: 100% !important;
-                height: clamp(272px, 38svh, 304px) !important;
+                height: clamp(288px, 42svh, 326px) !important;
                 min-height: 0 !important;
                 max-height: none !important;
                 padding: 96px 30px 8px !important;
@@ -9495,8 +9495,8 @@
                 flex: 1 1 0 !important;
                 min-height: 0 !important;
                 margin: 0 !important;
-                padding: 8px 16px !important;
-                gap: 5px !important;
+                padding: 0 16px 6px !important;
+                gap: 0 !important;
                 /* 로그인 폼은 위에서 압축한 고정 밀도로 남은 화면 안에
                    배치하므로, iPhone에서 카드 자체가 별도 스크롤되지 않게 한다. */
                 overflow: hidden !important;
@@ -9513,7 +9513,7 @@
             body.login-as-about #login-form .space-y-2 {
                 display: flex !important;
                 flex-direction: column !important;
-                gap: 5px !important;
+                gap: 2px !important;
             }
 
             body.login-as-about #login-form .space-y-2 > * {
@@ -9527,8 +9527,30 @@
             }
 
             body.login-as-about #login-form label[for="auto-login"] {
-                margin-top: 2px !important;
-                margin-bottom: 2px !important;
+                margin-top: 7px !important;
+                margin-bottom: 5px !important;
+            }
+
+            /* 보이지 않는 로그인 경고 박스도 space-y 계산에는 포함되므로,
+               첫 번째 입력 묶음과 두 번째 입력 묶음의 간격을 명시합니다. */
+            body.login-as-about #login-form > .space-y-2:first-of-type {
+                margin-top: 0 !important;
+            }
+
+            body.login-as-about #login-form > .space-y-2 + .space-y-2 {
+                margin-top: 8px !important;
+            }
+
+            body.login-as-about #login-form .buvi-hero-input,
+            body.login-as-about #login-form #login-submit,
+            body.login-as-about #login-form button[onclick="handleLogin()"],
+            body.login-as-about #login-form button[onclick="navTo('find')"] {
+                height: 42px !important;
+                min-height: 42px !important;
+            }
+
+            body.login-as-about #login-form > button {
+                margin-top: 5px !important;
             }
         }
 
