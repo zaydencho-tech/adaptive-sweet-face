@@ -9960,7 +9960,8 @@
             body.login-as-about:has(#page-login:not(.hidden)) #login-form {
                 flex: 1 1 0 !important;
                 min-height: 0 !important;
-                padding: 0 16px 4px !important;
+                /* 첫 라벨의 상단 기준선을 좌우 입력 여백과 같은 16px로 맞춘다. */
+                padding: 16px 16px 4px !important;
                 gap: 0 !important;
                 overflow: hidden !important;
             }
@@ -9974,6 +9975,12 @@
                 display: flex !important;
                 flex-direction: column !important;
                 gap: 0 !important;
+            }
+
+            /* 숨김 상태의 경고 박스도 Tailwind space-y 선택자에는 형제로
+               남아 있어 첫 입력 묶음에 여백을 더할 수 있으므로 제거한다. */
+            body.login-as-about:has(#page-login:not(.hidden)) #login-form > #login-alert-box + .space-y-2 {
+                margin-top: 0 !important;
             }
 
             body.login-as-about:has(#page-login:not(.hidden)) #login-form > .space-y-2 + .space-y-2 {
