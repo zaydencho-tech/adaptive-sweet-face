@@ -10150,8 +10150,9 @@
             }
 
             body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile > div > div:first-child > .rounded-3xl:first-child {
-                flex: 0 0 284px !important;
-                height: 284px !important;
+                /* 네비게이션을 제외한 화면에서 히어로:카드 영역을 2:1로 유지합니다. */
+                flex: 0 0 calc(66.667svh - 74.667px) !important;
+                height: calc(66.667svh - 74.667px) !important;
                 min-height: 284px !important;
                 width: 100% !important;
                 max-width: 100% !important;
