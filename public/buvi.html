@@ -9700,6 +9700,16 @@
             #page-chat .chat-static-result-report .result-impact-side--right { padding-inline: 0; }
         }
 
+        /* 모바일 설문 헤더는 4단계 글자 크기 버튼과 소리 듣기 버튼을 우선한다.
+           네 버튼이 그대로 노출될 수 있는 폭에서는 브랜드 문구만 숨겨 서로
+           겹치지 않게 하고, 셀렉트로 축약된 경우에는 문구를 다시 보여 준다. */
+        @media (max-width: 639px) {
+            body:has(#page-survey-start:not(.hidden)) > header:has(.header-controls:not(.is-compact)) .header-wordmark-copy,
+            body:has(#page-survey:not(.hidden)) > header:has(.header-controls:not(.is-compact)) .header-wordmark-copy {
+                display: none !important;
+            }
+        }
+
 		</style>
 
 </head>
