@@ -10111,28 +10111,37 @@
 
         /* Safari의 :has() 갱신 시점과 무관하게 적용되는 모바일 첫 홈의
            최종 규칙입니다. 같은 ID를 명시해 기존 홈 반응형 규칙보다 우선합니다. */
-        @media (max-width: 639px) and (min-height: 700px) {
+        @media (max-width: 639px) {
             body.is-authenticated.home-compact-mobile {
+                width: 100% !important;
+                max-width: 100% !important;
                 height: 100svh !important;
                 min-height: 100svh !important;
                 max-height: 100svh !important;
-                overflow: hidden !important;
+                overflow-x: hidden !important;
+                overflow-y: hidden !important;
             }
 
             body.is-authenticated.home-compact-mobile > #app-main#app-main {
+                width: 100% !important;
+                max-width: 100% !important;
                 height: calc(100svh - 104px) !important;
                 min-height: calc(100svh - 104px) !important;
                 max-height: calc(100svh - 104px) !important;
                 padding: 0 !important;
-                overflow: hidden !important;
+                overflow-x: hidden !important;
+                overflow-y: hidden !important;
             }
 
             body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile:not(.hidden),
             body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile:not(.hidden) > div,
             body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile:not(.hidden) > div > div:first-child {
+                width: 100% !important;
+                max-width: 100% !important;
                 height: 100% !important;
                 min-height: 0 !important;
-                overflow: hidden !important;
+                overflow-x: hidden !important;
+                overflow-y: hidden !important;
             }
 
             body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile > div > div:first-child {
@@ -10142,12 +10151,18 @@
 
             body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile > div > div:first-child > .rounded-3xl:first-child {
                 flex: 0 0 auto !important;
-                padding: clamp(24px, 4svh, 36px) 16px 8px !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                /* 고정 헤더 61px + 요청된 콘텐츠 시작 간격 20px */
+                padding: 81px 16px 8px !important;
             }
 
             body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile .home-hero-layout {
                 display: grid !important;
                 grid-template-columns: minmax(0, 1fr) 112px !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                min-width: 0 !important;
                 align-items: start !important;
                 gap: 6px !important;
             }
@@ -10214,6 +10229,8 @@
                 display: flex !important;
                 flex: 1 1 0 !important;
                 flex-direction: column !important;
+                width: 100% !important;
+                max-width: 100% !important;
                 min-height: 0 !important;
                 gap: 4px !important;
                 margin-top: 4px !important;
@@ -10227,6 +10244,8 @@
                 display: grid !important;
                 grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
                 grid-template-rows: minmax(0, 1fr) !important;
+                width: 100% !important;
+                max-width: 100% !important;
                 flex: 1 1 0 !important;
                 min-height: 0 !important;
                 height: auto !important;
@@ -10235,8 +10254,11 @@
             }
 
             body.is-authenticated.home-compact-mobile #page-home#page-home.home-compact-mobile .home-action-card {
+                width: 100% !important;
+                max-width: 100% !important;
                 height: 100% !important;
                 min-height: 0 !important;
+                min-width: 0 !important;
                 padding: 5px 3px !important;
                 gap: 4px !important;
                 justify-content: center !important;
