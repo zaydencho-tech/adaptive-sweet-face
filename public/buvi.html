@@ -2374,18 +2374,19 @@
         .scene-icon--gender {
             /* 새 성별 픽토그램은 세로 비율이므로 카드 라벨 영역을 침범하지
                않도록 아이콘 영역 안에서만 크기를 제한한다. */
-            width: min(100%, clamp(96px, 17vw, 124px));
-            height: min(100%, clamp(96px, 17vw, 124px));
+            width: min(100%, clamp(88px, 15vw, 112px));
+            height: min(100%, clamp(88px, 15vw, 112px));
             margin-bottom: 0;
         }
         .scene-icon--gender .scene-icon__fallback { font-size: 92px; }
         #survey-options-container .gender-card > div:first-child {
             min-height: 0;
-            padding-bottom: 8px;
+            padding-bottom: 20px;
         }
         #survey-options-container .gender-card > span:last-child {
             flex: 0 0 auto;
-            margin-top: 8px;
+            /* 아이콘의 실제 하단과 라벨 사이의 최소 간격 */
+            margin-top: 20px;
             line-height: 1.2;
         }
         .scene-icon--account {
