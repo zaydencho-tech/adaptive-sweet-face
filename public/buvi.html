@@ -4,28 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BUVI - 어르신의 건강 지킴이 v1.6</title>
-    <!-- Tailwind CSS Engine -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CSS (현재 화면 기준 정적 유틸리티 스냅샷) -->
+    <link rel="stylesheet" href="./buvi-tailwind.css">
     <!-- Fonts & Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <script>
-        tailwind.config = {
-            theme: {
-                screens: {
-                    sm: '640px',
-                    md: '768px',
-                    lg: '1025px',
-                    xl: '1280px',
-                    '2xl': '1536px'
-                },
-                extend: {
-                    colors: { cream: '#FFFBED', charcoal: '#2D2D2D', kakao: '#FEE500', errRed: '#9E2A1F' }
-                }
-            }
-        }
-    </script>
-    
     <style>
         @font-face { font-family: 'Pretendard'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
         @font-face { font-family: 'Pretendard'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Medium.woff2') format('woff2'); font-weight: 500; font-display: swap; }
@@ -413,10 +396,6 @@
         /* ── 페이지 전환 fade ── */
         .app-page { transition: opacity 0.2s ease; }
 
-        /* ── 더보기 메뉴 버튼 ── */
-        .more-menu-btn { transition: all 0.15s ease; }
-        .more-menu-btn:hover { transform: translateX(4px); }
-
         /* ── 설문 생년월일 미입력 표시: 빠르게 깜빡이는 밑줄+년 ── */
         @keyframes blink-fast {
             0%, 100% { opacity: 1; }
@@ -490,6 +469,7 @@
 
         /* ── 증감 조작계(스테퍼) UI (데스크탑·태블릿·모바일 공통) ── */
         .stepper-row { display: flex; align-items: center; justify-content: center; gap: 12px; }
+        .stepper-controls { display: inline-flex; align-items: center; gap: 12px; }
         /* 증감 입력군의 항목명(키·체중 등)은 단위/숫자보다 먼저 빠르게 인지할 수 있도록
            모든 해상도에서 동일한 크기와 굵기를 유지한다. */
         .stepper-group-label {
@@ -498,6 +478,50 @@
             line-height: 1.3;
             font-weight: 900;
             color: #374151;
+        }
+        /* BMI의 키·체중 항목명은 해당 감소 버튼 바로 앞에 두어,
+           어느 값을 조절하는지 한눈에 알 수 있게 합니다. */
+        .stepper-row-label {
+            display: inline-flex;
+            align-items: center;
+            flex: 0 0 auto;
+            white-space: nowrap;
+        }
+        /* BMI에서는 항목명은 아래 키·체중 탭의 왼쪽 시작선에,
+           증감 컨트롤은 탭의 오른쪽 끝에 맞춰 정렬합니다. */
+        .bmi-stepper-list .stepper-row--labeled {
+            width: 100%;
+            justify-content: space-between;
+        }
+        /* 아래 탭 카드의 내부 여백(18px)과 같은 시작·끝선을 사용합니다. */
+        .bmi-stepper-list {
+            width: auto;
+            margin-left: 18px;
+            margin-right: 18px;
+        }
+        @media (max-width: 639px) {
+            /* 모바일 탭 카드의 내부 여백은 14px입니다. */
+            .bmi-stepper-list {
+                margin-left: 14px;
+                margin-right: 14px;
+            }
+            .bmi-stepper-list .stepper-controls { gap: 8px; }
+            .bmi-stepper-list .stepper-btn {
+                width: 44px;
+                height: 44px;
+                font-size: 24px;
+            }
+            .bmi-stepper-list .stepper-field {
+                width: clamp(101px, calc(100vw - 219px), 141px);
+                min-height: 60px;
+                padding: 8px 10px;
+            }
+            .bmi-stepper-list .stepper-input {
+                width: auto;
+                min-width: 0;
+                flex: 1 1 0;
+                font-size: 1.75rem;
+            }
         }
         .stepper-btn {
             width: 56px; height: 56px; border-radius: 9999px;
@@ -5543,17 +5567,17 @@
             margin: 0 !important;
         }
 
-        /* 7단계: 단계 배지 아래 안내는 Bold로 읽고, 실제 문항은
-           Regular로 유지해 밑줄 친 핵심 구간만 분명하게 강조합니다. */
+        /* 7단계: 단계 배지 아래 안내는 다른 단계의 상단 질문과 같은
+           font-black 굵기로 읽고, 실제 문항은 Regular로 유지합니다. */
         #page-survey .sgds-question-instruction {
-            font-weight: 700 !important;
+            font-weight: 900 !important;
         }
 
         /* <strong>의 기본 bolder 계산으로 첫 구절만 더 두꺼워지지 않게
-           안내문 전체를 같은 Bold 굵기로 고정합니다. */
+           안내문 전체를 같은 굵기로 고정합니다. */
         #page-survey .sgds-question-instruction strong,
         #page-survey .sgds-question-instruction strong u {
-            font-weight: 700 !important;
+            font-weight: 900 !important;
         }
 
         #page-survey .sgds-question-content {
@@ -5924,20 +5948,20 @@
 
             body.login-as-about:has(#page-login:not(.hidden))
             #login-about-mount > .about-desktop-layout.lg\:block > .about-promise-list > .about-promise-card h3 {
-                font-size: clamp(16px, 2.35dvh, 34px) !important;
+                font-size: clamp(18px, 2.65dvh, 36px) !important;
                 line-height: 1.1 !important;
                 margin-bottom: clamp(2px, 0.35dvh, 5px) !important;
             }
 
             body.login-as-about:has(#page-login:not(.hidden))
             #login-about-mount > .about-desktop-layout.lg\:block > .about-promise-list > .about-promise-card h3 + p {
-                font-size: clamp(10px, 1.25dvh, 18px) !important;
+                font-size: clamp(11px, 1.45dvh, 20px) !important;
                 line-height: 1.48 !important;
             }
 
             body.login-as-about:has(#page-login:not(.hidden))
             #login-about-mount > .about-desktop-layout.lg\:block > .about-promise-list > .about-promise-card > div:first-child > div > div > p:last-child {
-                font-size: clamp(10px, 1.1dvh, 16px) !important;
+                font-size: clamp(11px, 1.3dvh, 18px) !important;
                 margin-top: clamp(4px, 0.55dvh, 8px) !important;
                 line-height: 1.55 !important;
             }
@@ -5996,6 +6020,129 @@
             border-radius: 0 !important;
             background: transparent !important;
             box-shadow: none !important;
+        }
+
+        /* 항목별 영향 요인: 가운데 기준선을 중심으로 도움/위험 방향을
+           한눈에 비교하는 양방향 막대 그래프입니다. */
+        #page-result .result-impact-chart {
+            --impact-label-column: clamp(112px, 18%, 164px);
+            --impact-status-column: clamp(76px, 11%, 124px);
+        }
+
+        #page-result .result-impact-axis,
+        #page-result .result-impact-row {
+            display: grid;
+            grid-template-columns: var(--impact-label-column) minmax(0, 1fr) var(--impact-status-column);
+            column-gap: clamp(10px, 1.5vw, 24px);
+        }
+
+        #page-result .result-impact-axis {
+            align-items: center;
+            margin-bottom: clamp(18px, 2.2vw, 30px);
+            font-size: calc(18px * var(--font-scale));
+            font-weight: 900;
+            line-height: 1.2;
+        }
+
+        #page-result .result-impact-axis-help {
+            grid-column: 1 / span 2;
+            color: #57BE91;
+        }
+
+        #page-result .result-impact-axis-risk {
+            grid-column: 3;
+            color: #F47A24;
+            white-space: nowrap;
+        }
+
+        #page-result .result-impact-rows {
+            display: grid;
+            gap: clamp(14px, 1.8vw, 26px);
+        }
+
+        #page-result .result-impact-row {
+            align-items: center;
+            min-height: clamp(48px, 5vw, 72px);
+        }
+
+        #page-result .result-impact-side {
+            display: flex;
+            align-items: center;
+            min-width: 0;
+            font-size: calc(18px * var(--font-scale));
+            font-weight: 900;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        #page-result .result-impact-side--left {
+            justify-content: space-between;
+            gap: 12px;
+            padding-right: clamp(6px, 1vw, 16px);
+            color: #111111;
+        }
+
+        #page-result .result-impact-side--right {
+            justify-content: flex-start;
+            padding-left: clamp(6px, 1vw, 16px);
+        }
+
+        #page-result .result-impact-status--protect { color: #57BE91; }
+        #page-result .result-impact-status--risk { color: #F47A24; }
+        #page-result .result-impact-status--reference { color: #9CA3AF; }
+
+        #page-result .result-impact-track {
+            position: relative;
+            height: clamp(40px, 4.5vw, 64px);
+            overflow: hidden;
+            border-radius: 9999px;
+            background: linear-gradient(90deg, #ECFDF5 0%, #ECFDF5 50%, #FFF8EE 50%, #FFF8EE 100%);
+        }
+
+        #page-result .result-impact-track::before {
+            position: absolute;
+            z-index: 2;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            transform: translateX(-50%);
+            background: #D7E0DE;
+            content: '';
+        }
+
+        #page-result .result-impact-fill {
+            position: absolute;
+            top: clamp(6px, .7vw, 10px);
+            bottom: clamp(6px, .7vw, 10px);
+            border-radius: 9999px;
+            opacity: .92;
+        }
+
+        #page-result .result-impact-fill--protect { right: 50%; }
+        #page-result .result-impact-fill--risk { left: 50%; }
+
+        @media (max-width: 639px) {
+            #page-result .result-impact-chart {
+                --impact-label-column: minmax(70px, .9fr);
+                --impact-status-column: minmax(42px, .58fr);
+            }
+
+            #page-result .result-impact-axis,
+            #page-result .result-impact-side {
+                font-size: calc(12px * var(--font-scale));
+            }
+
+            #page-result .result-impact-axis {
+                margin-bottom: 14px;
+            }
+
+            #page-result .result-impact-rows { gap: 10px; }
+            #page-result .result-impact-row { min-height: 32px; }
+            #page-result .result-impact-track { height: 32px; }
+            #page-result .result-impact-fill { top: 4px; bottom: 4px; }
+            #page-result .result-impact-side--left,
+            #page-result .result-impact-side--right { padding-inline: 0; }
         }
 
         /* 태블릿·모바일에서는 결과 섹션 제목 아래의 구분선 없이
@@ -8279,9 +8426,7 @@
             body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-result:not(.hidden)) > main,
             body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-chat:not(.hidden)) > main,
             body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-help:not(.hidden)) > main,
-            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-records:not(.hidden)) > main,
-            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-admin:not(.hidden)) > main,
-            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-more:not(.hidden)) > main {
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-records:not(.hidden)) > main {
                 padding-top: 85px !important;
             }
         }
@@ -8364,9 +8509,7 @@
             body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-result:not(.hidden)) > main,
             body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-chat:not(.hidden)) > main,
             body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-help:not(.hidden)) > main,
-            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-records:not(.hidden)) > main,
-            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-admin:not(.hidden)) > main,
-            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-more:not(.hidden)) > main {
+            body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))):has(#page-records:not(.hidden)) > main {
                 padding-top: 85px !important;
             }
 
@@ -8432,7 +8575,7 @@
                 #page-signup:not(.hidden), #page-find:not(.hidden), #page-about:not(.hidden),
                 #page-survey-start:not(.hidden), #page-survey:not(.hidden), #page-analyzing:not(.hidden),
                 #page-result:not(.hidden), #page-chat:not(.hidden), #page-help:not(.hidden),
-                #page-records:not(.hidden), #page-admin:not(.hidden), #page-more:not(.hidden)
+                #page-records:not(.hidden)
             ) > main {
                 padding-top: 81px !important;
             }
@@ -8894,6 +9037,616 @@
             }
         }
 
+        /* 회원가입·로그인 정보 찾기: 설문 화면과 동일한 중립 회색 캔버스와
+           흰 콘텐츠 프레임, 플로팅 하단 네비게이션을 사용합니다. 로그인 전
+           보조 화면도 설문 흐름과 같은 표면 체계를 유지하도록 한정합니다. */
+        @media (min-width: 1025px) {
+            body:not(.high-contrast):has(#page-signup:not(.hidden)),
+            body:not(.high-contrast):has(#page-find:not(.hidden)) {
+                background: #EAEDF0 !important;
+                padding-bottom: 0 !important;
+            }
+
+            body:has(#page-signup:not(.hidden)) > main,
+            body:has(#page-find:not(.hidden)) > main {
+                width: calc(100% - 40px) !important;
+                max-width: 64rem !important;
+                min-height: calc(100dvh - 124px) !important;
+                /* 헤더(68px)가 문서 흐름을 차지하므로, 설문과 같은 16px만
+                   추가해 콘텐츠 프레임의 실제 시작점을 84px로 맞춥니다. */
+                margin: 16px auto 0 !important;
+                padding: 32px !important;
+                display: flex !important;
+                flex-direction: column !important;
+                background: #FFFFFF !important;
+                border-radius: 28px 28px 0 0 !important;
+            }
+
+            body:has(#page-signup:not(.hidden)) #page-signup,
+            body:has(#page-find:not(.hidden)) #page-find {
+                flex: 0 0 auto !important;
+                min-height: 0 !important;
+                display: block !important;
+            }
+
+            body:has(#page-signup:not(.hidden)) #page-signup > div,
+            body:has(#page-find:not(.hidden)) #page-find > div {
+                margin: 0 auto !important;
+                border-color: transparent !important;
+                box-shadow: none !important;
+            }
+
+            body:has(#page-signup:not(.hidden)) nav.bottom-nav,
+            body:has(#page-find:not(.hidden)) nav.bottom-nav {
+                left: 50% !important;
+                right: auto !important;
+                width: calc(100% - 32px) !important;
+                max-width: 64rem !important;
+                height: 100px !important;
+                padding: 8px !important;
+                border: 1px solid rgba(88, 82, 70, .12) !important;
+                border-radius: 24px 24px 0 0 !important;
+                background: rgba(255, 255, 255, .96) !important;
+                box-shadow: 0 -10px 28px rgba(48, 45, 38, .12) !important;
+                transform: translateX(-50%) !important;
+            }
+        }
+
+        /* 모바일·태블릿은 설문과 같은 흰 바탕·하단 네비 표면을 명시해
+           로그인 보조 화면 전환 시에도 색상과 그림자가 흔들리지 않게 합니다. */
+        @media (max-width: 1024px) {
+            body:not(.high-contrast):has(#page-signup:not(.hidden)),
+            body:not(.high-contrast):has(#page-find:not(.hidden)) {
+                background: #FFFFFF !important;
+            }
+
+            /* 회원가입·로그인 정보찾기 입력칸은 같은 기기에서의 로그인 전
+               입력칸 높이와 맞춰 전환해도 조작 밀도가 달라지지 않게 합니다. */
+            body:has(#page-signup:not(.hidden)) #page-signup .buvi-input,
+            body:has(#page-find:not(.hidden)) #page-find .buvi-input {
+                height: 46px !important;
+                min-height: 46px !important;
+            }
+
+            body:has(#page-signup:not(.hidden)) nav.bottom-nav,
+            body:has(#page-find:not(.hidden)) nav.bottom-nav {
+                background: #F7F7F8 !important;
+                border-top: 0 !important;
+                box-shadow: 0 -8px 24px rgba(17, 24, 39, .10) !important;
+            }
+        }
+
+        /* FHD 로그인 전: QHD와 동일한 로그인 폼의 세로 밀도를 유지합니다.
+           좌측 노란 패널 폭은 그대로 두고, 폼만 패널 안쪽 20px 여백을
+           기준으로 유동 폭을 사용합니다. */
+        @media (min-width: 1600px) and (max-width: 2240px) and (min-height: 1050px) and (max-height: 1280px) {
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login > div > div:first-child > .bg-white {
+                flex: 0 0 calc(505px + (var(--font-scale) - 1) * 37px) !important;
+                width: auto !important;
+                height: calc(505px + (var(--font-scale) - 1) * 37px) !important;
+                min-height: 505px !important;
+                padding: 32px !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login > div > div:first-child > .bg-white > * + * {
+                margin-top: 20px !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login > div > div:first-child > .bg-white .buvi-hero-input,
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login > div > div:first-child > .bg-white button[onclick="handleLogin()"],
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login > div > div:first-child > .bg-white button[onclick="navTo('find')"] {
+                width: 100% !important;
+                min-height: 56px !important;
+                height: 56px !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login > div > div:first-child > .bg-white #auto-login {
+                width: 24px !important;
+                height: 24px !important;
+                min-height: 24px !important;
+            }
+
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login > div > div:first-child > .bg-white button[onclick*="togglePasswordVisibility"] {
+                width: auto !important;
+                height: auto !important;
+                min-height: 44px !important;
+            }
+
+            /* 폼이 커진 만큼 비주얼의 하단이 잘리지 않도록, 기존 FHD
+               하단 배치를 화면 높이와 글자 확대 비율에 맞춰 미세 조정합니다. */
+            body.login-as-about:has(#page-login:not(.hidden)) #page-login .login-hero-visual {
+                margin: clamp(0px, calc(100dvh - 931px - ((var(--font-scale) - 1) * 37px)), 149px) 0 0 auto !important;
+            }
+        }
+
+        /* 자동 로그인: 기본 브라우저 체크박스보다 모서리를 부드럽게 처리해
+           로그인 문구와 어울리는 둥근 선택 컨트롤로 표시합니다. */
+        body.login-as-about:has(#page-login:not(.hidden))
+        #page-login > div > div:first-child > .bg-white #auto-login {
+            appearance: none;
+            -webkit-appearance: none;
+            display: grid;
+            place-content: center;
+            flex: 0 0 auto;
+            border: 2px solid #1A1A1A;
+            border-radius: 8px !important;
+            background: #FFFFFF;
+            cursor: pointer;
+        }
+
+        body.login-as-about:has(#page-login:not(.hidden))
+        #page-login > div > div:first-child > .bg-white #auto-login::after {
+            content: "";
+            width: 42%;
+            height: 24%;
+            border: solid #FFFFFF;
+            border-width: 0 0 2px 2px;
+            transform: rotate(-45deg) scale(0);
+            transform-origin: center;
+            transition: transform 120ms ease;
+        }
+
+        body.login-as-about:has(#page-login:not(.hidden))
+        #page-login > div > div:first-child > .bg-white #auto-login:checked {
+            background: #1A1A1A;
+            /* input 요소의 ::after는 브라우저마다 표시되지 않을 수 있어,
+               체크 아이콘은 배경 SVG로 직접 그립니다. */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.2 4.2L19.5 6.5' fill='none' stroke='%23FFFFFF' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+            background-repeat: no-repeat !important;
+            background-position: center !important;
+            background-size: 78% 78% !important;
+        }
+
+        body.login-as-about:has(#page-login:not(.hidden))
+        #page-login > div > div:first-child > .bg-white #auto-login:checked::after {
+            transform: rotate(-45deg) scale(1);
+        }
+
+        body.login-as-about:has(#page-login:not(.hidden))
+        #page-login > div > div:first-child > .bg-white #auto-login:focus-visible {
+            outline: 3px solid #FEE500;
+            outline-offset: 2px;
+        }
+
+        /* 모바일·태블릿 BUVI 알아보기: 약속 카드의 컬러 비주얼을 독립된
+           둥근 박스로 보이게 하고, 배경 영문자도 데스크톱 카드와 같은
+           주제별 색상으로 맞춥니다. */
+        @media (max-width: 768px) {
+            #page-about .lg\:hidden .about-promise-card > div:last-child {
+                border-radius: 20px !important;
+            }
+
+            #page-about .lg\:hidden .about-promise-card:nth-child(1) > div:last-child .about-promise-letter {
+                color: #B78900 !important;
+                opacity: .25 !important;
+            }
+
+            #page-about .lg\:hidden .about-promise-card:nth-child(2) > div:last-child .about-promise-letter {
+                color: #8A3A00 !important;
+                opacity: .25 !important;
+            }
+
+            #page-about .lg\:hidden .about-promise-card:nth-child(3) > div:last-child .about-promise-letter {
+                color: #1E6B3F !important;
+                opacity: .25 !important;
+            }
+
+            #page-about .lg\:hidden .about-promise-card:nth-child(4) > div:last-child .about-promise-letter {
+                color: #1E3C7B !important;
+                opacity: .25 !important;
+            }
+        }
+
+        /* 설문 첫 화면은 안내에 집중하도록 헤더의 소리듣기만 숨기고,
+           실제 설문 문항 화면의 소리듣기 제어는 그대로 유지합니다. */
+        html body:has(#page-survey-start:not(.hidden)) > header .tts-listen-btn {
+            display: none !important;
+        }
+
+        /* 모바일 헤더: 화면별 활성 버튼 보정값(34/38/43px)이 섞이지 않도록
+           네 개의 글자 크기 버튼을 같은 터치 크기로 고정합니다. 폭이 실제로
+           부족한 경우에는 기존 JS가 네 버튼 대신 셀렉트만 노출합니다. */
+        @media (max-width: 639px) {
+            html body:has(#page-home:not(.hidden)):has(#page-home) > header .header-controls:not(.is-compact) .font-scale-btn,
+            html body:has(#page-login:not(.hidden)):has(#page-login) > header .header-controls:not(.is-compact) .font-scale-btn,
+            html body:not(:has(#page-home:not(.hidden))):not(:has(#page-login:not(.hidden))) > header .header-controls:not(.is-compact) .font-scale-btn {
+                box-sizing: border-box !important;
+                flex: 0 0 36px !important;
+                width: 36px !important;
+                min-width: 36px !important;
+                height: 36px !important;
+                min-height: 36px !important;
+                padding: 0 !important;
+            }
+        }
+
+        /* 회원가입·로그인 정보찾기는 입력칸을 로그인 전 화면과 같은 46px로
+           압축했으므로, 모바일·태블릿의 제목·라벨·버튼도 그 조작 밀도에 맞춰
+           로그인 화면과 같은 위계를 유지합니다. */
+        @media (max-width: 639px) {
+            body:has(#page-signup:not(.hidden)) #page-signup > div > div:first-child h1,
+            body:has(#page-find:not(.hidden)) #page-find > div > div:first-child h1 {
+                font-size: calc(28px * var(--font-scale)) !important;
+                line-height: 1.2 !important;
+                margin-bottom: 6px !important;
+            }
+
+            body:has(#page-signup:not(.hidden)) #page-signup > div > div:first-child p {
+                font-size: calc(14px * var(--font-scale)) !important;
+                line-height: 1.45 !important;
+            }
+        }
+
+        @media (min-width: 640px) and (max-width: 1024px) {
+            body:has(#page-signup:not(.hidden)) #page-signup > div > div:first-child h1,
+            body:has(#page-find:not(.hidden)) #page-find > div > div:first-child h1 {
+                font-size: calc(32px * var(--font-scale)) !important;
+                line-height: 1.2 !important;
+                margin-bottom: 6px !important;
+            }
+
+            body:has(#page-signup:not(.hidden)) #page-signup > div > div:first-child p {
+                font-size: calc(15px * var(--font-scale)) !important;
+                line-height: 1.45 !important;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            body:has(#page-signup:not(.hidden)) #page-signup .space-y-4 > div > label,
+            body:has(#page-find:not(.hidden)) #page-find .space-y-4 > div > label {
+                font-size: calc(16px * var(--font-scale)) !important;
+                line-height: 1.35 !important;
+                margin-bottom: 4px !important;
+            }
+
+            body:has(#page-signup:not(.hidden)) #page-signup .buvi-input,
+            body:has(#page-find:not(.hidden)) #page-find .buvi-input {
+                font-size: calc(15px * var(--font-scale)) !important;
+                line-height: 1.5 !important;
+                font-weight: 500 !important;
+            }
+
+            body:has(#page-signup:not(.hidden)) #page-signup .space-y-4 > button,
+            body:has(#page-find:not(.hidden)) #page-find .space-y-4 > button {
+                height: 46px !important;
+                min-height: 46px !important;
+                font-size: calc(17px * var(--font-scale)) !important;
+                line-height: 1.35 !important;
+            }
+
+            body:has(#page-signup:not(.hidden)) #page-signup button[onclick="navTo('login')"],
+            body:has(#page-find:not(.hidden)) #page-find button[onclick="navTo('login')"] {
+                height: 46px !important;
+                min-height: 46px !important;
+                font-size: calc(16px * var(--font-scale)) !important;
+                line-height: 1.35 !important;
+            }
+        }
+
+        /* 모바일 7단계 마음건강: 안내 문구가 하단 이동 버튼을 밀어내지
+           않도록 상단 리듬을 압축하고, 선택 영역만 내부에서 스크롤한다. */
+        @media (max-width: 639px) {
+            body:has(#page-survey:not(.hidden)):has(#page-survey .sgds-question-instruction) {
+                height: 100dvh !important;
+                min-height: 100dvh !important;
+                max-height: 100dvh !important;
+                padding-bottom: 0 !important;
+                overflow: hidden !important;
+            }
+
+            body:has(#page-survey:not(.hidden)):has(#page-survey .sgds-question-instruction) main {
+                height: calc(100dvh - 104px) !important;
+                min-height: calc(100dvh - 104px) !important;
+                max-height: calc(100dvh - 104px) !important;
+                overflow: hidden !important;
+            }
+
+            body:has(#page-survey:not(.hidden)) #page-survey:has(.sgds-question-instruction),
+            body:has(#page-survey:not(.hidden)) #page-survey:has(.sgds-question-instruction) > div.bg-white {
+                height: 100% !important;
+                min-height: 0 !important;
+                max-height: 100% !important;
+                overflow: hidden !important;
+            }
+
+            body:has(#page-survey:not(.hidden)) #page-survey:has(.sgds-question-instruction) .text-center.mb-3 {
+                flex: 0 0 auto !important;
+                margin-bottom: 2px !important;
+            }
+
+            body:has(#page-survey:not(.hidden)) #page-survey .sgds-question-instruction {
+                font-size: calc(24px * var(--font-scale)) !important;
+                line-height: calc(32.4px * var(--font-scale)) !important;
+                padding: 0 4px !important;
+            }
+
+            body:has(#page-survey:not(.hidden)) #page-survey:has(.sgds-question-instruction) #survey-options-container {
+                flex: 1 1 0 !important;
+                min-height: 0 !important;
+                margin: 0 !important;
+                justify-content: flex-start !important;
+                overflow-y: auto !important;
+                overscroll-behavior: contain !important;
+                padding: 12px 2px 6px !important;
+            }
+
+            body:has(#page-survey:not(.hidden)) #page-survey:has(.sgds-question-instruction) #survey-options-container > .flex {
+                gap: 8px !important;
+            }
+
+            body:has(#page-survey:not(.hidden)) #page-survey .sgds-question-content {
+                font-size: 17px !important;
+                line-height: 1.35 !important;
+            }
+
+            body:has(#page-survey:not(.hidden)) #page-survey:has(.sgds-question-instruction) .bg-yellow-50.border-yellow-300 {
+                padding: 12px !important;
+                border-radius: 16px !important;
+            }
+
+            body:has(#page-survey:not(.hidden)) #page-survey:has(.sgds-question-instruction) .survey-choice-card {
+                min-height: 64px !important;
+                font-size: 22px !important;
+            }
+
+            body:has(#page-survey:not(.hidden)) #page-survey:has(.sgds-question-instruction) #survey-nav-bottom {
+                flex: 0 0 auto !important;
+                margin: 6px auto 0 !important;
+                padding: 4px 0 0 !important;
+                position: relative !important;
+                z-index: 2 !important;
+            }
+
+            body:has(#page-survey:not(.hidden)) #page-survey:has(.sgds-question-instruction) #survey-nav-bottom > button {
+                height: 46px !important;
+                min-height: 46px !important;
+                font-size: 14px !important;
+            }
+        }
+
+        /* 모바일 1단계 성별: 진행도·배지·질문은 그대로 두고 선택 영역의
+           상하 여백만 줄여 하단 이동 버튼을 고정 네비게이션 위에 배치한다. */
+        @media (max-width: 639px) {
+            body:has(#page-survey:not(.hidden)):has(#page-survey .gender-card) {
+                height: 100dvh !important;
+                min-height: 100dvh !important;
+                max-height: 100dvh !important;
+                padding-bottom: 0 !important;
+                overflow: hidden !important;
+            }
+
+            body:has(#page-survey:not(.hidden)):has(#page-survey .gender-card) main {
+                height: calc(100dvh - 104px) !important;
+                min-height: calc(100dvh - 104px) !important;
+                max-height: calc(100dvh - 104px) !important;
+                overflow: hidden !important;
+            }
+
+            body:has(#page-survey:not(.hidden)) #page-survey:has(.gender-card),
+            body:has(#page-survey:not(.hidden)) #page-survey:has(.gender-card) > div.bg-white {
+                height: 100% !important;
+                min-height: 0 !important;
+                max-height: 100% !important;
+                overflow: hidden !important;
+            }
+
+            body:has(#page-survey:not(.hidden)) #page-survey:has(.gender-card) #survey-options-container {
+                flex: 1 1 0 !important;
+                min-height: 0 !important;
+                margin: 0 !important;
+                justify-content: center !important;
+                padding: 8px 3px !important;
+                overflow-y: auto !important;
+                overscroll-behavior: contain !important;
+            }
+
+            body:has(#page-survey:not(.hidden)) #page-survey:has(.gender-card) #survey-nav-bottom {
+                flex: 0 0 auto !important;
+                margin: 6px auto 0 !important;
+                padding: 4px 0 0 !important;
+                position: relative !important;
+                z-index: 2 !important;
+            }
+
+            body:has(#page-survey:not(.hidden)) #page-survey:has(.gender-card) #survey-nav-bottom > button {
+                height: 46px !important;
+                min-height: 46px !important;
+                font-size: 14px !important;
+            }
+        }
+
+        /* 설문 이동 버튼은 공통 본문 확대 대상에서 제외하고 CSS 변수로만
+           한 번 확대한다. 문항을 다시 렌더링할 때 이전 계산값을 재측정해
+           글자가 계속 커지는 현상을 막는다. */
+        #page-survey #survey-nav-bottom > button {
+            font-size: calc(var(--survey-nav-font-size, 16px) * var(--font-scale)) !important;
+            line-height: calc(var(--survey-nav-line-height, 24px) * var(--font-scale)) !important;
+        }
+
+        @media (max-width: 639px) {
+            body:has(#page-survey:not(.hidden)) #page-survey:has(.sgds-question-instruction) #survey-nav-bottom > button,
+            body:has(#page-survey:not(.hidden)) #page-survey:has(.gender-card) #survey-nav-bottom > button {
+                --survey-nav-font-size: 14px !important;
+                --survey-nav-line-height: 21px !important;
+            }
+        }
+
+        /* IPAQ 시간·분 탭과 키패드도 같은 방식으로 기준 크기에서 한 번만
+           확대한다. 탭 선택 때 className이 바뀌어도 이전 확대값을 다시
+           측정하지 않으므로 글자 크기가 누적되지 않는다. */
+        #page-survey .ipaq-time-input-controls [id^="ipaq-tab-"],
+        #page-survey .ipaq-time-input-controls [id^="sit-tab-"] {
+            font-size: calc(14px * var(--font-scale)) !important;
+            line-height: calc(20px * var(--font-scale)) !important;
+        }
+
+        #page-survey .ipaq-time-input-controls [id^="ipaq-card-"] > .text-xs,
+        #page-survey .ipaq-time-input-controls [id^="sit-card-"] > .text-xs {
+            font-size: calc(12px * var(--font-scale)) !important;
+            line-height: calc(16px * var(--font-scale)) !important;
+        }
+
+        #page-survey .ipaq-time-input-controls [id^="disp-ipaq_"],
+        #page-survey .ipaq-time-input-controls [id^="disp-sit-"] {
+            font-size: calc(30px * var(--font-scale)) !important;
+            line-height: calc(36px * var(--font-scale)) !important;
+        }
+
+        #page-survey .ipaq-time-input-controls .survey-keypad > button {
+            font-size: calc(22px * var(--font-scale)) !important;
+            line-height: calc(33px * var(--font-scale)) !important;
+        }
+
+        #page-survey .ipaq-time-input-controls .survey-keypad > button[class*="!text-sm"] {
+            font-size: calc(14px * var(--font-scale)) !important;
+            line-height: calc(21px * var(--font-scale)) !important;
+        }
+
+        /* 카드뉴스 페이지 위의 탭 전환 영역은 그대로 유지하되, 터치 후
+           남아 이미지 위를 가리는 흰색 화살표 표시는 보이지 않게 한다.
+           하단의 이전·다음 버튼, 스와이프, 이미지 양쪽 탭 이동은 그대로 쓸 수 있다. */
+        #page-records #cn-tap-prev > span,
+        #page-records #cn-tap-next > span,
+        #cn-fs-tap-prev > span,
+        #cn-fs-tap-next > span {
+            display: none !important;
+        }
+
+        /* 상담의 설문 완료 리포트는 결과 화면과 같은 마크업을 재사용한다.
+           결과 화면 전용으로 한정돼 있던 영향 요인 차트 규칙을 이 영역에도
+           적용해, 항목명이 텍스트로만 세로 나열되지 않고 양방향 그래프로
+           표시되도록 한다. 채팅의 바깥 말풍선/스크롤 영역 스타일은 유지한다. */
+        #page-chat .chat-static-result-report .result-outlined-card {
+            border: 0 !important;
+            background: transparent !important;
+            box-shadow: none !important;
+        }
+
+        #page-chat .chat-static-result-report .result-impact-chart {
+            --impact-label-column: clamp(112px, 18%, 164px);
+            --impact-status-column: clamp(76px, 11%, 124px);
+        }
+
+        #page-chat .chat-static-result-report .result-impact-axis,
+        #page-chat .chat-static-result-report .result-impact-row {
+            display: grid;
+            grid-template-columns: var(--impact-label-column) minmax(0, 1fr) var(--impact-status-column);
+            column-gap: clamp(10px, 1.5vw, 24px);
+        }
+
+        #page-chat .chat-static-result-report .result-impact-axis {
+            align-items: center;
+            margin-bottom: clamp(18px, 2.2vw, 30px);
+            font-size: calc(18px * var(--font-scale));
+            font-weight: 900;
+            line-height: 1.2;
+        }
+
+        #page-chat .chat-static-result-report .result-impact-axis-help {
+            grid-column: 1 / span 2;
+            color: #57BE91;
+        }
+
+        #page-chat .chat-static-result-report .result-impact-axis-risk {
+            grid-column: 3;
+            color: #F47A24;
+            white-space: nowrap;
+        }
+
+        #page-chat .chat-static-result-report .result-impact-rows {
+            display: grid;
+            gap: clamp(14px, 1.8vw, 26px);
+        }
+
+        #page-chat .chat-static-result-report .result-impact-row {
+            align-items: center;
+            min-height: clamp(48px, 5vw, 72px);
+        }
+
+        #page-chat .chat-static-result-report .result-impact-side {
+            display: flex;
+            align-items: center;
+            min-width: 0;
+            font-size: calc(18px * var(--font-scale));
+            font-weight: 900;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        #page-chat .chat-static-result-report .result-impact-side--left {
+            justify-content: space-between;
+            gap: 12px;
+            padding-right: clamp(6px, 1vw, 16px);
+            color: #111111;
+        }
+
+        #page-chat .chat-static-result-report .result-impact-side--right {
+            justify-content: flex-start;
+            padding-left: clamp(6px, 1vw, 16px);
+        }
+
+        #page-chat .chat-static-result-report .result-impact-status--protect { color: #57BE91; }
+        #page-chat .chat-static-result-report .result-impact-status--risk { color: #F47A24; }
+        #page-chat .chat-static-result-report .result-impact-status--reference { color: #9CA3AF; }
+
+        #page-chat .chat-static-result-report .result-impact-track {
+            position: relative;
+            height: clamp(40px, 4.5vw, 64px);
+            overflow: hidden;
+            border-radius: 9999px;
+            background: linear-gradient(90deg, #ECFDF5 0%, #ECFDF5 50%, #FFF8EE 50%, #FFF8EE 100%);
+        }
+
+        #page-chat .chat-static-result-report .result-impact-track::before {
+            position: absolute;
+            z-index: 2;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            transform: translateX(-50%);
+            background: #D7E0DE;
+            content: '';
+        }
+
+        #page-chat .chat-static-result-report .result-impact-fill {
+            position: absolute;
+            top: clamp(6px, .7vw, 10px);
+            bottom: clamp(6px, .7vw, 10px);
+            border-radius: 9999px;
+            opacity: .92;
+        }
+
+        #page-chat .chat-static-result-report .result-impact-fill--protect { right: 50%; }
+        #page-chat .chat-static-result-report .result-impact-fill--risk { left: 50%; }
+
+        @media (max-width: 639px) {
+            #page-chat .chat-static-result-report .result-impact-chart {
+                --impact-label-column: minmax(70px, .9fr);
+                --impact-status-column: minmax(42px, .58fr);
+            }
+
+            #page-chat .chat-static-result-report .result-impact-axis,
+            #page-chat .chat-static-result-report .result-impact-side {
+                font-size: calc(12px * var(--font-scale));
+            }
+
+            #page-chat .chat-static-result-report .result-impact-axis { margin-bottom: 14px; }
+            #page-chat .chat-static-result-report .result-impact-rows { gap: 10px; }
+            #page-chat .chat-static-result-report .result-impact-row { min-height: 32px; }
+            #page-chat .chat-static-result-report .result-impact-track { height: 32px; }
+            #page-chat .chat-static-result-report .result-impact-fill { top: 4px; bottom: 4px; }
+            #page-chat .chat-static-result-report .result-impact-side--left,
+            #page-chat .chat-static-result-report .result-impact-side--right { padding-inline: 0; }
+        }
+
 		</style>
 
 
@@ -8946,7 +9699,7 @@
     </header>
 
     <main class="max-w-5xl mx-auto px-5 py-6">
-        
+
 
         <!-- ========================================================
              화면 1: 로그인 화면 (Slide 1)
@@ -8971,7 +9724,7 @@
                         </div>
                     </div>
                     <!-- Login form (overlaps upward on mobile) -->
-                    <div class="bg-white rounded-3xl -mt-8 mx-2 lg:mx-0 lg:mt-6 px-6 pt-0 pb-8 lg:py-8 relative z-10 shadow-lg space-y-5">
+                    <form class="bg-white rounded-3xl -mt-8 mx-2 lg:mx-0 lg:mt-6 px-6 pt-0 pb-8 lg:py-8 relative z-10 shadow-lg space-y-5" onsubmit="event.preventDefault(); handleLogin()">
                         <div id="login-alert-box" class="hidden p-3 rounded-xl border-2 text-center">
                             <p id="login-alert-msg" class="scaled-text-base font-bold text-errRed"></p>
                             <div id="login-hint-block" class="hidden mt-3 pt-3 border-t border-red-200 text-left">
@@ -8980,12 +9733,12 @@
                         </div>
                         <div class="space-y-2">
                             <label class="mb-0 text-xl font-black text-charcoal font-gapyeong" for="login-id">아이디</label>
-                            <input type="text" id="login-id" class="buvi-hero-input" placeholder="아이디를 입력하세요">
+                            <input type="text" id="login-id" class="buvi-hero-input" placeholder="아이디를 입력하세요" autocomplete="username">
                         </div>
                         <div class="space-y-2">
                             <label class="mb-0 text-xl font-black text-charcoal font-gapyeong" for="login-pw">비밀번호</label>
                             <div class="relative">
-                                <input type="password" id="login-pw" class="buvi-hero-input pr-14" placeholder="비밀번호를 입력하세요">
+                                <input type="password" id="login-pw" class="buvi-hero-input pr-14" placeholder="비밀번호를 입력하세요" autocomplete="current-password">
                                 <button type="button" onclick="togglePasswordVisibility('login-pw', 'pw-eye-icon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 p-2 min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="비밀번호 표시">
                                     <i id="pw-eye-icon" class="fa-regular fa-eye text-xl"></i>
                                 </button>
@@ -8995,9 +9748,9 @@
                             <input type="checkbox" id="auto-login" class="w-6 h-6 accent-black" checked>
                             <span class="font-black text-charcoal">자동으로 로그인하기</span>
                         </label>
-                        <button onclick="handleLogin()" class="w-full h-14 bg-black text-white font-black rounded-2xl text-lg hover:bg-neutral-800 transition">로그인</button>
-                        <button onclick="navTo('find')" class="w-full h-14 border-2 border-gray-300 bg-white text-charcoal font-black rounded-2xl text-lg hover:bg-gray-50 transition">아이디·비밀번호 찾기</button>
-                    </div>
+                        <button type="submit" class="w-full h-14 bg-black text-white font-black rounded-2xl text-lg hover:bg-neutral-800 transition">로그인</button>
+                        <button type="button" onclick="navTo('find')" class="w-full h-14 border-2 border-gray-300 bg-white text-charcoal font-black rounded-2xl text-lg hover:bg-gray-50 transition">아이디·비밀번호 찾기</button>
+                    </form>
                 </div>
 
                 <!-- RIGHT (desktop only): About 우측 컨텐츠 마운트 포인트 -->
@@ -9031,10 +9784,10 @@
                         <label class="scaled-text-base font-bold text-charcoal block mb-1">휴대폰 번호</label>
                         <input type="text" id="signup-phone" class="w-full buvi-input focus:outline-none focus:border-kakao font-bold" placeholder="-제외 숫자만 입력">
                     </div>
-                    <button onclick="handleSignUp()" class="w-full bg-kakao text-charcoal font-black rounded-2xl flex items-center justify-center btn-height-primary transition-all hover:brightness-95" style="font-size: 20px;">
+                    <button onclick="handleSignUp()" class="account-auth-action w-full bg-kakao text-charcoal font-black rounded-2xl flex items-center justify-center btn-height-primary transition-all hover:brightness-95">
                         <i class="fa-solid fa-circle-check mr-2" aria-hidden="true"></i>가입 완료하기
                     </button>
-                    <button onclick="navTo('login')" class="w-full border-2 border-gray-300 bg-white text-gray-600 font-bold rounded-2xl flex items-center justify-center btn-height-secondary transition-all hover:bg-gray-50" style="font-size: 18px;">
+                    <button onclick="navTo('login')" class="account-auth-action w-full border-2 border-gray-300 bg-white text-gray-600 font-bold rounded-2xl flex items-center justify-center btn-height-secondary transition-all hover:bg-gray-50">
                         <i class="fa-solid fa-arrow-left mr-2" aria-hidden="true"></i>로그인 화면으로 돌아가기
                     </button>
                 </div>
@@ -9062,10 +9815,10 @@
                         <label class="scaled-text-base font-bold text-charcoal block mb-1">휴대폰 번호</label>
                         <input type="text" id="find-phone" class="w-full buvi-input focus:outline-none" placeholder="-제외 숫자만 입력">
                     </div>
-                    <button onclick="handleFindAccount()" class="w-full bg-kakao text-charcoal font-black rounded-2xl flex items-center justify-center btn-height-primary hover:brightness-95" style="font-size: 20px;">
+                    <button onclick="handleFindAccount()" class="account-auth-action w-full bg-kakao text-charcoal font-black rounded-2xl flex items-center justify-center btn-height-primary hover:brightness-95">
                         <i class="fa-solid fa-magnifying-glass mr-2" aria-hidden="true"></i>계정 조회하기
                     </button>
-                    <button onclick="navTo('login')" class="w-full border-2 border-gray-300 bg-white text-gray-600 font-bold rounded-2xl flex items-center justify-center btn-height-secondary hover:bg-gray-50" style="font-size: 18px;">
+                    <button onclick="navTo('login')" class="account-auth-action w-full border-2 border-gray-300 bg-white text-gray-600 font-bold rounded-2xl flex items-center justify-center btn-height-secondary hover:bg-gray-50">
                         <i class="fa-solid fa-arrow-left mr-2" aria-hidden="true"></i>로그인 화면으로 돌아가기
                     </button>
                 </div>
@@ -9230,7 +9983,7 @@
                                     <img src="./owl-alert.svg" alt="바라보는 부비" class="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 shrink-0 object-contain">
                                     <h3 class="font-gapyeong text-3xl sm:text-4xl md:text-5xl font-black leading-none text-charcoal"><span style="display:inline-block;border-bottom:5px solid #FEE500;padding-bottom:5px;">바라봅니다</span></h3>
                                 </div>
-                                <p class="mt-4 text-base sm:text-lg md:text-xl font-semibold leading-relaxed text-charcoal"><span style="color:#FE7F2B;"><b>B</b>eholding (바라봄)</span> · BUVI는 어르신의 건강 상태와 변화를 함께 바라봅니다.</p>
+                                <p class="mt-4 text-base sm:text-lg md:text-xl font-semibold leading-relaxed text-charcoal"><b style="color:#FE7F2B;">B</b>eholding (바라봄) · BUVI는 어르신의 건강 상태와 변화를 함께 바라봅니다.</p>
                                 <p class="mt-3 text-base sm:text-lg md:text-xl font-medium leading-relaxed text-gray-700">데이터만이 아니라 어르신의 이야기 속 의미까지 놓치지 않고 주목합니다.</p>
                             </div>
                             <div class="relative flex h-48 sm:h-60 md:h-72 items-center justify-center overflow-hidden" style="background:#FEE500">
@@ -9244,7 +9997,7 @@
                                     <img src="./owl-idea.svg" alt="이해하는 부비" class="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 shrink-0 object-contain">
                                     <h3 class="font-gapyeong text-3xl sm:text-4xl md:text-5xl font-black leading-none text-charcoal"><span style="display:inline-block;border-bottom:5px solid #FF7E2A;padding-bottom:5px;">이해합니다</span></h3>
                                 </div>
-                                <p class="mt-4 text-base sm:text-lg md:text-xl font-semibold leading-relaxed text-charcoal"><span style="color:#FE7F2B;"><b>U</b>nderstanding (이해)</span> · BUVI는 어르신의 건강 상태와 변화를 깊이 이해합니다.</p>
+                                <p class="mt-4 text-base sm:text-lg md:text-xl font-semibold leading-relaxed text-charcoal"><b style="color:#FE7F2B;">U</b>nderstanding (이해) · BUVI는 어르신의 건강 상태와 변화를 깊이 이해합니다.</p>
                                 <p class="mt-3 text-base sm:text-lg md:text-xl font-medium leading-relaxed text-gray-700">어르신의 건강 데이터와 생활 습관을 종합해 어르신을 깊이 이해합니다.</p>
                             </div>
                             <div class="relative flex h-48 sm:h-60 md:h-72 items-center justify-center overflow-hidden" style="background:#FF7E2A">
@@ -9258,7 +10011,7 @@
                                     <img src="./owl-welcome.svg" alt="안내하는 부비" class="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 shrink-0 object-contain">
                                     <h3 class="font-gapyeong text-3xl sm:text-4xl md:text-5xl font-black leading-none text-charcoal"><span style="display:inline-block;border-bottom:5px solid #68CD92;padding-bottom:5px;">안내합니다</span></h3>
                                 </div>
-                                <p class="mt-4 text-base sm:text-lg md:text-xl font-semibold leading-relaxed text-charcoal"><span style="color:#2F9E68;"><b>V</b>itality (활력)</span> · BUVI는 어르신의 활력 있는 일상을 안내합니다.</p>
+                                <p class="mt-4 text-base sm:text-lg md:text-xl font-semibold leading-relaxed text-charcoal"><b style="color:#2F9E68;">V</b>itality (활력) · BUVI는 어르신의 활력 있는 일상을 안내합니다.</p>
                                 <p class="mt-3 text-base sm:text-lg md:text-xl font-medium leading-relaxed text-gray-700">이해를 바탕으로 노쇠 신호를 미리 살피고, 어르신의 활력을 안내합니다.</p>
                             </div>
                             <div class="relative flex h-48 sm:h-60 md:h-72 items-center justify-center overflow-hidden" style="background:#68CD92">
@@ -9272,7 +10025,7 @@
                                     <img src="./owl-cheer.svg" alt="곁을 지키는 부비" class="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 shrink-0 object-contain">
                                     <h3 class="font-gapyeong text-3xl sm:text-4xl md:text-5xl font-black leading-none text-charcoal"><span style="display:inline-block;border-bottom:5px solid #5E8BE7;padding-bottom:5px;">곁을 지킵니다</span></h3>
                                 </div>
-                                <p class="mt-4 text-base sm:text-lg md:text-xl font-semibold leading-relaxed text-charcoal"><span style="color:#2F5FBF;"><b>I</b>ndependence (자립)</span> · BUVI는 어르신의 곁을 지킵니다.</p>
+                                <p class="mt-4 text-base sm:text-lg md:text-xl font-semibold leading-relaxed text-charcoal"><b style="color:#2F5FBF;">I</b>ndependence (자립) · BUVI는 어르신의 곁을 지킵니다.</p>
                                 <p class="mt-3 text-base sm:text-lg md:text-xl font-medium leading-relaxed text-gray-700">스스로 건강을 관리하는 자립을 응원하며, 건강한 매일을 위해 어르신 곁을 지킵니다.</p>
                             </div>
                             <div class="relative flex h-48 sm:h-60 md:h-72 items-center justify-center overflow-hidden" style="background:#5E8BE7">
@@ -9295,7 +10048,6 @@
                                     <span style="color:#111729;">어르신 </span><span style="color:#FE7F2B;">건강 지킴이</span><span style="color:#111729;">,</span><br>
                                     <span style="display:inline-block;padding:2px 14px;background:#111729;color:#FEE500;border-radius:14px;">BUVI</span> <span style="color:#111729;">입니다</span>
                                 </h1>
-                                <p class="mb-1 text-[15px] font-extrabold text-charcoal/70">부비(BUVI) - 어르신 곁을 지키는 부엉이 친구</p>
                                 <p class="text-[17px] font-bold text-charcoal/80 leading-relaxed max-w-[520px]">삶의 작은 신호를 깨어 바라보고, 깊이 이해하며,<br>활력을 찾아 자립을 돕는 <b>어르신 곁의 부엉이 친구</b>입니다.</p>
                                 <div class="mt-6 flex items-center gap-3">
                                     <span class="px-4 py-2 rounded-full bg-white font-black text-sm shadow-sm" style="color:#FE7F2B;">BUVI = Beholding • Understanding • Vitality <span aria-hidden="true">•</span> Independence</span>
@@ -9496,7 +10248,7 @@
 
 
                 <div class="text-center mb-3 space-y-2">
-                    <span id="survey-category-label" class="inline-block bg-yellow-100 text-charcoal font-black px-3 py-1 rounded-full scaled-text-sm align-middle">보행 속도</span><button onclick="toggleTTS()" class="tts-listen-btn tts-icon-mobile lg:hidden inline-flex items-center justify-center align-middle ml-1" style="width:32px;height:32px;border-radius:10px;background:#F8E647;color:#111729;" aria-label="소리듣기"><i class="fa-solid fa-volume-high"></i></button>
+                    <span id="survey-category-label" class="inline-block bg-yellow-100 text-charcoal font-black px-4 py-2 rounded-full scaled-text-base align-middle">보행 속도</span><button onclick="toggleTTS()" class="tts-listen-btn tts-icon-mobile lg:hidden inline-flex items-center justify-center align-middle ml-1" style="width:32px;height:32px;border-radius:10px;background:#F8E647;color:#111729;" aria-label="소리듣기"><i class="fa-solid fa-volume-high"></i></button>
                     <h2 id="survey-question-text" class="scaled-text-xl font-black text-charcoal leading-snug px-2"></h2>
                     <div id="survey-hint-box" class="bg-gray-50 inline-block max-w-xl mx-auto border border-gray-100">
                         <p id="survey-hint-text" class="scaled-text-sm text-gray-500 font-bold"></p>
@@ -9505,11 +10257,11 @@
 
                 <div id="survey-options-container" class="space-y-2 max-w-xl mx-auto"></div>
 
-                <div id="survey-nav-bottom" class="mt-4 pt-3 lg:border-t lg:border-gray-100 flex gap-3 max-w-xl mx-auto">
-                    <button id="btn-survey-prev-bottom" onclick="prevSurveyQuestion()" class="flex-1 border-2 border-gray-300 hover:bg-gray-50 text-charcoal font-bold rounded-xl flex items-center justify-center transition-all min-h-[52px]">
-                        이전 질문으로
-                    </button>
-                    <button id="btn-survey-next" onclick="nextSurveyQuestion()" disabled class="flex-1 bg-[#D4D4D4] text-gray-500 font-black rounded-xl flex items-center justify-center cursor-not-allowed transition-all min-h-[52px]" style="font-size:18px;">
+	                <div id="survey-nav-bottom" data-font-scale-fixed class="mt-4 pt-3 lg:border-t lg:border-gray-100 flex gap-3 max-w-xl mx-auto">
+	                    <button id="btn-survey-prev-bottom" onclick="prevSurveyQuestion()" class="flex-1 border-2 border-gray-300 hover:bg-gray-50 text-charcoal font-bold rounded-xl flex items-center justify-center transition-all min-h-[52px]" style="--survey-nav-font-size:16px; --survey-nav-line-height:24px;">
+	                        이전 질문으로
+	                    </button>
+	                    <button id="btn-survey-next" onclick="nextSurveyQuestion()" disabled class="flex-1 bg-[#D4D4D4] text-gray-500 font-black rounded-xl flex items-center justify-center cursor-not-allowed transition-all min-h-[52px]" style="--survey-nav-font-size:18px; --survey-nav-line-height:27px;">
                         다음 질문으로 ›
                     </button>
                 </div>
@@ -9685,10 +10437,6 @@
             <div class="rounded-2xl shadow-lg bg-white hc-card relative help-contact-card" style="overflow:hidden;">
                 <!-- 상단 네이비 밴드 -->
                 <div class="help-contact-band">
-                    <div class="help-contact-band-text">
-                        <p class="help-contact-band-title">Professor Kim Namhee's research team</p>
-                        <p class="help-contact-band-sub">Yonsei University Wonju College of Nursing</p>
-                    </div>
                 </div>
                 <!-- 하단 본문 -->
                 <div class="help-contact-body">
@@ -9722,7 +10470,7 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
                 <div class="rounded-2xl pt-5 px-6 pb-6 lg:p-10 shadow-sm border-2 space-y-4 hc-card help-info-card flex flex-col" style="background-color: var(--card-bg); border-color: var(--border-color);">
-                    <h3 class="font-gapyeong scaled-text-lg font-black text-charcoal border-b pb-2 hc-text" style="border-color: var(--border-color);">BUVI 이용방법</h3>
+                    <h3 class="font-gapyeong scaled-text-lg font-black text-charcoal border-b pb-2 hc-text" style="border-color: var(--border-color);">부비(BUVI) 이용방법</h3>
                     <div class="space-y-0 flex-1 flex flex-col">
 
 
@@ -9772,7 +10520,7 @@
                                     <span class="scene-icon scene-icon--help" data-scene-icon="journey-chat" aria-hidden="true"><img class="scene-icon__art" src="./assets/scene-icons/v1/health-chat.avif" alt="" width="768" height="768" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('is-missing')"><i class="scene-icon__fallback fa-solid fa-comments"></i></span>
                                 </div>
                                 <div class="flex-1 min-w-0">
-                                    <h4 class="scaled-text-base font-black text-charcoal mb-1 hc-text">부비와 함께 1:1 상담하기</h4>
+                                    <h4 class="scaled-text-base font-black text-charcoal mb-1 hc-text">부비(BUVI)와 함께 1:1 상담하기</h4>
                                     <p class="scaled-text-sm text-gray-600 font-medium leading-relaxed hc-muted">생성형인공지능 부비(BUVI)와 건강 상담을 해보세요.</p>
                                 </div>
                             </div>
@@ -9887,115 +10635,6 @@
                     </div>
                 </div>
 
-            </div>
-        </section>
-
-        <!-- ========================================================
-             PAGE 8: ADMIN (비공개 연구자 어드민 관리 대시보드)
-             ======================================================== -->
-        <section id="page-admin" class="app-page hidden space-y-6">
-            <div class="bg-white p-6 rounded-3xl shadow-md border-2" style="background-color: var(--card-bg); border-color: var(--border-color);">
-                <div class="flex items-center justify-between pb-4 border-b">
-                    <div>
-                        <h2 class="scaled-text-2xl font-black text-errRed"><i class="fa-solid fa-lock mr-2" aria-hidden="true"></i>연구자 비밀 어드민 모드 (/admin)</h2>
-                        <p class="scaled-text-sm text-gray-500 font-medium">실시간 노인 설문 데이터 및 인공지능 질답 수집 로그</p>
-                    </div>
-                    <span class="text-xs bg-gray-100 px-3 py-1 rounded-full font-bold text-gray-400">robots.txt 완벽 설정</span>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-                    <div class="p-5 bg-gray-50 rounded-2xl border text-center">
-                        <span class="text-xs text-gray-400 font-bold block">총 임상 참가자 노인수</span>
-                        <h1 class="text-3xl font-black text-charcoal mt-1">1,482 명</h1>
-                    </div>
-                    <div class="p-5 bg-gray-50 rounded-2xl border text-center">
-                        <span class="text-xs text-gray-400 font-bold block">인공지능 RAG 상담 만족도율</span>
-                        <h1 class="text-3xl font-black text-green-600 mt-1">94.8%</h1>
-                    </div>
-                    <div class="p-5 bg-gray-50 rounded-2xl border text-center">
-                        <span class="text-xs text-gray-400 font-bold block">체중 감소 및 노쇠 전환 극복률</span>
-                        <h1 class="text-3xl font-black text-blue-600 mt-1">12.3% 감소</h1>
-                    </div>
-                </div>
-
-                <div class="bg-yellow-50 p-6 rounded-2xl border-2 border-yellow-300 space-y-3">
-                    <h3 class="scaled-text-base font-black text-charcoal"><i class="fa-solid fa-folder-open mr-2" aria-hidden="true"></i>신규 연구 교육용 카드뉴스/PDF 원격 파일 서버 등록기</h3>
-                    <div class="flex gap-3">
-                        <input type="file" class="bg-white p-2 rounded-xl flex-grow border-2" accept=".pdf, .png, .jpg">
-                        <button onclick="alert('데모 환경입니다. 업로드 데이터가 KT Cloud 가상 버킷에 임시 암호화 매핑되었습니다.')" class="bg-charcoal text-white font-bold px-6 rounded-xl btn-height-secondary">임상 자료 배포</button>
-                    </div>
-                    <p class="text-xs text-gray-500 font-medium">※ 수집되는 모든 정보는 국내 망 전용 KT Cloud 안전망에 수집 처리 보관되어 법규상 외부 유출이 영구 통제됩니다.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- ========================================================
-             PAGE 9: MORE (더보기 독립 전체메뉴 화면)
-             ======================================================== -->
-        <section id="page-more" class="app-page hidden space-y-5">
-            <div class="rounded-3xl p-6 shadow-md border-2 hc-card" style="background-color: var(--card-bg); border-color: var(--border-color);">
-                <div class="text-center mb-6 border-b pb-4" style="border-color: var(--border-color);">
-                    <span class="scene-icon scene-icon--account mx-auto mb-2" data-scene-icon="menu-folder" aria-hidden="true"><img class="scene-icon__art" src="./assets/scene-icons/v1/menu-folder.avif" alt="" width="768" height="768" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('is-missing')"><i class="scene-icon__fallback fa-solid fa-folder-open"></i></span>
-                    <h2 class="font-gapyeong scaled-text-2xl font-black text-charcoal hc-text">전체 건강 메뉴</h2>
-                    <p class="scaled-text-base text-gray-500 font-medium hc-muted">BUVI의 모든 건강 지원 서비스를 바로 실행해 보세요.</p>
-                </div>
-
-                <div class="space-y-3">
-                    <button onclick="tryNavigateWithWarning('home')" class="more-menu-btn w-full bg-amber-50 hover:bg-amber-100 border-2 border-amber-300 text-charcoal font-black p-5 rounded-3xl flex items-center justify-between text-left shadow-sm min-h-[76px]">
-                        <div class="flex items-center gap-4">
-                            <span class="text-3xl flex-shrink-0 w-12 h-12 bg-amber-100 rounded-2xl flex items-center justify-center text-charcoal" aria-hidden="true"><i class="fa-solid fa-house"></i></span>
-                    <div>
-                                <span class="scaled-text-lg block leading-snug text-charcoal">홈 화면 가기</span>
-                                <span class="text-xs text-gray-500 font-bold block mt-0.5">BUVI 대시보드 및 노쇠 수호 다짐 확인</span>
-                            </div>
-                        </div>
-                        <span class="text-3xl font-black text-gray-400">›</span>
-                    </button>
-
-                    <button onclick="tryNavigateWithWarning('survey-start')" class="more-menu-btn w-full bg-blue-50 hover:bg-blue-100 border-2 border-blue-300 text-charcoal font-black p-5 rounded-3xl flex items-center justify-between text-left shadow-sm min-h-[76px]">
-                        <div class="flex items-center gap-4">
-                            <span class="text-3xl flex-shrink-0 w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center text-charcoal" aria-hidden="true"><i class="fa-solid fa-clipboard-list"></i></span>
-                    <div>
-                                <span class="scaled-text-lg block leading-snug text-charcoal">노쇠 예측 건강 설문</span>
-                                <span class="text-xs text-gray-500 font-bold block mt-0.5">한 화면에 한 문항씩, 내 기력 상태 측정</span>
-                            </div>
-                        </div>
-                        <span class="text-3xl font-black text-gray-400">›</span>
-                    </button>
-
-                    <button onclick="tryNavigateWithWarning('chat')" class="more-menu-btn w-full bg-yellow-50 hover:bg-yellow-100 border-2 border-yellow-400 text-charcoal font-black p-5 rounded-3xl flex items-center justify-between text-left shadow-sm min-h-[76px]">
-                        <div class="flex items-center gap-4">
-                            <span class="text-3xl flex-shrink-0 w-12 h-12 bg-yellow-100 rounded-2xl flex items-center justify-center text-charcoal" aria-hidden="true"><i class="fa-solid fa-comments"></i></span>
-                    <div>
-                                <span class="scaled-text-lg block leading-snug text-charcoal">부비와 1:1 기력 상담</span>
-                                <span class="text-xs text-gray-500 font-bold block mt-0.5">AI 부비와 실시간 질답 나누기</span>
-                            </div>
-                        </div>
-                        <span class="text-3xl font-black text-gray-400">›</span>
-                    </button>
-
-                    <button onclick="tryNavigateWithWarning('records')" class="more-menu-btn w-full bg-green-50 hover:bg-green-100 border-2 border-green-300 text-charcoal font-black p-5 rounded-3xl flex items-center justify-between text-left shadow-sm min-h-[76px]">
-                        <div class="flex items-center gap-4">
-                            <span class="text-3xl flex-shrink-0 w-12 h-12 bg-green-100 rounded-2xl flex items-center justify-center text-charcoal" aria-hidden="true"><i class="fa-solid fa-book-medical"></i></span>
-                    <div>
-                                <span class="scaled-text-lg block leading-snug text-charcoal">건강정보 배움터</span>
-                                <span class="text-xs text-gray-500 font-bold block mt-0.5">단백질·걷기·치매 예방 카드뉴스 학습</span>
-                            </div>
-                        </div>
-                        <span class="text-3xl font-black text-gray-400">›</span>
-                    </button>
-
-                    <button onclick="tryNavigateWithWarning('help')" class="more-menu-btn w-full bg-purple-50 hover:bg-purple-100 border-2 border-purple-300 text-charcoal font-black p-5 rounded-3xl flex items-center justify-between text-left shadow-sm min-h-[76px]">
-                        <div class="flex items-center gap-4">
-                            <span class="text-3xl flex-shrink-0 w-12 h-12 bg-purple-100 rounded-2xl flex items-center justify-center text-charcoal" aria-hidden="true"><i class="fa-solid fa-circle-question"></i></span>
-                    <div>
-                                <span class="scaled-text-lg block leading-snug text-charcoal">사용법 및 도움말</span>
-                                <span class="text-xs text-gray-500 font-bold block mt-0.5">FAQ, 119 연결, 연세대 연구팀 직통 연락</span>
-                            </div>
-                        </div>
-                        <span class="text-3xl font-black text-gray-400">›</span>
-                    </button>
-                </div>
             </div>
         </section>
 
@@ -10418,34 +11057,41 @@
         const HEALTH_SCENE_ASSETS = {
             'buvi-topic-frailty': {
                 id: 'health-frailty',
-                src: './assets/scene-icons/v1/health-frailty.png'
+                src: './assets/scene-icons/v1/health-frailty.png',
+                icon: 'fa-person-cane'
             },
             'buvi-topic-muscle': {
                 id: 'health-muscle',
-                src: './assets/scene-icons/v1/health-muscle.png'
+                src: './assets/scene-icons/v1/health-muscle.png',
+                icon: 'fa-dumbbell'
             },
             'buvi-topic-exercise': {
                 id: 'health-exercise',
-                src: './assets/scene-icons/v1/health-exercise.png'
+                src: './assets/scene-icons/v1/health-exercise.png',
+                icon: 'fa-person-walking'
             },
             'buvi-topic-nutrition': {
                 id: 'health-nutrition',
-                src: './assets/scene-icons/v1/health-nutrition.png'
+                src: './assets/scene-icons/v1/health-nutrition.png',
+                icon: 'fa-apple-whole'
             },
             'buvi-topic-cognition': {
                 id: 'health-cognition',
-                src: './assets/scene-icons/v1/health-cognition.png'
+                src: './assets/scene-icons/v1/health-cognition.png',
+                icon: 'fa-brain'
             },
             'buvi-topic-mental': {
                 id: 'health-social',
-                src: './assets/scene-icons/v1/health-social.png'
+                src: './assets/scene-icons/v1/health-social.png',
+                icon: 'fa-people-group'
             }
         };
 
-        function getHealthSceneAsset(asset) {
+        function getHealthSceneAsset(asset, iconName = '') {
             const source = String(asset || '');
             const key = Object.keys(HEALTH_SCENE_ASSETS).find((candidate) => source.includes(candidate));
-            return key ? HEALTH_SCENE_ASSETS[key] : null;
+            if (key) return HEALTH_SCENE_ASSETS[key];
+            return Object.values(HEALTH_SCENE_ASSETS).find((candidate) => candidate.icon === iconName) || null;
         }
 
         function renderHealthVisual(asset, alt, className, style = '', iconName = '') {
@@ -10455,7 +11101,7 @@
             if (source.includes('./owl-')) {
                 return `<img src="${cnEscape(source)}" alt="${safeAlt}" loading="lazy" class="${cnEscape(className)}"${safeStyle ? ` style="${safeStyle}"` : ''}>`;
             }
-            const sceneAsset = getHealthSceneAsset(source);
+            const sceneAsset = getHealthSceneAsset(source, iconName);
             const fallbackIcon = cnEscape(iconName || getHealthFillIcon(source));
             if (!sceneAsset) {
                 return `<span class="scene-icon ${cnEscape(className)} is-missing" aria-hidden="true"${safeStyle ? ` style="${safeStyle}"` : ''}><i class="scene-icon__fallback fa-solid ${fallbackIcon}"></i></span>`;
@@ -10578,6 +11224,13 @@
         }
 
         function navTo(pageId) {
+            // 회원가입·로그인 정보 찾기처럼 로그인 전 보조 화면에서 하단
+            // '홈' 탭으로 돌아와도, 홈이 사용하는 인증 앱 셸 레이아웃을
+            // 먼저 복원합니다. 그렇지 않으면 데스크톱 홈의 좌측 히어로만
+            // 남아 화면이 세로로 늘어나는 문제가 생깁니다.
+            if (pageId === 'home') {
+                document.body.classList.add('is-authenticated');
+            }
             if (pageId === 'login' || pageId === 'signup' || pageId === 'find') {
                 document.body.classList.remove('is-authenticated');
             }
@@ -10666,9 +11319,6 @@
             } else if (pageId === 'records') {
                 updateBuvi('1-3', '연세대학교 원주간호대학에서 준비한 건강 정보입니다.');
                 buildRecordsCardDeck();
-            
-            } else if (pageId === 'more') {
-                updateBuvi('1-1', '더보기 화면입니다. 원하시는 건강 돌봄 서비스를 가볍게 눌러주세요.');
             }
         }
 
@@ -10882,30 +11532,34 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
 
         // ── 공통: 증감 조작계(스테퍼) — 전 뷰포트 공통 ──────────────
         // 직접 입력 가능한 큼직한 화이트 입력 필드 양옆에 56px 원형 −/+ 버튼
-        function makeStepper(id, unit, min, max, step, savedVal, onChangeFn, placeholder, nextFocusId = '') {
+        function makeStepper(id, unit, min, max, step, savedVal, onChangeFn, placeholder, nextFocusId = '', leadingLabel = '') {
             const v = (savedVal !== null && savedVal !== undefined && savedVal !== '') ? String(savedVal) : '';
             const ph = (placeholder !== undefined && placeholder !== null) ? String(placeholder) : '';
             const unitHtml = unit ? `<span class="stepper-unit">${unit}</span>` : '';
+            const leadingLabelHtml = leadingLabel ? `<span class="stepper-group-label stepper-row-label">${leadingLabel}</span>` : '';
             return `
-            <div class="stepper-row">
-                <button type="button" aria-label="감소"
-                    onpointerdown="startStepperHold('${id}',${-step},${min},${max},'${onChangeFn}')" onpointerup="stopStepperHold()" onpointercancel="stopStepperHold()" onpointerleave="stopStepperHold()"
-                    onclick="if(!window._stepperHoldTriggered)stepperAdjust('${id}',${-step},${min},${max},'${onChangeFn}')"
-                    class="stepper-btn">−</button>
-                <div class="stepper-field">
-                    <input id="${id}" type="text" inputmode="numeric" pattern="[0-9]*"
-                        value="${v}" placeholder="${ph}"
-                        data-min="${min}" data-max="${max}" data-fn="${onChangeFn}"
-                        oninput="stepperOnInput('${id}',${min},${max},'${onChangeFn}')"
-                        onblur="stepperOnBlur('${id}',${min},${max},'${onChangeFn}')"
-                        onkeydown="if(event.key==='Enter'){event.preventDefault();stepperFocusNext('${nextFocusId}')}"
-                        class="stepper-input"/>
-                    ${unitHtml}
+            <div class="stepper-row${leadingLabel ? ' stepper-row--labeled' : ''}">
+                ${leadingLabelHtml}
+                <div class="stepper-controls">
+                    <button type="button" aria-label="감소"
+                        onpointerdown="startStepperHold('${id}',${-step},${min},${max},'${onChangeFn}')" onpointerup="stopStepperHold()" onpointercancel="stopStepperHold()" onpointerleave="stopStepperHold()"
+                        onclick="if(!window._stepperHoldTriggered)stepperAdjust('${id}',${-step},${min},${max},'${onChangeFn}')"
+                        class="stepper-btn">−</button>
+                    <div class="stepper-field">
+                        <input id="${id}" type="text" inputmode="numeric" pattern="[0-9]*"
+                            value="${v}" placeholder="${ph}"
+                            data-min="${min}" data-max="${max}" data-fn="${onChangeFn}"
+                            oninput="stepperOnInput('${id}',${min},${max},'${onChangeFn}')"
+                            onblur="stepperOnBlur('${id}',${min},${max},'${onChangeFn}')"
+                            onkeydown="if(event.key==='Enter'){event.preventDefault();stepperFocusNext('${nextFocusId}')}"
+                            class="stepper-input"/>
+                        ${unitHtml}
+                    </div>
+                    <button type="button" aria-label="증가"
+                        onpointerdown="startStepperHold('${id}',${step},${min},${max},'${onChangeFn}')" onpointerup="stopStepperHold()" onpointercancel="stopStepperHold()" onpointerleave="stopStepperHold()"
+                        onclick="if(!window._stepperHoldTriggered)stepperAdjust('${id}',${step},${min},${max},'${onChangeFn}')"
+                        class="stepper-btn">+</button>
                 </div>
-                <button type="button" aria-label="증가"
-                    onpointerdown="startStepperHold('${id}',${step},${min},${max},'${onChangeFn}')" onpointerup="stopStepperHold()" onpointercancel="stopStepperHold()" onpointerleave="stopStepperHold()"
-                    onclick="if(!window._stepperHoldTriggered)stepperAdjust('${id}',${step},${min},${max},'${onChangeFn}')"
-                    class="stepper-btn">+</button>
             </div>`;
         }
         function stepperAdjust(id, delta, min, max, fn) {
@@ -11388,11 +12042,9 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                     <p class="font-black text-gray-900">1) 어르신의 현재 키는? &nbsp; 신장(cm) ____ cm</p>
                     <p class="mt-2 font-black text-gray-900">2) 어르신의 현재 체중은? &nbsp; 현재 체중(kg) ____ kg</p>
                 </div>
-                <div class="flex flex-col gap-3">
-                    <label class="stepper-group-label">키</label>
-                    ${makeStepper('inp-height','cm',100,220,1,sh,'onBmiInput','_','inp-weight')}
-                    <label class="stepper-group-label">체중</label>
-                    ${makeStepper('inp-weight','kg',20,200,1,sw,'onBmiInput','_')}
+                <div class="bmi-stepper-list flex flex-col gap-3">
+                    ${makeStepper('inp-height','cm',100,220,1,sh,'onBmiInput','_','inp-weight','키')}
+                    ${makeStepper('inp-weight','kg',20,200,1,sw,'onBmiInput','_','','체중')}
                 </div>
                 <div class="survey-input-card space-y-3">
                     <div class="survey-mode-tabs" aria-label="숫자 키패드 입력 대상">
@@ -11591,7 +12243,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             const activeCardClass = 'flex-1 flex flex-col items-center p-3 rounded-2xl border-2 border-blue-400 bg-blue-50 gap-0.5';
             const inactiveCardClass = 'flex-1 flex flex-col items-center p-3 rounded-2xl border-2 border-transparent gap-0.5';
             return `
-                <div class="space-y-3 pt-2">
+                <div class="ipaq-time-input-controls space-y-3 pt-2" data-font-scale-fixed>
                     <div class="flex gap-2" role="tablist" aria-label="입력할 시간 단위 선택">
                         <button id="ipaq-tab-h-${dKey}" type="button" role="tab" aria-selected="${hourActive}" onclick="setIpaqTab('${dKey}','h')" class="${hourActive ? activeTabClass : inactiveTabClass}">시간</button>
                         <button id="ipaq-tab-m-${dKey}" type="button" role="tab" aria-selected="${!hourActive}" onclick="setIpaqTab('${dKey}','m')" class="${hourActive ? inactiveTabClass : activeTabClass}">분</button>
@@ -11853,10 +12505,9 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                 <div class="survey-input-card ipaq-question-card text-gray-700 leading-relaxed">
                     <p class="text-lg font-bold text-gray-900 leading-snug">지난 7일간 걸은 시간을 생각해 보십시오. 직장이나 집에서, 교통 수단을 이용할 때 걸은 것 뿐만 아니라 오락 활동, 스포츠, 운동, 여가 시간에 걸은 것도 포함됩니다.</p>
                     <p class="mt-3 text-lg font-bold text-gray-900 leading-snug"><strong><u>5) 지난 7일간,</u></strong> 한 번에 적어도 <strong><u>10분 이상</u></strong> 걸은 날이 며칠입니까?</p>
-                    <details class="mt-3 rounded-xl bg-slate-100 px-3 py-3 text-sm text-slate-700">
-                        <summary class="cursor-pointer font-black"><i class="fa-solid fa-clipboard-list mr-2" aria-hidden="true"></i>걷기 중복 제외 안내 보기 →</summary>
-                        <p class="mt-2 font-bold">('걷기'가 격렬한 신체활동 또는 중간정도 신체활동에 포함된 경우, 이 문항에는 포함시키지 마십시오)</p>
-                    </details>
+                    <div class="mt-3 rounded-xl bg-slate-100 px-3 py-3 text-sm text-slate-700" role="note" aria-label="걷기 중복 제외 안내">
+                        <p class="font-bold">('걷기'가 격렬한 신체활동 또는 중간정도 신체활동에 포함된 경우, 이 문항에는 포함시키지 마십시오)</p>
+                    </div>
                     <p class="mt-3 text-lg font-bold text-gray-900 leading-snug"><strong><u>6) 그런 날 중 하루에</u></strong> 걸으면서 보낸 시간이 보통 얼마나 됩니까?</p>
                 </div>
                 ${ipaqGroup('ipaq_walk_days','ipaq_walk_hr','ipaq_walk_min','걷기')}
@@ -11890,7 +12541,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                 <div class="survey-input-card ipaq-response-card flex flex-col gap-3">
                     <input id="inp-sit-hr" type="hidden" value="${sh}">
                     <input id="inp-sit-min" type="hidden" value="${sm}">
-                    <div class="space-y-3 pt-2">
+                    <div class="ipaq-time-input-controls space-y-3 pt-2" data-font-scale-fixed>
                         <div class="flex gap-2" role="tablist" aria-label="입력할 시간 단위 선택">
                             <button id="sit-tab-h" type="button" role="tab" aria-selected="${sitHourActive}" onclick="setSitTab('h')" class="${sitHourActive ? activeTabClass : inactiveTabClass}">시간</button>
                             <button id="sit-tab-m" type="button" role="tab" aria-selected="${!sitHourActive}" onclick="setSitTab('m')" class="${sitHourActive ? inactiveTabClass : activeTabClass}">분</button>
@@ -13005,28 +13656,35 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
         function buildApprovedImpactMarkup(report = APPROVED_RESULT_REPORT) {
             const rows = report.impacts.map((item) => {
                 const isProtect = item.direction === 'protect';
+                const factorLabel = item.label === '나이(참고)' ? '나이' : item.label;
+                const statusClass = isProtect
+                    ? 'result-impact-status--protect'
+                    : (item.status === '참고' ? 'result-impact-status--reference' : 'result-impact-status--risk');
                 const fillStyle = isProtect
-                    ? `right:50%; width:${item.width}%; background:${item.color};`
-                    : `left:50%; width:${item.width}%; background:${item.color};`;
+                    ? `width:${item.width}%; background:${item.color};`
+                    : `width:${item.width}%; background:${item.color};`;
                 return `
-                    <div class="grid grid-cols-[76px_minmax(0,1fr)_34px] md:grid-cols-[104px_minmax(0,1fr)_44px] gap-2 md:gap-3 items-center">
-                        <span class="text-right text-xs md:text-base font-black text-charcoal break-keep">${item.label}</span>
-                        <div class="relative h-8 md:h-10 rounded-lg overflow-hidden" style="background:linear-gradient(90deg,#ECFDF5 0%,#ECFDF5 50%,#FFF7ED 50%,#FFF7ED 100%);">
-                            <span class="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-gray-300 z-10"></span>
-                            <span class="absolute inset-y-1 rounded-sm" style="${fillStyle}"></span>
+                    <div class="result-impact-row" data-result-factor="${escapeResultText(factorLabel)}" data-result-status="${item.status}" data-result-width="${item.width}">
+                        <div class="result-impact-side result-impact-side--left">
+                            <span>${factorLabel}</span>
+                            <span class="${statusClass}">${isProtect ? item.status : ''}</span>
                         </div>
-                        <span class="text-xs md:text-sm font-black whitespace-nowrap" style="color:${item.statusColor};">${item.status}</span>
+                        <div class="result-impact-track" role="img" aria-label="${escapeResultText(factorLabel)}: ${item.status}">
+                            <span class="result-impact-fill ${isProtect ? 'result-impact-fill--protect' : 'result-impact-fill--risk'}" style="${fillStyle}"></span>
+                        </div>
+                        <div class="result-impact-side result-impact-side--right ${statusClass}">
+                            <span>${isProtect ? '' : item.status}</span>
+                        </div>
                     </div>`;
             }).join('');
 
             return `
-                <div class="result-outlined-card rounded-3xl p-4 md:p-6" style="background:#FFFFFF; border:1px solid #D1D5DB;">
-                    <div class="flex items-center justify-between px-1 text-xs md:text-sm font-black">
-                        <span style="color:#10B981;">← 도움이 됨</span>
-                        <span style="color:#F97316;">위험을 키움 →</span>
+                <div class="result-outlined-card result-impact-chart">
+                    <div class="result-impact-axis" aria-hidden="true">
+                        <span class="result-impact-axis-help">← 도움이 됨</span>
+                        <span class="result-impact-axis-risk">위험을 키움 →</span>
                     </div>
-                    <div class="mt-4 space-y-2.5 md:space-y-3">${rows}</div>
-                    <p class="mt-4 text-[11px] md:text-xs font-bold text-gray-400">나이(회색)는 비가역적 변수로 참고용입니다.</p>
+                    <div class="result-impact-rows">${rows}</div>
                 </div>`;
         }
 
@@ -14137,7 +14795,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                         ${renderHealthVisual(card.image, card.title, 'scene-icon--records', '', card.icon)}
                     </div>
                     <h2 class="scaled-text-lg font-black text-charcoal mt-3">${card.title}</h2>
-                    <span class="mt-4 inline-flex items-center justify-center h-12 rounded-2xl bg-white text-charcoal font-black">배우러 가기 <i class="fa-solid fa-chevron-right ml-2"></i></span>`;
+                    <span class="mt-4 inline-flex items-center justify-center h-12 rounded-2xl bg-white text-charcoal font-black">건강 정보 확인하기 <i class="fa-solid fa-chevron-right ml-2"></i></span>`;
                 grid.appendChild(button);
             });
         }
@@ -14287,7 +14945,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
 
             document.getElementById('quiz-panel').classList.add('hidden');
             
-            showAppModal("🎉", "건강 정보 배움터 학습 완료", `어르신의 건강 정보 학습 시간이<br>저장되었습니다.<br><br>학습시간: <strong>${durationSec}초</strong>`);
+            // 마지막 페이지 확인은 학습 기록만 저장하고 완료 모달은 띄우지 않습니다.
             speak(`건강 지식 정독이 완료되었습니다. 다음 배움 책자도 함께 읽어 볼까요?`);
         }
 
@@ -14459,9 +15117,19 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
          * 기본 배율(1.0)에서 측정한 뒤 선택된 배율을 적용한다.
          */
         const contentFontScaleInlineStyles = new WeakMap();
+        const surveyButtonFontScaleInlineStyles = new WeakMap();
         let contentFontScaleFrame = 0;
         let contentFontScaleResizeTimer = 0;
         let contentFontScaleObserver;
+
+        // 글자 크기는 현재 값에 증감시키지 않고, 항상 이 네 가지 절대 배율 중
+        // 하나만 적용한다. 저장된 이전 값이나 외부 호출도 같은 규칙으로 정규화해
+        // 버튼 상태와 실제 콘텐츠 크기가 어긋나지 않게 한다.
+        const FONT_SCALE_LEVELS = Object.freeze([0.95, 1, 1.15, 1.3]);
+        function normalizeFontScale(scale) {
+            const value = Number(scale);
+            return FONT_SCALE_LEVELS.includes(value) ? value : 1;
+        }
 
         const CONTENT_FONT_SCALE_ROOTS = [
             'main',
@@ -14481,6 +15149,14 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
 
         function isContentFontScaleTarget(element) {
             if (!(element instanceof HTMLElement)) return false;
+            if (element.classList.contains('account-auth-action')) return false;
+            // 설문 시작/문항의 버튼은 아래 전용 처리로 항상 네 단계의 절대값을
+            // 사용한다. 일반 콘텐츠 처리와 중복되면 인라인 크기가 누적될 수 있다.
+            if (element.matches('#page-survey-start button, #page-survey button')) return false;
+            // 작은 화면의 7단계 안내문은 CSS에서 --font-scale 기준으로
+            // 반응형 크기를 계산한다. 여기서 다시 인라인 확대하면 이동
+            // 버튼 영역을 밀어내므로 제외한다.
+            if (window.innerWidth <= 639 && element.classList.contains('sgds-question-instruction')) return false;
             if (element.closest(
                 'header, nav, script, style, svg, .scene-icon, .font-scale-btn, .font-scale-select-wrap, .tts-listen-btn, [data-font-scale-fixed], .sr-only'
             )) return false;
@@ -14524,13 +15200,89 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             });
         }
 
+        function getSurveyButtonFontScaleTargets() {
+            return [...document.querySelectorAll('#page-survey-start button, #page-survey button')]
+                .filter(button => !button.closest('[data-font-scale-fixed], .font-scale-btn, .font-scale-select-wrap'));
+        }
+
+        function getSurveyButtonFontScaleBase(button) {
+            const savedFontSize = Number(button.dataset.surveyButtonFontBaseSize);
+            const savedLineHeight = Number(button.dataset.surveyButtonLineBaseHeight);
+            if (Number.isFinite(savedFontSize) && savedFontSize > 0) {
+                return {
+                    fontSize: savedFontSize,
+                    lineHeight: Number.isFinite(savedLineHeight) && savedLineHeight > 0 ? savedLineHeight : null
+                };
+            }
+            const computed = window.getComputedStyle(button);
+            const fontSize = parseFloat(computed.fontSize);
+            const lineHeight = computed.lineHeight === 'normal' ? null : parseFloat(computed.lineHeight);
+            if (Number.isFinite(fontSize) && fontSize > 0) {
+                // 버튼이 처음 화면에 그려졌을 때의 1.0 기준값을 보관한다.
+                // 이후에는 현재 계산값을 다시 읽지 않으므로 95% → 130%처럼
+                // 순서대로 눌러도 직전 값이 다음 단계의 기준이 되지 않는다.
+                button.dataset.surveyButtonFontBaseSize = String(fontSize);
+                if (Number.isFinite(lineHeight) && lineHeight > 0) {
+                    button.dataset.surveyButtonLineBaseHeight = String(lineHeight);
+                }
+            }
+            return { fontSize, lineHeight };
+        }
+
+        function restoreSurveyButtonFontScaleStyles() {
+            document.querySelectorAll('[data-survey-button-font-scale-applied]').forEach(button => {
+                const original = surveyButtonFontScaleInlineStyles.get(button);
+                if (original) {
+                    if (original.fontSize.value) {
+                        button.style.setProperty('font-size', original.fontSize.value, original.fontSize.priority);
+                    } else {
+                        button.style.removeProperty('font-size');
+                    }
+                    if (original.lineHeight.value) {
+                        button.style.setProperty('line-height', original.lineHeight.value, original.lineHeight.priority);
+                    } else {
+                        button.style.removeProperty('line-height');
+                    }
+                    surveyButtonFontScaleInlineStyles.delete(button);
+                }
+                button.removeAttribute('data-survey-button-font-scale-applied');
+            });
+        }
+
+        function applySurveyButtonFontScale(normalizedScale) {
+            if (normalizedScale === 1) return;
+            const measurements = getSurveyButtonFontScaleTargets().map(button => ({
+                button,
+                ...getSurveyButtonFontScaleBase(button)
+            })).filter(({ fontSize }) => Number.isFinite(fontSize) && fontSize > 0);
+
+            measurements.forEach(({ button, fontSize, lineHeight }) => {
+                surveyButtonFontScaleInlineStyles.set(button, {
+                    fontSize: {
+                        value: button.style.getPropertyValue('font-size'),
+                        priority: button.style.getPropertyPriority('font-size')
+                    },
+                    lineHeight: {
+                        value: button.style.getPropertyValue('line-height'),
+                        priority: button.style.getPropertyPriority('line-height')
+                    }
+                });
+                button.style.setProperty('font-size', `${fontSize * normalizedScale}px`, 'important');
+                if (Number.isFinite(lineHeight) && lineHeight > 0) {
+                    button.style.setProperty('line-height', `${lineHeight * normalizedScale}px`, 'important');
+                }
+                button.setAttribute('data-survey-button-font-scale-applied', '');
+            });
+        }
+
         function applyContentFontScale(scale = state.fontScale) {
-            const normalizedScale = Number(scale) || 1;
+            const normalizedScale = normalizeFontScale(scale);
             const rootStyle = document.documentElement.style;
 
             // 이미 확대된 값을 다시 측정하거나 중첩 텍스트가 두 번 확대되는 일을 막는다.
             rootStyle.setProperty('--font-scale', '1');
             restoreContentFontScaleStyles();
+            restoreSurveyButtonFontScaleStyles();
 
             if (normalizedScale === 1) {
                 rootStyle.setProperty('--font-scale', '1');
@@ -14564,14 +15316,21 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                 element.setAttribute('data-buvi-font-scale-applied', '');
             });
 
+            // 설문 버튼은 콘텐츠 텍스트와 별도로, 1.0 기준을 한 번만 측정해
+            // 선택된 절대 배율을 적용한다. 단계 전환·선택 상태 변경 뒤에도 같은
+            // 버튼이 현재 크기에서 다시 증감하지 않는다.
+            applySurveyButtonFontScale(normalizedScale);
+
             rootStyle.setProperty('--font-scale', String(normalizedScale));
         }
 
-        function scheduleContentFontScale(scale = state.fontScale) {
+        function scheduleContentFontScale() {
             if (contentFontScaleFrame) cancelAnimationFrame(contentFontScaleFrame);
             contentFontScaleFrame = requestAnimationFrame(() => {
                 contentFontScaleFrame = 0;
-                applyContentFontScale(scale);
+                // 예약된 프레임이 실행되기 전 글자 크기가 바뀌었을 수 있으므로,
+                // 호출 당시의 오래된 값이 아니라 가장 최신 상태만 적용한다.
+                applyContentFontScale(state.fontScale);
             });
         }
 
@@ -14580,7 +15339,14 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             contentFontScaleObserver?.disconnect();
             contentFontScaleObserver = new MutationObserver(records => {
                 if (state.fontScale === 1) return;
-                if (records.some(record => record.type === 'childList' || record.type === 'characterData' || record.type === 'attributes')) {
+                // 선택·활성화·숫자 표시처럼 클릭 때 text/class만 바뀌는 것은
+                // 이미 확대된 기존 요소의 값만 변경하는 일이다. 이를 다시
+                // 측정하면 확대값이 누적될 수 있다. 실제 화면 렌더링으로
+                // 새 HTML 요소가 추가될 때에만 한 번 다시 적용한다.
+                if (records.some(record =>
+                    record.type === 'childList'
+                    && [...record.addedNodes].some(node => node.nodeType === Node.ELEMENT_NODE)
+                )) {
                     scheduleContentFontScale(state.fontScale);
                 }
             });
@@ -14589,10 +15355,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                 if (root) {
                     contentFontScaleObserver.observe(root, {
                         childList: true,
-                        characterData: true,
-                        subtree: true,
-                        attributes: true,
-                        attributeFilter: ['class']
+                        subtree: true
                     });
                 }
             });
@@ -14604,17 +15367,26 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
         }
 
         function setFontScale(scale) {
-            state.fontScale = scale;
-            document.documentElement.style.setProperty('--font-scale', scale);
-            applyContentFontScale(scale);
-            try { localStorage.setItem('buvi.fontScale', String(scale)); } catch(e){}
-            updateFontScaleUI(scale);
+            const absoluteScale = normalizeFontScale(scale);
+            state.fontScale = absoluteScale;
+            document.documentElement.style.setProperty('--font-scale', absoluteScale);
+            // 문항을 새로 그린 직후에는 MutationObserver가 예약한 확대 프레임이
+            // 남아 있을 수 있다. 여기서 현재 화면 전체에 즉시 적용하므로 그
+            // 예약까지 실행하면 이미 확대된 기준을 다시 읽을 여지가 있다.
+            if (contentFontScaleFrame) {
+                cancelAnimationFrame(contentFontScaleFrame);
+                contentFontScaleFrame = 0;
+            }
+            applyContentFontScale(absoluteScale);
+            try { localStorage.setItem('buvi.fontScale', String(absoluteScale)); } catch(e){}
+            updateFontScaleUI(absoluteScale);
             scheduleHeaderFontControlLayout();
             speak("글자 크기를 조정해 드렸습니다.");
         }
         function updateFontScaleUI(scale) {
+            const absoluteScale = normalizeFontScale(scale);
             document.querySelectorAll('.font-scale-btn').forEach(btn => {
-                const isActive = parseFloat(btn.dataset.scale) === parseFloat(scale);
+                const isActive = parseFloat(btn.dataset.scale) === absoluteScale;
                 btn.classList.toggle('is-active', isActive);
                 btn.classList.toggle('bg-white', isActive);
                 btn.classList.toggle('rounded-xl', isActive);
@@ -14628,10 +15400,10 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                 [1.3, '가++']
             ]);
             document.querySelectorAll('.font-scale-select-trigger-value').forEach(label => {
-                label.textContent = labels.get(parseFloat(scale)) || '가';
+                label.textContent = labels.get(absoluteScale) || '가';
             });
             document.querySelectorAll('.font-scale-select-option').forEach(option => {
-                const isSelected = parseFloat(option.dataset.scale) === parseFloat(scale);
+                const isSelected = parseFloat(option.dataset.scale) === absoluteScale;
                 option.classList.toggle('is-selected', isSelected);
                 option.setAttribute('aria-selected', isSelected ? 'true' : 'false');
             });
@@ -14697,10 +15469,14 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
         }
         (function initFontScaleFromStorage(){
             try {
-                const saved = parseFloat(localStorage.getItem('buvi.fontScale'));
-                if (!isNaN(saved) && saved > 0) {
+                const stored = localStorage.getItem('buvi.fontScale');
+                if (stored !== null) {
+                    const saved = normalizeFontScale(stored);
                     state.fontScale = saved;
                     document.documentElement.style.setProperty('--font-scale', saved);
+                    // 과거의 임의 저장값도 네 단계 중 하나로 되돌려 이후 화면에서
+                    // 증감값처럼 누적되어 보이지 않게 한다.
+                    localStorage.setItem('buvi.fontScale', String(saved));
                     document.addEventListener('DOMContentLoaded', () => updateFontScaleUI(saved));
                     if (document.readyState !== 'loading') updateFontScaleUI(saved);
                 }

@@ -1,0 +1,300 @@
+{
+  "device": "Galaxy Tab A9+",
+  "viewport": "800x1280",
+  "screens": [
+    {
+      "file": "01-login.png",
+      "navVisible": false,
+      "navBottom": null,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "02-signup.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "03-find-account.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "04-home-before-survey.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "05-home-after-survey.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "06-buvi-about.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "07-survey-intro.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "08-survey-stage-1.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "09-survey-stage-5-activity.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "10-survey-stage-7-mood.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "11-analyzing.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "12-survey-result.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "13-chat.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "14-health-information.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "15-health-card-news.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "16-help.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "17-more.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "18-admin.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "survey-all-questions/01-gender.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "survey-all-questions/02-age.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "survey-all-questions/03-bmi.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "survey-all-questions/04-polypharm.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "survey-all-questions/05-ipaq-vig.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "survey-all-questions/06-ipaq-mod.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "survey-all-questions/07-ipaq-walk.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "survey-all-questions/08-ipaq-sit.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "survey-all-questions/09-tug.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "survey-all-questions/10-sgds-0.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "survey-all-questions/11-sgds-1.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "survey-all-questions/12-sgds-2.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "survey-all-questions/13-sgds-3.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "survey-all-questions/14-sgds-4.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "survey-all-questions/15-sgds-5.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "survey-all-questions/16-sgds-6.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "survey-all-questions/17-sgds-7.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "survey-all-questions/18-sgds-8.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "survey-all-questions/19-sgds-9.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "survey-all-questions/20-sgds-10.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "survey-all-questions/21-sgds-11.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "survey-all-questions/22-sgds-12.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "survey-all-questions/23-sgds-13.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    },
+    {
+      "file": "survey-all-questions/24-sgds-14.png",
+      "navVisible": true,
+      "navBottom": 1280,
+      "navAtViewportBottom": true,
+      "scrollTop": 0
+    }
+  ]
+}

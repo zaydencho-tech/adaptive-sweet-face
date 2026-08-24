@@ -13,7 +13,8 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "BUVI — 어르신의 건강 지킴이" },
       {
         property: "og:description",
-        content: "부비(BUVI)는 어르신의 노쇠 예방과 건강한 일상을 함께하는 건강 동반자입니다. 노쇠 예측 설문, 1:1 상담, 건강 배움 등을 제공합니다.",
+        content:
+          "부비(BUVI)는 어르신의 노쇠 예방과 건강한 일상을 함께하는 건강 동반자입니다. 노쇠 예측 설문, 1:1 상담, 건강 배움 등을 제공합니다.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

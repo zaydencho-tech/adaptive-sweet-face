@@ -1,0 +1,90 @@
+[
+  {
+    "device": "tablet",
+    "viewport": "800x1280",
+    "page": "signup",
+    "label": "회원가입",
+    "file": "artifacts/signup-find-captures-2026-08-18/tablet-signup.png",
+    "inspection": {
+      "active": [
+        "page-signup",
+        "result-hero-card",
+        "",
+        "",
+        ""
+      ],
+      "navTop": 1176,
+      "navBottom": 1280,
+      "pageTop": 85,
+      "pageBottom": 825.671875,
+      "docWidth": 800,
+      "viewportWidth": 800
+    }
+  },
+  {
+    "device": "tablet",
+    "viewport": "800x1280",
+    "page": "find",
+    "label": "로그인 정보찾기",
+    "file": "artifacts/signup-find-captures-2026-08-18/tablet-find.png",
+    "inspection": {
+      "active": [
+        "page-find",
+        "result-hero-card",
+        "",
+        "",
+        ""
+      ],
+      "navTop": 1176,
+      "navBottom": 1280,
+      "pageTop": 85,
+      "pageBottom": 681.484375,
+      "docWidth": 800,
+      "viewportWidth": 800
+    }
+  },
+  {
+    "device": "mobile",
+    "viewport": "360x800",
+    "page": "signup",
+    "label": "회원가입",
+    "file": "artifacts/signup-find-captures-2026-08-18/mobile-signup.png",
+    "inspection": {
+      "active": [
+        "page-signup",
+        "result-hero-card",
+        "",
+        "",
+        ""
+      ],
+      "navTop": 696,
+      "navBottom": 800,
+      "pageTop": 81,
+      "pageBottom": 935.0625,
+      "docWidth": 360,
+      "viewportWidth": 360
+    }
+  },
+  {
+    "device": "mobile",
+    "viewport": "360x800",
+    "page": "find",
+    "label": "로그인 정보찾기",
+    "file": "artifacts/signup-find-captures-2026-08-18/mobile-find.png",
+    "inspection": {
+      "active": [
+        "page-find",
+        "result-hero-card",
+        "",
+        "",
+        ""
+      ],
+      "navTop": 696,
+      "navBottom": 800,
+      "pageTop": 81,
+      "pageBottom": 755.78125,
+      "docWidth": 360,
+      "viewportWidth": 360
+    }
+  }
+]

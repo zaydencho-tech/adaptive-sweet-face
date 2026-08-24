@@ -9,7 +9,7 @@
     "build:dev": "vite build --mode development",
     "build:singlefile": "vite build --config vite.singlefile.config.ts",
     "preview": "vite preview",
-    "lint": "eslint .",
+    "lint": "eslint src vite.config.ts vite.singlefile.config.ts eslint.config.js",
     "format": "prettier --write ."
   },
   "dependencies": {

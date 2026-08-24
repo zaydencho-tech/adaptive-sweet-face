@@ -1,0 +1,20 @@
+{
+  "viewport": "360x800",
+  "page": "help",
+  "inspection": {
+    "active": [
+      "result-hero-card",
+      "",
+      "",
+      "",
+      "page-help"
+    ],
+    "navTop": 696,
+    "navBottom": 800,
+    "pageTop": 81,
+    "pageBottom": 2795.09375,
+    "scrollWidth": 360,
+    "viewportWidth": 360
+  },
+  "output": "artifacts/help-mobile-360x800-2026-08-18/help-mobile-360x800.png"
+}
