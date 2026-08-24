@@ -9383,6 +9383,124 @@
             }
         }
 
+        /* 실제 iPhone Safari의 작은 visual viewport에서는 로그인 전 히어로가
+           캐릭터 높이만큼 커져 폼 시작점이 화면 밖으로 밀릴 수 있습니다.
+           로그인 상태 클래스만으로도 적용되는 독립 규칙을 마지막에 두어,
+           :has() 적용 순서와 관계없이 헤더 아래의 노란 영역을 한 화면용
+           비율로 고정합니다. 로그인 폼은 남은 공간을 사용합니다. */
+        @media (max-width: 639px) {
+            html:has(body.login-as-about),
+            body.login-as-about {
+                height: 100svh !important;
+                min-height: 100svh !important;
+                max-height: 100svh !important;
+                overflow: hidden !important;
+            }
+
+            body.login-as-about > header {
+                position: fixed !important;
+                inset: 0 0 auto 0 !important;
+                width: 100% !important;
+                height: 61px !important;
+                margin: 0 !important;
+                z-index: 80 !important;
+            }
+
+            body.login-as-about > main,
+            body.login-as-about #page-login,
+            body.login-as-about #page-login > div,
+            body.login-as-about #page-login > div > div:first-child {
+                height: 100svh !important;
+                min-height: 0 !important;
+                max-height: 100svh !important;
+                overflow: hidden !important;
+            }
+
+            body.login-as-about #page-login > div > div:first-child {
+                display: flex !important;
+                flex-direction: column !important;
+            }
+
+            body.login-as-about #page-login > div > div:first-child > .rounded-3xl:first-child {
+                box-sizing: border-box !important;
+                flex: 0 0 clamp(272px, 38svh, 304px) !important;
+                width: 100% !important;
+                height: clamp(272px, 38svh, 304px) !important;
+                min-height: 0 !important;
+                max-height: none !important;
+                padding: 96px 30px 8px !important;
+            }
+
+            body.login-as-about #page-login .login-hero-layout {
+                display: grid !important;
+                grid-template-columns: minmax(0, 1fr) 112px !important;
+                align-items: start !important;
+                gap: 8px !important;
+            }
+
+            body.login-as-about #page-login .login-hero-copy {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 6px !important;
+                min-width: 0 !important;
+            }
+
+            body.login-as-about #page-login .login-hero-copy > * + *,
+            body.login-as-about #page-login .login-hero-description {
+                margin-top: 0 !important;
+            }
+
+            body.login-as-about #page-login .login-hero-title {
+                font-size: clamp(26px, 7.35vw, 29px) !important;
+                line-height: 1.08 !important;
+                white-space: normal !important;
+            }
+
+            body.login-as-about #page-login .login-hero-description {
+                font-size: 13px !important;
+                line-height: 1.34 !important;
+            }
+
+            body.login-as-about #page-login .login-hero-visual {
+                position: relative !important;
+                display: block !important;
+                align-self: end !important;
+                width: 112px !important;
+                height: 174px !important;
+                min-height: 0 !important;
+                margin: 0 !important;
+            }
+
+            body.login-as-about #page-login .login-hero-visual .buvi-speech-svg {
+                position: absolute !important;
+                z-index: 2 !important;
+                top: 0 !important;
+                right: 0 !important;
+                width: 78px !important;
+                height: 80px !important;
+                padding: 0 0 8px !important;
+                font-size: 11px !important;
+            }
+
+            body.login-as-about #page-login .login-hero-character-wrap {
+                position: absolute !important;
+                right: 0 !important;
+                bottom: 0 !important;
+                width: 112px !important;
+                height: 112px !important;
+                aspect-ratio: 1 / 1 !important;
+            }
+
+            body.login-as-about #page-login > div > div:first-child > .bg-white {
+                flex: 1 1 0 !important;
+                min-height: 0 !important;
+                margin: 0 !important;
+                padding: 14px 16px 16px !important;
+                overflow-y: auto !important;
+                overscroll-behavior: contain !important;
+            }
+        }
+
         /* 모바일 7단계 마음건강: 안내 문구가 하단 이동 버튼을 밀어내지
            않도록 상단 리듬을 압축하고, 선택 영역만 내부에서 스크롤한다. */
         @media (max-width: 639px) {
