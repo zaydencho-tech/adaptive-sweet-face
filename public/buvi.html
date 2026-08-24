@@ -9710,6 +9710,36 @@
             }
         }
 
+        /* 모바일 공통 헤더: 화면별 과거 보정값과 무관하게 글자 크기 4단계
+           버튼의 터치 영역·글자 크기를 하나의 기준으로 통일한다. */
+        @media (max-width: 639px) {
+            body > header .header-controls:not(.is-compact) .font-scale-btn {
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                width: 34px !important;
+                min-width: 34px !important;
+                height: 36px !important;
+                min-height: 36px !important;
+                padding: 0 4px !important;
+                border-radius: 10px !important;
+                line-height: 1 !important;
+            }
+            body > header .header-controls:not(.is-compact) .font-scale-btn[data-scale="0.95"] { font-size: 11px !important; }
+            body > header .header-controls:not(.is-compact) .font-scale-btn[data-scale="1.0"]  { font-size: 12px !important; }
+            body > header .header-controls:not(.is-compact) .font-scale-btn[data-scale="1.15"] { font-size: 13px !important; }
+            body > header .header-controls:not(.is-compact) .font-scale-btn[data-scale="1.3"]  { font-size: 14px !important; }
+
+            body > header .header-controls.is-compact .font-scale-select-trigger {
+                min-width: 60px !important;
+                height: 36px !important;
+                padding: 0 8px !important;
+                border-radius: 10px !important;
+                font-size: 13px !important;
+                line-height: 1 !important;
+            }
+        }
+
 		</style>
 
 </head>
