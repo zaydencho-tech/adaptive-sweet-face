@@ -273,7 +273,10 @@ async function transpileInlineScriptsForSafari(html) {
     } else {
       const transformed = await transform(contents, {
         loader: "js",
-        target: "safari13",
+        // Card-news images use AVIF, which is supported from iOS Safari 16.1.
+        // Target the same practical baseline and avoid unsupported legacy
+        // transforms in newer esbuild releases used by GitHub Actions.
+        target: "safari16",
         minify: false,
         legalComments: "inline",
       });
