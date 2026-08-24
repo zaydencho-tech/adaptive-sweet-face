@@ -9497,8 +9497,9 @@
                 margin: 0 !important;
                 padding: 8px 16px !important;
                 gap: 5px !important;
-                overflow-y: auto !important;
-                overscroll-behavior: contain !important;
+                /* 로그인 폼은 위에서 압축한 고정 밀도로 남은 화면 안에
+                   배치하므로, iPhone에서 카드 자체가 별도 스크롤되지 않게 한다. */
+                overflow: hidden !important;
             }
 
             /* Safari에서는 기존 space-y 유틸리티의 여백이 폼 압축 규칙보다
