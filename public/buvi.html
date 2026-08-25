@@ -17060,6 +17060,10 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                 }
                 const fsCounter = document.getElementById('cn-fs-counter');
                 if (fsCounter) fsCounter.innerText = `${cnState.idx + 1} / ${cnState.imgs.length}`;
+                const fsToolbarPrev = document.getElementById('cn-fs-toolbar-prev');
+                const fsToolbarNext = document.getElementById('cn-fs-toolbar-next');
+                if (fsToolbarPrev) { fsToolbarPrev.disabled = atStart; fsToolbarPrev.style.opacity = atStart ? '0.35' : '1'; }
+                if (fsToolbarNext) { fsToolbarNext.disabled = atEnd; fsToolbarNext.style.opacity = atEnd ? '0.35' : '1'; }
                 const fsTapPrev = document.getElementById('cn-fs-tap-prev');
                 const fsTapNext = document.getElementById('cn-fs-tap-next');
                 if (fsTapPrev) fsTapPrev.style.display = atStart ? 'none' : 'flex';
@@ -17092,26 +17096,30 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             fs.style.cssText = 'position:fixed;inset:0;z-index:200;background:#000;display:none;overflow-y:auto;overscroll-behavior:contain;';
             fs.innerHTML = `
                 <div id="cn-fs-content" style="position:relative;min-height:100%;width:100%;display:flex;flex-direction:column;align-items:center;padding:16px 16px 28px;">
-                    <div id="cn-fs-toolbar" style="width:min(100%,960px);display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;">
-                        <span id="cn-fs-counter" style="background:rgba(0,0,0,0.6);color:#FEE500;font-weight:900;padding:8px 16px;border-radius:9999px;font-size:18px;">1 / ${cnState.imgs.length}</span>
+                   <div id="cn-fs-toolbar" style="width:min(100%,960px);display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;">
+                        <div id="cn-fs-page-nav" style="display:flex;align-items:center;gap:8px;">
+                            <button id="cn-fs-toolbar-prev" aria-label="이전 장" style="width:40px;height:40px;background:rgba(0,0,0,0.6);color:#fff;border:0;cursor:pointer;border-radius:9999px;font-size:28px;font-weight:900;display:flex;align-items:center;justify-content:center;">‹</button>
+                            <span id="cn-fs-counter" style="background:rgba(0,0,0,0.6);color:#FEE500;font-weight:900;padding:8px 16px;border-radius:9999px;font-size:18px;">1 / ${cnState.imgs.length}</span>
+                            <button id="cn-fs-toolbar-next" aria-label="다음 장" style="width:40px;height:40px;background:rgba(0,0,0,0.6);color:#fff;border:0;cursor:pointer;border-radius:9999px;font-size:28px;font-weight:900;display:flex;align-items:center;justify-content:center;">›</button>
+                        </div>
                         <div style="display:flex;align-items:center;gap:12px;">
                             <button id="cn-fs-close-bottom" aria-label="전체화면 닫기" style="background:#FEE500;color:#1A1A1A;border:0;cursor:pointer;font-weight:900;padding:0 18px;height:52px;border-radius:9999px;font-size:16px;box-shadow:0 4px 14px rgba(0,0,0,0.4);white-space:nowrap;">전체화면 닫기</button>
                             <button id="cn-fs-close" aria-label="전체화면 닫기" style="background:rgba(0,0,0,0.6);color:#fff;border:0;cursor:pointer;width:52px;height:52px;border-radius:9999px;font-size:26px;font-weight:900;display:flex;align-items:center;justify-content:center;">✕</button>
                         </div>
                     </div>
-                    <img id="cn-fs-img" alt="카드뉴스" style="width:min(100%,960px);height:auto;max-width:100%;max-height:none;object-fit:contain;display:block;">
-                    <div id="cn-fs-native" style="display:none;width:min(100%,960px);max-width:100%;"></div>
+                    <div id="cn-fs-stage" style="position:relative;width:min(100%,960px);max-width:100%;">
+                        <img id="cn-fs-img" alt="카드뉴스" style="width:100%;height:auto;max-width:100%;max-height:none;object-fit:contain;display:block;">
+                        <div id="cn-fs-native" style="display:none;width:100%;max-width:100%;"></div>
+                        <button id="cn-fs-tap-prev" aria-label="이전 장" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);width:72px;height:72px;background:rgba(0,0,0,0.5);color:#fff;border:0;cursor:pointer;border-radius:9999px;display:flex;align-items:center;justify-content:center;font-size:46px;font-weight:900;line-height:1;">‹</button>
+                        <button id="cn-fs-tap-next" aria-label="다음 장" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);width:72px;height:72px;background:rgba(0,0,0,0.5);color:#fff;border:0;cursor:pointer;border-radius:9999px;display:flex;align-items:center;justify-content:center;font-size:46px;font-weight:900;line-height:1;">›</button>
+                    </div>
                 </div>
-                <button id="cn-fs-tap-prev" aria-label="이전 장" style="position:fixed;left:0;top:50%;transform:translateY(-50%);height:96px;width:96px;background:transparent;border:0;cursor:pointer;display:flex;align-items:center;justify-content:flex-start;padding-left:8px;">
-                    <span style="background:rgba(0,0,0,0.5);color:#fff;border-radius:9999px;width:64px;height:64px;display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:900;">‹</span>
-                </button>
-                <button id="cn-fs-tap-next" aria-label="다음 장" style="position:fixed;right:0;top:50%;transform:translateY(-50%);height:96px;width:96px;background:transparent;border:0;cursor:pointer;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;">
-                    <span style="background:rgba(0,0,0,0.5);color:#fff;border-radius:9999px;width:64px;height:64px;display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:900;">›</span>
-                </button>
             `;
             document.body.appendChild(fs);
             fs.querySelector('#cn-fs-tap-prev').addEventListener('click', () => cnGo(-1));
             fs.querySelector('#cn-fs-tap-next').addEventListener('click', () => cnGo(1));
+            fs.querySelector('#cn-fs-toolbar-prev').addEventListener('click', () => cnGo(-1));
+            fs.querySelector('#cn-fs-toolbar-next').addEventListener('click', () => cnGo(1));
             fs.querySelector('#cn-fs-close').addEventListener('click', cnCloseFullscreen);
             fs.querySelector('#cn-fs-close-bottom').addEventListener('click', cnCloseFullscreen);
             let sx = 0, sy = 0, act = false;
