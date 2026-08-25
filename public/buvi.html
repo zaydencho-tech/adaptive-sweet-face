@@ -285,6 +285,8 @@
         /* 종합 위험도 현재 위치: 말풍선의 역삼각형이 막대의 세로선과 한 축으로 이어진다. */
         .result-risk-marker-label {
             bottom: 48px;
+            width: 0;
+            height: 0;
             pointer-events: none;
         }
         .result-risk-marker-bubble {
@@ -296,11 +298,16 @@
             border-radius: 10px;
             padding: 6px 12px;
             line-height: 1.35;
+            position: absolute;
+            left: 0;
+            bottom: 0;
         }
         .result-risk-marker-pointer {
             width: 0;
             height: 0;
-            margin-top: -1px;
+            position: absolute;
+            top: 0;
+            left: -8px;
             border-left: 8px solid transparent;
             border-right: 8px solid transparent;
             border-top: 10px solid #16A34A;
@@ -14813,7 +14820,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             const score = report.p * 100;
             const gaugeMaximum = 20;
             const markerRatio = Math.max(0, Math.min(100, (score / gaugeMaximum) * 100));
-            const markerTransform = markerRatio < 10
+            const bubbleTransform = markerRatio < 10
                 ? 'translateX(0)'
                 : (markerRatio > 90 ? 'translateX(-100%)' : 'translateX(-50%)');
             return `
@@ -14831,8 +14838,8 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                                 <span class="absolute -translate-x-1/2 whitespace-nowrap" style="left:${baselineRatio}%;">기준선 (${report.baseline.toFixed(1)}%)</span>
                             </div>
                             <div class="relative pt-14 md:pt-16">
-                                <div class="result-risk-marker-label absolute z-10 flex flex-col items-center" style="left:${markerRatio}%; transform:${markerTransform};" aria-label="나의 위험도 ${score.toFixed(1)}%">
-                                    <span class="result-risk-marker-bubble whitespace-nowrap text-[11px] md:text-xs font-black text-white shadow-sm" style="background:#16A34A;"><span class="block">나의 위험도</span><strong class="mt-0.5 block">${score.toFixed(1)}%</strong></span>
+                                <div class="result-risk-marker-label absolute z-10" style="left:${markerRatio}%;" aria-label="나의 위험도 ${score.toFixed(1)}%">
+                                    <span class="result-risk-marker-bubble whitespace-nowrap text-[11px] md:text-xs font-black text-white shadow-sm" style="transform:${bubbleTransform}; background:#16A34A;"><span class="block">나의 위험도</span><strong class="mt-0.5 block">${score.toFixed(1)}%</strong></span>
                                     <span class="result-risk-marker-pointer" aria-hidden="true"></span>
                                 </div>
                             <div class="relative flex h-12 md:h-16 overflow-visible rounded-2xl">
@@ -14840,7 +14847,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                                 <div class="flex items-center px-4 text-sm md:text-lg font-black" style="width:${100 - baselineRatio}%; background:#FDBA74; color:#EA580C;">노쇠 위험</div>
                                 <span class="absolute inset-y-0 w-0.5 bg-gray-500" style="left:${baselineRatio}%;"></span>
                                 <span class="result-risk-marker-stem absolute z-10" style="left:${markerRatio}%;" aria-hidden="true"></span>
-                                <span class="result-risk-marker-dot absolute top-1/2 z-20 rounded-full" style="left:${markerRatio}%;" aria-hidden="true"></span>
+                                <span class="result-risk-marker-dot absolute top-0 z-20 rounded-full" style="left:${markerRatio}%;" aria-hidden="true"></span>
                             </div>
                             </div>
                             <div class="mt-2 flex justify-between text-[10px] md:text-xs font-bold text-gray-400">
