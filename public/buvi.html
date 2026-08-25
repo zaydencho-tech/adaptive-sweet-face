@@ -16626,6 +16626,9 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
         function isContentFontScaleTarget(element) {
             if (!(element instanceof HTMLElement)) return false;
             if (element.classList.contains('account-auth-action')) return false;
+            // 입력 요소는 레이블 안에 있어도 자체 글자 크기가 필요하므로,
+            // 아래의 부모 텍스트 중복 방지 규칙보다 먼저 처리합니다.
+            if (element.matches('input, textarea, select')) return true;
             // 설문 시작/문항의 버튼은 아래 전용 처리로 항상 네 단계의 절대값을
             // 사용한다. 일반 콘텐츠 처리와 중복되면 인라인 크기가 누적될 수 있다.
             if (element.matches('#page-survey-start button, #page-survey button')) return false;
@@ -16643,6 +16646,17 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             const hiddenAncestor = element.closest('[aria-hidden="true"]');
             if (hiddenAncestor && hiddenAncestor.id !== 'desktop-hero-aside') return false;
             if (element.matches('i, svg, path, img, picture, video, canvas')) return false;
+
+            // 부모와 자식이 모두 직접 텍스트를 갖는 구조(예: h1 > span,
+            // p > strong)를 각각 확대하면 1.15 단계부터 부모·자식의
+            // 인라인 크기가 섞여 화면마다 확대 폭이 달라질 수 있습니다.
+            // 가장 바깥의 읽을 수 있는 텍스트 요소 하나만 절대값으로
+            // 확대하고, 내부 강조 텍스트는 그 값을 상속받게 합니다.
+            let readableAncestor = element.parentElement;
+            while (readableAncestor) {
+                if (hasDirectReadableText(readableAncestor)) return false;
+                readableAncestor = readableAncestor.parentElement;
+            }
 
             return hasDirectReadableText(element)
                 || element.matches('input, textarea, select');
