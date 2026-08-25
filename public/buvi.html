@@ -303,15 +303,19 @@
             left: 0;
             bottom: 0;
         }
-        .result-risk-marker-pointer {
+        /* 말풍선 자체에 포인터를 붙여 막대/원형 마커의 레이어에 가려지지 않게 한다. */
+        .result-risk-marker-bubble::after {
+            content: "";
+            position: absolute;
+            top: calc(100% - 1px);
+            left: var(--risk-pointer-x, 50%);
             width: 0;
             height: 0;
-            position: absolute;
-            top: 0;
-            left: -8px;
+            transform: translateX(-50%);
             border-left: 8px solid transparent;
             border-right: 8px solid transparent;
             border-top: 10px solid #16A34A;
+            z-index: 2;
         }
         .result-risk-marker-stem {
             /* 포인터 끝부터 원형 마커를 지나 막대 끝까지 같은 축을 유지한다. */
@@ -14835,6 +14839,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             const bubbleTransform = markerRatio < 10
                 ? 'translateX(0)'
                 : (markerRatio > 90 ? 'translateX(-100%)' : 'translateX(-50%)');
+            const pointerPosition = markerRatio < 10 ? '0%' : (markerRatio > 90 ? '100%' : '50%');
             return `
                     <div class="result-overall-card result-outlined-card rounded-3xl p-5 md:p-7" style="background:#FFFFFF; border:1px solid #D1D5DB;">
                         <div class="flex flex-col items-center text-center">
@@ -14846,13 +14851,10 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                             <p class="mt-3 text-sm md:text-lg font-black text-gray-500">현재 노쇠 신호가 없습니다. 건강 관리 잘 하고 계세요!</p>
                         </div>
                         <div class="mt-7 md:mt-8">
-                            <div class="relative h-10 md:h-12 text-xs md:text-sm font-black text-gray-500">
-                                <span class="absolute -translate-x-1/2 whitespace-nowrap" style="left:${baselineRatio}%;">기준선 (${report.baseline.toFixed(1)}%)</span>
-                            </div>
+                            <div class="h-10 md:h-12" aria-hidden="true"></div>
                             <div class="relative pt-14 md:pt-16">
                                 <div class="result-risk-marker-label absolute z-10" style="left:${markerRatio}%;" aria-label="나의 위험도 ${score.toFixed(1)}%">
-                                    <span class="result-risk-marker-bubble whitespace-nowrap text-[11px] md:text-xs font-black text-white shadow-sm" style="transform:${bubbleTransform}; background:#16A34A;"><span class="block">나의 위험도</span><strong class="mt-0.5 block">${score.toFixed(1)}%</strong></span>
-                                    <span class="result-risk-marker-pointer" aria-hidden="true"></span>
+                                    <span class="result-risk-marker-bubble whitespace-nowrap text-[11px] md:text-xs font-black text-white shadow-sm" style="--risk-pointer-x:${pointerPosition}; transform:${bubbleTransform}; background:#16A34A;"><span class="block">나의 위험도</span><strong class="mt-0.5 block">${score.toFixed(1)}%</strong></span>
                                 </div>
                             <div class="relative flex h-12 md:h-16 overflow-visible rounded-2xl">
                                 <div class="flex items-center px-4 text-sm md:text-lg font-black" style="width:${baselineRatio}%; background:#86E9A7; color:#047857;">정상</div>
@@ -14862,8 +14864,10 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                                 <span class="result-risk-marker-dot absolute top-5 z-20 rounded-full md:top-6" style="left:${markerRatio}%;" aria-hidden="true"></span>
                             </div>
                             </div>
-                            <div class="mt-2 flex justify-between text-[10px] md:text-xs font-bold text-gray-400">
-                                <span>0%</span><span>전체 기준 20%</span>
+                            <div class="relative mt-2 h-5 text-[10px] md:text-xs font-bold text-gray-400">
+                                <span class="absolute left-0">0%</span>
+                                <span class="absolute -translate-x-1/2 whitespace-nowrap" style="left:${baselineRatio}%;">기준선 (${report.baseline.toFixed(1)}%)</span>
+                                <span class="absolute right-0">전체 기준 20%</span>
                             </div>
                         </div>
                         <p class="mt-5 text-center text-[11px] md:text-xs font-bold text-gray-400">본 결과는 노쇠 위험 선별 참고용이며 의학적 진단이 아닙니다.</p>
