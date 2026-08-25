@@ -313,7 +313,8 @@
             border-top: 10px solid #16A34A;
         }
         .result-risk-marker-stem {
-            top: 0;
+            /* 포인터 끝과 겹치지 않도록 원형 마커 아래에서 시작한다. */
+            top: 20px;
             bottom: 0;
             width: 2px;
             transform: translateX(-50%);
@@ -334,6 +335,9 @@
             .result-risk-marker-dot {
                 width: 22px;
                 height: 22px;
+            }
+            .result-risk-marker-stem {
+                top: 24px;
             }
         }
         #page-result .result-page-heading {
@@ -14847,7 +14851,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                                 <div class="flex items-center px-4 text-sm md:text-lg font-black" style="width:${100 - baselineRatio}%; background:#FDBA74; color:#EA580C;">노쇠 위험</div>
                                 <span class="absolute inset-y-0 w-0.5 bg-gray-500" style="left:${baselineRatio}%;"></span>
                                 <span class="result-risk-marker-stem absolute z-10" style="left:${markerRatio}%;" aria-hidden="true"></span>
-                                <span class="result-risk-marker-dot absolute top-0 z-20 rounded-full" style="left:${markerRatio}%;" aria-hidden="true"></span>
+                                <span class="result-risk-marker-dot absolute top-5 z-20 rounded-full md:top-6" style="left:${markerRatio}%;" aria-hidden="true"></span>
                             </div>
                             </div>
                             <div class="mt-2 flex justify-between text-[10px] md:text-xs font-bold text-gray-400">
