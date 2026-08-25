@@ -10901,10 +10901,11 @@
         @media (min-width: 1025px) {
             body.is-authenticated.subpage-mode:has(#page-chat:not(.hidden)) > main {
                 /* 상단 sticky 헤더 68px + 메인 상단 간격 16px +
-                   하단 네비 100px + 여백 40px을 함께 제외합니다. */
-                height: calc(100dvh - 224px) !important;
-                min-height: calc(100dvh - 224px) !important;
-                max-height: calc(100dvh - 224px) !important;
+                   하단 네비 100px을 제외합니다. 40px 여백은 아래 흰색
+                   채팅 컨테이너 안에서 입력창 하단 여백으로 사용합니다. */
+                height: calc(100dvh - 184px) !important;
+                min-height: calc(100dvh - 184px) !important;
+                max-height: calc(100dvh - 184px) !important;
                 padding-bottom: 0 !important;
                 box-sizing: border-box !important;
             }
@@ -10994,7 +10995,7 @@
                 position: absolute !important;
                 left: 0 !important;
                 right: 0 !important;
-                bottom: 0 !important;
+                bottom: 40px !important;
                 width: auto !important;
                 margin: 0 !important;
                 z-index: 1 !important;
@@ -11002,7 +11003,7 @@
 
             body.is-authenticated.subpage-mode:has(#page-chat:not(.hidden))
             #page-chat #chat-scroller {
-                padding-bottom: 112px !important;
+                padding-bottom: 152px !important;
             }
         }
 
