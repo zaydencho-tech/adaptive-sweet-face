@@ -11267,6 +11267,73 @@
             }
         }
 
+        /* 모바일 건강정보 전체화면: 페이지 번호는 한 줄로 유지하고, 이미지
+           위를 가리던 이전/다음 조작은 이미지 하단으로 분리합니다. */
+        @media (max-width: 639px) {
+            #cn-fs-toolbar {
+                gap: 8px !important;
+                margin-bottom: 12px !important;
+            }
+            #cn-fs-page-nav {
+                flex: 1 1 auto !important;
+                min-width: 0 !important;
+                justify-content: flex-start !important;
+                flex-wrap: nowrap !important;
+            }
+            #cn-fs-counter {
+                flex: 0 0 auto !important;
+                white-space: nowrap !important;
+                font-size: 16px !important;
+                line-height: 1 !important;
+                padding: 8px 12px !important;
+            }
+            #cn-fs-toolbar-prev,
+            #cn-fs-toolbar-next,
+            #cn-fs-close-bottom {
+                display: none !important;
+            }
+            #cn-fs-close {
+                width: 44px !important;
+                height: 44px !important;
+                flex: 0 0 44px !important;
+            }
+            #cn-fs-stage {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+                column-gap: 12px !important;
+                row-gap: 14px !important;
+                align-items: center !important;
+            }
+            #cn-fs-stage > #cn-fs-img,
+            #cn-fs-stage > #cn-fs-native {
+                grid-column: 1 / -1 !important;
+                grid-row: 1 !important;
+            }
+            #cn-fs-stage > #cn-fs-tap-prev,
+            #cn-fs-stage > #cn-fs-tap-next {
+                position: static !important;
+                top: auto !important;
+                right: auto !important;
+                left: auto !important;
+                transform: none !important;
+                width: 58px !important;
+                height: 48px !important;
+                margin: 0 !important;
+                font-size: 32px !important;
+                line-height: 1 !important;
+            }
+            #cn-fs-stage > #cn-fs-tap-prev {
+                grid-column: 1 !important;
+                grid-row: 2 !important;
+                justify-self: end !important;
+            }
+            #cn-fs-stage > #cn-fs-tap-next {
+                grid-column: 2 !important;
+                grid-row: 2 !important;
+                justify-self: start !important;
+            }
+        }
+
 		</style>
 
 </head>
@@ -17534,7 +17601,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                         class="group absolute right-0 top-0 h-full w-1/3 flex items-center justify-end pr-2 bg-transparent border-0 cursor-pointer">
                         <span class="opacity-0 group-active:opacity-100 transition-opacity bg-black/55 text-white rounded-full w-12 h-12 flex items-center justify-center text-3xl font-black">›</span>
                     </button>
-                    <button onclick="cnOpenFullscreen()" aria-label="전체화면으로 크게 보기"
+                    <button type="button" onclick="cnOpenFullscreen()" aria-label="전체화면으로 크게 보기"
                         class="absolute right-3 top-3 bg-black/55 text-white rounded-full px-3 py-2 inline-flex items-center gap-1.5 text-sm font-bold hover:bg-black/70 transition-colors">
                         <i class="fa-solid fa-expand text-base" aria-hidden="true"></i>
                         <span>전체화면</span>
@@ -17742,6 +17809,16 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             document.body.style.overflow = 'hidden';
             cnUpdate();
         }
+
+        // 상세 패널에서 버튼을 상단 컨트롤 영역으로 옮긴 뒤에도 모바일의
+        // 터치 이벤트가 부모 레이어에 가로막히지 않도록 캡처 단계에서 보장한다.
+        document.addEventListener('click', (event) => {
+            const fullscreenButton = event.target.closest('#cn-fullscreen-btn, button[aria-label="전체화면으로 크게 보기"]');
+            if (!fullscreenButton) return;
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            cnOpenFullscreen();
+        }, true);
 
         function cnCloseFullscreen() {
             const fs = document.getElementById('cn-fs');
