@@ -284,11 +284,19 @@
         /* ── 결과 리포트 섹션: 제목과 콘텐츠를 하나의 정보 그룹으로 묶음 ── */
         /* 종합 위험도 현재 위치: 말풍선의 역삼각형이 막대의 세로선과 한 축으로 이어진다. */
         .result-risk-marker-label {
-            /* 말풍선 포인터가 막대 위의 흰 여백에서 끝나도록 배치한다. */
+            /* 말풍선과 역삼각형 포인터의 기준점은 위험도 막대의 동일한 x축이다. */
             bottom: 58px;
             width: 0;
             height: 0;
             pointer-events: none;
+        }
+        .result-risk-marker-stack {
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            display: flex;
+            flex-direction: column;
+            width: max-content;
         }
         .result-risk-marker-bubble {
             display: flex;
@@ -299,23 +307,16 @@
             border-radius: 10px;
             padding: 6px 12px;
             line-height: 1.35;
-            position: absolute;
-            left: 0;
-            bottom: 0;
+            position: relative;
         }
-        /* 말풍선 자체에 포인터를 붙여 막대/원형 마커의 레이어에 가려지지 않게 한다. */
-        .result-risk-marker-bubble::after {
-            content: "";
-            position: absolute;
-            top: calc(100% - 1px);
-            left: var(--risk-pointer-x, 50%);
-            width: 0;
-            height: 0;
-            transform: translateX(-50%);
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            border-top: 10px solid #16A34A;
-            z-index: 2;
+        /* CSS 가상 요소가 아닌 실제 SVG로 역삼각형을 렌더링해 Safari에서도 보이게 한다. */
+        .result-risk-marker-pointer {
+            display: block;
+            width: 20px;
+            height: 12px;
+            margin-top: -1px;
+            overflow: visible;
+            flex: 0 0 auto;
         }
         .result-risk-marker-stem {
             /* 포인터 끝부터 원형 마커를 지나 막대 끝까지 같은 축을 유지한다. */
@@ -14839,7 +14840,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             const bubbleTransform = markerRatio < 10
                 ? 'translateX(0)'
                 : (markerRatio > 90 ? 'translateX(-100%)' : 'translateX(-50%)');
-            const pointerPosition = markerRatio < 10 ? '0%' : (markerRatio > 90 ? '100%' : '50%');
+            const pointerAlignment = markerRatio < 10 ? 'flex-start' : (markerRatio > 90 ? 'flex-end' : 'center');
             return `
                     <div class="result-overall-card result-outlined-card rounded-3xl p-5 md:p-7" style="background:#FFFFFF; border:1px solid #D1D5DB;">
                         <div class="flex flex-col items-center text-center">
@@ -14854,7 +14855,10 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                             <div class="h-10 md:h-12" aria-hidden="true"></div>
                             <div class="relative pt-14 md:pt-16">
                                 <div class="result-risk-marker-label absolute z-10" style="left:${markerRatio}%;" aria-label="나의 위험도 ${score.toFixed(1)}%">
-                                    <span class="result-risk-marker-bubble whitespace-nowrap text-[11px] md:text-xs font-black text-white shadow-sm" style="--risk-pointer-x:${pointerPosition}; transform:${bubbleTransform}; background:#16A34A;"><span class="block">나의 위험도</span><strong class="mt-0.5 block">${score.toFixed(1)}%</strong></span>
+                                    <span class="result-risk-marker-stack" style="transform:${bubbleTransform}; align-items:${pointerAlignment};">
+                                        <span class="result-risk-marker-bubble whitespace-nowrap text-[11px] md:text-xs font-black text-white shadow-sm" style="background:#16A34A;"><span class="block">나의 위험도</span><strong class="mt-0.5 block">${score.toFixed(1)}%</strong></span>
+                                        <svg class="result-risk-marker-pointer" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 0H20L10 12Z" fill="#16A34A"></path></svg>
+                                    </span>
                                 </div>
                             <div class="relative flex h-12 md:h-16 overflow-visible rounded-2xl">
                                 <div class="flex items-center px-4 text-sm md:text-lg font-black" style="width:${baselineRatio}%; background:#86E9A7; color:#047857;">정상</div>
