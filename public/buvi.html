@@ -284,7 +284,8 @@
         /* ── 결과 리포트 섹션: 제목과 콘텐츠를 하나의 정보 그룹으로 묶음 ── */
         /* 종합 위험도 현재 위치: 말풍선의 역삼각형이 막대의 세로선과 한 축으로 이어진다. */
         .result-risk-marker-label {
-            bottom: 48px;
+            /* 말풍선 포인터가 막대 위의 흰 여백에서 끝나도록 배치한다. */
+            bottom: 58px;
             width: 0;
             height: 0;
             pointer-events: none;
@@ -313,8 +314,8 @@
             border-top: 10px solid #16A34A;
         }
         .result-risk-marker-stem {
-            /* 포인터 끝과 겹치지 않도록 원형 마커 아래에서 시작한다. */
-            top: 20px;
+            /* 포인터 끝부터 원형 마커를 지나 막대 끝까지 같은 축을 유지한다. */
+            top: 0;
             bottom: 0;
             width: 2px;
             transform: translateX(-50%);
@@ -330,14 +331,11 @@
         }
         @media (min-width: 768px) {
             .result-risk-marker-label {
-                bottom: 64px;
+                bottom: 74px;
             }
             .result-risk-marker-dot {
                 width: 22px;
                 height: 22px;
-            }
-            .result-risk-marker-stem {
-                top: 24px;
             }
         }
         #page-result .result-page-heading {
@@ -14848,7 +14846,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                             <p class="mt-3 text-sm md:text-lg font-black text-gray-500">현재 노쇠 신호가 없습니다. 건강 관리 잘 하고 계세요!</p>
                         </div>
                         <div class="mt-7 md:mt-8">
-                            <div class="relative h-5 text-xs md:text-sm font-black text-gray-500">
+                            <div class="relative h-10 md:h-12 text-xs md:text-sm font-black text-gray-500">
                                 <span class="absolute -translate-x-1/2 whitespace-nowrap" style="left:${baselineRatio}%;">기준선 (${report.baseline.toFixed(1)}%)</span>
                             </div>
                             <div class="relative pt-14 md:pt-16">
