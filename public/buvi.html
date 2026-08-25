@@ -11048,8 +11048,24 @@
                 line-height: 1.4 !important;
             }
             body.login-as-about #login-about-mount > .about-desktop-layout.lg\:block > div:first-child .mt-6 > span {
-                font-size: var(--login-about-badge-size) !important;
+                /* 소개 문구는 글자 단계가 가장 커져도 줄바꿈되지 않도록
+                   캐릭터 열보다 우선해 충분한 가로 폭을 사용합니다. */
+                font-size: min(var(--login-about-badge-size), 1.1vw) !important;
                 line-height: 1.2 !important;
+                white-space: nowrap !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                max-width: none !important;
+            }
+
+            body.login-as-about #login-about-mount > .about-desktop-layout.lg\:block > div:first-child > div.relative.grid {
+                grid-template-columns: minmax(0, 1.7fr) minmax(112px, .3fr) !important;
+                gap: clamp(8px, 1vw, 18px) !important;
+            }
+
+            body.login-as-about #login-about-mount > .about-desktop-layout.lg\:block > div:first-child > div.relative.grid > div:last-child {
+                justify-content: flex-end !important;
+                transform: translateX(clamp(0px, 1.2vw, 20px)) !important;
             }
         }
 
