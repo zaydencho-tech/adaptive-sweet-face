@@ -12101,6 +12101,10 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
         // 설문 렌더링 (type별 분기, 사양서 v4)
         // ─────────────────────────────────────────────────────────────
         function setupSurveyQuestion() {
+            // 연령 입력의 연/월/일 화면 전환처럼 문항 내부만 다시 그려지는 경우에도
+            // 하단 이동 버튼은 최초 CSS 기준값을 유지한다. 이전 확대 처리의 인라인
+            // 값이 남아 있으면 버튼 글자가 누적 확대될 수 있어 먼저 정리한다.
+            normalizeSurveyNavigationFontStyles();
             state.questionStartTime = Date.now();
             const q = surveyQuestions.find(x => x.id === state.currentQuestionId);
             if (!q) return;
@@ -12480,6 +12484,9 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
         }
 
         function renderAgeSteps() {
+            // 키패드·탭을 전환할 때 하단 "이전/다음" 버튼은 다시 렌더링 대상이
+            // 아니므로, 혹시 남은 인라인 확대값을 제거해 절대 글자 크기를 보장한다.
+            normalizeSurveyNavigationFontStyles();
             const root = document.getElementById('age-root');
             if (!root) return;
             const Y = window._bdY, M = window._bdM, D = window._bdD;
@@ -16011,6 +16018,21 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             });
         }
 
+        function normalizeSurveyNavigationFontStyles() {
+            const nav = document.getElementById('survey-nav-bottom');
+            if (!nav) return;
+            nav.querySelectorAll('button').forEach(button => {
+                // 하단 이동 버튼은 --survey-nav-font-size와 --font-scale만 사용한다.
+                // 일반 콘텐츠/설문 버튼 확대 처리에서 남은 인라인 값은 제거한다.
+                button.style.removeProperty('font-size');
+                button.style.removeProperty('line-height');
+                button.removeAttribute('data-buvi-font-scale-applied');
+                button.removeAttribute('data-survey-button-font-scale-applied');
+                surveyButtonFontScaleInlineStyles.delete(button);
+                contentFontScaleInlineStyles.delete(button);
+            });
+        }
+
         function applySurveyButtonFontScale(normalizedScale) {
             if (normalizedScale === 1) return;
             const measurements = getSurveyButtonFontScaleTargets().map(button => ({
@@ -16045,6 +16067,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             rootStyle.setProperty('--font-scale', '1');
             restoreContentFontScaleStyles();
             restoreSurveyButtonFontScaleStyles();
+            normalizeSurveyNavigationFontStyles();
 
             if (normalizedScale === 1) {
                 rootStyle.setProperty('--font-scale', '1');
