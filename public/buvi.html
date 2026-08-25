@@ -10948,6 +10948,26 @@
             }
         }
 
+        /* 자동 로그인 체크는 폼의 공통 높이·글자 확대 규칙과 분리해 항상 정사각형입니다. */
+        @media (min-width: 1025px) {
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login #auto-login {
+                inline-size: 24px !important;
+                block-size: 24px !important;
+                width: 24px !important;
+                height: 24px !important;
+                min-width: 24px !important;
+                min-height: 24px !important;
+                max-width: 24px !important;
+                max-height: 24px !important;
+                aspect-ratio: 1 / 1 !important;
+                flex: 0 0 24px !important;
+                padding: 0 !important;
+                box-sizing: border-box !important;
+                transform: none !important;
+            }
+        }
+
 		</style>
 
 </head>
