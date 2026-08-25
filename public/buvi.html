@@ -10690,6 +10690,21 @@
             color: #4C3A9E;
             font-size: 20px;
         }
+        /* 추천 질문 선택 후 전송되는 내 메시지도 추천 카드와 동일하게 우측에 고정한다. */
+        #page-chat #chat-scroller .user-message-row {
+            display: flex !important;
+            justify-content: flex-end !important;
+            align-items: flex-start;
+            gap: 12px;
+            width: 100%;
+        }
+        #page-chat #chat-scroller .user-message-row .chat-message-bubble {
+            order: 1;
+            text-align: right;
+        }
+        #page-chat #chat-scroller .user-message-row .chat-user-avatar {
+            order: 2;
+        }
 
         #page-chat .chat-recommended-list {
             display: grid;
@@ -15701,12 +15716,12 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             const scroller = document.getElementById('chat-scroller');
             if(!scroller) return;
             const row = document.createElement('div');
-            row.className = 'msg-row flex gap-3 justify-end items-start';
+            row.className = 'msg-row user-message-row flex gap-3 justify-end items-start';
             row.innerHTML = `
                 <div class="chat-message-bubble bg-kakao p-4 rounded-3xl max-w-[85%] border shadow-sm text-right font-black scaled-text-base">
                     ${text}
                 </div>
-                <div class="fill-icon flex-shrink-0 w-9 h-9 text-[#4c3a9e]" aria-hidden="true"><i class="fa-solid fa-user"></i></div>
+                <div class="chat-user-avatar" aria-label="나의 프로필"><i class="fa-solid fa-user" aria-hidden="true"></i></div>
             `;
             scroller.appendChild(row);
             scroller.scrollTop = scroller.scrollHeight;
@@ -15736,7 +15751,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
         function chooseRecommendedQuestion(button) {
             const question = button?.dataset.question?.trim();
             if (!question) return;
-            button.closest('.chat-recommended-questions')?.remove();
+            button.closest('.chat-recommended-row')?.remove();
             const input = document.getElementById('chat-input');
             if (!input) return;
             input.value = question;
