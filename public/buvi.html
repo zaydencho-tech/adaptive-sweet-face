@@ -10883,6 +10883,37 @@
             }
         }
 
+        /* 데스크톱 상담: 입력창의 끝을 하단 네비게이션 위 40px에 고정합니다.
+           남은 높이는 채팅 내역만 스크롤해 네비바가 입력 영역을 덮지 않습니다. */
+        @media (min-width: 1025px) {
+            body.is-authenticated.subpage-mode:has(#page-chat:not(.hidden)) > main {
+                height: calc(100dvh - 140px) !important;
+                min-height: calc(100dvh - 140px) !important;
+                max-height: calc(100dvh - 140px) !important;
+                padding-bottom: 0 !important;
+                box-sizing: border-box !important;
+            }
+
+            body.is-authenticated.subpage-mode:has(#page-chat:not(.hidden))
+            #page-chat .chat-page-shell,
+            body.is-authenticated.subpage-mode:has(#page-chat:not(.hidden))
+            #page-chat .chat-conversation {
+                height: 100% !important;
+                min-height: 0 !important;
+            }
+
+            body.is-authenticated.subpage-mode:has(#page-chat:not(.hidden))
+            #page-chat #chat-scroller {
+                flex: 1 1 auto !important;
+                min-height: 0 !important;
+            }
+
+            body.is-authenticated.subpage-mode:has(#page-chat:not(.hidden))
+            #page-chat .chat-composer {
+                margin: 12px 0 0 !important;
+            }
+        }
+
 		</style>
 
 </head>
