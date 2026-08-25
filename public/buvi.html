@@ -11271,11 +11271,16 @@
            위를 가리던 이전/다음 조작은 이미지 하단으로 분리합니다. */
         @media (max-width: 639px) {
             #page-records #quiz-panel #cn-stage #cn-fullscreen-btn {
-                position: absolute !important;
-                top: 12px !important;
-                right: 12px !important;
-                inset: auto 12px auto auto !important;
-                z-index: 8 !important;
+                /* 카드 이미지와 분리해 우측 상단 닫기 버튼의 왼쪽에 고정 */
+                position: fixed !important;
+                top: 20px !important;
+                right: 76px !important;
+                left: auto !important;
+                bottom: auto !important;
+                inset: 20px 76px auto auto !important;
+                height: 44px !important;
+                min-height: 44px !important;
+                z-index: 10001 !important;
             }
             #cn-fs-toolbar {
                 gap: 8px !important;
