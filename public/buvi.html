@@ -10404,6 +10404,108 @@
             }
         }
 
+        /* 긴 상담 선택지는 한 번에 하나만 펼치는 아코디언으로 보여, 작은 화면에서도
+           입력창과 선택 문구가 서로 밀리지 않도록 한다. */
+        #chat-action-chips.chat-action-accordions:not(.hidden) {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 8px !important;
+            padding: 12px clamp(12px, 2vw, 20px) !important;
+            border-top: 1px solid #E8E5DE !important;
+        }
+
+        #chat-action-chips .chat-action-accordion {
+            overflow: hidden;
+            border: 1px solid #E2E5EA;
+            border-radius: 12px;
+            background: #F8F9FA;
+        }
+
+        #chat-action-chips .chat-action-accordion[open] {
+            border-color: #F0C900;
+            background: #FFFDF0;
+        }
+
+        #chat-action-chips .chat-action-accordion > summary {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            min-height: 46px;
+            padding: 10px 14px;
+            color: #1A1A1A;
+            cursor: pointer;
+            font-weight: 800;
+            list-style: none;
+        }
+
+        #chat-action-chips .chat-action-accordion > summary::-webkit-details-marker {
+            display: none;
+        }
+
+        #chat-action-chips .chat-action-accordion > summary::after {
+            content: '⌄';
+            flex: 0 0 auto;
+            color: #6B7280;
+            font-size: 18px;
+            line-height: 1;
+            transition: transform .2s ease;
+        }
+
+        #chat-action-chips .chat-action-accordion[open] > summary::after {
+            transform: rotate(180deg);
+        }
+
+        #chat-action-chips .chat-action-accordion-body {
+            padding: 0 14px 13px;
+        }
+
+        #chat-action-chips .chat-action-accordion-body p {
+            margin: 0;
+            color: #4B5563;
+            font-size: calc(14px * var(--font-scale));
+            font-weight: 600;
+            line-height: 1.5;
+            word-break: keep-all;
+        }
+
+        #chat-action-chips .chat-action-select-btn {
+            width: 100%;
+            min-height: 40px;
+            margin-top: 10px;
+            padding: 8px 12px;
+            border-radius: 10px;
+            background: #FEE500;
+            color: #1A1A1A;
+            font-size: calc(14px * var(--font-scale));
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        @media (max-width: 639px) {
+            #chat-action-chips.chat-action-accordions:not(.hidden) {
+                gap: 6px !important;
+                padding: 8px 12px !important;
+            }
+            #chat-action-chips .chat-action-accordion > summary {
+                min-height: 40px;
+                padding: 8px 10px;
+                font-size: calc(13px * var(--font-scale));
+            }
+            #chat-action-chips .chat-action-accordion-body {
+                padding: 0 10px 10px;
+            }
+            #chat-action-chips .chat-action-accordion-body p,
+            #chat-action-chips .chat-action-select-btn {
+                font-size: calc(13px * var(--font-scale));
+            }
+            #chat-action-chips .chat-action-select-btn {
+                min-height: 36px;
+                margin-top: 8px;
+                padding: 7px 10px;
+            }
+        }
+
 		</style>
 
 </head>
@@ -11170,7 +11272,7 @@
                 <div class="chat-conversation bg-white rounded-3xl p-5 shadow-md border-2 flex flex-col h-[650px]">
                     <div id="chat-scroller" class="flex-grow overflow-y-auto pt-3 pb-4 space-y-4 pr-1"></div>
 
-                    <div id="chat-action-chips" class="hidden flex-wrap gap-2 py-3 border-t"></div>
+                    <div id="chat-action-chips" class="chat-action-accordions hidden"></div>
 
                     <div class="flex items-stretch gap-2 pt-4 border-t">
                         <textarea id="chat-input" rows="3" onkeydown="if(event.key==='Enter' && !event.shiftKey){ event.preventDefault(); sendUserMessage(); }" class="min-h-[108px] flex-grow resize-none rounded-2xl border-2 bg-gray-50 px-5 py-4 font-bold leading-relaxed focus:outline-none focus:ring-4 focus:ring-yellow-200" placeholder="메시지를 입력하세요" aria-label="상담 메시지 입력"></textarea>
@@ -15389,11 +15491,36 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             if(!chips) return;
             chips.classList.remove('hidden');
             chips.innerHTML = `
-                <button onclick="handleChipClick('gait')" class="bg-yellow-100 hover:bg-kakao text-charcoal font-black px-4 py-2 rounded-full scaled-text-sm border shadow-sm transition-all">✓ 네, 설명해주세요</button>
-                <button onclick="handleChipClick('other')" class="bg-gray-100 hover:bg-gray-200 text-charcoal font-bold px-4 py-2 rounded-full scaled-text-sm border transition-all">다른 영역 먼저</button>
-                <button onclick="handleChipClick('free')" class="bg-gray-50 hover:bg-gray-100 text-gray-500 font-bold px-4 py-2 rounded-full scaled-text-sm border transition-all">직접 물어볼게요</button>
+                <details class="chat-action-accordion" open ontoggle="handleChatActionAccordionToggle(this)">
+                    <summary>결과를 자세히 설명받기</summary>
+                    <div class="chat-action-accordion-body">
+                        <p>현재 결과에서 가장 먼저 살펴볼 보행기능과 활동량을 중심으로, 오늘부터 안전하게 실천할 수 있는 방법을 자세히 설명해 주세요.</p>
+                        <button type="button" class="chat-action-select-btn" onclick="handleChipClick('gait')">이 내용으로 상담하기</button>
+                    </div>
+                </details>
+                <details class="chat-action-accordion" ontoggle="handleChatActionAccordionToggle(this)">
+                    <summary>다른 건강 영역 먼저 보기</summary>
+                    <div class="chat-action-accordion-body">
+                        <p>보행기능 설명보다 피로감, 수면, 식사처럼 다른 건강 영역을 먼저 확인하고 제게 맞는 관리 방법을 알려 주세요.</p>
+                        <button type="button" class="chat-action-select-btn" onclick="handleChipClick('other')">이 내용으로 상담하기</button>
+                    </div>
+                </details>
+                <details class="chat-action-accordion" ontoggle="handleChatActionAccordionToggle(this)">
+                    <summary>직접 질문 입력하기</summary>
+                    <div class="chat-action-accordion-body">
+                        <p>검사 결과 외에 평소 불편했던 증상을 직접 적어 보겠습니다. 궁금한 내용을 입력해 상담을 이어가고 싶습니다.</p>
+                        <button type="button" class="chat-action-select-btn" onclick="handleChipClick('free')">직접 질문 입력하기</button>
+                    </div>
+                </details>
             `;
             
+        }
+
+        function handleChatActionAccordionToggle(openedAccordion) {
+            if (!openedAccordion?.open) return;
+            document.querySelectorAll('#chat-action-chips .chat-action-accordion').forEach(accordion => {
+                if (accordion !== openedAccordion) accordion.open = false;
+            });
         }
 
         function handleChipClick(type) {
