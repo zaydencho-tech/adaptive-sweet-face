@@ -11104,6 +11104,16 @@
                 justify-content: flex-end !important;
                 transform: translateX(clamp(0px, 1.2vw, 20px)) !important;
             }
+
+            /* 원본 캐릭터 이미지 하단에는 투명 여백이 있으므로 그림자를 5%에
+               두면 발보다 아래에 떠 보입니다. 발 위치에 맞춰 위로 올립니다. */
+            body.login-as-about:has(#page-login:not(.hidden))
+            #page-login .login-hero-character-wrap::after {
+                bottom: 15% !important;
+                width: 40% !important;
+                height: 6% !important;
+                filter: blur(2.5px) !important;
+            }
         }
 
 		</style>
