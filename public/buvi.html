@@ -13871,6 +13871,10 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
         let tugTimerInterval = null;
         let tugStartTime = null;
 
+        function formatTugTime(seconds) {
+            return Math.max(0, Number(seconds) || 0).toFixed(2).padStart(5, '0');
+        }
+
         function renderTugInput(container) {
             const saved = state.answers.tug !== null ? state.answers.tug : '';
             const tugKeypadButtons = [1,2,3,4,5,6,7,8,9].map(n =>
@@ -13950,7 +13954,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             tugTimerInterval = setInterval(() => {
                 const elapsed = (Date.now() - tugStartTime) / 1000;
                 const disp = document.getElementById('tug-timer-display');
-                if (disp) disp.textContent = elapsed.toFixed(2).padStart(5,'0');
+                if (disp) disp.textContent = formatTugTime(elapsed);
             }, 50);
             document.getElementById('btn-tug-start').disabled = true;
             document.getElementById('btn-tug-start').classList.add('opacity-50','cursor-not-allowed');
@@ -13964,9 +13968,14 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             clearInterval(tugTimerInterval);
             tugTimerInterval = null;
             const elapsed = parseFloat(((Date.now() - tugStartTime) / 1000).toFixed(2));
+            // 마지막 interval 갱신 시점과 정지 클릭 시점이 달라질 수 있으므로,
+            // 여기서 같은 확정값으로 초시계와 직접 입력란을 함께 갱신한다.
+            const measuredTime = formatTugTime(elapsed);
+            const disp = document.getElementById('tug-timer-display');
+            if (disp) disp.textContent = measuredTime;
             const inp = document.getElementById('inp-tug');
-            if (inp) inp.value = elapsed;
-            onTugInput(elapsed);
+            if (inp) inp.value = measuredTime;
+            onTugInput(measuredTime);
             document.getElementById('btn-tug-start').disabled = false;
             document.getElementById('btn-tug-start').classList.remove('opacity-50','cursor-not-allowed');
             document.getElementById('btn-tug-stop').disabled = true;
