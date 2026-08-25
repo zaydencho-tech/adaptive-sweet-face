@@ -11270,8 +11270,8 @@
         /* 모바일 건강정보 전체화면: 페이지 번호는 한 줄로 유지하고, 이미지
            위를 가리던 이전/다음 조작은 이미지 하단으로 분리합니다. */
         @media (max-width: 639px) {
-            #page-records #quiz-panel:not(.hidden) #cn-mobile-fullscreen-control {
-                /* 카드 이미지의 터치 영역 밖에서 닫기 버튼 왼쪽에 고정 */
+            body > #cn-mobile-fullscreen-control {
+                /* iOS 스크롤 패널 바깥에서 X와 동일한 기준선에 고정 */
                 position: fixed !important;
                 top: 20px !important;
                 right: 76px !important;
@@ -11281,7 +11281,7 @@
                 z-index: 10001 !important;
                 pointer-events: auto !important;
             }
-            #page-records #quiz-panel:not(.hidden) #cn-mobile-fullscreen-control #cn-fullscreen-btn {
+            body > #cn-mobile-fullscreen-control #cn-fullscreen-btn {
                 position: static !important;
                 inset: auto !important;
                 display: inline-flex !important;
@@ -11290,6 +11290,7 @@
                 min-height: 44px !important;
                 margin: 0 !important;
                 pointer-events: auto !important;
+                touch-action: manipulation !important;
             }
             #cn-fs-toolbar {
                 gap: 8px !important;
@@ -16656,6 +16657,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             openDetailedStudyCard(targetCardId);
         }
         function requestStopReading() {
+            document.getElementById('cn-mobile-fullscreen-control')?.remove();
             if (state.cardScrolledToEnd) {
                 submitCardReadConfirmation();
                 return;
@@ -16689,6 +16691,8 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
 
         function submitCardReadConfirmation() {
             if (!state.cardScrolledToEnd) return; // 끝까지 읽기 전에는 완료 처리 금지
+
+            document.getElementById('cn-mobile-fullscreen-control')?.remove();
 
             const card = healthCards.find(c => c.id === state.currentReadingCardId);
             if(!card) return;
@@ -17650,6 +17654,9 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             const panelEl = document.getElementById('quiz-panel');
             const completeContainer = panelEl && panelEl.querySelector('div.bg-emerald-50');
             const isDesktopCardViewer = window.matchMedia('(min-width: 1025px)').matches;
+            // iOS Safari에서는 overflow 스크롤 패널 안의 fixed 요소가 표시 위치와
+            // 터치 좌표를 다르게 계산할 수 있어, 이전 모바일 컨트롤을 먼저 제거합니다.
+            document.getElementById('cn-mobile-fullscreen-control')?.remove();
             if (panelEl && fsBtn) {
                 panelEl.querySelectorAll('#cn-fullscreen-btn, #cn-mobile-fullscreen-control').forEach((existing) => {
                     if (existing !== fsBtn && !existing.contains(fsBtn)) existing.remove();
@@ -17662,15 +17669,21 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                 fsBtn.id = 'cn-fullscreen-btn';
                 fsBtn.type = 'button';
                 fsBtn.removeAttribute('onclick');
-                fsBtn.addEventListener('click', (event) => {
+                const openFullscreen = (event) => {
                     event.preventDefault();
                     event.stopPropagation();
                     cnOpenFullscreen();
-                });
+                    return false;
+                };
+                // onclick을 직접 지정해 Safari의 터치→클릭 변환에서도 확실히 실행합니다.
+                fsBtn.onclick = openFullscreen;
+                fsBtn.ontouchend = openFullscreen;
                 const mobileControl = document.createElement('div');
                 mobileControl.id = 'cn-mobile-fullscreen-control';
                 mobileControl.appendChild(fsBtn);
-                panelEl.appendChild(mobileControl);
+                // 스크롤되는 상세 패널 밖(body)에 포털로 배치해야 iOS에서 보이는
+                // 위치와 실제 터치 영역이 일치합니다.
+                document.body.appendChild(mobileControl);
             }
             cnRenderDots();
             cnUpdate();
