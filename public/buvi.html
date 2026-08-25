@@ -10643,16 +10643,26 @@
         /* 입력 영역도 채팅 내역과 같은 흰 표면 안에서 명확히 구분한다. */
         body:not(.high-contrast) #page-chat .chat-conversation .chat-composer,
         #page-chat .chat-composer {
+            --chat-composer-inset: clamp(16px, 2vw, 20px);
             flex: 0 0 auto;
             display: flex;
             align-items: stretch;
             gap: 8px;
-            /* 채팅 내역 박스와 입력 영역이 맞닿아 보이지 않도록 여백을 둔다. */
-            margin: 12px 0 16px;
-            padding: 8px;
+            /* 좌우 인셋과 하단 네비게이션 사이 간격을 같은 값으로 통일한다. */
+            margin: 12px var(--chat-composer-inset) var(--chat-composer-inset);
+            padding: 5px;
             border: 1px solid #E8E5DE !important;
             border-radius: 16px;
             background: #F7F7F8;
+        }
+
+        #page-chat .chat-composer textarea,
+        #page-chat .chat-composer button {
+            height: 48px !important;
+            min-height: 48px !important;
+            padding-top: 7px !important;
+            padding-bottom: 7px !important;
+            line-height: 1.35 !important;
         }
 
         #page-chat .chat-composer textarea {
@@ -10661,11 +10671,28 @@
             box-shadow: none !important;
         }
 
+        #page-chat .chat-composer button {
+            min-width: 78px !important;
+            padding-left: 12px !important;
+            padding-right: 12px !important;
+        }
+
         @media (max-width: 639px) {
             #page-chat .chat-composer {
-                margin: 10px 0 12px;
-                padding: 6px;
+                --chat-composer-inset: 16px;
+                margin-top: 10px;
+                padding: 4px;
                 border-radius: 14px;
+            }
+            #page-chat .chat-composer textarea,
+            #page-chat .chat-composer button {
+                height: 44px !important;
+                min-height: 44px !important;
+            }
+            #page-chat .chat-composer button {
+                min-width: 70px !important;
+                padding-left: 10px !important;
+                padding-right: 10px !important;
             }
         }
 
@@ -11536,8 +11563,8 @@
                     <div id="chat-scroller" class="flex-grow overflow-y-auto pt-3 pb-4 space-y-4 pr-1"></div>
 
                     <div class="chat-composer">
-                        <textarea id="chat-input" rows="3" onkeydown="if(event.key==='Enter' && !event.shiftKey){ event.preventDefault(); sendUserMessage(); }" class="min-h-[108px] flex-grow resize-none rounded-xl px-4 py-3 font-bold leading-relaxed focus:outline-none focus:ring-4 focus:ring-yellow-200" placeholder="메시지를 입력하세요" aria-label="상담 메시지 입력"></textarea>
-                        <button type="button" onclick="sendUserMessage()" class="min-h-[108px] min-w-[96px] px-5 rounded-xl bg-kakao text-charcoal font-black hover:brightness-95 focus-visible:outline-none focus:ring-4 focus:ring-yellow-300" aria-label="메시지 보내기"><i class="fa-solid fa-paper-plane mr-1"></i>보내기</button>
+                        <textarea id="chat-input" rows="1" onkeydown="if(event.key==='Enter' && !event.shiftKey){ event.preventDefault(); sendUserMessage(); }" class="flex-grow resize-none rounded-xl px-4 py-2 font-bold leading-relaxed focus:outline-none focus:ring-4 focus:ring-yellow-200" placeholder="메시지를 입력하세요" aria-label="상담 메시지 입력"></textarea>
+                        <button type="button" onclick="sendUserMessage()" class="rounded-xl bg-kakao text-charcoal font-black hover:brightness-95 focus-visible:outline-none focus:ring-4 focus:ring-yellow-300" aria-label="메시지 보내기"><i class="fa-solid fa-paper-plane mr-1"></i>보내기</button>
                     </div>
                 </div>
             </div>
