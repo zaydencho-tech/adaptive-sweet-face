@@ -10702,6 +10702,11 @@
             order: 1;
             text-align: right;
         }
+        #page-chat #chat-scroller .user-message-row .chat-message-bubble.profile-question-message {
+            background: #1A1A1A !important;
+            border-color: #1A1A1A !important;
+            color: #FFFFFF !important;
+        }
         #page-chat #chat-scroller .user-message-row .chat-user-avatar {
             order: 2;
         }
@@ -15712,13 +15717,13 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
         }
 
 
-        function appendUserMsg(text) {
+        function appendUserMsg(text, isProfileQuestion = false) {
             const scroller = document.getElementById('chat-scroller');
             if(!scroller) return;
             const row = document.createElement('div');
             row.className = 'msg-row user-message-row flex gap-3 justify-end items-start';
             row.innerHTML = `
-                <div class="chat-message-bubble bg-kakao p-4 rounded-3xl max-w-[85%] border shadow-sm text-right font-black scaled-text-base">
+                <div class="chat-message-bubble ${isProfileQuestion ? 'profile-question-message' : 'bg-kakao'} p-4 rounded-3xl max-w-[85%] border shadow-sm text-right font-black scaled-text-base">
                     ${text}
                 </div>
                 <div class="chat-user-avatar" aria-label="나의 프로필"><i class="fa-solid fa-user" aria-hidden="true"></i></div>
@@ -15755,15 +15760,15 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             const input = document.getElementById('chat-input');
             if (!input) return;
             input.value = question;
-            sendUserMessage();
+            sendUserMessage(true);
         }
 
-        async function sendUserMessage() {
+        async function sendUserMessage(isProfileQuestion = false) {
             const input = document.getElementById('chat-input');
             const text = input.value.trim();
             if(!text) return;
 
-            appendUserMsg(text);
+            appendUserMsg(text, isProfileQuestion);
             input.value = "";
 
             updateBuvi('2-4', '어르신의 질문에 대응하기 위해 부비의 지혜 주머니(RAG 머신)를 활발하게 들여다보고 있습니다.');
