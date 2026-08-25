@@ -11003,7 +11003,11 @@
 
             body.is-authenticated.subpage-mode:has(#page-chat:not(.hidden))
             #page-chat #chat-scroller {
-                padding-bottom: 152px !important;
+                /* 입력창은 대화 컨테이너 안쪽 하단에 절대 배치됩니다.
+                   스크롤 영역의 외곽선은 입력창과 20px을 띄워 끝내고,
+                   그 아래 40px은 흰색 컨테이너 여백으로 남깁니다. */
+                margin-bottom: 144px !important;
+                padding-bottom: clamp(16px, 2vw, 20px) !important;
             }
         }
 
