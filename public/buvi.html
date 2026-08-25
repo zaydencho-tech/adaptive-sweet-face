@@ -9845,6 +9845,10 @@
         #cn-fs-tap-next > span {
             display: none !important;
         }
+        /* 카드 상세 모달(9999)보다 전체화면 카드뉴스를 항상 위에 표시 */
+        #cn-fs {
+            z-index: 30000 !important;
+        }
 
         /* 상담의 설문 완료 리포트는 결과 화면과 같은 마크업을 재사용한다.
            결과 화면 전용으로 한정돼 있던 영향 요인 차트 규칙을 이 영역에도
@@ -17823,7 +17827,8 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             if (document.getElementById('cn-fs')) return;
             const fs = document.createElement('div');
             fs.id = 'cn-fs';
-            fs.style.cssText = 'position:fixed;inset:0;z-index:200;background:#000;display:none;overflow-y:auto;overscroll-behavior:contain;';
+            // 모바일 상세 패널(z-index:9999)과 상단 컨트롤보다 항상 위에 표시합니다.
+            fs.style.cssText = 'position:fixed;inset:0;z-index:30000;background:#000;display:none;overflow-y:auto;overscroll-behavior:contain;';
             fs.innerHTML = `
                 <div id="cn-fs-content" style="position:relative;min-height:100%;width:100%;display:flex;flex-direction:column;align-items:center;padding:16px 16px 28px;">
                    <div id="cn-fs-toolbar" style="width:min(100%,960px);display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;">
@@ -17871,46 +17876,6 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             document.body.style.overflow = 'hidden';
             cnUpdate();
         }
-
-        // iOS Safari에서 스크롤 패널 안 버튼의 시각적 위치와 실제 hit-test가
-        // 어긋나는 경우가 있어, 모바일 상세 상단 두 버튼은 화면 좌표로도 판별합니다.
-        let cnMobileHeaderActionAt = 0;
-        function cnHandleMobileHeaderAction(event) {
-            if (!window.matchMedia('(max-width: 639px)').matches) return;
-            const panel = document.getElementById('quiz-panel');
-            if (!panel || panel.classList.contains('hidden')) return;
-
-            const touch = event.changedTouches && event.changedTouches[0];
-            const clientX = touch ? touch.clientX : event.clientX;
-            const clientY = touch ? touch.clientY : event.clientY;
-            if (!Number.isFinite(clientX) || !Number.isFinite(clientY)) return;
-
-            const fullscreenButton = document.getElementById('cn-fullscreen-btn');
-            const closeButton = document.getElementById('card-close-btn');
-            const isInside = (element) => {
-                if (!element) return false;
-                const rect = element.getBoundingClientRect();
-                return clientX >= rect.left && clientX <= rect.right
-                    && clientY >= rect.top && clientY <= rect.bottom;
-            };
-
-            const wantsFullscreen = isInside(fullscreenButton);
-            const wantsClose = !wantsFullscreen && isInside(closeButton);
-            if (!wantsFullscreen && !wantsClose) return;
-
-            if (event.cancelable) event.preventDefault();
-            event.stopImmediatePropagation();
-
-            const now = Date.now();
-            if (now - cnMobileHeaderActionAt < 350) return;
-            cnMobileHeaderActionAt = now;
-
-            if (wantsFullscreen) cnOpenFullscreen();
-            else requestStopReading();
-        }
-        document.addEventListener('pointerup', cnHandleMobileHeaderAction, true);
-        document.addEventListener('touchend', cnHandleMobileHeaderAction, { capture: true, passive: false });
-        document.addEventListener('click', cnHandleMobileHeaderAction, true);
 
         function cnCloseFullscreen() {
             const fs = document.getElementById('cn-fs');
