@@ -14864,10 +14864,10 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             const score = report.p * 100;
             const gaugeMaximum = 20;
             const markerRatio = Math.max(0, Math.min(100, (score / gaugeMaximum) * 100));
-            const bubbleTransform = markerRatio < 10
-                ? 'translateX(0)'
-                : (markerRatio > 90 ? 'translateX(-100%)' : 'translateX(-50%)');
-            const pointerAlignment = markerRatio < 10 ? 'flex-start' : (markerRatio > 90 ? 'flex-end' : 'center');
+            // 말풍선·역삼각형 포인터·원형 마커·세로선을 언제나 같은 x축에 둔다.
+            // 가장자리 보정으로 포인터가 말풍선 중앙에서 벗어나지 않도록 한다.
+            const bubbleTransform = 'translateX(-50%)';
+            const pointerAlignment = 'center';
             return `
                     <div class="result-overall-card result-outlined-card rounded-3xl p-5 md:p-7" style="background:#FFFFFF; border:1px solid #D1D5DB;">
                         <div class="flex flex-col items-center text-center">
