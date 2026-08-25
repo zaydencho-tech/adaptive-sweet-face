@@ -11236,6 +11236,31 @@
             }
         }
 
+        /* 모바일 채팅은 아바타 폭을 줄여 말풍선에 쓸 수 있는 공간을 확보합니다. */
+        @media (max-width: 639px) {
+            #page-chat #chat-scroller .buvi-avatar-circle,
+            #page-chat #chat-scroller .chat-user-avatar {
+                width: 36px !important;
+                height: 36px !important;
+                min-width: 36px !important;
+                min-height: 36px !important;
+                flex: 0 0 36px !important;
+            }
+
+            #page-chat #chat-scroller .buvi-avatar-circle > img {
+                width: 28px !important;
+                height: 28px !important;
+            }
+
+            #page-chat #chat-scroller .buvi-avatar-align {
+                margin-top: calc(1rem + (1lh - 36px) / 2) !important;
+            }
+
+            #page-chat #chat-scroller .chat-user-avatar {
+                font-size: 16px !important;
+            }
+        }
+
 		</style>
 
 </head>
