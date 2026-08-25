@@ -1353,10 +1353,12 @@
         .buvi-hero-input:focus { outline: none; border-color: #FEE500; background: #F3F4F6; }
         .buvi-speech { position: relative; }
         .buvi-speech::after { content: ""; position: absolute; left: 20%; bottom: -10px; width: 20px; height: 20px; background: #000; clip-path: polygon(0 0, 100% 0, 50% 100%); }
-        .buvi-speech-svg { position: relative; width: 130px; height: 132px; display: inline-flex; align-items: center; justify-content: center; padding: 0 0 18px 0; background: transparent !important; border-radius: 0 !important; box-shadow: none !important; }
+        /* 말풍선과 문구를 하나의 SVG로 사용해 해상도·글자 크기 변경에도
+           텍스트가 말풍선 밖으로 나가지 않도록 고정한다. */
+        .buvi-speech-svg { position: relative; width: 130px; height: 132px; display: inline-flex; align-items: center; justify-content: center; padding: 0; background: url('./assets/hero-speech.svg') center / contain no-repeat !important; border-radius: 0 !important; box-shadow: none !important; }
         .buvi-speech-svg::after { display: none !important; }
-        .buvi-speech-svg > svg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
-        .buvi-speech-svg > span { position: relative; z-index: 1; color: #fff; }
+        .buvi-speech-svg > svg,
+        .buvi-speech-svg > span { display: none !important; }
         /* 노란 히어로 캐릭터 공통 자산과 반응형 표시 크기 */
         .yellow-hero-character {
             display: block;
