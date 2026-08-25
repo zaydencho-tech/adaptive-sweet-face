@@ -6439,9 +6439,8 @@
             }
         }
 
-        /* 로그인 후 데스크톱 도움말: 하단 그리드가 남은 높이만큼 과도하게
-           늘어나지 않게 해 카드 내부의 빈 공간을 없앱니다. 화면이 낮을 때는
-           두 섹션을 함께 스크롤해 전체 페이지와 하단 네비게이션은 고정합니다. */
+        /* 로그인 후 데스크톱 도움말: FAQ 카드만 별도 스크롤하지 않고,
+           건강정보와 같이 헤더·네비게이션 사이의 전체 본문을 스크롤합니다. */
         @media (min-width: 1025px) {
             body.is-authenticated.subpage-mode:has(#page-help:not(.hidden)) {
                 height: 100dvh !important;
@@ -6456,24 +6455,24 @@
                 min-height: calc(100dvh - 124px) !important;
                 max-height: calc(100dvh - 124px) !important;
                 padding-bottom: 120px !important;
-                overflow: hidden !important;
+                overflow-y: auto !important;
+                overscroll-behavior: contain;
+                scrollbar-gutter: stable;
             }
 
             body.is-authenticated.subpage-mode:has(#page-help:not(.hidden))
             > main > #page-help:not(.hidden) {
-                flex: 1 1 0 !important;
-                height: 100% !important;
-                min-height: 0 !important;
-                overflow: hidden !important;
+                flex: 0 0 auto !important;
+                height: auto !important;
+                min-height: auto !important;
+                overflow: visible !important;
             }
 
             body.is-authenticated.subpage-mode:has(#page-help:not(.hidden))
             #page-help > .grid {
-                flex: 0 1 auto !important;
-                min-height: 0 !important;
-                overflow-y: auto !important;
-                overscroll-behavior: contain;
-                scrollbar-gutter: stable;
+                flex: 0 0 auto !important;
+                min-height: auto !important;
+                overflow: visible !important;
             }
         }
 
