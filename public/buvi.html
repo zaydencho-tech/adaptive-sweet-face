@@ -11284,6 +11284,8 @@
                 gap: 16px !important;
                 flex: 0 0 auto !important;
                 pointer-events: auto !important;
+                z-index: 10003 !important;
+                isolation: isolate !important;
             }
             #page-records #quiz-panel:not(.hidden) #card-detail-actions #cn-fullscreen-btn {
                 position: static !important;
@@ -11295,6 +11297,7 @@
                 margin: 0 !important;
                 pointer-events: auto !important;
                 touch-action: manipulation !important;
+                z-index: 2 !important;
             }
             #page-records #quiz-panel:not(.hidden) #card-detail-actions #card-close-btn {
                 position: static !important;
@@ -11316,6 +11319,10 @@
                 line-height: 1 !important;
                 pointer-events: auto !important;
                 touch-action: manipulation !important;
+                z-index: 2 !important;
+            }
+            #page-records #quiz-panel:not(.hidden) #card-detail-actions button > * {
+                pointer-events: none !important;
             }
             #cn-fs-toolbar {
                 gap: 8px !important;
@@ -17864,6 +17871,46 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             document.body.style.overflow = 'hidden';
             cnUpdate();
         }
+
+        // iOS Safari에서 스크롤 패널 안 버튼의 시각적 위치와 실제 hit-test가
+        // 어긋나는 경우가 있어, 모바일 상세 상단 두 버튼은 화면 좌표로도 판별합니다.
+        let cnMobileHeaderActionAt = 0;
+        function cnHandleMobileHeaderAction(event) {
+            if (!window.matchMedia('(max-width: 639px)').matches) return;
+            const panel = document.getElementById('quiz-panel');
+            if (!panel || panel.classList.contains('hidden')) return;
+
+            const touch = event.changedTouches && event.changedTouches[0];
+            const clientX = touch ? touch.clientX : event.clientX;
+            const clientY = touch ? touch.clientY : event.clientY;
+            if (!Number.isFinite(clientX) || !Number.isFinite(clientY)) return;
+
+            const fullscreenButton = document.getElementById('cn-fullscreen-btn');
+            const closeButton = document.getElementById('card-close-btn');
+            const isInside = (element) => {
+                if (!element) return false;
+                const rect = element.getBoundingClientRect();
+                return clientX >= rect.left && clientX <= rect.right
+                    && clientY >= rect.top && clientY <= rect.bottom;
+            };
+
+            const wantsFullscreen = isInside(fullscreenButton);
+            const wantsClose = !wantsFullscreen && isInside(closeButton);
+            if (!wantsFullscreen && !wantsClose) return;
+
+            if (event.cancelable) event.preventDefault();
+            event.stopImmediatePropagation();
+
+            const now = Date.now();
+            if (now - cnMobileHeaderActionAt < 350) return;
+            cnMobileHeaderActionAt = now;
+
+            if (wantsFullscreen) cnOpenFullscreen();
+            else requestStopReading();
+        }
+        document.addEventListener('pointerup', cnHandleMobileHeaderAction, true);
+        document.addEventListener('touchend', cnHandleMobileHeaderAction, { capture: true, passive: false });
+        document.addEventListener('click', cnHandleMobileHeaderAction, true);
 
         function cnCloseFullscreen() {
             const fs = document.getElementById('cn-fs');
