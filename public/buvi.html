@@ -327,12 +327,12 @@
             background: #047857;
         }
         .result-risk-marker-dot {
-            /* 막대 최상단에 걸쳐 표시해 내부 상태 텍스트를 가리지 않는다. */
+            /* 막대 최상단의 안쪽에 붙여 그래프 밖으로 튀어나오지 않게 한다. */
             top: 0 !important;
             width: 18px;
             height: 18px;
             border: 3px solid #FFFFFF;
-            transform: translate(-50%, -50%);
+            transform: translateX(-50%);
             background: #16A34A;
             box-shadow: 0 0 0 1px rgba(4, 120, 87, .2), 0 1px 3px rgba(0, 0, 0, .2);
         }
