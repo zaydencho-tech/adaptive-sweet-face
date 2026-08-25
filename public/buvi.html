@@ -10753,6 +10753,12 @@
             background: #1A1A1A !important;
             border-color: #1A1A1A !important;
             color: #FFFFFF !important;
+            line-height: 1.65 !important;
+        }
+        /* '나의 프로필과 질문' 선택 뒤의 답변은 결과 요약 문장과 같은
+           relaxed 행간을 사용해 여러 줄이어도 답답하게 붙지 않게 합니다. */
+        #page-chat #chat-scroller .chat-message-bubble.profile-question-answer {
+            line-height: 1.65 !important;
         }
         #page-chat #chat-scroller .user-message-row .chat-user-avatar {
             order: 2;
@@ -16169,7 +16175,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
 
         }
 
-        function appendBotMsg(html) {
+        function appendBotMsg(html, messageClass = '') {
             const scroller = document.getElementById('chat-scroller');
             if(!scroller) return;
             const row = document.createElement('div');
@@ -16178,7 +16184,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                 <div class="buvi-avatar-circle buvi-avatar-align">
                     <img src="${BUVI_IMG_11}" class="w-9 h-9 object-contain" alt="">
                 </div>
-                <div class="chat-message-bubble bg-white p-4 rounded-3xl border shadow-sm font-bold scaled-text-base leading-snug max-w-[85%]">
+                <div class="chat-message-bubble ${messageClass} bg-white p-4 rounded-3xl border shadow-sm font-bold scaled-text-base leading-snug max-w-[85%]">
                     ${html}
                 </div>
             `;
@@ -16285,7 +16291,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                     const resJson = await response.json();
                     const textOut = resJson.candidates?.[0]?.content?.parts?.[0]?.text;
                     if(textOut) {
-                        appendBotMsg(textOut);
+                        appendBotMsg(textOut, isProfileQuestion ? 'profile-question-answer' : '');
                         updateBuvi('2-2', '답변이 완료되었습니다, 어르신.');
                         return;
                     }
@@ -16308,7 +16314,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                 } else {
                     updateBuvi('2-2', '도움이 되셨길 기원합니다.');
                 }
-                appendBotMsg(match);
+                appendBotMsg(match, isProfileQuestion ? 'profile-question-answer' : '');
             }, 1200);
         }
 
