@@ -15938,6 +15938,31 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             });
         }
 
+        function getContentFontScaleBase(element) {
+            const savedFontSize = Number(element.dataset.buviFontScaleBaseSize);
+            const savedLineHeight = Number(element.dataset.buviFontScaleBaseHeight);
+            if (Number.isFinite(savedFontSize) && savedFontSize > 0) {
+                return {
+                    fontSize: savedFontSize,
+                    lineHeight: Number.isFinite(savedLineHeight) && savedLineHeight > 0 ? savedLineHeight : null
+                };
+            }
+
+            const computed = window.getComputedStyle(element);
+            const fontSize = parseFloat(computed.fontSize);
+            const lineHeight = computed.lineHeight === 'normal' ? null : parseFloat(computed.lineHeight);
+            if (Number.isFinite(fontSize) && fontSize > 0) {
+                // 일반 콘텐츠도 설문 버튼과 동일하게 최초 1.0 기준값을 한 번만
+                // 보관한다. 모달 표시·카드 선택 등 DOM 변경 후 재적용되어도
+                // 직전에 확대된 글자 크기를 다시 기준값으로 삼지 않는다.
+                element.dataset.buviFontScaleBaseSize = String(fontSize);
+                if (Number.isFinite(lineHeight) && lineHeight > 0) {
+                    element.dataset.buviFontScaleBaseHeight = String(lineHeight);
+                }
+            }
+            return { fontSize, lineHeight };
+        }
+
         function getSurveyButtonFontScaleTargets() {
             return [...document.querySelectorAll('#page-survey-start button, #page-survey button')]
                 .filter(button => !button.closest('[data-font-scale-fixed], .font-scale-btn, .font-scale-select-wrap'));
@@ -16029,12 +16054,10 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
 
             // 모든 기준값을 먼저 읽은 다음 한 번에 적용한다. 부모/자식 텍스트가
             // 서로의 계산 결과에 영향을 주지 않도록 하기 위함이다.
-            const measurements = getContentFontScaleTargets().map(element => {
-                const computed = window.getComputedStyle(element);
-                const fontSize = parseFloat(computed.fontSize);
-                const lineHeight = computed.lineHeight === 'normal' ? null : parseFloat(computed.lineHeight);
-                return { element, fontSize, lineHeight };
-            }).filter(({ fontSize }) => Number.isFinite(fontSize) && fontSize > 0);
+            const measurements = getContentFontScaleTargets().map(element => ({
+                element,
+                ...getContentFontScaleBase(element)
+            })).filter(({ fontSize }) => Number.isFinite(fontSize) && fontSize > 0);
 
             measurements.forEach(({ element, fontSize, lineHeight }) => {
                 contentFontScaleInlineStyles.set(element, {
