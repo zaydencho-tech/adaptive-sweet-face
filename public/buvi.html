@@ -10801,6 +10801,88 @@
             }
         }
 
+        /* 큰 글자 단계에서도 로그인 전 데스크톱 화면의 두 열 높이 배분은
+           글자 크기와 무관하게 유지합니다. 좌측 폼은 고정된 화면 비율을
+           지키고, 내용이 많아질 때만 폼 안에서 스크롤됩니다. */
+        @media (min-width: 1025px) {
+            body.login-as-about.font-scale-expanded,
+            body.login-as-about.font-scale-expanded > main,
+            body.login-as-about.font-scale-expanded #page-login,
+            body.login-as-about.font-scale-expanded #page-login > div {
+                height: 100dvh !important;
+                min-height: 0 !important;
+                max-height: 100dvh !important;
+                overflow: hidden !important;
+            }
+
+            body.login-as-about.font-scale-expanded #page-login > div > div:first-child {
+                display: flex !important;
+                flex-direction: column !important;
+                height: 100% !important;
+                min-height: 0 !important;
+                overflow: hidden !important;
+            }
+
+            body.login-as-about.font-scale-expanded #page-login .login-hero-layout {
+                flex: 1 1 auto !important;
+                min-height: 0 !important;
+            }
+
+            body.login-as-about.font-scale-expanded #login-form {
+                flex: 0 0 clamp(380px, 46.8dvh, 505px) !important;
+                width: auto !important;
+                height: clamp(380px, 46.8dvh, 505px) !important;
+                min-height: 0 !important;
+                margin: auto 20px 0 !important;
+                padding: 22px 32px 24px !important;
+                overflow-x: hidden !important;
+                overflow-y: auto !important;
+                scrollbar-gutter: stable;
+            }
+
+            body.login-as-about.font-scale-expanded #login-form > * + * {
+                margin-top: 12px !important;
+            }
+
+            body.login-as-about.font-scale-expanded #login-form .buvi-hero-input,
+            body.login-as-about.font-scale-expanded #login-form > button {
+                height: 52px !important;
+                min-height: 52px !important;
+            }
+
+            /* 우측 B·U·V·I 카드는 균일한 4등분 높이를 유지합니다. */
+            body.login-as-about.font-scale-expanded #login-about-mount {
+                height: 100% !important;
+                min-height: 0 !important;
+                max-height: 100% !important;
+                overflow: hidden !important;
+            }
+
+            body.login-as-about.font-scale-expanded #login-about-mount > .about-desktop-layout.lg\:block {
+                display: grid !important;
+                grid-template-rows: clamp(210px, 26dvh, 340px) minmax(0, 1fr) !important;
+                height: 100% !important;
+                min-height: 0 !important;
+                overflow: hidden !important;
+            }
+
+            body.login-as-about.font-scale-expanded #login-about-mount > .about-desktop-layout.lg\:block > .about-promise-list {
+                display: grid !important;
+                grid-template-rows: repeat(4, minmax(0, 1fr)) !important;
+                height: 100% !important;
+                min-height: 0 !important;
+                overflow: hidden !important;
+            }
+
+            body.login-as-about.font-scale-expanded #login-about-mount .about-promise-card,
+            body.login-as-about.font-scale-expanded #login-about-mount .about-promise-card > div:first-child,
+            body.login-as-about.font-scale-expanded #login-about-mount .about-promise-card > div:first-child > div {
+                height: 100% !important;
+                min-height: 0 !important;
+                overflow: hidden !important;
+            }
+        }
+
 		</style>
 
 </head>
