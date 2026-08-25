@@ -12751,6 +12751,9 @@
                     narrativeBox.style.removeProperty('display');
                 }
             } catch(_) {}
+            // 로그인 우측 소개 영역은 로그인 페이지 진입 시 복제되므로, 복제 직후에도
+            // 현재 선택된 글자 크기 단계를 즉시 적용합니다.
+            applyAboutHeroFontScale(state.fontScale);
             handlePageEntranceEffects(pageId);
             if (pageId === 'home') renderHomeDashboard();
         }
@@ -16941,6 +16944,47 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             }, { passive: true });
         }
 
+        // BUVI 알아보기의 데스크톱 노란 히어로는 여러 인라인 span으로 구성되어
+        // 공통 확대보다 화면별 차이가 나기 쉽습니다. 네 단계의 절대 픽셀 값을
+        // 마지막에 직접 적용해 기존 반응형 !important 규칙과 섞이지 않게 합니다.
+        const ABOUT_HERO_FONT_LEVELS = Object.freeze({
+            0.95: { title: 34, copy: 14, badge: 12 },
+            1: { title: 36, copy: 15, badge: 13 },
+            1.15: { title: 41, copy: 17, badge: 15 },
+            1.3: { title: 47, copy: 19, badge: 17 }
+        });
+        const LOGIN_ABOUT_HERO_FONT_LEVELS = Object.freeze({
+            0.95: { title: 25, copy: 13, badge: 12 },
+            1: { title: 26, copy: 14, badge: 13 },
+            1.15: { title: 30, copy: 16, badge: 15 },
+            1.3: { title: 34, copy: 18, badge: 17 }
+        });
+        function applyAboutHeroFontScale(scale = state.fontScale) {
+            if (!window.matchMedia('(min-width: 1025px)').matches) return;
+            const absoluteScale = normalizeFontScale(scale);
+            [
+                ['#page-about .about-desktop-layout > div:first-child', ABOUT_HERO_FONT_LEVELS],
+                ['#login-about-mount > .about-desktop-layout > div:first-child', LOGIN_ABOUT_HERO_FONT_LEVELS]
+            ].forEach(([selector, levels]) => {
+                const hero = document.querySelector(selector);
+                if (!hero) return;
+                const sizes = levels[absoluteScale] || levels[1];
+                hero.querySelectorAll('h1').forEach(el => {
+                    el.style.setProperty('font-size', `${sizes.title}px`, 'important');
+                    el.style.setProperty('line-height', '1.12', 'important');
+                });
+                hero.querySelectorAll('p').forEach(el => {
+                    el.style.setProperty('font-size', `${sizes.copy}px`, 'important');
+                    el.style.setProperty('line-height', '1.4', 'important');
+                });
+                hero.querySelectorAll('.mt-6 > span').forEach(el => {
+                    el.style.setProperty('font-size', `${sizes.badge}px`, 'important');
+                    el.style.setProperty('line-height', '1.2', 'important');
+                    el.style.setProperty('white-space', 'nowrap', 'important');
+                });
+            });
+        }
+
         function setFontScale(scale) {
             const absoluteScale = normalizeFontScale(scale);
             state.fontScale = absoluteScale;
@@ -16955,6 +16999,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                 contentFontScaleFrame = 0;
             }
             applyContentFontScale(absoluteScale);
+            applyAboutHeroFontScale(absoluteScale);
             try { localStorage.setItem('buvi.fontScale', String(absoluteScale)); } catch(e){}
             updateFontScaleUI(absoluteScale);
             scheduleHeaderFontControlLayout();
