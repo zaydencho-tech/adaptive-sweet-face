@@ -10927,6 +10927,27 @@
             }
         }
 
+        /* 고정 네비게이션과의 간격은 컨테이너 계산 대신 화면 기준으로 보장합니다.
+           네비바 높이(100px) + 간격(40px)만큼 위에 입력창을 고정합니다. */
+        @media (min-width: 1025px) {
+            body.is-authenticated.subpage-mode:has(#page-chat:not(.hidden))
+            #page-chat .chat-composer {
+                position: fixed !important;
+                left: 40px !important;
+                right: 40px !important;
+                bottom: 140px !important;
+                width: auto !important;
+                margin: 0 !important;
+                box-sizing: border-box !important;
+                z-index: 90 !important;
+            }
+
+            body.is-authenticated.subpage-mode:has(#page-chat:not(.hidden))
+            #page-chat #chat-scroller {
+                padding-bottom: 124px !important;
+            }
+        }
+
 		</style>
 
 </head>
