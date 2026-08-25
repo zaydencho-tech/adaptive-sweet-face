@@ -10616,6 +10616,80 @@
             }
         }
 
+        /* 설문 완료 후 채팅 내역 끝에 표시하는 개인화 추천 질문 */
+        body:not(.high-contrast) #page-chat .chat-conversation .chat-recommended-questions,
+        #page-chat .chat-recommended-questions {
+            margin: 4px 0 0 48px;
+            padding: 14px;
+            border: 1px solid #E2E5EA !important;
+            border-radius: 16px;
+            background: #FFFFFF;
+        }
+
+        #page-chat .chat-recommended-heading {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            color: #1A1A1A;
+            font-size: calc(15px * var(--font-scale));
+            font-weight: 900;
+        }
+
+        #page-chat .chat-recommended-heading i {
+            display: inline-flex;
+            width: 26px;
+            height: 26px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            background: #FEE500;
+            color: #1A1A1A;
+            font-size: 13px;
+        }
+
+        #page-chat .chat-recommended-list {
+            display: grid;
+            gap: 7px;
+        }
+
+        body:not(.high-contrast) #page-chat .chat-conversation .chat-recommended-list button,
+        #page-chat .chat-recommended-list button {
+            width: 100%;
+            min-height: 42px;
+            padding: 9px 12px;
+            border: 1px solid #E2E5EA !important;
+            border-radius: 11px;
+            background: #F8F9FA;
+            color: #374151;
+            font-size: calc(13px * var(--font-scale));
+            font-weight: 700;
+            line-height: 1.4;
+            text-align: left;
+            word-break: keep-all;
+            transition: background-color .18s ease, border-color .18s ease;
+        }
+
+        #page-chat .chat-recommended-list button:hover,
+        #page-chat .chat-recommended-list button:focus-visible {
+            border-color: #E0B900 !important;
+            background: #FFF8C9;
+            outline: 0;
+        }
+
+        @media (max-width: 639px) {
+            body:not(.high-contrast) #page-chat .chat-conversation .chat-recommended-questions,
+            #page-chat .chat-recommended-questions {
+                margin-left: 0;
+                padding: 12px;
+                border-radius: 14px;
+            }
+            #page-chat .chat-recommended-list button {
+                min-height: 40px;
+                font-size: calc(12px * var(--font-scale));
+            }
+        }
+
 		</style>
 
 </head>
@@ -11381,8 +11455,6 @@
             <div class="chat-page-shell space-y-3 lg:space-y-0">
                 <div class="chat-conversation bg-white rounded-3xl p-5 shadow-md border-2 flex flex-col h-[650px]">
                     <div id="chat-scroller" class="flex-grow overflow-y-auto pt-3 pb-4 space-y-4 pr-1"></div>
-
-                    <div id="chat-action-chips" class="chat-action-accordions hidden"></div>
 
                     <div class="chat-composer">
                         <textarea id="chat-input" rows="3" onkeydown="if(event.key==='Enter' && !event.shiftKey){ event.preventDefault(); sendUserMessage(); }" class="min-h-[108px] flex-grow resize-none rounded-xl px-4 py-3 font-bold leading-relaxed focus:outline-none focus:ring-4 focus:ring-yellow-200" placeholder="메시지를 입력하세요" aria-label="상담 메시지 입력"></textarea>
@@ -15534,9 +15606,9 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                     </div>`);
             }, 5000);
 
-            // ── 4단계 행동 유도 칩 표시 ──────────────────────────────
+            // ── 추천 질문 표시 ──────────────────────────────────────
             setTimeout(() => {
-                showChips();
+                showRecommendedQuestions();
                 updateBuvi('1-3', '노쇠 예측 설문 결과를 기반으로 개별화된 건강 결과를 확인하고, 상담받아 보세요.');
             }, 6500);
 
@@ -15597,82 +15669,31 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             state.chatRecords.push({ role:'user', message:text, timestamp:new Date().toISOString() });
         }
 
-        function showChips() {
-            const chips = document.getElementById('chat-action-chips');
-            if(!chips) return;
-            chips.classList.remove('hidden');
-            chips.innerHTML = `
-                <details class="chat-action-accordion" open ontoggle="handleChatActionAccordionToggle(this)">
-                    <summary>결과를 자세히 설명받기</summary>
-                    <div class="chat-action-accordion-body">
-                        <p>현재 결과에서 가장 먼저 살펴볼 보행기능과 활동량을 중심으로, 오늘부터 안전하게 실천할 수 있는 방법을 자세히 설명해 주세요.</p>
-                        <button type="button" class="chat-action-select-btn" onclick="handleChipClick('gait')">이 내용으로 상담하기</button>
-                    </div>
-                </details>
-                <details class="chat-action-accordion" ontoggle="handleChatActionAccordionToggle(this)">
-                    <summary>다른 건강 영역 먼저 보기</summary>
-                    <div class="chat-action-accordion-body">
-                        <p>보행기능 설명보다 피로감, 수면, 식사처럼 다른 건강 영역을 먼저 확인하고 제게 맞는 관리 방법을 알려 주세요.</p>
-                        <button type="button" class="chat-action-select-btn" onclick="handleChipClick('other')">이 내용으로 상담하기</button>
-                    </div>
-                </details>
-                <details class="chat-action-accordion" ontoggle="handleChatActionAccordionToggle(this)">
-                    <summary>직접 질문 입력하기</summary>
-                    <div class="chat-action-accordion-body">
-                        <p>검사 결과 외에 평소 불편했던 증상을 직접 적어 보겠습니다. 궁금한 내용을 입력해 상담을 이어가고 싶습니다.</p>
-                        <button type="button" class="chat-action-select-btn" onclick="handleChipClick('free')">직접 질문 입력하기</button>
-                    </div>
-                </details>
-            `;
-            
+        function showRecommendedQuestions() {
+            const scroller = document.getElementById('chat-scroller');
+            if (!scroller || scroller.querySelector('.chat-recommended-questions')) return;
+            const row = document.createElement('div');
+            row.className = 'chat-recommended-questions animate-fade-in';
+            row.innerHTML = `
+                <div class="chat-recommended-heading"><i class="fa-solid fa-user" aria-hidden="true"></i><span>나의 프로필과 질문</span></div>
+                <div class="chat-recommended-list">
+                    <button type="button" data-question="외롭고 혼자라는 생각이 많이 들면 어디에 도움을 청하나요?" onclick="chooseRecommendedQuestion(this)">외롭고 혼자라는 생각이 많이 들면 어디에 도움을 청하나요?</button>
+                    <button type="button" data-question="마음 건강을 지키려면 평소에 무엇을 하면 좋나요?" onclick="chooseRecommendedQuestion(this)">마음 건강을 지키려면 평소에 무엇을 하면 좋나요?</button>
+                    <button type="button" data-question="스트레스를 혼자서 해소하기 어렵다면 어떻게 해야 하나요?" onclick="chooseRecommendedQuestion(this)">스트레스를 혼자서 해소하기 어렵다면 어떻게 해야 하나요?</button>
+                    <button type="button" data-question="다른 추천 질문 알려줘" onclick="chooseRecommendedQuestion(this)">다른 추천 질문 알려줘</button>
+                </div>`;
+            scroller.appendChild(row);
+            scroller.scrollTop = scroller.scrollHeight;
         }
 
-        function handleChatActionAccordionToggle(openedAccordion) {
-            if (!openedAccordion?.open) return;
-            document.querySelectorAll('#chat-action-chips .chat-action-accordion').forEach(accordion => {
-                if (accordion !== openedAccordion) accordion.open = false;
-            });
-        }
-
-        function handleChipClick(type) {
-            const actionChips = document.getElementById('chat-action-chips');
-            if(actionChips) actionChips.classList.add('hidden');
-            
-            if (type === 'gait') {
-                appendUserMsg("네, 자세하게 설명해 주세요.");
-                setTimeout(() => {
-                    const actionableFactors = (state.result.sortedContribs || [])
-                        .filter(factor => factor.value > 0 && factor.key !== 'age');
-                    const topFactor = actionableFactors[0] || (state.result.sortedContribs || []).find(factor => factor.key !== 'age');
-                    const guidanceByKey = {
-                        tug: '넘어질 위험이 없는 등받이 의자에서 천천히 앉았다 일어나기를 5회씩 연습하고, 보호자와 함께 짧은 평지 걷기부터 시작해 주세요.',
-                        met_score: '한 번에 무리하지 말고 10분 걷기를 하루 2~3번으로 나누어 시작해 주세요. 어지럽거나 숨이 지나치게 차면 즉시 쉬어야 합니다.',
-                        sgdsk_score: '낮 시간 햇볕을 쬐며 가까운 사람과 대화하는 시간을 정해 보세요. 우울감이 2주 이상 지속되거나 일상이 힘들면 의료진에게 알려 주세요.',
-                        bmi: '매끼 단백질 반찬과 충분한 수분을 챙기고, 갑작스러운 체중 변화가 있으면 보건소나 의료진과 상의해 주세요.',
-                        polypharm: '약을 임의로 줄이거나 끊지 말고, 복용 중인 약 목록을 준비해 의사나 약사에게 중복·상호작용 검토를 요청해 주세요.'
-                    };
-                    const factorLabel = topFactor?.label || '보행기능';
-                    const guidance = guidanceByKey[topFactor?.key] || guidanceByKey.tug;
-                    appendBotMsg(`
-                        <strong>가장 먼저 살펴볼 항목은 ${factorLabel}입니다.</strong> 🦉<br><br>
-                        ${guidance}<br><br>
-                        <span class="text-gray-500">통증·어지럼증·호흡곤란이 생기면 활동을 중단하고 보호자나 의료진에게 알려 주세요.</span>
-                    `);
-                    updateBuvi('2-2', `${factorLabel}을 안전하게 관리하는 첫 행동을 안내했습니다.`);
-                }, 1000);
-            } else if (type === 'other') {
-                appendUserMsg("다른 피로도 관리 방법을 먼저 가르쳐 주세요.");
-                setTimeout(() => {
-                    appendBotMsg("피로감 극복을 위해 어르신의 충분한 기력 수면 확보와 수분 보충 습관을 돕는 '정신건강 케어 도우미 책자'의 유용한 운동 수칙을 읽어보시기를 정중히 제안합니다.");
-                    updateBuvi('1-3', '노쇠 예측 설문 결과를 기반으로 개별화된 건강 결과를 확인하고, 상담받아 보세요.');
-                }, 1000);
-            } else {
-                appendUserMsg("제가 직접 수동으로 질문해 볼게요.");
-                setTimeout(() => {
-                    appendBotMsg("좋습니다, 어르신! 아래 문자 입력창을 가볍게 터치하셔서 평소 궁금하셨던 음식 드시는 규칙이나 하체 건강 걷기 등에 관하여 무엇이든 자유롭게 조언을 구해 보세요.");
-                    updateBuvi('1-1', '수동 대화 상태로 치환했습니다. 무엇이든 질문해 주세요.');
-                }, 1000);
-            }
+        function chooseRecommendedQuestion(button) {
+            const question = button?.dataset.question?.trim();
+            if (!question) return;
+            button.closest('.chat-recommended-questions')?.remove();
+            const input = document.getElementById('chat-input');
+            if (!input) return;
+            input.value = question;
+            sendUserMessage();
         }
 
         async function sendUserMessage() {
