@@ -5297,6 +5297,32 @@
             line-height: 1.18 !important;
         }
 
+        /* 로그인 전 데스크톱에서 큰 글자 단계를 선택하면 우측 소개 영역의
+           4개 약속 카드가 고정된 한 화면 높이보다 커질 수 있다. 이때 카드
+           내부를 잘라내지 않고, 우측 영역만 자연스럽게 스크롤되도록 한다. */
+        @media (min-width: 1025px) {
+            body.login-as-about.font-scale-expanded #login-about-mount {
+                overflow-x: hidden !important;
+                overflow-y: auto !important;
+                overscroll-behavior: contain;
+            }
+
+            body.login-as-about.font-scale-expanded #login-about-mount > .about-desktop-layout.lg\:block,
+            body.login-as-about.font-scale-expanded #login-about-mount > .about-desktop-layout.lg\:block > .about-promise-list {
+                flex: 0 0 auto !important;
+                height: auto !important;
+                min-height: max-content !important;
+            }
+
+            body.login-as-about.font-scale-expanded #login-about-mount .about-promise-card,
+            body.login-as-about.font-scale-expanded #login-about-mount .about-promise-card > div:first-child,
+            body.login-as-about.font-scale-expanded #login-about-mount .about-promise-card > div:first-child > div {
+                height: auto !important;
+                min-height: max-content !important;
+                overflow: visible !important;
+            }
+        }
+
         /* BUVI 알아보기는 태블릿에서도 화면 바깥 여백을 한 번만 적용합니다.
            1024px에서 about-layout의 24px가 main 여백과 겹치던 문제를 제거합니다. */
         @media (min-width: 768px) and (max-width: 1024px) {
@@ -16152,6 +16178,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
         function setFontScale(scale) {
             const absoluteScale = normalizeFontScale(scale);
             state.fontScale = absoluteScale;
+            document.body.classList.toggle('font-scale-expanded', absoluteScale > 1);
             document.documentElement.style.setProperty('--font-scale', absoluteScale);
             // 문항을 새로 그린 직후에는 MutationObserver가 예약한 확대 프레임이
             // 남아 있을 수 있다. 여기서 현재 화면 전체에 즉시 적용하므로 그
@@ -16256,6 +16283,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                 if (stored !== null) {
                     const saved = normalizeFontScale(stored);
                     state.fontScale = saved;
+                    document.body.classList.toggle('font-scale-expanded', saved > 1);
                     document.documentElement.style.setProperty('--font-scale', saved);
                     // 과거의 임의 저장값도 네 단계 중 하나로 되돌려 이후 화면에서
                     // 증감값처럼 누적되어 보이지 않게 한다.
