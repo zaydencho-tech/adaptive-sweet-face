@@ -16851,11 +16851,12 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                 </li>
             `).join('');
             const sizeStyle = fullscreen
-                ? 'width:min(100vw,100vh);height:min(100vw,100vh);max-width:100vw;max-height:100vh;'
+                ? 'width:min(100%,960px);height:auto;max-width:100%;max-height:none;'
                 : 'width:100%;height:100%;';
+            const overflowStyle = fullscreen ? 'overflow:visible;' : 'overflow-y:auto;';
             return `
                 <article class="health-native-slide rounded-2xl border-2 shadow-md text-charcoal hc-text"
-                    style="${sizeStyle}background:${cnEscape(slide.tone || '#FFF8D6')};border-color:#D8D0C0;overflow-y:auto;padding:clamp(15px,3%,22px);display:flex;flex-direction:column;gap:clamp(7px,1.8%,10px);">
+                    style="${sizeStyle}background:${cnEscape(slide.tone || '#FFF8D6')};border-color:#D8D0C0;${overflowStyle}padding:clamp(15px,3%,22px);display:flex;flex-direction:column;gap:clamp(7px,1.8%,10px);">
                     <div class="flex items-center justify-between gap-3">
                         <span class="rounded-full bg-white/90 font-black" style="padding:6px 12px;font-size:clamp(12px,calc(14px * var(--font-scale)),15px);">${cnEscape(slide.tag)}</span>
                         ${renderHealthVisual(slide.image, '', slide.image?.includes('./owl-') ? 'object-contain' : 'scene-icon--health-slide', 'width:clamp(50px,15%,78px);height:clamp(50px,15%,78px);object-fit:contain;flex:none;')}
@@ -17051,23 +17052,25 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             if (document.getElementById('cn-fs')) return;
             const fs = document.createElement('div');
             fs.id = 'cn-fs';
-            fs.style.cssText = 'position:fixed;inset:0;z-index:200;background:#000;display:none;align-items:center;justify-content:center;';
+            fs.style.cssText = 'position:fixed;inset:0;z-index:200;background:#000;display:none;overflow-y:auto;overscroll-behavior:contain;';
             fs.innerHTML = `
-                <img id="cn-fs-img" alt="카드뉴스" style="width:min(100vw,100vh);height:auto;max-width:100vw;max-height:100vh;object-fit:contain;display:block;">
-                <div id="cn-fs-native" style="display:none;"></div>
-                <button id="cn-fs-tap-prev" aria-label="이전 장" style="position:absolute;left:0;top:0;height:100%;width:33%;background:transparent;border:0;cursor:pointer;display:flex;align-items:center;justify-content:flex-start;padding-left:8px;">
+                <div id="cn-fs-content" style="position:relative;min-height:100%;width:100%;display:flex;flex-direction:column;align-items:center;padding:16px 16px 28px;">
+                    <div id="cn-fs-toolbar" style="width:min(100%,960px);display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;">
+                        <span id="cn-fs-counter" style="background:rgba(0,0,0,0.6);color:#FEE500;font-weight:900;padding:8px 16px;border-radius:9999px;font-size:18px;">1 / ${cnState.imgs.length}</span>
+                        <div style="display:flex;align-items:center;gap:12px;">
+                            <button id="cn-fs-close-bottom" aria-label="전체화면 닫기" style="background:#FEE500;color:#1A1A1A;border:0;cursor:pointer;font-weight:900;padding:0 18px;height:52px;border-radius:9999px;font-size:16px;box-shadow:0 4px 14px rgba(0,0,0,0.4);white-space:nowrap;">전체화면 닫기</button>
+                            <button id="cn-fs-close" aria-label="전체화면 닫기" style="background:rgba(0,0,0,0.6);color:#fff;border:0;cursor:pointer;width:52px;height:52px;border-radius:9999px;font-size:26px;font-weight:900;display:flex;align-items:center;justify-content:center;">✕</button>
+                        </div>
+                    </div>
+                    <img id="cn-fs-img" alt="카드뉴스" style="width:min(100%,960px);height:auto;max-width:100%;max-height:none;object-fit:contain;display:block;">
+                    <div id="cn-fs-native" style="display:none;width:min(100%,960px);max-width:100%;"></div>
+                </div>
+                <button id="cn-fs-tap-prev" aria-label="이전 장" style="position:fixed;left:0;top:50%;transform:translateY(-50%);height:96px;width:96px;background:transparent;border:0;cursor:pointer;display:flex;align-items:center;justify-content:flex-start;padding-left:8px;">
                     <span style="background:rgba(0,0,0,0.5);color:#fff;border-radius:9999px;width:64px;height:64px;display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:900;">‹</span>
                 </button>
-                <button id="cn-fs-tap-next" aria-label="다음 장" style="position:absolute;right:0;top:0;height:100%;width:33%;background:transparent;border:0;cursor:pointer;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;">
+                <button id="cn-fs-tap-next" aria-label="다음 장" style="position:fixed;right:0;top:50%;transform:translateY(-50%);height:96px;width:96px;background:transparent;border:0;cursor:pointer;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;">
                     <span style="background:rgba(0,0,0,0.5);color:#fff;border-radius:9999px;width:64px;height:64px;display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:900;">›</span>
                 </button>
-                <div style="position:absolute;top:16px;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:0 16px;pointer-events:none;">
-                    <span id="cn-fs-counter" style="background:rgba(0,0,0,0.6);color:#FEE500;font-weight:900;padding:8px 16px;border-radius:9999px;font-size:18px;">1 / ${cnState.imgs.length}</span>
-                    <div style="display:flex;align-items:center;gap:12px;pointer-events:auto;">
-                        <button id="cn-fs-close-bottom" aria-label="전체화면 닫기" style="background:#FEE500;color:#1A1A1A;border:0;cursor:pointer;font-weight:900;padding:0 18px;height:52px;border-radius:9999px;font-size:16px;box-shadow:0 4px 14px rgba(0,0,0,0.4);white-space:nowrap;">전체화면 닫기</button>
-                        <button id="cn-fs-close" aria-label="전체화면 닫기" style="background:rgba(0,0,0,0.6);color:#fff;border:0;cursor:pointer;width:52px;height:52px;border-radius:9999px;font-size:26px;font-weight:900;display:flex;align-items:center;justify-content:center;">✕</button>
-                    </div>
-                </div>
             `;
             document.body.appendChild(fs);
             fs.querySelector('#cn-fs-tap-prev').addEventListener('click', () => cnGo(-1));
@@ -17087,7 +17090,9 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
         function cnOpenFullscreen() {
             if (!cnState.imgs.length) return;
             cnEnsureFullscreenDom();
-            document.getElementById('cn-fs').style.display = 'flex';
+            const fs = document.getElementById('cn-fs');
+            fs.style.display = 'block';
+            fs.scrollTop = 0;
             document.body.style.overflow = 'hidden';
             cnUpdate();
         }
@@ -17101,7 +17106,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
         // 키보드 조작: 좌우 화살표로 넘기기, Esc로 전체화면 닫기
         document.addEventListener('keydown', (e) => {
             const fs = document.getElementById('cn-fs');
-            const fsOpen = fs && fs.style.display === 'flex';
+            const fsOpen = fs && fs.style.display !== 'none';
             if (fsOpen && e.key === 'Escape') { cnCloseFullscreen(); e.preventDefault(); return; }
             const panel = document.getElementById('quiz-panel');
             const stage = document.getElementById('cn-stage');
