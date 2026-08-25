@@ -10411,8 +10411,9 @@
             display: flex !important;
             flex-direction: column !important;
             gap: 8px !important;
-            padding: 12px clamp(12px, 2vw, 20px) !important;
-            border-top: 1px solid #E8E5DE !important;
+            /* 대화 내역(#chat-scroller)과 같은 좌우 여백으로 정렬한다. */
+            padding: 12px clamp(16px, 2vw, 20px) !important;
+            border-top: 0 !important;
         }
 
         #chat-action-chips .chat-action-accordion {
@@ -10486,7 +10487,7 @@
         @media (max-width: 639px) {
             #chat-action-chips.chat-action-accordions:not(.hidden) {
                 gap: 6px !important;
-                padding: 8px 12px !important;
+                padding: 8px 16px !important;
             }
             #chat-action-chips .chat-action-accordion > summary {
                 min-height: 40px;
