@@ -10631,7 +10631,6 @@
         #page-chat .chat-recommended-heading {
             display: flex;
             align-items: center;
-            gap: 8px;
             margin-bottom: 10px;
             color: #1A1A1A;
             font-size: calc(18px * var(--font-scale));
@@ -10639,16 +10638,19 @@
             font-weight: 900;
         }
 
-        #page-chat .chat-recommended-heading i {
+        /* 내 추천 질문은 부비 프로필과 같은 크기의 컬러 프로필로 표시한다. */
+        #page-chat .chat-user-avatar {
             display: inline-flex;
-            width: 26px;
-            height: 26px;
+            width: 48px;
+            height: 48px;
             align-items: center;
             justify-content: center;
             border-radius: 999px;
-            background: #FFFFFF;
-            color: #1A1A1A;
-            font-size: 13px;
+            flex: 0 0 48px;
+            margin-top: 5px;
+            background: #FEE500;
+            color: #4C3A9E;
+            font-size: 20px;
         }
 
         #page-chat .chat-recommended-list {
@@ -15680,7 +15682,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             row.className = 'msg-row chat-recommended-row flex gap-3 justify-end items-start animate-fade-in';
             row.innerHTML = `
                 <div class="chat-recommended-questions">
-                    <div class="chat-recommended-heading"><i class="fa-solid fa-user" aria-hidden="true"></i><span>나의 프로필과 질문</span></div>
+                    <div class="chat-recommended-heading"><span>나의 프로필과 질문</span></div>
                     <div class="chat-recommended-list">
                         <button type="button" data-question="외롭고 혼자라는 생각이 많이 들면 어디에 도움을 청하나요?" onclick="chooseRecommendedQuestion(this)">외롭고 혼자라는 생각이 많이 들면 어디에 도움을 청하나요?</button>
                         <button type="button" data-question="마음 건강을 지키려면 평소에 무엇을 하면 좋나요?" onclick="chooseRecommendedQuestion(this)">마음 건강을 지키려면 평소에 무엇을 하면 좋나요?</button>
@@ -15688,7 +15690,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                         <button type="button" data-question="다른 추천 질문 알려줘" onclick="chooseRecommendedQuestion(this)">다른 추천 질문 알려줘</button>
                     </div>
                 </div>
-                <div class="fill-icon flex-shrink-0 w-9 h-9 text-[#4c3a9e]" aria-label="나의 프로필"><i class="fa-solid fa-user" aria-hidden="true"></i></div>`;
+                <div class="chat-user-avatar" aria-label="나의 프로필"><i class="fa-solid fa-user" aria-hidden="true"></i></div>`;
             scroller.appendChild(row);
             scroller.scrollTop = scroller.scrollHeight;
         }
