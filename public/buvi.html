@@ -11270,17 +11270,26 @@
         /* 모바일 건강정보 전체화면: 페이지 번호는 한 줄로 유지하고, 이미지
            위를 가리던 이전/다음 조작은 이미지 하단으로 분리합니다. */
         @media (max-width: 639px) {
-            #page-records #quiz-panel #cn-stage #cn-fullscreen-btn {
-                /* 카드 이미지와 분리해 우측 상단 닫기 버튼의 왼쪽에 고정 */
+            #page-records #quiz-panel:not(.hidden) #cn-mobile-fullscreen-control {
+                /* 카드 이미지의 터치 영역 밖에서 닫기 버튼 왼쪽에 고정 */
                 position: fixed !important;
                 top: 20px !important;
                 right: 76px !important;
                 left: auto !important;
                 bottom: auto !important;
                 inset: 20px 76px auto auto !important;
+                z-index: 10001 !important;
+                pointer-events: auto !important;
+            }
+            #page-records #quiz-panel:not(.hidden) #cn-mobile-fullscreen-control #cn-fullscreen-btn {
+                position: static !important;
+                inset: auto !important;
+                display: inline-flex !important;
+                width: auto !important;
                 height: 44px !important;
                 min-height: 44px !important;
-                z-index: 10001 !important;
+                margin: 0 !important;
+                pointer-events: auto !important;
             }
             #cn-fs-toolbar {
                 gap: 8px !important;
@@ -17634,27 +17643,34 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                 <p class="text-center scaled-text-sm text-gray-400 font-bold mt-2 hc-muted">사진을 좌우로 넘기거나, 사진 양쪽 끝 또는 아래 버튼을 누르면 넘어갑니다</p>
               </div>
             `;
-            // 데스크톱에서만 전체화면 버튼을 닫기 버튼 옆으로 옮깁니다.
-            // 모바일 상세 패널은 이미 고정 레이어이므로 버튼을 이미지 영역에
-            // 남겨야 터치 레이어와 겹치지 않고 즉시 전체화면으로 전환됩니다.
+            // 전체화면 제어는 카드 이미지의 터치 레이어와 분리합니다. 특히
+            // 모바일에서는 상단 X 버튼과 별개의 고정 컨트롤로 두어, 닫기 버튼을
+            // 눌렀을 때 전체화면이 열리는 터치 겹침을 방지합니다.
             const fsBtn = bodyEl.querySelector('button[aria-label="전체화면으로 크게 보기"]');
             const panelEl = document.getElementById('quiz-panel');
             const completeContainer = panelEl && panelEl.querySelector('div.bg-emerald-50');
             const isDesktopCardViewer = window.matchMedia('(min-width: 1025px)').matches;
+            if (panelEl && fsBtn) {
+                panelEl.querySelectorAll('#cn-fullscreen-btn, #cn-mobile-fullscreen-control').forEach((existing) => {
+                    if (existing !== fsBtn && !existing.contains(fsBtn)) existing.remove();
+                });
+            }
             if (fsBtn && completeContainer && isDesktopCardViewer) {
                 fsBtn.id = 'cn-fullscreen-btn';
-                const existing = completeContainer.querySelector('#cn-fullscreen-btn');
-                if (existing) existing.remove();
                 completeContainer.insertBefore(fsBtn, completeContainer.firstChild);
             } else if (fsBtn && panelEl) {
                 fsBtn.id = 'cn-fullscreen-btn';
                 fsBtn.type = 'button';
-                fsBtn.onclick = (event) => {
+                fsBtn.removeAttribute('onclick');
+                fsBtn.addEventListener('click', (event) => {
                     event.preventDefault();
                     event.stopPropagation();
                     cnOpenFullscreen();
-                    return false;
-                };
+                });
+                const mobileControl = document.createElement('div');
+                mobileControl.id = 'cn-mobile-fullscreen-control';
+                mobileControl.appendChild(fsBtn);
+                panelEl.appendChild(mobileControl);
             }
             cnRenderDots();
             cnUpdate();
@@ -17830,16 +17846,6 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             document.body.style.overflow = 'hidden';
             cnUpdate();
         }
-
-        // 상세 패널에서 버튼을 상단 컨트롤 영역으로 옮긴 뒤에도 모바일의
-        // 터치 이벤트가 부모 레이어에 가로막히지 않도록 캡처 단계에서 보장한다.
-        document.addEventListener('click', (event) => {
-            const fullscreenButton = event.target.closest('#cn-fullscreen-btn, button[aria-label="전체화면으로 크게 보기"]');
-            if (!fullscreenButton) return;
-            event.preventDefault();
-            event.stopImmediatePropagation();
-            cnOpenFullscreen();
-        }, true);
 
         function cnCloseFullscreen() {
             const fs = document.getElementById('cn-fs');
