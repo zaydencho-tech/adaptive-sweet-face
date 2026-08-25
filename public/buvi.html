@@ -10900,9 +10900,11 @@
            남은 높이는 채팅 내역만 스크롤해 네비바가 입력 영역을 덮지 않습니다. */
         @media (min-width: 1025px) {
             body.is-authenticated.subpage-mode:has(#page-chat:not(.hidden)) > main {
-                height: calc(100dvh - 140px) !important;
-                min-height: calc(100dvh - 140px) !important;
-                max-height: calc(100dvh - 140px) !important;
+                /* 상단 sticky 헤더 68px + 메인 상단 간격 16px +
+                   하단 네비 100px + 여백 40px을 함께 제외합니다. */
+                height: calc(100dvh - 224px) !important;
+                min-height: calc(100dvh - 224px) !important;
+                max-height: calc(100dvh - 224px) !important;
                 padding-bottom: 0 !important;
                 box-sizing: border-box !important;
             }
