@@ -10619,11 +10619,12 @@
         /* 설문 완료 후 채팅 내역 끝에 표시하는 개인화 추천 질문 */
         body:not(.high-contrast) #page-chat .chat-conversation .chat-recommended-questions,
         #page-chat .chat-recommended-questions {
-            margin: 4px 0 0 48px;
+            width: min(85%, 620px);
+            margin: 4px 0 0 auto;
             padding: 14px;
-            border: 1px solid #E2E5EA !important;
+            border: 1px solid #E0B900 !important;
             border-radius: 16px;
-            background: #FFFFFF;
+            background: #FEE500;
         }
 
         #page-chat .chat-recommended-heading {
@@ -10632,7 +10633,8 @@
             gap: 8px;
             margin-bottom: 10px;
             color: #1A1A1A;
-            font-size: calc(15px * var(--font-scale));
+            font-size: calc(18px * var(--font-scale));
+            line-height: 1.4;
             font-weight: 900;
         }
 
@@ -10643,7 +10645,7 @@
             align-items: center;
             justify-content: center;
             border-radius: 999px;
-            background: #FEE500;
+            background: #FFFFFF;
             color: #1A1A1A;
             font-size: 13px;
         }
@@ -10660,9 +10662,9 @@
             padding: 9px 12px;
             border: 1px solid #E2E5EA !important;
             border-radius: 11px;
-            background: #F8F9FA;
-            color: #374151;
-            font-size: calc(13px * var(--font-scale));
+            background: #FFFFFF;
+            color: #1A1A1A;
+            font-size: calc(18px * var(--font-scale));
             font-weight: 700;
             line-height: 1.4;
             text-align: left;
@@ -10680,13 +10682,14 @@
         @media (max-width: 639px) {
             body:not(.high-contrast) #page-chat .chat-conversation .chat-recommended-questions,
             #page-chat .chat-recommended-questions {
-                margin-left: 0;
+                width: min(88%, 620px);
+                margin-left: auto;
                 padding: 12px;
                 border-radius: 14px;
             }
             #page-chat .chat-recommended-list button {
                 min-height: 40px;
-                font-size: calc(12px * var(--font-scale));
+                font-size: calc(18px * var(--font-scale));
             }
         }
 
@@ -15673,15 +15676,18 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             const scroller = document.getElementById('chat-scroller');
             if (!scroller || scroller.querySelector('.chat-recommended-questions')) return;
             const row = document.createElement('div');
-            row.className = 'chat-recommended-questions animate-fade-in';
+            row.className = 'msg-row chat-recommended-row flex gap-3 justify-end items-start animate-fade-in';
             row.innerHTML = `
-                <div class="chat-recommended-heading"><i class="fa-solid fa-user" aria-hidden="true"></i><span>나의 프로필과 질문</span></div>
-                <div class="chat-recommended-list">
-                    <button type="button" data-question="외롭고 혼자라는 생각이 많이 들면 어디에 도움을 청하나요?" onclick="chooseRecommendedQuestion(this)">외롭고 혼자라는 생각이 많이 들면 어디에 도움을 청하나요?</button>
-                    <button type="button" data-question="마음 건강을 지키려면 평소에 무엇을 하면 좋나요?" onclick="chooseRecommendedQuestion(this)">마음 건강을 지키려면 평소에 무엇을 하면 좋나요?</button>
-                    <button type="button" data-question="스트레스를 혼자서 해소하기 어렵다면 어떻게 해야 하나요?" onclick="chooseRecommendedQuestion(this)">스트레스를 혼자서 해소하기 어렵다면 어떻게 해야 하나요?</button>
-                    <button type="button" data-question="다른 추천 질문 알려줘" onclick="chooseRecommendedQuestion(this)">다른 추천 질문 알려줘</button>
-                </div>`;
+                <div class="chat-recommended-questions">
+                    <div class="chat-recommended-heading"><i class="fa-solid fa-user" aria-hidden="true"></i><span>나의 프로필과 질문</span></div>
+                    <div class="chat-recommended-list">
+                        <button type="button" data-question="외롭고 혼자라는 생각이 많이 들면 어디에 도움을 청하나요?" onclick="chooseRecommendedQuestion(this)">외롭고 혼자라는 생각이 많이 들면 어디에 도움을 청하나요?</button>
+                        <button type="button" data-question="마음 건강을 지키려면 평소에 무엇을 하면 좋나요?" onclick="chooseRecommendedQuestion(this)">마음 건강을 지키려면 평소에 무엇을 하면 좋나요?</button>
+                        <button type="button" data-question="스트레스를 혼자서 해소하기 어렵다면 어떻게 해야 하나요?" onclick="chooseRecommendedQuestion(this)">스트레스를 혼자서 해소하기 어렵다면 어떻게 해야 하나요?</button>
+                        <button type="button" data-question="다른 추천 질문 알려줘" onclick="chooseRecommendedQuestion(this)">다른 추천 질문 알려줘</button>
+                    </div>
+                </div>
+                <div class="fill-icon flex-shrink-0 w-9 h-9 text-[#4c3a9e]" aria-label="나의 프로필"><i class="fa-solid fa-user" aria-hidden="true"></i></div>`;
             scroller.appendChild(row);
             scroller.scrollTop = scroller.scrollHeight;
         }
