@@ -11028,6 +11028,30 @@
             }
         }
 
+        /* 로그인 전 우측 소개 히어로는 네 글자 크기 버튼에 각각 대응하는
+           절대 크기를 사용합니다. clamp의 상한이나 이전 클릭의 인라인 값에
+           의해 가+와 가++가 같은 크기로 보이지 않도록 분리합니다. */
+        @media (min-width: 1025px) {
+            body.login-as-about { --login-about-title-size: 26px; --login-about-copy-size: 14px; --login-about-badge-size: 13px; }
+            body.login-as-about[data-font-scale="0.95"] { --login-about-title-size: 25px; --login-about-copy-size: 13px; --login-about-badge-size: 12px; }
+            body.login-as-about[data-font-scale="1"] { --login-about-title-size: 26px; --login-about-copy-size: 14px; --login-about-badge-size: 13px; }
+            body.login-as-about[data-font-scale="1.15"] { --login-about-title-size: 30px; --login-about-copy-size: 16px; --login-about-badge-size: 15px; }
+            body.login-as-about[data-font-scale="1.3"] { --login-about-title-size: 34px; --login-about-copy-size: 18px; --login-about-badge-size: 17px; }
+
+            body.login-as-about #login-about-mount > .about-desktop-layout.lg\:block > div:first-child h1 {
+                font-size: var(--login-about-title-size) !important;
+                line-height: 1.12 !important;
+            }
+            body.login-as-about #login-about-mount > .about-desktop-layout.lg\:block > div:first-child p {
+                font-size: var(--login-about-copy-size) !important;
+                line-height: 1.4 !important;
+            }
+            body.login-as-about #login-about-mount > .about-desktop-layout.lg\:block > div:first-child .mt-6 > span {
+                font-size: var(--login-about-badge-size) !important;
+                line-height: 1.2 !important;
+            }
+        }
+
 		</style>
 
 </head>
@@ -16595,6 +16619,10 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             if (element.closest(
                 'header, nav, script, style, svg, .scene-icon, .font-scale-btn, .font-scale-select-wrap, .tts-listen-btn, [data-font-scale-fixed], .sr-only'
             )) return false;
+            // 로그인 전 우측 소개 히어로는 CSS의 네 단계 절대 크기로만 제어한다.
+            // 일반 콘텐츠 확대가 여기에 중복 적용되면 버튼을 여러 번 누를 때
+            // clamp 상한과 인라인 값이 섞여 가+·가++ 단계가 같아질 수 있다.
+            if (element.closest('#login-about-mount > .about-desktop-layout > div:first-child')) return false;
             const hiddenAncestor = element.closest('[aria-hidden="true"]');
             if (hiddenAncestor && hiddenAncestor.id !== 'desktop-hero-aside') return false;
             if (element.matches('i, svg, path, img, picture, video, canvas')) return false;
@@ -16844,6 +16872,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             const absoluteScale = normalizeFontScale(scale);
             state.fontScale = absoluteScale;
             document.body.classList.toggle('font-scale-expanded', absoluteScale > 1);
+            document.body.dataset.fontScale = String(absoluteScale);
             document.documentElement.style.setProperty('--font-scale', absoluteScale);
             // 문항을 새로 그린 직후에는 MutationObserver가 예약한 확대 프레임이
             // 남아 있을 수 있다. 여기서 현재 화면 전체에 즉시 적용하므로 그
@@ -16949,6 +16978,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                     const saved = normalizeFontScale(stored);
                     state.fontScale = saved;
                     document.body.classList.toggle('font-scale-expanded', saved > 1);
+                    document.body.dataset.fontScale = String(saved);
                     document.documentElement.style.setProperty('--font-scale', saved);
                     // 과거의 임의 저장값도 네 단계 중 하나로 되돌려 이후 화면에서
                     // 증감값처럼 누적되어 보이지 않게 한다.
@@ -16957,6 +16987,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                     if (document.readyState !== 'loading') updateFontScaleUI(saved);
                 }
             } catch(e){}
+            if (!document.body.dataset.fontScale) document.body.dataset.fontScale = String(normalizeFontScale(state.fontScale));
         })();
 
         /* 화면별 CSS의 과거 보정값이 섞여도 모바일 헤더의 글자 크기 제어는
