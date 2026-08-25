@@ -11270,25 +11270,22 @@
         /* 모바일 건강정보 전체화면: 페이지 번호는 한 줄로 유지하고, 이미지
            위를 가리던 이전/다음 조작은 이미지 하단으로 분리합니다. */
         @media (max-width: 639px) {
-            body > #cn-mobile-fullscreen-control.hidden {
-                display: none !important;
+            #page-records #quiz-panel:not(.hidden) > div:first-child {
+                padding-right: 0 !important;
+                gap: 12px !important;
             }
-            body > #cn-mobile-fullscreen-control {
-                /* iOS 스크롤 패널 바깥에서 전체화면과 X를 한 그룹으로 고정 */
-                position: fixed !important;
-                top: 20px !important;
-                right: 16px !important;
-                left: auto !important;
-                bottom: auto !important;
-                inset: 20px 16px auto auto !important;
-                z-index: 10002 !important;
-                pointer-events: auto !important;
+            #page-records #quiz-panel:not(.hidden) #card-detail-actions {
+                position: static !important;
+                inset: auto !important;
+                margin-left: auto !important;
                 display: flex !important;
                 align-items: center !important;
                 justify-content: flex-end !important;
                 gap: 16px !important;
+                flex: 0 0 auto !important;
+                pointer-events: auto !important;
             }
-            body > #cn-mobile-fullscreen-control #cn-fullscreen-btn {
+            #page-records #quiz-panel:not(.hidden) #card-detail-actions #cn-fullscreen-btn {
                 position: static !important;
                 inset: auto !important;
                 display: inline-flex !important;
@@ -11299,7 +11296,7 @@
                 pointer-events: auto !important;
                 touch-action: manipulation !important;
             }
-            body > #cn-mobile-fullscreen-control #card-close-btn {
+            #page-records #quiz-panel:not(.hidden) #card-detail-actions #card-close-btn {
                 position: static !important;
                 inset: auto !important;
                 display: inline-flex !important;
@@ -12348,7 +12345,14 @@
                         <div class="flex items-center gap-2">
                             <h3 id="panel-quiz-card-title" class="font-gapyeong scaled-text-lg font-black text-charcoal hc-text">카드뉴스 정독</h3>
                         </div>
-                        <button id="card-close-btn" onclick="requestStopReading()" class="text-gray-400 hover:text-gray-600 font-black text-xl px-2 min-w-[36px] min-h-[36px]" title="읽기 그만하기">✕</button>
+                        <div id="card-detail-actions" class="flex items-center gap-4">
+                            <button id="cn-fullscreen-btn" type="button" onclick="cnOpenFullscreen()" aria-label="전체화면으로 크게 보기"
+                                class="bg-black/55 text-white rounded-full px-3 py-2 inline-flex items-center gap-1.5 text-sm font-bold hover:bg-black/70 transition-colors">
+                                <i class="fa-solid fa-expand text-base" aria-hidden="true"></i>
+                                <span>전체화면</span>
+                            </button>
+                            <button id="card-close-btn" type="button" onclick="requestStopReading()" class="text-gray-400 hover:text-gray-600 font-black text-xl px-2 min-w-[36px] min-h-[36px]" title="읽기 그만하기">✕</button>
+                        </div>
                     </div>
 
                     <div id="card-news-body" class="rounded-2xl border p-6 leading-relaxed space-y-4 shadow-sm hc-card" style="background-color: var(--card-bg); border-color: var(--border-color);">
@@ -16654,12 +16658,15 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
 
             // 데스크톱은 완료 영역, 모바일은 전체화면 버튼과 같은 상단 그룹에 배치
             const closeBtn = document.getElementById('card-close-btn');
+            const fsBtn = document.getElementById('cn-fullscreen-btn');
+            const detailActions = document.getElementById('card-detail-actions');
             const completeContainer = panel.querySelector('div.bg-emerald-50');
-            const mobileControl = document.getElementById('cn-mobile-fullscreen-control');
             if (closeBtn && completeContainer && window.matchMedia('(min-width: 1025px)').matches) {
+                if (fsBtn) completeContainer.insertBefore(fsBtn, completeContainer.firstChild);
                 completeContainer.appendChild(closeBtn);
-            } else if (closeBtn && mobileControl) {
-                mobileControl.appendChild(closeBtn);
+            } else if (detailActions) {
+                if (fsBtn) detailActions.appendChild(fsBtn);
+                if (closeBtn) detailActions.appendChild(closeBtn);
             }
 
             buildRecordsCardDeck();
@@ -16688,7 +16695,6 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
             openDetailedStudyCard(targetCardId);
         }
         function requestStopReading() {
-            document.getElementById('cn-mobile-fullscreen-control')?.classList.add('hidden');
             if (state.cardScrolledToEnd) {
                 submitCardReadConfirmation();
                 return;
@@ -16722,8 +16728,6 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
 
         function submitCardReadConfirmation() {
             if (!state.cardScrolledToEnd) return; // 끝까지 읽기 전에는 완료 처리 금지
-
-            document.getElementById('cn-mobile-fullscreen-control')?.classList.add('hidden');
 
             const card = healthCards.find(c => c.id === state.currentReadingCardId);
             if(!card) return;
@@ -17657,11 +17661,6 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                         class="group absolute right-0 top-0 h-full w-1/3 flex items-center justify-end pr-2 bg-transparent border-0 cursor-pointer">
                         <span class="opacity-0 group-active:opacity-100 transition-opacity bg-black/55 text-white rounded-full w-12 h-12 flex items-center justify-center text-3xl font-black">›</span>
                     </button>
-                    <button type="button" onclick="cnOpenFullscreen()" aria-label="전체화면으로 크게 보기"
-                        class="absolute right-3 top-3 bg-black/55 text-white rounded-full px-3 py-2 inline-flex items-center gap-1.5 text-sm font-bold hover:bg-black/70 transition-colors">
-                        <i class="fa-solid fa-expand text-base" aria-hidden="true"></i>
-                        <span>전체화면</span>
-                    </button>
                 </div>
 
                 <div id="cn-counter" class="text-center scaled-text-base font-black text-charcoal hc-text whitespace-nowrap">1 / ${images.length}</div>
@@ -17678,50 +17677,18 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                 <p class="text-center scaled-text-sm text-gray-400 font-bold mt-2 hc-muted">사진을 좌우로 넘기거나, 사진 양쪽 끝 또는 아래 버튼을 누르면 넘어갑니다</p>
               </div>
             `;
-            // 전체화면 제어는 카드 이미지의 터치 레이어와 분리합니다. 특히
-            // 모바일에서는 상단 X 버튼과 별개의 고정 컨트롤로 두어, 닫기 버튼을
-            // 눌렀을 때 전체화면이 열리는 터치 겹침을 방지합니다.
-            const fsBtn = bodyEl.querySelector('button[aria-label="전체화면으로 크게 보기"]');
+            // 전체화면과 닫기 버튼은 상세 헤더의 동일한 정적 컨트롤 그룹을 사용합니다.
+            const fsBtn = document.getElementById('cn-fullscreen-btn');
             const panelEl = document.getElementById('quiz-panel');
             const completeContainer = panelEl && panelEl.querySelector('div.bg-emerald-50');
+            const detailActions = document.getElementById('card-detail-actions');
+            const closeBtn = document.getElementById('card-close-btn');
             const isDesktopCardViewer = window.matchMedia('(min-width: 1025px)').matches;
-            const existingMobileControl = document.getElementById('cn-mobile-fullscreen-control');
-            if (isDesktopCardViewer && existingMobileControl) {
-                existingMobileControl.querySelector('#cn-fullscreen-btn')?.remove();
-                existingMobileControl.classList.add('hidden');
-            }
-            if (panelEl && fsBtn) {
-                panelEl.querySelectorAll('#cn-fullscreen-btn, #cn-mobile-fullscreen-control').forEach((existing) => {
-                    if (existing !== fsBtn && !existing.contains(fsBtn)) existing.remove();
-                });
-            }
             if (fsBtn && completeContainer && isDesktopCardViewer) {
-                fsBtn.id = 'cn-fullscreen-btn';
                 completeContainer.insertBefore(fsBtn, completeContainer.firstChild);
-            } else if (fsBtn && panelEl) {
-                fsBtn.id = 'cn-fullscreen-btn';
-                fsBtn.type = 'button';
-                fsBtn.removeAttribute('onclick');
-                const openFullscreen = (event) => {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    cnOpenFullscreen();
-                    return false;
-                };
-                // onclick을 직접 지정해 Safari의 터치→클릭 변환에서도 확실히 실행합니다.
-                fsBtn.onclick = openFullscreen;
-                fsBtn.ontouchend = openFullscreen;
-                let mobileControl = document.getElementById('cn-mobile-fullscreen-control');
-                if (!mobileControl) {
-                    mobileControl = document.createElement('div');
-                    mobileControl.id = 'cn-mobile-fullscreen-control';
-                    document.body.appendChild(mobileControl);
-                }
-                mobileControl.querySelector('#cn-fullscreen-btn')?.remove();
-                mobileControl.classList.remove('hidden');
-                mobileControl.appendChild(fsBtn);
-                const closeBtn = document.getElementById('card-close-btn');
-                if (closeBtn) mobileControl.appendChild(closeBtn);
+            } else if (detailActions) {
+                detailActions.appendChild(fsBtn);
+                if (closeBtn) detailActions.appendChild(closeBtn);
             }
             cnRenderDots();
             cnUpdate();
