@@ -15481,10 +15481,9 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
         }
 
         function endChatConversation() {
-            const messageCount = state.chatRecords.filter(record => record.role === 'user').length;
             try { localStorage.setItem('buvi.chatRecords', JSON.stringify(state.chatRecords)); } catch (_) {}
             saveCurrentChatSession();
-            showAppModal('✅', '대화를 종료했습니다', `이번 상담에서 어르신이 보낸 질문 ${messageCount}건을 안전하게 기록했습니다. 홈 화면으로 이동합니다.`);
+            showAppModal('✅', '대화를 종료했습니다', '홈화면으로 이동합니다.');
             setTimeout(() => navTo('home'), 700);
         }
 
