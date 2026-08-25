@@ -10823,8 +10823,21 @@
                 overflow: hidden !important;
             }
 
+            /* 노란 히어로만 남은 높이를 사용하고 로그인 패널은 항상 하단에 둡니다.
+               따라서 가+·가++에서 히어로 텍스트가 커져도 폼이 아래로 밀리지 않습니다. */
+            body.login-as-about.font-scale-expanded
+            #page-login > div > div:first-child > .rounded-3xl:first-child {
+                display: flex !important;
+                flex: 1 1 0 !important;
+                height: auto !important;
+                min-height: 0 !important;
+                margin: 0 !important;
+                overflow: hidden !important;
+            }
+
             body.login-as-about.font-scale-expanded #page-login .login-hero-layout {
                 flex: 1 1 auto !important;
+                height: 100% !important;
                 min-height: 0 !important;
             }
 
@@ -10833,7 +10846,7 @@
                 width: auto !important;
                 height: clamp(380px, 46.8dvh, 505px) !important;
                 min-height: 0 !important;
-                margin: auto 20px 0 !important;
+                margin: 0 20px !important;
                 padding: 22px 32px 24px !important;
                 overflow-x: hidden !important;
                 overflow-y: auto !important;
