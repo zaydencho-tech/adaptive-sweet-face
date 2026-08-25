@@ -10968,6 +10968,42 @@
             }
         }
 
+        /* 데스크톱 상담 입력창은 화면에 떠 있지 않고 대화 컨테이너 안쪽 하단에 둡니다.
+           컨테이너의 하단 자체가 네비바 위 40px에서 끝나므로 두 영역은 겹치지 않습니다. */
+        @media (min-width: 1025px) {
+            body.is-authenticated.subpage-mode:has(#page-chat:not(.hidden))
+            > main > #page-chat:not(.hidden),
+            body.is-authenticated.subpage-mode:has(#page-chat:not(.hidden))
+            > main > #page-chat:not(.hidden) > .chat-page-shell,
+            body.is-authenticated.subpage-mode:has(#page-chat:not(.hidden))
+            #page-chat .chat-conversation {
+                height: 100% !important;
+                min-height: 0 !important;
+            }
+
+            body.is-authenticated.subpage-mode:has(#page-chat:not(.hidden))
+            #page-chat .chat-conversation {
+                position: relative !important;
+                overflow: hidden !important;
+            }
+
+            body.is-authenticated.subpage-mode:has(#page-chat:not(.hidden))
+            #page-chat .chat-composer {
+                position: absolute !important;
+                left: 0 !important;
+                right: 0 !important;
+                bottom: 0 !important;
+                width: auto !important;
+                margin: 0 !important;
+                z-index: 1 !important;
+            }
+
+            body.is-authenticated.subpage-mode:has(#page-chat:not(.hidden))
+            #page-chat #chat-scroller {
+                padding-bottom: 112px !important;
+            }
+        }
+
 		</style>
 
 </head>
