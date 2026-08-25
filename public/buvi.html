@@ -10449,8 +10449,11 @@
             content: '⌄';
             flex: 0 0 auto;
             color: #6B7280;
-            font-size: 18px;
-            line-height: 1;
+            width: 24px;
+            font-size: 26px;
+            font-weight: 900;
+            line-height: .7;
+            text-align: center;
             transition: transform .2s ease;
         }
 
@@ -10505,6 +10508,34 @@
                 min-height: 36px;
                 margin-top: 8px;
                 padding: 7px 10px;
+            }
+        }
+
+        /* 입력 영역도 채팅 내역과 같은 흰 표면 안에서 명확히 구분한다. */
+        body:not(.high-contrast) #page-chat .chat-conversation .chat-composer,
+        #page-chat .chat-composer {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: stretch;
+            gap: 8px;
+            margin: 0 clamp(16px, 2vw, 20px) 16px;
+            padding: 8px;
+            border: 1px solid #E8E5DE !important;
+            border-radius: 16px;
+            background: #FFFFFF;
+        }
+
+        #page-chat .chat-composer textarea {
+            border: 0 !important;
+            background: transparent !important;
+            box-shadow: none !important;
+        }
+
+        @media (max-width: 639px) {
+            #page-chat .chat-composer {
+                margin: 0 16px 12px;
+                padding: 6px;
+                border-radius: 14px;
             }
         }
 
@@ -11276,9 +11307,9 @@
 
                     <div id="chat-action-chips" class="chat-action-accordions hidden"></div>
 
-                    <div class="flex items-stretch gap-2 pt-4 border-t">
-                        <textarea id="chat-input" rows="3" onkeydown="if(event.key==='Enter' && !event.shiftKey){ event.preventDefault(); sendUserMessage(); }" class="min-h-[108px] flex-grow resize-none rounded-2xl border-2 bg-gray-50 px-5 py-4 font-bold leading-relaxed focus:outline-none focus:ring-4 focus:ring-yellow-200" placeholder="메시지를 입력하세요" aria-label="상담 메시지 입력"></textarea>
-                        <button type="button" onclick="sendUserMessage()" class="min-h-[108px] min-w-[96px] px-5 rounded-2xl bg-kakao text-charcoal font-black hover:brightness-95 focus-visible:outline-none focus-visible:ring-4 focus:ring-yellow-300" aria-label="메시지 보내기"><i class="fa-solid fa-paper-plane mr-1"></i>보내기</button>
+                    <div class="chat-composer">
+                        <textarea id="chat-input" rows="3" onkeydown="if(event.key==='Enter' && !event.shiftKey){ event.preventDefault(); sendUserMessage(); }" class="min-h-[108px] flex-grow resize-none rounded-xl px-4 py-3 font-bold leading-relaxed focus:outline-none focus:ring-4 focus:ring-yellow-200" placeholder="메시지를 입력하세요" aria-label="상담 메시지 입력"></textarea>
+                        <button type="button" onclick="sendUserMessage()" class="min-h-[108px] min-w-[96px] px-5 rounded-xl bg-kakao text-charcoal font-black hover:brightness-95 focus-visible:outline-none focus:ring-4 focus:ring-yellow-300" aria-label="메시지 보내기"><i class="fa-solid fa-paper-plane mr-1"></i>보내기</button>
                     </div>
                 </div>
             </div>
