@@ -282,6 +282,15 @@
         .bar-label-text { font-size: max(14px, calc(13px * var(--font-scale))); font-weight: 700; }
 
         /* ── 결과 리포트 섹션: 제목과 콘텐츠를 하나의 정보 그룹으로 묶음 ── */
+        /* 종합 위험도 현재 위치: 말풍선의 역삼각형이 막대의 세로선과 한 축으로 이어진다. */
+        .result-risk-marker-label {
+            bottom: 48px;
+        }
+        @media (min-width: 768px) {
+            .result-risk-marker-label {
+                bottom: 64px;
+            }
+        }
         #page-result .result-page-heading {
             border: 0;
             background: #F3F4F6;
@@ -14669,9 +14678,9 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                                 <span class="absolute -translate-x-1/2 whitespace-nowrap" style="left:${baselineRatio}%;">기준선 (${report.baseline.toFixed(1)}%)</span>
                             </div>
                             <div class="relative pt-14 md:pt-16">
-                                <div class="absolute bottom-12 z-10 flex flex-col items-center md:bottom-16" style="left:${markerRatio}%; transform:${markerTransform};">
+                                <div class="result-risk-marker-label absolute z-10 flex flex-col items-center" style="left:${markerRatio}%; transform:${markerTransform};">
                                     <span class="whitespace-nowrap rounded-lg px-3 py-1.5 text-[11px] md:text-xs font-black leading-[1.35] text-white shadow-sm" style="background:#16A34A;"><span class="block">나의 위험도</span><strong class="mt-0.5 block">${score.toFixed(1)}%</strong></span>
-                                    <span class="mt-1" aria-hidden="true" style="width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:7px solid #16A34A;"></span>
+                                    <span aria-hidden="true" style="width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:9px solid #16A34A;"></span>
                                 </div>
                             <div class="relative flex h-12 md:h-16 overflow-visible rounded-2xl">
                                 <div class="flex items-center px-4 text-sm md:text-lg font-black" style="width:${baselineRatio}%; background:#86E9A7; color:#047857;">정상</div>
