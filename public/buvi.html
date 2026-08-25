@@ -11209,6 +11209,27 @@
             }
         }
 
+        /* 데스크톱 도움말의 두 열은 같은 3행 그리드를 공유합니다.
+           안내 문구 길이가 달라도 단계/질문 배지와 그 가로선이 같은 높이에
+           놓여 한 행씩 바로 비교됩니다. */
+        @media (min-width: 1025px) {
+            body.is-authenticated.subpage-mode:has(#page-help:not(.hidden))
+            #page-help .help-info-card > .space-y-0.flex-1 {
+                display: grid !important;
+                grid-template-rows: repeat(3, minmax(0, 1fr)) !important;
+                align-items: stretch !important;
+            }
+
+            body.is-authenticated.subpage-mode:has(#page-help:not(.hidden))
+            #page-help .help-info-card > .space-y-0.flex-1 > .relative.py-3 {
+                min-height: 0 !important;
+                height: 100% !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+            }
+        }
+
 		</style>
 
 </head>
