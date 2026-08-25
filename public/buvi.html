@@ -16583,9 +16583,11 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                 </button>
                 <div style="position:absolute;top:16px;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:0 16px;pointer-events:none;">
                     <span id="cn-fs-counter" style="background:rgba(0,0,0,0.6);color:#FEE500;font-weight:900;padding:8px 16px;border-radius:9999px;font-size:18px;">1 / ${cnState.imgs.length}</span>
-                    <button id="cn-fs-close" aria-label="전체화면 닫기" style="pointer-events:auto;background:rgba(0,0,0,0.6);color:#fff;border:0;cursor:pointer;width:52px;height:52px;border-radius:9999px;font-size:26px;font-weight:900;display:flex;align-items:center;justify-content:center;">✕</button>
+                    <div style="display:flex;align-items:center;gap:12px;pointer-events:auto;">
+                        <button id="cn-fs-close-bottom" aria-label="전체화면 닫기" style="background:#FEE500;color:#1A1A1A;border:0;cursor:pointer;font-weight:900;padding:0 18px;height:52px;border-radius:9999px;font-size:16px;box-shadow:0 4px 14px rgba(0,0,0,0.4);white-space:nowrap;">전체화면 닫기</button>
+                        <button id="cn-fs-close" aria-label="전체화면 닫기" style="background:rgba(0,0,0,0.6);color:#fff;border:0;cursor:pointer;width:52px;height:52px;border-radius:9999px;font-size:26px;font-weight:900;display:flex;align-items:center;justify-content:center;">✕</button>
+                    </div>
                 </div>
-                <button id="cn-fs-close-bottom" style="position:absolute;bottom:24px;left:50%;transform:translateX(-50%);background:#FEE500;color:#1A1A1A;border:0;cursor:pointer;font-weight:900;padding:14px 28px;border-radius:9999px;font-size:18px;box-shadow:0 4px 14px rgba(0,0,0,0.4);">전체화면 닫기</button>
             `;
             document.body.appendChild(fs);
             fs.querySelector('#cn-fs-tap-prev').addEventListener('click', () => cnGo(-1));
