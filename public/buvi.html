@@ -10357,6 +10357,53 @@
             }
         }
 
+        /* 상담은 별도 안내 카드를 두지 않고, 종료 동작을 헤더 우측의 보조 버튼으로 제공한다. */
+        #chat-end-header-btn {
+            display: none !important;
+        }
+
+        body:has(#page-chat:not(.hidden)) > header #chat-end-header-btn {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 6px !important;
+            min-width: 88px !important;
+            min-height: 44px !important;
+            padding: 0 10px !important;
+            border-radius: 12px !important;
+            background: #E45151 !important;
+            color: #FFFFFF !important;
+            font-size: 14px !important;
+            font-weight: 800 !important;
+            line-height: 1 !important;
+            white-space: nowrap !important;
+            box-sizing: border-box !important;
+        }
+
+        @media (max-width: 639px) {
+            /* 작은 화면에서는 종료 버튼을 위해 브랜드 문구만 숨기고 캐릭터는 남긴다. */
+            body:has(#page-chat:not(.hidden)) > header > div:first-child > span {
+                display: none !important;
+            }
+
+            body:has(#page-chat:not(.hidden)) > header > div:last-child {
+                gap: 4px !important;
+            }
+
+            body:has(#page-chat:not(.hidden)) > header #chat-end-header-btn {
+                min-width: 82px !important;
+                min-height: 36px !important;
+                padding: 0 7px !important;
+                border-radius: 10px !important;
+                font-size: 12px !important;
+                gap: 4px !important;
+            }
+
+            body:has(#page-chat:not(.hidden)) > header #chat-end-header-btn i {
+                font-size: 11px !important;
+            }
+        }
+
 		</style>
 
 </head>
@@ -10408,6 +10455,10 @@
                 </div>
                 <button id="tts-btn" onclick="toggleTTS()" class="tts-listen-btn px-3 py-2 text-base font-bold min-h-[44px]">소리듣기</button>
             </div>
+            <button id="chat-end-header-btn" type="button" onclick="endChatConversation()" aria-label="대화 종료하기">
+                <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i>
+                <span>대화 종료</span>
+            </button>
         </div>
 
     </header>
@@ -11116,19 +11167,6 @@
         <!-- 슬라이드 7: 부비와 상담 (Agent AI) -->
         <section id="page-chat" class="app-page hidden">
             <div class="chat-page-shell space-y-3 lg:space-y-0">
-                <div class="chat-page-heading rounded-3xl p-5 lg:p-6">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                        <div class="min-w-0">
-                            <h1 class="font-gapyeong scaled-text-xl font-black text-charcoal">부비와 함께하는 1:1 상담</h1>
-                            <p class="scaled-text-sm font-bold text-gray-500 mt-1">노쇠 예측 설문 결과를 바탕으로 궁금한 점을 물어보세요.</p>
-                        </div>
-                        <button type="button" onclick="endChatConversation()" class="inline-flex min-h-[48px] min-w-[148px] w-full md:w-auto shrink-0 items-center justify-center gap-2 px-5 py-3 rounded-xl border border-[#bd3636] bg-[#e45151] text-sm font-black text-white shadow-[0_3px_0_#bd3636] transition-all hover:bg-[#cf3f3f] hover:shadow-[0_3px_0_#a62c2c] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-200 active:translate-y-[2px] active:shadow-none">
-                            <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i>
-                            <span>대화 종료하기</span>
-                        </button>
-                    </div>
-                </div>
-
                 <div class="chat-conversation bg-white rounded-3xl p-5 shadow-md border-2 flex flex-col h-[650px]">
                     <div id="chat-scroller" class="flex-grow overflow-y-auto pt-3 pb-4 space-y-4 pr-1"></div>
 
@@ -16354,6 +16392,7 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                 const row = controls.parentElement;
                 const wordmark = row?.querySelector('.header-wordmark');
                 if (!row || !wordmark || row.clientWidth === 0) return;
+                const chatEndButton = row.querySelector('#chat-end-header-btn');
 
                 // 먼저 기존 4개 버튼의 자연 너비를 측정한 뒤 실제 충돌 여부로 전환합니다.
                 // 기존 반응형 !important 규칙과 무관하게 두 UI가 동시에 노출되지 않게
@@ -16369,19 +16408,25 @@ const BUVI_IMG_15 = "data:image/avif;base64,AAAAGGZ0eXBhdmlmAAAAAGF2aWZtaWYxAAAC
                 applyCompactState(false);
                 const rowStyle = getComputedStyle(row);
                 const gap = parseFloat(rowStyle.columnGap || rowStyle.gap) || 0;
-                const requiredWidth = wordmark.scrollWidth + controls.scrollWidth + gap;
+                const chatEndVisible = chatEndButton && getComputedStyle(chatEndButton).display !== 'none';
+                const chatEndWidth = chatEndVisible ? chatEndButton.offsetWidth : 0;
+                const requiredWidth = wordmark.scrollWidth + controls.scrollWidth + chatEndWidth + (gap * (chatEndVisible ? 2 : 1));
                 const header = controls.closest('header');
                 const headerStyle = header ? getComputedStyle(header) : null;
                 const headerRect = header?.getBoundingClientRect();
                 const rowRect = row.getBoundingClientRect();
                 const controlsRect = controls.getBoundingClientRect();
+                const chatEndRect = chatEndVisible ? chatEndButton.getBoundingClientRect() : null;
                 const headerContentRight = headerRect
                     ? headerRect.right - (parseFloat(headerStyle?.paddingRight) || 0)
                     : window.innerWidth;
                 const overflows = requiredWidth > row.clientWidth + 0.5
                     || controlsRect.right > rowRect.right + 0.5
                     || controlsRect.right > headerContentRight + 0.5
-                    || controlsRect.right > window.innerWidth + 0.5;
+                    || controlsRect.right > window.innerWidth + 0.5
+                    || (chatEndRect && (chatEndRect.right > rowRect.right + 0.5
+                        || chatEndRect.right > headerContentRight + 0.5
+                        || chatEndRect.right > window.innerWidth + 0.5));
 
                 applyCompactState(overflows);
             });
